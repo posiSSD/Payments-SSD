@@ -24,6 +24,12 @@ if($mysqli->error){
 	echo $mysqli->error; die; 
 }
 $mysqli->close();
+
+if(isset($_GET['auth_data'])){
+	$auth_data = json_decode($_GET["auth_data"],true);
+	$visit["auth_data"]=$auth_data;
+	// print_r($auth_data);
+}
 log_write($visit);
 
 ?>
