@@ -27,4 +27,4 @@ $mysqli->close();
 log_write($visit);
 
 ?>
-kushki
+:)
