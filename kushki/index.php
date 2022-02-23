@@ -3,6 +3,15 @@ require '/var/www/payments.apuestatotal.app/kushki/env.php';
 require '/var/www/payments.apuestatotal.app/kushki/db.php';
 include '/var/www/html/sys/helpers.php';
 
+$test_users = [];
+	$test_users[]="3333200"; //mllaguno
+	$test_users[]="132328430"; //andrea
+	$test_users[]="2926797"; //gonzalo
+	$test_users[]="102826577"; //merino zw
+	$test_users[]="119273784"; //merino peru
+	$test_users[]="120387760"; //tania
+	$test_users[]="3586027"; //helpdesk
+
 // print_r($_SERVER); exit();
 $fv=time();
 
@@ -48,7 +57,7 @@ if(isset($_GET['auth_data'])){
 }
 
 if($auth_data){
-	if(in_array($user_id, [3333200])){
+	if(in_array($user_id, $test_users)){
 		?>
 		<script type="text/javascript">
 			var this_url = "<?php echo "http".(array_key_exists("HTTPS", $_SERVER)?"s":"")."://".$_SERVER["HTTP_HOST"];?>";
