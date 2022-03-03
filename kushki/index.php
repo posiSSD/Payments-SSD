@@ -162,7 +162,7 @@ if($auth_data){
 	</form>
 	<div id="kushki_payment_holder">
 		<div id="kushki_details"></div>
-		<div><a id="kushki_btn" target="_self">Cargando Kushki...</a></div>
+		<div><a id="kushki_btn" target="_top">Cargando Kushki...</a></div>
 	</div>
 	<?php
 }else{
