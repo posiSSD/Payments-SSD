@@ -1,5 +1,5 @@
 function ws_has(){
-	// console.log("ws_has");
+	console.log("ws_has");
 	if(!("WebSocket" in window)){
 		return false;
 	}else{
@@ -16,8 +16,8 @@ function ws_connect(){
 			try{
 				sws = new WebSocket(ws_url);
 				sws.onopen = function(){
-					$("#msg").html('Conectado!');
-					console.log("Connected!");
+					$("#msg").html('Conectando ws...');
+					console.log("Conectando ws...");
 					sw_open_session();
 					connecting=false;
 				};
@@ -40,7 +40,8 @@ function ws_connect(){
 						console.log(obj.code);
 						if(obj.code == 12){
 							$(document).trigger("sw_login_error", obj);
-							// console.log("BAD LOGIN, BYE BYE");
+							$("#msg").html('Sesión inválida!');
+							console.log("BAD LOGIN, BYE BYE");
 						}else{
 							// console.log("LOGIN OK");
 							// console.log(obj);
@@ -83,8 +84,14 @@ function ws_connect(){
 						}else{
 							console.log("LOGIN sw_get_user_balance OK");
 							console.log(obj);
-							$("#msg").html('Hola <b>'+obj.data.first_name+'</b>, tu saldo actual es S/'+obj.data.balance);
-							// $(document).trigger("sw_login_ok", obj);
+							usr_active = {};
+							usr_active.auth_token = obj.data.auth_token;
+							usr_active.name = obj.data.name;
+							usr_active.email = obj.data.email;
+							usr_active.balance = obj.data.balance;
+							$("#msg").html('');
+							// $("#msg").html('Hola <b>'+obj.data.first_name+'</b>, tu saldo actual es S/'+obj.data.balance);
+							$(document).trigger("sw_login_ok", obj);
 							// $(document).trigger("sw_get_user_balance_event", obj);
 							// return "sw_login_ok";
 							// $(document).trigger("updatesw_get_user_balance", [data.data]);
@@ -96,16 +103,17 @@ function ws_connect(){
 					$(document).trigger("ws_onclose", []);
 					// swsid ='';
 					connecting = false;
-					// console.log('Disconnected. Socket Status: '+sws.readyState+' (Closed)');
+					console.log('Disconnected. Socket Status: '+sws.readyState+' (Closed)');
 				};
 			}
 			catch(exception){
-				$(document).trigger("ws_error", exception);
-				// console.log("Disconnected!");
+				// $(document).trigger("ws_error", exception);
+				console.log("Disconnected!");
+				console.log(exception);
 				connecting = false;
 			}
 		}else{
-			$(document).trigger("ws_nows", []);
+			// $(document).trigger("ws_nows", []);
 			console.log("NO WS, BYE");
 		}
 	}
@@ -119,7 +127,7 @@ function sw_restore_login(){
 	}
 }
 function sw_get_user_balance(){
-	if(!fw_active){ return false; }
+	if(!usr_active){ return false; }
 	$("#msg").html('Obteniendo usuario...');
 	console.log("sw_get_user_balance");
 	var _msg = '{"command":"get_user", "rid":"sw_get_user_balance"}';

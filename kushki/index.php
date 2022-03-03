@@ -60,32 +60,112 @@ if($auth_data){
 	if(in_array($user_id, $test_users)){
 		?>
 		<script type="text/javascript">
-			var this_url = "<?php echo "http".(array_key_exists("HTTPS", $_SERVER)?"s":"")."://".$_SERVER["HTTP_HOST"];?>";
-			// console.log(this_url);
+			var this_url = "<?php echo $url;?>";
 			var user_id=<?php echo $user_id;?>;
 			var auth_token="<?php echo $auth_token;?>";
-			var connecting = false;
-			var site_id = 279;
-			var sws;
-			// var ws_url = "wss://us-swarm-ws.betconstruct.com/";
-			var ws_url = "wss://eu-swarm-springre.betconstruct.com/";
-			// var ws_url = "wss://soe-swarm-apuesta.betconstruct.com/";
-			var message_queue = [];
-			var swsid;
-			var ws_session = false;
-			var fw_user = [];
-			var fw_active = true;
-			// var fw_active = false;
-			var interval_fw_get_balance = false;
-			var interval_sw_get_user_balance = false;
 		</script>
 		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
-
 		<?php
+	}else{
+		$auth_data=false;
 	}
 }
 log_write($visit);
+if($auth_data){
+	$payment_limits=[];
+		$payment_limits['min']=number_format(20,0);
+		$payment_limits['max']=number_format(3000,0);
+	?>
+	<style type="text/css">
+		form#kushki_payment_form{
+			position: relative;
+			width: 300px;
+			left: 50%;
+			margin-left: -150px;
+			text-align: center;
+		}
+		form#kushki_payment_form span{
+			text-align: left;
+		}
+		form#kushki_payment_form input.alert{
+			/*width: 200px;
+			left: 50%;
+			margin-left: -100px;
+			position: relative;*/
+			border-color: #f00;
+			outline: none !important;
+			border:1px solid red;
+			box-shadow: 0 0 10px #719ECE;
+		}
+		form#kushki_payment_form input.alert:focus {
+			border-color: #f00;
+			outline: none !important;
+			border:1px solid red;
+			box-shadow: 0 0 10px #719ECE;
+		}
+		form#kushki_payment_form button{
+			background-color: #999;
+			font-family: "Open Sans";
+			padding: 5px 10px;
+			font-size: 14px;
+			color: #fff;
+			border-radius: 26px;
+			cursor: wait;
+			text-decoration: none;
+			display: inline-block;
+			border: none;
+			/*height: 32px;*/
+			/*position: relative;
+			width: 80px;
+			left: 50%;
+			margin-left: -40px;*/
+		}
+		form#kushki_payment_form button.ready{
+			background-color: #f00;
+			cursor: pointer;
+		}
+		#kushki_payment_holder{
+			position: relative;
+			width: 300px;
+			left: 50%;
+			margin-left: -150px;
+			text-align: center;
+			display: none;
+		}
+		#kushki_payment_holder #kushki_btn{
+			background-color: #999;
+			display: none;
+			font-family: "Open Sans";
+			padding: 5px 10px;
+			font-size: 14px;
+			color: #fff;
+			border-radius: 26px;
+			cursor: wait;
+			text-decoration: none;
+			display: inline-block;
+			border: none;
+			color: #193470;
+		}
+		#kushki_payment_holder #kushki_btn.ready{
+			background-color: #00FCB2;
+			cursor: pointer;
+		}
+	</style>
+	<div id="msg" style="font-style: italic;">:)</div>
+	<form id="kushki_payment_form">
+		<div><span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span></div>
+		<div><span>Escriba el valor aquí: *</span></div>
+		<div><input type="text" placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" autofocus value=""></div>
+		<div><button type="button">Cargando...</button></div>
+	</form>
+	<div id="kushki_payment_holder">
+		<div id="kushki_details"></div>
+		<div><a id="kushki_btn" target="_self">Cargando Kushki...</a></div>
+	</div>
+	<?php
+}else{
+	?>:)<?php
+}
 ?>
-<div id="msg">:)</div>

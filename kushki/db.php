@@ -1,5 +1,4 @@
 <?php
-
 $con_host=env('DB_HOST');
 $con_db_name=env('DB_DATABASE');
 $con_user=env('DB_USERNAME');
