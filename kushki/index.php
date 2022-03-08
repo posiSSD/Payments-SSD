@@ -78,7 +78,19 @@ if($auth_data){
 		$payment_limits['min']=number_format(20,0);
 		$payment_limits['max']=number_format(3000,0);
 	?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>payments.apuestatotal.app</title>
 	<style type="text/css">
+		html,body{
+			margin: 0;
+			padding: 0;
+			background-color: #d9ffd2;
+		}
 		form#kushki_payment_form{
 			position: relative;
 			width: 300px;
@@ -153,7 +165,9 @@ if($auth_data){
 			cursor: pointer;
 		}
 	</style>
-	<div id="msg" style="font-style: italic;">:)</div>
+</head>
+<body>
+	<div id="msg" style="font-style: italic;"></div>
 	<form id="kushki_payment_form">
 		<div><span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span></div>
 		<div><span>Escriba el valor aquí: *</span></div>
@@ -164,6 +178,8 @@ if($auth_data){
 		<div id="kushki_details"></div>
 		<div><a id="kushki_btn" target="_top">Cargando Kushki...</a></div>
 	</div>
+</body>
+</html>
 	<?php
 }else{
 	?>:)<?php

@@ -66,7 +66,7 @@ function build_form(rs){
 				btn.off();
 				btn.removeClass('ready');
 				btn.html('Generando...');
-				$("#msg").html("Generando orden Kushki...");
+				// $("#msg").html("Generando orden Kushki...");
 				form.hide();
 				usr_active.kushki_value = Number(input.val());
 				console.log(usr_active);
@@ -98,15 +98,15 @@ function kushki_create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			console.log(rs);
-			$("#msg").html("");
+			// $("#msg").html("");
 
 			$("#kushki_btn").addClass('ready');
 			$("#kushki_btn").html('Ir a Kushki!');
 			$("#kushki_btn").attr('href', rs.url);
 			$("#kushki_btn").click(function(event) {
 				$("#kushki_btn").off();
-				$("#kushki_btn").html('Vamos...');
 				$("#kushki_btn").removeClass('ready');
+				$("#kushki_btn").html('Vamos...');
 			});
 			// build_form(rs);
 			// $("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
