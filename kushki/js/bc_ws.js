@@ -89,6 +89,7 @@ function ws_connect(){
 							usr_active.name = obj.data.name;
 							usr_active.email = obj.data.email;
 							usr_active.balance = obj.data.balance;
+							usr_active.client_id = obj.data.user_id;
 							$("#msg").html('');
 							// $("#msg").html('Hola <b>'+obj.data.first_name+'</b>, tu saldo actual es S/'+obj.data.balance);
 							$(document).trigger("sw_login_ok", obj);

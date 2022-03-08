@@ -1,21 +1,103 @@
 <?php
 include '/var/www/payments.apuestatotal.app/kushki/env.php';
+include '/var/www/payments.apuestatotal.app/kushki/db.php';
 $ret = [];
 $ret["status"] = 500;
 $ret["return"] = "Error";
+$unique_id = md5(microtime().rand(0,1000));
 if(isset($_POST['kushki_create_payment_button'])){
 	// print_r($_POST); exit();
+	kushki_create_or_update_transaction($_POST['kushki_create_payment_button']);
 	$kushki_create_payment_button = kushki_create_payment_button($_POST['kushki_create_payment_button']);
 	if(array_key_exists("webcheckoutUrl", $kushki_create_payment_button)){
 		$ret["status"] = 200;
 		$ret["return"] = "Ok";
 		$ret["url"]=$kushki_create_payment_button["webcheckoutUrl"];
+		// print_r($kushki_create_payment_button); exit();
+		kushki_create_or_update_transaction(['status'=>2,'ext_id'=>$kushki_create_payment_button['webcheckoutId']]);
 	}else{
 		$ret["status"] = 500;
 		$ret["result"] = $kushki_create_payment_button;
 		$ret["_POST"]=$_POST['kushki_create_payment_button'];
 	}
 	// print_r($kushki_create_payment_button); exit();
+}
+function data_to_db($d){
+	global $mysqli;
+	$tmp=[];
+	$nulls=["null","",false,"false"];
+	foreach ($d as $k => $v) {
+		if(array_search($v, $nulls)){
+			$tmp[$k]="NULL";
+		}else{
+			if(is_float($v)){
+				$tmp[$k]="'".$v."'";
+			}elseif(is_int($v)){
+				$tmp[$k]=$v;
+			}elseif(in_array($v, ["NOW()"])){
+				$tmp[$k]=$v;
+			}else{
+				if(is_string($v)){
+					$tmp[$k]="'".trim($mysqli->real_escape_string($v))."'";
+				} else {
+					print_r($k);
+					echo "\n\n";
+					print_r($v);
+					exit();
+				}
+			}
+		}
+	}
+	return $tmp;
+}
+function kushki_create_or_update_transaction($trans=false){
+	global $unique_id;
+	global $mysqli;
+
+	$db = 'at_payments_app';
+	$table = 'transactions';
+
+	$insert_arr = [];
+		$insert_arr['payment_id']=1; //1=kushki
+		$insert_arr['type_id']=1; //1=web_deposit
+		$insert_arr['unique_id']=(isset($trans['unique_id'])?$trans['unique_id']:$unique_id);
+		if(isset($trans['client_id'])){
+			$insert_arr['client_id']=$trans['client_id'];
+		}
+		if(isset($trans['ext_id'])){
+			$insert_arr['ext_id']=$trans['ext_id'];
+		}
+		if(isset($trans['kushki_value'])){
+			$insert_arr['amount']=$trans['kushki_value'];
+		}
+		if(isset($trans['status'])){
+			$insert_arr['status']=$trans['status'];
+		}
+
+
+	$data_to_db = data_to_db($insert_arr);
+	$insert_command = "INSERT INTO {$db}.{$table} (";
+	$insert_command.= implode(", \n", array_keys($insert_arr));
+	$insert_command.= ") VALUES ";
+	$insert_command.= "(";
+	$insert_command.= implode(", \n", $data_to_db);
+	$insert_command.= ")";
+	$insert_command.= " ON DUPLICATE KEY UPDATE ";
+	$uqn=0;
+	foreach ($data_to_db as $k => $v) {
+		if($uqn>0) { $insert_command.=", \n"; }
+		$insert_command.= "".$k." = VALUES(".$k.")";
+		$uqn++;
+	}
+	$mysqli->query($insert_command);
+	if($mysqli->error){
+		echo $mysqli->error;
+		echo "\n";
+		echo $insert_command;
+		echo "\n";
+		exit();
+	}
+	return $trans;
 }
 function kushki_create_payment_button($client=false){
 
@@ -48,6 +130,12 @@ function kushki_create_payment_button($client=false){
 			$rq['h'][] = "Private-Merchant-Id: " . env('KUSHKI_MERCHANT_ID');
 			// print_r($rq); 
 	$kushki_curl = kushki_curl($rq);
+
+	// Array
+	// (
+	// 	[webcheckoutId] => -wYjZC1e9
+	// 	[webcheckoutUrl] => https://uat-webcheckout.kushkipagos.com/webcheckout/-wYjZC1e9
+	// )
 
 	if(array_key_exists("code", $kushki_curl)){
 		$ret['curl']=$kushki_curl;
@@ -84,26 +172,9 @@ function kushki_create_payment_button($client=false){
 	// 	  }
 	// 	}';
 
-
-
-
-	// $tst_curl = [];
-	// 	$tst_curl['url']='https://api.apuestatotal.com/v2/sms_otp';
-	// 	$tst_curl['rq']=[];
-	// 		$tst_curl['rq']['mobile'] = '998877814';
-	// 		$tst_curl['rq']['message'] = 'tst';
-	// 	$tst_curl['h']=[];
-	// 		$tst_curl['h'][] = "accept: application/json";
-	// 		$tst_curl['h'][] = "authorization: Bearer " . env('MLLAGUNO_TOKEN');
-
-	// kushki_curl($tst_curl);
 }
-// kushki_create_payment_button();
 
 function kushki_curl($rq=false){
-	// print_r('kushki_curl');
-	// echo $rq['rq'];
-	// echo "\n\n";
 	$curl = curl_init();
 	curl_setopt_array($curl, [
 		CURLOPT_URL => $rq['url'],
@@ -117,20 +188,14 @@ function kushki_curl($rq=false){
 		CURLOPT_HTTPHEADER => $rq['h'],
 	]);
 	$result = curl_exec($curl);
-	// print_r($result);
-	// echo "\n\n";
-	// exit();
 	if (curl_errno($curl)) {
 		echo 'Error:' . curl_error($curl);
 	} 
 	$response_arr = json_decode($result, true);
 	curl_close($curl);
 	return $response_arr;
-	// print_r($response_arr);
-	// exit();
 }
 function custom_json_encode($s){
-	// return $s;
 	$j='{';
 	foreach ($s as $k => $v) {
 		$j.='"'.$k.'"';

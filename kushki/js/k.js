@@ -11,11 +11,16 @@ function set_events(){
 		$('#kushki_payment_form').remove();
 		$('#kushki_payment_holder').remove();
 	});
+	$(document).on('ws_onclose', function(e,data) {
+		$('#kushki_payment_form').remove();
+		$('#kushki_payment_holder').remove();
+	});
 	$(document).on('sw_login_ok', function(e,data) {
 		// kushki_create_payment_button(data);
 		console.log(data);
 		build_form();
 	});
+	
 }
 function set_vars(){
 	console.log("set_vars");

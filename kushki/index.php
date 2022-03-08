@@ -157,7 +157,7 @@ if($auth_data){
 	<form id="kushki_payment_form">
 		<div><span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span></div>
 		<div><span>Escriba el valor aquí: *</span></div>
-		<div><input type="text" placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" autofocus value=""></div>
+		<div><input type="text" placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" autofocus value="1.23"></div>
 		<div><button type="button">Cargando...</button></div>
 	</form>
 	<div id="kushki_payment_holder">
