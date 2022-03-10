@@ -74,9 +74,9 @@ if($auth_data){
 }
 log_write($visit);
 if($auth_data){
-	$payment_limits=[];
-		$payment_limits['min']=number_format(20,0);
-		$payment_limits['max']=number_format(3000,0);
+	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
+		$payment_limits['min']=number_format($payment_limits[0],0);
+		$payment_limits['max']=number_format($payment_limits[1],0);
 	?>
 
 <!DOCTYPE html>
@@ -171,7 +171,13 @@ if($auth_data){
 	<form id="kushki_payment_form">
 		<div><span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span></div>
 		<div><span>Escriba el valor aquí: *</span></div>
-		<div><input type="text" placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" autofocus value="1.23"></div>
+		<div><input 
+				type="text" 
+				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+				autofocus
+				data-min="<?php echo $payment_limits[0];?>"
+				data-max="<?php echo $payment_limits[1];?>"
+				value="1.23"></div>
 		<div><button type="button">Cargando...</button></div>
 	</form>
 	<div id="kushki_payment_holder">

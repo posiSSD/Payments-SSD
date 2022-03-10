@@ -22,6 +22,7 @@ $response = [];
 
 
 
+$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 
 // /** 
 // * $webhook_signature: Backoffice > Profile > Services > Identifiers > Webhook Signature
@@ -105,6 +106,14 @@ if($json){
 		$ret['status']='Error';
 		$ret['response']='Order '.$json_data['smartLink'].' is not pending';
 		api_ret($ret);		
+	}
+
+	// validar limites
+	if($trans['amount'] < $payment_limits[0] || $trans['amount'] > $payment_limits[1]){
+		$ret['http_code']=406;
+		$ret['status']='Error';
+		$ret['response']='Order '.$json_data['smartLink'].' is out of ammount range.';
+		api_ret($ret);	
 	}
 
 

@@ -156,20 +156,15 @@ function kushki_create_payment_button($client=false){
 			$rq['rq']['products'][0]['name']='Recarga Web Apuesta Total';
 			$rq['rq']['products'][0]['quantity']=1;
 			$rq['rq']['products'][0]['unitPrice']=$client['kushki_value'];
-			// $rq['rq']['products'][0]['unitPrice']=1.23;
 			$rq['rq']['paymentConfig']['amount']['subtotalIva']=0;
 			$rq['rq']['paymentConfig']['amount']['subtotalIva0']=$client['kushki_value'];
-			// $rq['rq']['paymentConfig']['amount']['subtotalIva0']=1.23;
 			$rq['rq']['paymentConfig']['amount']['iva']=0;
 			$rq['rq']['paymentConfig']['amount']['currency']='PEN';
 			$rq['rq']['paymentConfig']['paymentMethod']='credit-card';
-		// print_r($rq); exit();
-		// print_r(json_encode($rq['rq'], JSON_NUMERIC_CHECK)); exit();
 		$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 		$rq['h']=[];
 			$rq['h'][] = "Content-Type: application/json";
 			$rq['h'][] = "Private-Merchant-Id: " . env('KUSHKI_MERCHANT_ID');
-			// print_r($rq); 
 	$kushki_curl = kushki_curl($rq);
 
 	// Array
@@ -178,7 +173,9 @@ function kushki_create_payment_button($client=false){
 	// 	[webcheckoutUrl] => https://uat-webcheckout.kushkipagos.com/webcheckout/-wYjZC1e9
 	// )
 
-	if(array_key_exists("code", $kushki_curl)){
+	if(array_key_exists("curl_error", $kushki_curl)){
+		$ret['curl_error']=$kushki_curl;
+	}elseif(array_key_exists("code", $kushki_curl)){
 		$ret['curl']=$kushki_curl;
 		$ret['rq']=$rq;
 		print_r($rq['rq']); exit();
@@ -219,7 +216,7 @@ function kushki_curl($rq=false){
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => "",
 		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 7,
+		CURLOPT_TIMEOUT => (array_key_exists('timeout', $rq)?$rq['timeout']:30),
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => "POST",
 		CURLOPT_POSTFIELDS => $rq['rq'],
@@ -227,10 +224,12 @@ function kushki_curl($rq=false){
 	]);
 	$result = curl_exec($curl);
 	if (curl_errno($curl)) {
-		echo 'Error:' . curl_error($curl);
-		exit();
-	} 
-	$response_arr = json_decode($result, true);
+		$response_arr = ['curl_error'=>curl_error($curl)];
+		// echo 'Error:' . curl_error($curl);
+		// exit();
+	}else{
+		$response_arr = json_decode($result, true);
+	}
 	curl_close($curl);
 	return $response_arr;
 }
