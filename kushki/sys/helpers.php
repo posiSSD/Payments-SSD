@@ -27,6 +27,31 @@ function data_to_db($d){
 	}
 	return $tmp;
 }
+function bc_deposit($d=false){
+	$ret = false;
+	$rq = [];
+		$rq['url']='https://api.apuestatotal.com/v2/kushki/deposit';
+		$rq['rq']=[];
+			$rq['rq']['account']=$d['account'];
+			$rq['rq']['amount']=$d['amount'];
+			$rq['rq']['order_id']=$d['order_id'];
+		// $rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
+		$rq['h']=[];
+			// $rq['h'][] = "Content-Type: application/json";
+			$rq['h'][] = "Authorization: Bearer " . env('MLLAGUNO_TOKEN');
+			// print_r($rq); 
+	$kushki_curl = kushki_curl($rq);
+	// print_r($rq); exit();
+
+	if(array_key_exists("http_code", $kushki_curl)){
+		$ret = $kushki_curl;
+	}else{
+		$ret['curl']=$kushki_curl;
+		$ret['rq']=$rq;
+		print_r($rq['rq']); exit();
+	}
+	return $ret;
+}
 function kushki_get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
@@ -87,6 +112,9 @@ function kushki_create_or_update_transaction($trans=false){
 		}
 		if(isset($trans['status'])){
 			$insert_arr['status']=$trans['status'];
+		}
+		if(isset($trans['wallet_id'])){
+			$insert_arr['wallet_id']=$trans['wallet_id'];
 		}
 
 
@@ -183,5 +211,27 @@ function kushki_create_payment_button($client=false){
 	// 	    "paymentMethod": "credit-card"
 	// 	  }
 	// 	}';
+}
+function kushki_curl($rq=false){
+	$curl = curl_init();
+	curl_setopt_array($curl, [
+		CURLOPT_URL => $rq['url'],
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 7,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "POST",
+		CURLOPT_POSTFIELDS => $rq['rq'],
+		CURLOPT_HTTPHEADER => $rq['h'],
+	]);
+	$result = curl_exec($curl);
+	if (curl_errno($curl)) {
+		echo 'Error:' . curl_error($curl);
+		exit();
+	} 
+	$response_arr = json_decode($result, true);
+	curl_close($curl);
+	return $response_arr;
 }
 ?>

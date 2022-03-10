@@ -125,6 +125,42 @@ if($json){
 				$new_trans['payment_id']=$json_data['ticketNumber'];
 			// ejecutar el update
 			kushki_create_or_update_transaction($new_trans);
+
+			// llamar BC
+			$d=[];
+				$d['account']=$trans['client_id'];
+				$d['amount']=$trans['amount'];
+				$d['order_id']=$trans['order_id'];
+			$bc_deposit = bc_deposit($d);
+
+			if(array_key_exists('http_code', $bc_deposit)){
+				if($bc_deposit['http_code']==200){
+					// declarar el update
+					$new_trans=[];
+						$new_trans['unique_id']=$trans['unique_id'];
+						$new_trans['status']=1; // 3=paid
+						$new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+					// ejecutar el update
+					kushki_create_or_update_transaction($new_trans);
+					// todo bien, transaccion pagada
+					$ret['http_code']=200;
+					$ret['status']='Ok';
+					$ret['response']='Order '.$json_data['smartLink'].' paid';
+					api_ret($ret);
+				}
+			}
+
+			// declarar el update
+			$new_trans=[];
+				$new_trans['unique_id']=$trans['unique_id'];
+				$new_trans['status']=5; // 5=failed deposit
+			// ejecutar el update
+			kushki_create_or_update_transaction($new_trans);
+			
+			$ret['http_code']=500;
+			$ret['status']='Error';
+			$ret['response']='Something went wrong, check logs';
+			api_ret($ret);
 		break;
 		// en caso de declinado
 		case 'declinedTransaction':
@@ -142,6 +178,12 @@ if($json){
 				$new_trans['payment_id']=$json_data['id'];
 			// ejecutar el update
 			kushki_create_or_update_transaction($new_trans);
+
+			// todo bien, transaccion declinada
+			$ret['http_code']=200;
+			$ret['status']='Ok';
+			$ret['response']='Order '.$json_data['smartLink'].' declined';
+			api_ret($ret);
 		break;
 		
 		default:
@@ -152,10 +194,6 @@ if($json){
 			api_ret($ret);
 		break;
 	}
-	$ret['http_code']=200;
-	$ret['status']='Ok';
-	$ret['response']='Order '.$json_data['smartLink'].' updated';
-	api_ret($ret);
 }else{
 	// retornar error al no json
 	$ret['http_code']=400;
