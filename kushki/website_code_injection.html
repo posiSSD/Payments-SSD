@@ -1,0 +1,25 @@
+After <head> tag
+
+<style type="text/css">
+#payment_kushki_apuestatotal{width:100%;position:absolute;left:0;}
+.card-block.Kushki .card-form{
+	display: none;
+}
+</style>
+
+
+
+<script >
+    let iframe = document.createElement('iframe');
+iframe.id = "payment_kushki_apuestatotal";
+$(document).on('click', '.card-image', function(elem) {
+    if (elem.target.closest('.card-block').classList.contains('selected') && elem.target.closest('.card-block').classList.contains('Kushki')) {
+        iframe.src = "https://payments.apuestatotal.app/kushki/?auth_data=" + window.localStorage.getItem("auth_data");
+        iframe.width = "100%";
+        iframe.height = "500px";
+        document.querySelector('.Kushki .card-info').appendChild(iframe)
+    } else if (document.querySelector('.Kushki') && document.getElementById('payment_kushki_apuestatotal')) {
+        document.querySelector('.Kushki').removeChild(document.getElementById('payment_kushki_apuestatotal'))
+    }
+})
+ </script>

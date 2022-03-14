@@ -225,8 +225,6 @@ function kushki_curl($rq=false){
 	$result = curl_exec($curl);
 	if (curl_errno($curl)) {
 		$response_arr = ['curl_error'=>curl_error($curl)];
-		// echo 'Error:' . curl_error($curl);
-		// exit();
 	}else{
 		$response_arr = json_decode($result, true);
 	}

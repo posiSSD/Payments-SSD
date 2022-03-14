@@ -11,6 +11,15 @@ $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['
 $log_file = date("Y-m-d").".log";
 log_init($log_dir,$log_file);
 
+// iniciar log
+log_write('-----------------------------------------------------------------------------------------');
+log_write('_POST');
+log_write($_POST);
+log_write('_GET');
+log_write($_GET);
+log_write('_SERVER');
+log_write($_SERVER);
+
 // declarar actividad y retorno
 $a=[];
 $ret=[];
@@ -20,27 +29,44 @@ $http_code = 500;
 $status = 'Error';
 $response = [];
 
+$ip_white_list = [];
+$ip_white_list[] = '45.169.92.241';
+$ip_white_list[] = '::1';
+
+
+// ip permitidos
+// if(array_key_exists('REMOTE_ADDR', $_SERVER)){
+// 	if(!in_array($_SERVER['REMOTE_ADDR'], $ip_white_list)){
+// 		$ret['http_code']=401;
+// 		$ret['status']='Error';
+// 		$ret['response']='IP not allowed';
+// 		api_ret($ret);
+// 	}
+// }else{
+// 	log_write('NO-IP');
+// }
+
+
 
 
 $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 
-// /** 
-// * $webhook_signature: Backoffice > Profile > Services > Identifiers > Webhook Signature
-// * $x_kushki_id: Request Header
-// * $x_kushki_simple_signature: Request header
-// */
-// /**
-// * 'WEBHOOK_SIGNATURE: environment variable must be set
-// */
-// $webhook_signature = env('KUSHKI_WEBHOOK_SIGNATURE');
-// $x_kushki_id = (array_key_exists('HTTP_X_KUSHKI_ID',$_SERVER)?$_SERVER['HTTP_X_KUSHKI_ID']:false);
-// $x_kushki_simple_signature = (array_key_exists('HTTP_X_KUSHKI_SIMPLESIGNATURE',$_SERVER)?$_SERVER['HTTP_X_KUSHKI_SIMPLESIGNATURE']:false);
-// $signature_generated = hash_hmac("sha256", $x_kushki_id, $webhook_signature);
-// if ($signature_generated === $x_kushki_simple_signature) {
-// 	header("Status: 200 OK");
-// } else {
-// 	header("Status: 401 Not authenticated");
-// }
+// validar headers de kushki
+if(array_key_exists('HTTP_X_KUSHKI_ID', $_SERVER)){
+	$webhook_signature = env('KUSHKI_WEBHOOK_SIGNATURE');
+	$x_kushki_id = (array_key_exists('HTTP_X_KUSHKI_ID',$_SERVER)?$_SERVER['HTTP_X_KUSHKI_ID']:false);
+	$x_kushki_simple_signature = (array_key_exists('HTTP_X_KUSHKI_SIMPLESIGNATURE',$_SERVER)?$_SERVER['HTTP_X_KUSHKI_SIMPLESIGNATURE']:false);
+	$signature_generated = hash_hmac("sha256", $x_kushki_id, $webhook_signature);
+	if ($signature_generated === $x_kushki_simple_signature) {
+		// header("Status: 200 OK");
+	} else {
+		$ret['http_code']=401;
+		$ret['status']='Error';
+		$ret['response']='Headers not allowed';
+		api_ret($ret);
+		// header("Status: 401 Not authenticated");
+	}
+}
 
 
 // obtener JSON enviado
@@ -49,16 +75,9 @@ $json = json_decode(file_get_contents('php://input'),true);
 $json_data=[];
 // $json = '{"id": "77167302-7e9b-4a94-bc6e-53bcbfa5c5e0", "token": "8aa4ea2fc4c54bbdb0ab344457e14ad2", "amount": {"iva": 0, "currency": "PEN", "subtotalIva": 0, "subtotalIva0": 1.28}, "status": "approvedTransaction", "created": 1646865170526, "product": [{"name": "Recarga Web Apuesta Total", "quantity": 1, "unitPrice": 1.28, "description": "Recarga Web Apuesta Total"}], "metadata": [], "smartLink": "55E0jmS_H", "merchantId": "20000000103794123000", "syncMetadata": "false", "ticketNumber": "771814626490155686", "paymentMethod": "creditCard", "contactDetails": [], "transactionType": "SALE", "publicMerchantId": "439837f90ccf48f6bf07207d315c7fc1", "transactionReference": "c419a054-e4f6-41a7-8b67-a94a8c7f7848"}';
 
-// iniciar log
-log_write('-----------------------------------------------------------------------------------------');
-log_write('_POST');
-log_write($_POST);
-log_write('_GET');
-log_write($_GET);
-log_write('_SERVER');
-log_write($_SERVER);
 log_write('json');
 log_write($json);
+
 
 // validar que json exista
 if($json){
@@ -112,7 +131,7 @@ if($json){
 	if($trans['amount'] < $payment_limits[0] || $trans['amount'] > $payment_limits[1]){
 		$ret['http_code']=406;
 		$ret['status']='Error';
-		$ret['response']='Order '.$json_data['smartLink'].' is out of ammount range.';
+		$ret['response']='Order '.$json_data['smartLink'].' is out of amount range.';
 		api_ret($ret);	
 	}
 
@@ -217,8 +236,10 @@ log_write('---------------------------------------------------------------------
 // imprimir el retorno y detener la ejecucion del php
 function api_ret($r){
 	global $a;
+	http_response_code($r['http_code']);
 	api_activities(array_merge($r,$a));
 	echo json_encode($r);
+	log_write(array_merge($r,$a));
 	exit();
 }
 
