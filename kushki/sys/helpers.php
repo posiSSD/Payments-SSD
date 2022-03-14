@@ -38,7 +38,7 @@ function bc_deposit($d=false){
 		// $rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 		$rq['h']=[];
 			// $rq['h'][] = "Content-Type: application/json";
-			$rq['h'][] = "Authorization: Bearer " . env('MLLAGUNO_TOKEN');
+			$rq['h'][] = "Authorization: Bearer " . env('API_V2_TOKEN');
 			// print_r($rq); 
 	$kushki_curl = kushki_curl($rq);
 	// print_r($rq); exit();
