@@ -86,23 +86,53 @@ if($auth_data){
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>payments.apuestatotal.app</title>
 	<link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 </head>
 <body>
 	<div id="msg" style="font-style: italic;"></div>
+
+	<p class="text-start margin-title">
+		<span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span>
+	</p>
+
 	<form id="kushki_payment_form">
-		<div><span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span></div>
-		<div><span>Escriba el valor aquí: *</span></div>
-		<div><input 
+
+		<!-- <div><span>Escriba el valor aquí: *</span></div>
+		<div>
+			<input 
 				type="text" 
 				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
 				autofocus
 				data-min="<?php echo $payment_limits[0];?>"
 				data-max="<?php echo $payment_limits[1];?>"
-				value="1.23"></div>
-		<div><button type="button">Cargando...</button></div>
+				value="1.23">
+		</div> -->
+
+
+		<!-- DESING  !--->
+
+		<p class="text-muted text-start">Escriba el valor aquí: *</p>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon3">PEN</span>
+			</div>
+			<input 
+				type="text" 
+				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+				autofocus
+				data-min="<?php echo $payment_limits[0];?>"
+				data-max="<?php echo $payment_limits[1];?>"
+				class="form-control" 
+				id="basic-url" 
+				aria-describedby="basic-addon3">
+		</div>
+		<div><button type="button" class="btn btn-secondary">Cargando...</button></div>
+
 	</form>
 	<div id="kushki_payment_holder">
 		<div id="kushki_details"></div>
+		<br>
 		<div><a id="kushki_btn" target="_top">Cargando Kushki...</a></div>
 	</div>
 </body>
