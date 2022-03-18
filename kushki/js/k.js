@@ -119,6 +119,10 @@ function kushki_create_payment_button(){
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
+	
+	var only_number = document.getElementById('basic-url');
+	only_number.addEventListener('input', onlyNumbers);
+
 
 	if(Number(input.val()) > Number(input.data('max'))){
 		input.removeClass('is-valid');
@@ -135,5 +139,12 @@ function validar(){
 		input.removeClass('is-invalid');
 		input.addClass('is-valid');
 		input.attr('title','');
+	}
+}
+
+function onlyNumbers(e) {
+	e.target.value = e.target.value.replace(/[^0-9]/g, '');
+	if (e.target.value.length > 9) {
+		e.target.value = e.target.value.slice(0, 9);
 	}
 }
