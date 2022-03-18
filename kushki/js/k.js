@@ -143,7 +143,7 @@ function validar(){
 }
 
 function onlyNumbers(e) {
-	e.target.value = e.target.value.replace(/[^0-9]/g, '');
+	e.target.value = e.target.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
 	if (e.target.value.length > 9) {
 		e.target.value = e.target.value.slice(0, 9);
 	}
