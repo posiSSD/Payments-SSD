@@ -97,7 +97,7 @@ if($auth_data){
 		<span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span>
 	</p>
 
-	<form id="kushki_payment_form">
+	<form action="#" id="kushki_payment_form">
 		<p class="text-muted text-start write-text">Escriba el valor aquí: *</p>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">

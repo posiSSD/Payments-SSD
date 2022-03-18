@@ -122,7 +122,7 @@ function validar(){
 	
 	var only_number = document.getElementById('basic-url');
 	only_number.addEventListener('input', onlyNumbers);
-
+	only_number.addEventListener('keypress', onlyEnter);
 
 	if(Number(input.val()) > Number(input.data('max'))){
 		input.removeClass('is-valid');
@@ -141,10 +141,15 @@ function validar(){
 		input.attr('title','');
 	}
 }
-
 function onlyNumbers(e) {
 	e.target.value = e.target.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
 	if (e.target.value.length > 9) {
 		e.target.value = e.target.value.slice(0, 9);
 	}
+}
+
+function onlyEnter(e){
+	if (e.keyCode == 13) {
+		e.preventDefault();
+	  }
 }
