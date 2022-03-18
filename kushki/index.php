@@ -118,7 +118,7 @@ if($auth_data){
 		</div>
 		<p id="sms_alert"></p>
 		<div>
-			<button type="button" class="btn btn-secondary">
+			<button type="button" class="btn btn-danger">
 				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
   				<span class="sr-only">Cargando</span>
 			</button>
@@ -131,7 +131,7 @@ if($auth_data){
 		<div>
 			<a id="kushki_btn" target="_top">
 				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-  				<span class="sr-only">Cargando Kushki</span>
+  				<span class="sr-only">Kushki</span>
 			</a>
 		</div>
 	</div>
@@ -139,6 +139,8 @@ if($auth_data){
 </html>
 	<?php
 }else{
-	?>:)<?php
+	?>
+		<div> <h5 style="text-align: center;  margin-top: 50px;">Por favor vuelva a intentarlo</h5> </div>
+	<?php
 }
 ?>

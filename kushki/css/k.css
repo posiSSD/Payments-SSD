@@ -22,18 +22,11 @@ form#kushki_payment_form{
 	left: 50%;
 	margin-left: -150px;
 	text-align: center;
-
-	/* background-color: #f00; */
-
 }
 form#kushki_payment_form span{
 	text-align: left;
 }
 form#kushki_payment_form input.alert{
-	/*width: 200px;
-	left: 50%;
-	margin-left: -100px;
-	position: relative;*/
 	border-color: #f00;
 	outline: none !important;
 	border:1px solid red;
@@ -46,24 +39,22 @@ form#kushki_payment_form input.alert:focus {
 	box-shadow: 0 0 10px #719ECE;
 }
 form#kushki_payment_form button{
-	background-color: #999;
-	font-family: "Open Sans";
-	padding: 5px 10px;
-	font-size: 14px;
-	color: #fff;
-	border-radius: 26px;
+	/* 
+		background-color: #999;
+		font-family: "Open Sans";
+		padding: 5px 10px;
+		font-size: 14px;
+		color: #fff; 
+	*/
+	border-radius: 25px;
 	cursor: wait;
 	text-decoration: none;
 	display: inline-block;
 	border: none;
-	/*height: 32px;*/
-	/*position: relative;
-	width: 80px;
-	left: 50%;
-	margin-left: -40px;*/
+	width: 120px;
 }
 form#kushki_payment_form button.ready{
-	background-color: #f00;
+	/* background-color: #f00; */
 	cursor: pointer;
 }
 #kushki_payment_holder{
@@ -75,20 +66,24 @@ form#kushki_payment_form button.ready{
 	display: none;
 }
 #kushki_payment_holder #kushki_btn{
-	background-color: #999;
+	background-color: #dc3545;
 	display: none;
-	font-family: "Open Sans";
-	padding: 5px 10px;
-	font-size: 14px;
+	/* 
+		font-family: "Open Sans";
+		padding: 5px 10px;
+		font-size: 14px; 
+	*/
 	color: #fff;
-	border-radius: 26px;
+	border-radius: 25px;
 	cursor: wait;
 	text-decoration: none;
 	display: inline-block;
 	border: none;
-	color: #193470;
+	width: 120px;
+	height: 35px;
+	padding: 5px 10px;
 }
 #kushki_payment_holder #kushki_btn.ready{
-	background-color: #00FCB2;
+	background-color: #dc3545;
 	cursor: pointer;
 }
