@@ -37,19 +37,25 @@ function build_form(rs){
 	let form = $('#kushki_payment_form');
 	let btn = form.find('button');
 	let input = form.find('input');
+	let sms = $('#sms_alert');
 
 	console.log(input);
 		btn.html('Generar');
 		btn.addClass('ready');
+		
 		btn.click(function(event) {
 			console.log("btn.click");
 			if($.isNumeric(input.val())){
 				if(Number(input.val()) > Number(input.data('max'))){
-					input.addClass('alert');
-					input.focus();
+					input.addClass('is-invalid');
+					sms.addClass('color');
+					sms.html('El monto debe ser menor a '+Number(input.data('max'))+' PEN');
+					//input.focus();
 				}else if(Number(input.val()) < Number(input.data('min'))){
-					input.addClass('alert');
-					input.focus();
+					input.addClass('is-invalid');
+					sms.addClass('color');
+					sms.html('El monto debe ser más de '+Number(input.data('min'))+' PEN');
+					// input.focus();
 				}else{			
 					input.attr('disabled', true);
 					input.removeClass('alert');
@@ -62,8 +68,8 @@ function build_form(rs){
 					kushki_create_payment_button();
 				}
 			}else{
-				input.addClass('alert');
-				input.focus();
+				input.addClass('is-invalid');
+				// input.focus();
 			}
 		});
 		// btn.delay(500).click(); //test

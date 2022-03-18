@@ -2,9 +2,18 @@ html,body{
 	margin: 0;
 	padding: 0;
 }
-
 .margin-title{
-	margin-left: 15px;
+	margin-left: 35px;
+	font-size: 13px;
+}
+.write-text{
+	font-size: 13px;
+}
+.color{
+	color: #f00;
+	font-size: 12px;
+	margin-top: -15px;
+	margin-left: -160px;
 }
 
 form#kushki_payment_form{

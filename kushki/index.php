@@ -98,25 +98,13 @@ if($auth_data){
 
 	<form id="kushki_payment_form">
 
-		<!-- <div><span>Escriba el valor aquí: *</span></div>
-		<div>
-			<input 
-				type="text" 
-				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
-				autofocus
-				data-min="<?php echo $payment_limits[0];?>"
-				data-max="<?php echo $payment_limits[1];?>"
-				value="1.23">
-		</div> -->
-
-
-		<!-- DESING  !--->
-
-		<p class="text-muted text-start">Escriba el valor aquí: *</p>
+		<p class="text-muted text-start write-text">Escriba el valor aquí: *</p>
+		
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="basic-addon3">PEN</span>
 			</div>
+
 			<input 
 				type="text" 
 				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
@@ -125,8 +113,12 @@ if($auth_data){
 				data-max="<?php echo $payment_limits[1];?>"
 				class="form-control" 
 				id="basic-url" 
-				aria-describedby="basic-addon3">
+				aria-describedby="basic-addon3" required>
 		</div>
+		<p id="sms_alert">
+		</p>
+
+		<!-- <div id="sms_alert" class="invalid-feedback feedback"></div> -->
 		<div><button type="button" class="btn btn-secondary">Cargando...</button></div>
 
 	</form>
