@@ -1,4 +1,5 @@
 var connecting,site_id,sws,ws_url,message_queue,swsid,ws_session,usr_active;
+
 $(document).ready(function() {
 	console.log("document.ready");
 	set_events();
@@ -48,14 +49,14 @@ function build_form(rs){
 			if($.isNumeric(input.val())){
 				if(Number(input.val()) > Number(input.data('max'))){
 					input.addClass('is-invalid');
+					input.attr('title','El monto debe ser menor a '+Number(input.data('max'))+' PEN');
 					sms.addClass('color');
 					sms.html('El monto debe ser menor a '+Number(input.data('max'))+' PEN');
-					//input.focus();
 				}else if(Number(input.val()) < Number(input.data('min'))){
 					input.addClass('is-invalid');
+					input.attr('title','El monto debe ser más de '+Number(input.data('min'))+' PEN');
 					sms.addClass('color');
 					sms.html('El monto debe ser más de '+Number(input.data('min'))+' PEN');
-					// input.focus();
 				}else{			
 					input.attr('disabled', true);
 					input.removeClass('alert');
@@ -69,12 +70,11 @@ function build_form(rs){
 				}
 			}else{
 				input.addClass('is-invalid');
-				// input.focus();
+				input.attr('title','Este campo es requerido');
 			}
 		});
 		// btn.delay(500).click(); //test
 }
-
 function kushki_create_payment_button(){
 	console.log("kushki_create_payment_button");
 	$("#kushki_payment_holder").show();
@@ -115,4 +115,26 @@ function kushki_create_payment_button(){
 			console.log(err);
 		}
 	});
+}
+
+function validar(){
+	let form = $('#kushki_payment_form');
+	let input = form.find('input');
+
+	if(Number(input.val()) > Number(input.data('max'))){
+		input.removeClass('is-valid');
+		input.addClass('is-invalid');
+		input.attr('title','El monto debe ser menor a '+Number(input.data('max'))+' PEN');
+	}
+
+	else if(Number(input.val()) < Number(input.data('min'))){
+		input.removeClass('is-valid');
+		input.addClass('is-invalid');
+		input.attr('title','El monto debe ser más de '+Number(input.data('min'))+' PEN');
+	}
+	else{
+		input.removeClass('is-invalid');
+		input.addClass('is-valid');
+		input.attr('title','');
+	}
 }
