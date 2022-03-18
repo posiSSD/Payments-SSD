@@ -117,13 +117,23 @@ if($auth_data){
 				aria-describedby="basic-addon3" required onkeyup="validar()">
 		</div>
 		<p id="sms_alert"></p>
-		<div><button type="button" class="btn btn-secondary">Cargando...</button></div>
+		<div>
+			<button type="button" class="btn btn-secondary">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  				<span class="sr-only">Cargando</span>
+			</button>
+		</div>
 
 	</form>
 	<div id="kushki_payment_holder">
 		<div id="kushki_details"></div>
 		<br>
-		<div><a id="kushki_btn" target="_top">Cargando Kushki...</a></div>
+		<div>
+			<a id="kushki_btn" target="_top">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  				<span class="sr-only">Cargando Kushki</span>
+			</a>
+		</div>
 	</div>
 </body>
 </html>

@@ -99,7 +99,7 @@ function kushki_create_payment_button(){
 				$("#kushki_btn").click(function(event) {
 					$("#kushki_btn").off();
 					$("#kushki_btn").removeClass('ready');
-					$("#kushki_btn").html('Vamos...');
+					$("#kushki_btn").html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos</span>');
 				});
 				// build_form(rs);
 				// $("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
@@ -116,7 +116,6 @@ function kushki_create_payment_button(){
 		}
 	});
 }
-
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
