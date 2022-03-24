@@ -55,6 +55,7 @@ form#kushki_payment_form button{
 }
 form#kushki_payment_form button.ready{
 	/* background-color: #f00; */
+	background-color: #dc3545;
 	cursor: pointer;
 }
 #kushki_payment_holder{
@@ -66,20 +67,21 @@ form#kushki_payment_form button.ready{
 	display: none;
 }
 #kushki_payment_holder #kushki_btn{
-	background-color: #dc3545;
+	background-color: #6c757d;
 	display: none;
 	/* 
 		font-family: "Open Sans";
 		padding: 5px 10px;
 		font-size: 14px; 
 	*/
+	font-size: 14px; 
 	color: #fff;
 	border-radius: 25px;
 	cursor: wait;
 	text-decoration: none;
 	display: inline-block;
 	border: none;
-	width: 120px;
+	width: 150px;
 	height: 35px;
 	padding: 5px 10px;
 }

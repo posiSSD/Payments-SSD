@@ -41,6 +41,7 @@ function build_form(rs){
 	let sms = $('#sms_alert');
 
 	console.log(input);
+		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
 		
