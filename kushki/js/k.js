@@ -11,14 +11,14 @@ function set_events(){
 	$(document).on('sw_login_error', function(e,data) {
 		$('#kushki_payment_form').remove();
 		$('#kushki_payment_holder').show();
-		$('#kushki_payment_holder').html('Refrescar la pagina');
+		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 		
 	});
 	$(document).on('ws_onclose', function(e,data) {
 		$('#kushki_payment_form').remove();
 		//$('#kushki_payment_holder').remove();
 		$('#kushki_payment_holder').show();
-		$('#kushki_payment_holder').html('Refrescar la pagina');
+		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
 		console.log(data);
