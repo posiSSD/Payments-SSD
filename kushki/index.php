@@ -1,7 +1,9 @@
 <?php 
 require '/var/www/payments.apuestatotal.app/kushki/env.php';
 require '/var/www/payments.apuestatotal.app/kushki/db.php';
-include '/var/www/html/sys/helpers.php';
+//include '/var/www/gestion/sys/helpers.php';
+include '/var/www/payments.apuestatotal.app/sys/helpers.php';
+
 
 $test_users = [];
 	$test_users[]="3333200"; //mllaguno
@@ -20,7 +22,7 @@ $url.= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'');
 $url.= '://';
 $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
 $url.= "/kushki/";
-
+//$url.= "/kushki/index.php";
 
 $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
 $log_file = date("Y-m-d").".log";
@@ -43,9 +45,9 @@ if($mysqli->error){
 }
 $mysqli->close();
 
-$auth_data = false;
-$auth_token = false;
-$user_id = false;
+//$auth_data = true;
+//$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
+//$user_id = '3333200';
 if(isset($_GET['auth_data'])){
 	// [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
 	// [user_id] => 3333200
@@ -72,6 +74,8 @@ if($auth_data){
 		$auth_data=false;
 	}
 }
+
+
 log_write($visit);
 if($auth_data){
 	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
@@ -84,7 +88,7 @@ if($auth_data){
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>payments.apuestatotal.app</title>
+	<title>payments.kushki.app</title>
 	<link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
 	<link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -131,7 +135,7 @@ if($auth_data){
 		<div>
 			<a id="kushki_btn" target="_top">
 				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-  				<span class="sr-only">Cargando Kushki</span>
+  				<span class="sr-only">Cargando Prometeo</span>
 			</a>
 		</div>
 	</div>

@@ -1,7 +1,8 @@
 var connecting,site_id,sws,ws_url,message_queue,swsid,ws_session,usr_active;
+var prueba ={};
 
 $(document).ready(function() {
-	console.log("document.ready");
+	console.log("document.ready k.js");
 	set_events();
 	set_vars();
 	ws_connect();
@@ -31,7 +32,9 @@ function set_vars(){
 	connecting = false;
 	site_id = 279;
 	sws;
-	ws_url = "wss://eu-swarm-springre.betconstruct.com/";
+	ws_url= "ws://localhost:8086"
+	//ws_url = "wss://eu-swarm-springre.betconstruct.com/";
+	//ws_url = "wss://payments.totalbet.com/";
 	message_queue = [];
 	swsid;
 	ws_session = false;
@@ -50,27 +53,33 @@ function build_form(rs){
 		btn.addClass('ready');
 		
 		btn.click(function(event) {
+			debugger;
 			console.log("btn.click");
+			console.log("Valor del input 1: " + input.val()); // me sale el valor que pongo en el imput
 			if($.isNumeric(input.val())){
 				if(Number(input.val()) > Number(input.data('max'))){
 					input.addClass('is-invalid');
 					input.attr('title','El monto debe ser menor a '+Number(input.data('max'))+' PEN');
 					sms.addClass('color');
 					sms.html('El monto debe ser menor a '+Number(input.data('max'))+' PEN');
-				}else if(Number(input.val()) < Number(input.data('min'))){
+				}
+				else if(Number(input.val()) < Number(input.data('min'))){
 					input.addClass('is-invalid');
 					input.attr('title','El monto debe ser más de '+Number(input.data('min'))+' PEN');
 					sms.addClass('color');
 					sms.html('El monto debe ser más de '+Number(input.data('min'))+' PEN');
-				}else{			
+				}
+				else{		
 					input.attr('disabled', true);
 					input.removeClass('alert');
 					btn.off();
 					btn.removeClass('ready');
 					btn.html('Generando...');
 					form.hide();
-					usr_active.kushki_value = Number(input.val());
-					console.log(usr_active);
+
+					prueba.kushki_value = Number(input.val());
+					console.log("valor de usr_active es: "+usr_active+" y el value es: "+ prueba.kushki_value);
+
 					kushki_create_payment_button();
 				}
 			}else{
@@ -81,13 +90,15 @@ function build_form(rs){
 		// btn.delay(500).click(); //test
 }
 function kushki_create_payment_button(){
+	debugger;
 	console.log("kushki_create_payment_button");
 	$("#kushki_payment_holder").show();
-	$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
+	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
+	$("#kushki_details").html('Recarga: S/'+prueba.kushki_value);
 	usr_active.this_url = this_url;
 	// build_form();
 	// $("#msg").html('Esperando Kushki...');
-	$.post(this_url+'/sys/', 
+	$.post(this_url+'sys/', 
 	{
 		kushki_create_payment_button:usr_active,
 	}, 
