@@ -54,7 +54,6 @@ function build_form(rs){
 		btn.addClass('ready');
 		
 		btn.click(function(event) {
-			debugger;
 			console.log("btn.click");
 			console.log("Valor del input 1: " + input.val()); // me sale el valor que pongo en el imput
 			if($.isNumeric(input.val())){
@@ -91,7 +90,6 @@ function build_form(rs){
 		// btn.delay(500).click(); //test
 }
 function kushki_create_payment_button(){
-	debugger;
 	console.log("kushki_create_payment_button");
 	$("#kushki_payment_holder").show();
 	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);

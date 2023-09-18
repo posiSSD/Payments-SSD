@@ -54,7 +54,7 @@ if(isset($_GET['auth_data'])){
 	// [user_id] => 3333200
 	// [avatarUrl] => https://static.springbuilder.site/assets/addon/avatar.png	
 	$auth_data = json_decode($_GET["auth_data"],true);
-	$auth_token = $auth_data["auth_token"];
+	$auth_token = $auth_data["auth_token"]; /////TOKEN
 	$user_id = $auth_data["user_id"];
 	$visit["auth_data"]=$auth_data;
 }

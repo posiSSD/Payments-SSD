@@ -122,7 +122,7 @@ if(isset($_POST["select_prometeo"])){
 
         // Utiliza sentencias preparadas para evitar inyección SQL
         $sql = "SELECT * FROM prometeo_transactions
-                WHERE intent_id='$intent_id'";
+                WHERE external_id='$external_id'";
 
         // Ejecutar la consulta
         $result = $mysqli->query($sql);

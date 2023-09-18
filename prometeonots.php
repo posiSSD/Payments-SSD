@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si el cuerpo de la solicitud es JSON válido
     $data = json_decode($payload, true);
+    // grabar el token
+    //$verifyToken = $data['verify_token'];
+
 
     if (json_last_error() === JSON_ERROR_NONE) {
         // Verificar si existe el campo "events" en los datos
@@ -40,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Crear una consulta SQL para insertar los datos en la tabla de la base de datos
             $sql = "INSERT INTO prometeo_transactions ( id_usuario,
-                                                        verify_token,
                                                         event_type,
                                                         event_id,
                                                         timestamp,
@@ -82,26 +84,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Ejecutar la consulta
             if ($mysqli->query($sql) === TRUE) {
-                echo "Registro insertado correctamente.";
+
+                consultaintent($intent_id);
+
+                http_response_code(200);
             } else {
                 echo "Error al insertar el registro: " . $mysqli->error;
             }
         } else {
             // Si no se encuentra el campo "events", responde con un error
             http_response_code(400);
-            echo "Campo 'events' faltante en los datos";
             exit;
         }
     } else {
         // Si el cuerpo de la solicitud no es JSON válido, responde con un error
         http_response_code(400);
-        echo "La solicitud no contiene datos JSON válidos";
         exit;
     }
 } else {
     // Si la solicitud no es POST, responde con un error
     http_response_code(405);
-    echo "Método no permitido";
     exit;
 }
+
+
+function consultaintent($intent_id, $mysqli) {
+    $apiUrl = 'https://payment.prometeoapi.net/api/v1/payment-intent/' . $intent_id;
+    $apiKey = 'SKEyYnMt1OGIoMX0gpAy0xPJLrgh2e5p8jp3vGrZyjqO1wbuIJDKPuSHKxpIFynA';
+
+    // Configuración de la solicitud cURL
+    $curl = curl_init($apiUrl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        'X-API-Key: ' . $apiKey,
+        'accept: application/json'
+    ]);
+
+    // Realizar la solicitud GET
+    $response = curl_exec($curl);
+
+    // Verificar si hubo errores
+    if (curl_errno($curl)) {
+        echo 'Error en la solicitud cURL: ' . curl_error($curl);
+        return false; // Retorna false en caso de error
+    } else {
+        // Procesar la respuesta JSON
+        $responseData = json_decode($response, true);
+        $external_id = isset($responseData['external_id']) ? $responseData['external_id'] : null;
+
+        // Utiliza sentencias preparadas para evitar inyección SQL
+        $sql = "UPDATE prometeo_transactions SET
+                external_id = '$external_id'        
+                WHERE intent_id = '$intent_id'";
+
+        // Ejecutar la consulta de actualización
+        if ($mysqli->query($sql) === TRUE) {
+            // Retorna true si la consulta se ejecuta con éxito
+            return true;
+        } else {
+            echo json_encode(array("success" => false, "message" => "Error al insertar el registro: " . $mysqli->error));
+            return false;
+        }
+    }
+
+    // Cerrar la sesión cURL
+    curl_close($curl);
+}
+
 ?>

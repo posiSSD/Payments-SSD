@@ -5,10 +5,11 @@ var dataexternal_id = null;
 var respuesta = null;
 var apiKey = "SKEyYnMt1OGIoMX0gpAy0xPJLrgh2e5p8jp3vGrZyjqO1wbuIJDKPuSHKxpIFynA";
 var apiUrl = "https://payment.prometeoapi.net/api/v1/payment-link/";
+var auth_token = "FAE2579BC8325A2F60B432173CEF4D77";
 
 var requestData = {
   "product_id": "aa2b08c8-b9e1-4fb2-a971-c3ec850c5692",
-  "external_id": "3333200",
+  "external_id": "132328430",
   "concept": "1234",
   "currency": "PEN",
   "amount": "1",
@@ -23,10 +24,13 @@ var requestOptions = {
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'X-API-Key': apiKey
+    'X-API-Key': apiKey,
+    //'Authorization': "Bearer " + auth_token
   },
   body: JSON.stringify(requestData)
+  
 };
+
 
 // Realizar la solicitud POST
 fetch(apiUrl, requestOptions)
@@ -63,9 +67,13 @@ function details_payment_link(data) {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'X-API-Key': apiKey
+      'X-API-Key': apiKey,
+      'Authorization': "Bearer " + auth_token
     }
   };
+
+  console.log("Lo que se envia: ")
+  console.log(requestOptions);
 
   // Realizar la solicitud GET
   fetch(apiUrl, requestOptions)
