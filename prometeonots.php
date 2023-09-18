@@ -40,11 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mobile_os = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
             $request_id = isset($payload['request_id']) ? $payload['request_id'] : null;
             $intent_id = isset($payload['intent_id']) ? $payload['intent_id'] : null;
-
+            $externalid = null;
             // Crear una consulta SQL para insertar los datos en la tabla de la base de datos
             $sql = "INSERT INTO prometeo_transactions ( id_usuario,
-                                                        event_type,
-                                                        event_id,
+                                                        verify_token, 
+                                                        event_type, 
+                                                        event_id, 
                                                         timestamp,
                                                         amount,
                                                         concept,
@@ -60,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         destination_bank_code,
                                                         mobile_os,
                                                         request_id,
-                                                        intent_id)
+                                                        intent_id,
+                                                        external_id)
                                                 VALUES ('1',
                                                         '$verifyToken',
                                                         '$event_type',
@@ -80,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         '$destination_bank_code',
                                                         '$mobile_os',
                                                         '$request_id',
-                                                        '$intent_id')";
+                                                        '$intent_id',
+                                                        '$externalid')";
 
             // Ejecutar la consulta
             if ($mysqli->query($sql) === TRUE) {
