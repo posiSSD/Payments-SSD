@@ -85,12 +85,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Ejecutar la consulta
             if ($mysqli->query($sql) === TRUE) {
 
-                consultaintent($intent_id);
-
                 http_response_code(200);
             } else {
                 echo "Error al insertar el registro: " . $mysqli->error;
             }
+
+            // Llamamos a la función consultaintent para obtener el external_id
+            $external_id = consultaintent($intent_id);
+
+            if ($external_id !== false) {
+                // Utiliza sentencias preparadas para evitar inyección SQL
+                $update_sql = "UPDATE prometeo_transactions SET external_id = '$external_id' 
+                                WHERE intent_id = '$intent_id'";
+        
+                // Ejecutar la consulta de actualización
+                if ($mysqli->query($update_sql) === TRUE) {
+                    // Retorna true si la consulta se ejecuta con éxito
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            exit;
+
         } else {
             // Si no se encuentra el campo "events", responde con un error
             http_response_code(400);
@@ -108,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-function consultaintent($intent_id, $mysqli) {
+function consultaintent($intent_id) {
     $apiUrl = 'https://payment.prometeoapi.net/api/v1/payment-intent/' . $intent_id;
     $apiKey = 'SKEyYnMt1OGIoMX0gpAy0xPJLrgh2e5p8jp3vGrZyjqO1wbuIJDKPuSHKxpIFynA';
 
@@ -132,19 +150,7 @@ function consultaintent($intent_id, $mysqli) {
         $responseData = json_decode($response, true);
         $external_id = isset($responseData['external_id']) ? $responseData['external_id'] : null;
 
-        // Utiliza sentencias preparadas para evitar inyección SQL
-        $sql = "UPDATE prometeo_transactions SET
-                external_id = '$external_id'        
-                WHERE intent_id = '$intent_id'";
-
-        // Ejecutar la consulta de actualización
-        if ($mysqli->query($sql) === TRUE) {
-            // Retorna true si la consulta se ejecuta con éxito
-            return true;
-        } else {
-            echo json_encode(array("success" => false, "message" => "Error al insertar el registro: " . $mysqli->error));
-            return false;
-        }
+        return($external_id);
     }
 
     // Cerrar la sesión cURL
