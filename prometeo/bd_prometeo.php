@@ -114,6 +114,7 @@ if(isset($_POST["edit_prometeo"])){
 if(isset($_POST["select_prometeo"])){
     $json_data = $_POST["select_prometeo"];
     $data = json_decode($json_data, true);
+    $payment = "payment.error";
 
     // Verificar que los datos se decodificaron correctamente
     if ($data !== null) {
@@ -122,7 +123,7 @@ if(isset($_POST["select_prometeo"])){
 
         // Utiliza sentencias preparadas para evitar inyección SQL
         $sql = "SELECT * FROM prometeo_transactions
-                WHERE external_id='$external_id'";
+                WHERE external_id='$external_id' && event_type != '$payment'";
 
         // Ejecutar la consulta
         $result = $mysqli->query($sql);

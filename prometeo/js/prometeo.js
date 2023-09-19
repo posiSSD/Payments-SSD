@@ -7,9 +7,14 @@ var apiKey = "SKEyYnMt1OGIoMX0gpAy0xPJLrgh2e5p8jp3vGrZyjqO1wbuIJDKPuSHKxpIFynA";
 var apiUrl = "https://payment.prometeoapi.net/api/v1/payment-link/";
 var auth_token = "FAE2579BC8325A2F60B432173CEF4D77";
 
+//crear nro RND
+const randomNumber = Math.floor(Math.random() * (Math.pow(10, 9)));
+console.log("numero RND");
+console.log(randomNumber);
+
 var requestData = {
   "product_id": "aa2b08c8-b9e1-4fb2-a971-c3ec850c5692",
-  "external_id": "132328430",
+  "external_id": randomNumber.toString(),
   "concept": "1234",
   "currency": "PEN",
   "amount": "1",

@@ -1,4 +1,4 @@
-//<?php
+<?php
 
 //$auth_data = true;
 //$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
@@ -19,52 +19,6 @@
 //header("Location: " . $url);
 //exit; // Asegurarse de detener la ejecución del script después de la redirección
 ?>
-
-
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estilos personalizados para centrar el formulario */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            max-width: 400px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1 class="text-center">Payments.TB.app</h1>
-        
-        <form id="paymentForm" action="process_payment.php" method="POST">
-            <label for="user_id">User ID:</label>
-            <input type="text" id="user_id" name="user_id" value="3333200" required class="form-control mb-3">
-            
-            <label for="metodo">Método de Pago:</label>
-            <select id="metodo" name="metodo" required class="form-select mb-3">
-                <option value="kushki">Kushki</option>
-                <option value="prometeo">Prometeo</option>
-            </select>
-            
-            <input type="hidden" name="auth_token" value="FAE2579BC8325A2F60B432173CEF4D77">
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </div>
-</body>
-</html>
--->
 
 <!DOCTYPE html>
 <html lang="en">
