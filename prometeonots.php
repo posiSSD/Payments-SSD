@@ -47,11 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_usuario = consultid($externalid, $mysqli) ?? "xx";
                         
             //si no esta external id consultar con el intent
+            /*
             if( $externalid == null){
                 $externalid_consult = consultaintent($intent_id);
                 $externalid = $externalid_consult;
             }
-            
+            */
             $data_array = [];
             $data_array['verify_token'] = $verifyToken;
 
@@ -375,88 +376,7 @@ function api_activities($a){
 	$mysqli->close();
 }
 */
-/*
-function insert_bd($mysqli, $data){
-    $id_usuario = "1";
-    $verifyToken = isset($data['verify_token']) ? $data['verify_token'] : null;
 
-    $events = $data['events'][0];
-    //$events = isset($data['events']) ? $data['events'] : null;
-    $event_type = isset($events['event_type']) ? $events['event_type'] : null;
-    $event_id = isset($events['event_id']) ? $events['event_id'] : null;
-    $timestamp = isset($events['timestamp']) ? $events['timestamp'] : null;
-            
-    $payload = isset($events['payload']) ? $events['payload'] : null;
-    $amount = isset($payload['amount']) ? $payload['amount'] : null;
-    $concept = isset($payload['concept']) ? $payload['concept'] : null;
-    $currency = isset($payload['currency']) ? $payload['currency'] : null;
-    $origin_account = isset($payload['origin_account']) ? $payload['origin_account'] : null;
-    $destination_account = isset($payload['destination_account']) ? $payload['destination_account'] : null;
-    $destination_institution = isset($payload['destination_institution']) ? $payload['destination_institution'] : null;
-    $branch = isset($payload['branch']) ? $payload['branch'] : null;
-    $destination_owner_name = isset($payload['destination_owner_name']) ? $payload['destination_owner_name'] : null;
-    $destination_account_type = isset($payload['destination_account_type']) ? $payload['destination_account_type'] : null;
-    $document_type = isset($payload['document_type']) ? $payload['document_type'] : null;
-    $document_number = isset($payload['document_number']) ? $payload['document_number'] : null;
-    $destination_bank_code = isset($payload['destination_bank_code']) ? $payload['destination_bank_code'] : null;
-    $mobile_os = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
-    $request_id = isset($payload['request_id']) ? $payload['request_id'] : null;
-    $intent_id = isset($payload['intent_id']) ? $payload['intent_id'] : null;
-    $externalid = isset($payload['external_id']) ? $payload['external_id'] : null;
-
-
-    // Sentencia de ingresar datos.
-    $sql = "INSERT INTO prometeo_transactions ( id_usuario,
-                                                verify_token, 
-                                                event_type, 
-                                                event_id, 
-                                                timestamp,
-                                                amount,
-                                                concept,
-                                                currency,
-                                                origin_account,
-                                                destination_account,
-                                                destination_institution,
-                                                branch,
-                                                destination_owner_name,
-                                                destination_account_type,
-                                                document_type,
-                                                document_number,
-                                                destination_bank_code,
-                                                mobile_os,
-                                                request_id,
-                                                intent_id,
-                                                external_id)
-                                         VALUES ('$id_usuario',
-                                                '$verifyToken',
-                                                '$event_type',
-                                                '$event_id',
-                                                '$timestamp',
-                                                '$amount',
-                                                '$concept',
-                                                '$currency',
-                                                '$origin_account',
-                                                '$destination_account',
-                                                '$destination_institution',
-                                                '$branch',
-                                                '$destination_owner_name',
-                                                '$destination_account_type',
-                                                '$document_type',
-                                                '$document_number',
-                                                '$destination_bank_code',
-                                                '$mobile_os',
-                                                '$request_id',
-                                                '$intent_id',
-                                                '$externalid')";
-                // Ejecutar la consulta
-                if ($mysqli->query($sql) === TRUE) {
-                    
-                    http_response_code(200);
-                } else {
-                    echo "Datos Error: " . $mysqli->error;
-                }
-    
-}*/
 function consultId($externalId, $mysqli) {
      // Valor predeterminado en caso de que no se encuentre el registro
      $idSel = "";
@@ -506,6 +426,7 @@ function insert_bd($mysqli, $data_array) {
     }
 }
 
+/*
 function consultaintent($intent_id) {
 
     $url = 'https://payment.prometeoapi.net/api/v1/payment-intent/'.$intent_id;
@@ -544,6 +465,7 @@ function consultaintent($intent_id) {
     return $external_id;
   
 }
+*/
 
 /*
 function bc_deposit_prometeo($d=false){
