@@ -4,6 +4,7 @@ include 'prometeo/db.php';
 include 'prometeo/sys/helpers.php';
 //include '/sys/helpers.php';
 //include '/api/KushkiController.php';
+echo "Hola mundo Prometeo";
 
 // Verificar que la solicitud sea de tipo POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,11 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (json_last_error() === JSON_ERROR_NONE) {
         if(isset($data)) {
 
+            //$id_usuario = "1";
             $verifyToken = isset($data['verify_token']) ? $data['verify_token'] : null;
+            
+            //$events = isset($data['events']) ? $data['events'] : null;
             $events = $data['events'][0];
             $event_type = isset($events['event_type']) ? $events['event_type'] : null;
             $event_id = isset($events['event_id']) ? $events['event_id'] : null;
-            $timestamp = isset($events['timestamp']) ? $events['timestamp'] : null;  
+            $timestamp = isset($events['timestamp']) ? $events['timestamp'] : null;
+               
             $payload = isset($events['payload']) ? $events['payload'] : null;
             $amount = isset($payload['amount']) ? $payload['amount'] : null;
             $concept = isset($payload['concept']) ? $payload['concept'] : null;
@@ -41,12 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $externalid = isset($payload['external_id']) ? $payload['external_id'] : null;
             $id_usuario = consultid($externalid, $mysqli) ?? "xx";
                         
-            
+            //si no esta external id consultar con el intent
+            /*
+            if( $externalid == null){
+                $externalid_consult = consultaintent($intent_id);
+                $externalid = $externalid_consult;
+            }
+            */
             $data_array = [];
             $data_array['verify_token'] = $verifyToken;
+
             $data_array['event_type'] = $event_type;
             $data_array['event_id'] = $event_id;
             $data_array['timestamp'] = $timestamp; 
+
             $data_array['amount'] = $amount;
             $data_array['concept'] = $concept;
             $data_array['currency'] = $currency;
@@ -291,23 +304,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             /////////////////// FIN CODIGO //////////////////////////////
             */
-            http_response_code(200);
-            echo json_encode(["message" => "Registro exitoso"]);
-        } else {
-            // No se recibieron datos válidos en la solicitud
-            http_response_code(400); // Código 400 para solicitud incorrecta
-            echo json_encode(["message" => "No se recibieron datos válidos en la solicitud"]);
-        }
-    } else {
-        // La solicitud no contenía JSON válido
-        http_response_code(400); // Código 400 para solicitud incorrecta
-        echo json_encode(["message" => "El cuerpo de la solicitud no es JSON válido"]);
-    }
 
-} else {
-    // La solicitud no contenía JSON válido
-    http_response_code(400); // Código 400 para solicitud incorrecta
-    echo json_encode(["message" => "El cuerpo REQUEST_METHOD no es POST"]);
+        }
+    }
+    return http_response_code(200);
 }
 /*
 else{
