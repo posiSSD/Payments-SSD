@@ -4,6 +4,7 @@ include 'prometeo/db.php';
 include 'prometeo/sys/helpers.php';
 //include '/sys/helpers.php';
 //include '/api/KushkiController.php';
+echo "Hola mundo Prometeo";
 
 // Verificar que la solicitud sea de tipo POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $request_id = isset($payload['request_id']) ? $payload['request_id'] : null;
             $intent_id = isset($payload['intent_id']) ? $payload['intent_id'] : null;
             $externalid = isset($payload['external_id']) ? $payload['external_id'] : null;
-            $id_usuario = consultid($externalid, $mysqli) ?? "1";
+            $id_usuario = consultid($externalid, $mysqli) ?? "xx";
                         
             //si no esta external id consultar con el intent
             if( $externalid == null){
@@ -325,7 +326,7 @@ else{
 	api_ret($ret);
 }
 */
-
+/*
 function api_ret($r){
 	global $a;
 	http_response_code($r['http_code']);
@@ -373,7 +374,7 @@ function api_activities($a){
 	}
 	$mysqli->close();
 }
-
+*/
 /*
 function insert_bd($mysqli, $data){
     $id_usuario = "1";
