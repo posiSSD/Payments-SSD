@@ -185,28 +185,27 @@ function kushki_create_payment_button($client=false){
 	return $ret;
 
 	// $rq_json = '{
-	// 	  "kind": "webcheckout",
-	// 	  "contactDetail": {
-	// 	    "name": "John Doe"
-	// 	  },
-	// 	  "redirectURL": "https://www.kushki.com",
-	// 	  "products": [
-	// 	    {
-	// 	      "description": "Tenis",
-	// 	      "name": "runners",
-	// 	      "quantity": 2,
-	// 	      "unitPrice": 100000
-	// 	    }
-	// 	  ],
-	// 	  "paymentConfig": {
-	// 	    "amount": {
-	// 	      "subtotalIva": 238000,
-	// 	      "subtotalIva0": 0,
-	// 	      "iva": 19000,
-	// 	      "currency": "COP"
-	// 	    },
-	// 	    "paymentMethod": "credit-card"
-	// 	  }
+		function consultId($externalId) {
+			$idSel = "111111"; // Valor predeterminado en caso de que no se encuentre el registro
+		
+			$sqlDetails = "SELECT * FROM transactions WHERE unique_id = ?";
+			$stmtDetails = $mysqli->prepare($sqlDetails);
+		
+			if ($stmtDetails) {
+				$stmtDetails->bind_param("s", $externalId);
+				$stmtDetails->execute();
+				$resultDetails = $stmtDetails->get_result();
+		
+				if ($resultDetails->num_rows > 0) {
+					$rowTransactions = $resultDetails->fetch_assoc();
+					$idSel = $rowTransactions["client_id"];
+				}
+				
+				$stmtDetails->close();
+			}
+		
+			return $idSel;
+		}
 	// 	}';
 }
 function kushki_curl($rq=false){

@@ -14,7 +14,7 @@ console.log(randomNumber);
 
 var requestData = {
   "product_id": "aa2b08c8-b9e1-4fb2-a971-c3ec850c5692",
-  "external_id": randomNumber.toString(),
+  "external_id": "xxxxyyyyy",
   "concept": "1234",
   "currency": "PEN",
   "amount": "1",
@@ -22,7 +22,6 @@ var requestData = {
   "email": "test@prometeoapi.com",
   "reusable": false
 };
-
 // Configuración de la solicitud
 var requestOptions = {
   method: 'POST',
@@ -35,8 +34,6 @@ var requestOptions = {
   body: JSON.stringify(requestData)
   
 };
-
-
 // Realizar la solicitud POST
 fetch(apiUrl, requestOptions)
   .then(response => response.json())
@@ -46,17 +43,12 @@ fetch(apiUrl, requestOptions)
     dataresponse = data;
     save_response_to_bd(dataresponse);
     details_payment_link(dataresponse);
-    //
-
     var url = data.url; // La URL proporcionada en la respuesta
     var iframe = document.createElement('iframe');
     iframe.src = url;
     iframe.width = "800"; // Ancho del iframe
     iframe.height = "600"; // Alto del iframe
-    document.body.appendChild(iframe);
-    
-    
-    
+    document.body.appendChild(iframe);  
   })
   .catch(error => {
     console.error("Error en la solicitud:", error);

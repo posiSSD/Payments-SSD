@@ -69,7 +69,9 @@ if($auth_data){
 		</script>
 		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>
 			
-		<script type="text/javascript" src="<?php echo $url;?>js/prometeo.js?<?php echo $fv;?>"></script> <!-- api de prometeo -->
+		
+		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
+		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
 		
 		
 		<?php
@@ -97,7 +99,50 @@ if($auth_data){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-	
+	<div id="msg" style="font-style: italic;"></div>
+
+	<p class="text-start margin-title">
+		<span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span>
+	</p>
+
+	<form action="#" id="kushki_payment_form">
+		<p class="text-muted text-start write-text">Escriba el valor aquí: *</p>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon3">PEN</span>
+			</div>
+
+			<input 
+				autocomplete="off"
+				data-bs-toggle="tooltip"
+				data-bs-placement="top"
+				type="text" 
+				placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+				data-min="<?php echo $payment_limits[0];?>"
+				data-max="<?php echo $payment_limits[1];?>"
+				class="form-control" 
+				id="basic-url" 
+				aria-describedby="basic-addon3" required onkeyup="validar()">
+		</div>
+		<p id="sms_alert"></p>
+		<div>
+			<button type="button" class="btn btn-secondary" style="font-size: 14px; width: 150px;">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  				<span class="sr-only">Cargando Prometeo</span>
+			</button>
+		</div>
+
+	</form>
+	<div id="kushki_payment_holder">
+		<div id="kushki_details"></div>
+		<br>
+		<div>
+			<a id="kushki_btn" target="_top">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  				<span class="sr-only">Cargando Prometeo</span>
+			</a>
+		</div>
+	</div>
 </body>
 </html>
 	<?php

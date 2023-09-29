@@ -6,7 +6,6 @@ $(document).ready(function() {
 	set_events();
 	set_vars();
 	ws_connect();
-	debugger;
 });
 
 function set_events(){
@@ -52,7 +51,6 @@ function build_form(rs){
 		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
-		
 		btn.click(function(event) {
 			console.log("btn.click");
 			console.log("Valor del input 1: " + input.val()); // me sale el valor que pongo en el imput
@@ -95,26 +93,50 @@ function kushki_create_payment_button(){
 	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
 	$("#kushki_details").html('Recarga: S/'+prueba.kushki_value);
 	usr_active.this_url = this_url;
+	usr_active.kushki_value = prueba.kushki_value;
+	console.log(usr_active);
 	// build_form();
 	// $("#msg").html('Esperando Kushki...');
+	//console.log("verificacion de datos: usr_active");
+	//console.log(usr_active);
+
 	$.post(this_url+'sys/', 
 	{
 		kushki_create_payment_button:usr_active,
 	}, 
 	function(r, textStatus, xhr) {
-		console.log(r);
+		//console.log("r : ");
+		//console.log(r);
+		debugger;
 		try {
 			let rs = jQuery.parseJSON(r);
-			console.log(rs);
+			usr_active.order_id = rs.id;
+			//console.log(usr_active);
 			// $("#msg").html("");
+			
 			if(rs.status==201){
 				$("#kushki_btn").addClass('ready');
-				$("#kushki_btn").html('Ir a Kushki!');
-				$("#kushki_btn").attr('href', rs.url);
+				$("#kushki_btn").html('Ir a Prometeo!');
+				//$("#kushki_btn").attr('href', rs.url);
+				
 				$("#kushki_btn").click(function(event) {
+					/*
 					$("#kushki_btn").off();
 					$("#kushki_btn").removeClass('ready');
 					$("#kushki_btn").html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos</span>');
+					select_responde_to_bd(usr_active);
+					*/
+
+					// nuevo codigo	
+					var newWindow = window.open(rs.url, '_blank', 'width=800,height=600');
+                    if (newWindow) {
+                        // Aquí puedes realizar acciones adicionales si la ventana emergente se abrió correctamente
+                        $("#kushki_btn").off();
+                        $("#kushki_btn").removeClass('ready');
+                        $("#kushki_btn").html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos</span>');
+                        select_responde_to_bd(usr_active);
+                    }
+					// fin nuevo codigo
 				});
 				// build_form(rs);
 				// $("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
@@ -167,4 +189,30 @@ function onlyEnter(e){
 	if (e.keyCode == 13) {
 		e.preventDefault();
 	  }
+}
+function select_responde_to_bd(usr_active) {
+	console.log("select_responde_to_bd");
+	$.post(usr_active.this_url+'sys/', 
+	{
+		prometeo_select_transactions:usr_active,
+	}, 
+ 
+	function(response) {
+	  // Parsea la respuesta JSON
+	  var result = JSON.parse(response);
+  
+	  // Verificar si la respuesta es 'true'
+	  if (result.success === true) {
+		// Realizar acciones adicionales aquí si es necesario
+		console.log('Respuesta True desde PHP:');
+		console.log(result);
+	  } else {
+		// Si la respuesta no es 'true', ejecutar la solicitud nuevamente después de un cierto período de tiempo (por ejemplo, 1 segundo)
+		setTimeout(function() {
+		  console.log('Respuesta False select desde PHP:');
+		  console.log(result);
+		  select_responde_to_bd(usr_active);
+		}, 10000); // Espera 10 segundo antes de ejecutar la próxima solicitud
+	  }
+	});
 }
