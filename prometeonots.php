@@ -1,8 +1,8 @@
 <?php
-/*include 'prometeo/env.php';
+include 'prometeo/env.php';
 include 'prometeo/db.php';
 include 'prometeo/sys/helpers.php';
-//include '/sys/helpers.php';*/
+//include '/sys/helpers.php';
 //include '/api/KushkiController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,6 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // La solicitud no es de tipo POST
     http_response_code(400); // Código 400 para solicitud incorrecta
     echo json_encode(["error" => "La solicitud debe ser de tipo POST"]);
+    echo "              ";
+    echo "El db: " . $con_host;
+    echo "              ";
+    echo "El db: " . $con_port;
+    echo "              ";
+    echo "El db: " . $con_db_name;
+    echo "              ";
+    echo "El db: " . $con_user;
+    echo "              ";
+    echo "El db: " . $con_pass;
+
+// Y así sucesivamente para otras variables...
+
 }
 
 
