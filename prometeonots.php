@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             insert_bd($mysqli, $data_array);
 
             ///////////////////NUEVO CODIGO //////////////////////////////
-
+            /*
             // definir parametros de log
             $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
             $log_file = date("Y-m-d").".log";
@@ -99,7 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // declarar respuestas en caso de error
             $http_code = 500;
             $status = 'Error';
-            $response = [];            
+            $response = [];  
+            */
             /*
             //Inicio validaciones de campo que existen:
             if(!array_key_exists('verify_token', $data)){
@@ -303,6 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
     }
+    return http_response_code(200);
 }
 /*
 else{
