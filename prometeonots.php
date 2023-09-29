@@ -2,29 +2,30 @@
 include 'prometeo/env.php';
 include 'prometeo/db.php';
 include 'prometeo/sys/helpers.php';
-include '/sys/helpers.php';
-include '/api/KushkiController.php';
+//include '/sys/helpers.php';
+//include '/api/KushkiController.php';
 
 // Verificar que la solicitud sea de tipo POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener el cuerpo de la solicitud como JSON
     $payload = file_get_contents("php://input");
-
     // Verificar si el cuerpo de la solicitud es JSON válido
     $data = json_decode($payload, true);
-    // grabar el token
+    
+
     //$verifyToken = $data['verify_token'];
     if (json_last_error() === JSON_ERROR_NONE) {
         if(isset($data)) {
 
             //$id_usuario = "1";
             $verifyToken = isset($data['verify_token']) ? $data['verify_token'] : null;
-
+            
+            //$events = isset($data['events']) ? $data['events'] : null;
             $events = $data['events'][0];
             $event_type = isset($events['event_type']) ? $events['event_type'] : null;
             $event_id = isset($events['event_id']) ? $events['event_id'] : null;
             $timestamp = isset($events['timestamp']) ? $events['timestamp'] : null;
-    
+               
             $payload = isset($events['payload']) ? $events['payload'] : null;
             $amount = isset($payload['amount']) ? $payload['amount'] : null;
             $concept = isset($payload['concept']) ? $payload['concept'] : null;
@@ -42,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $request_id = isset($payload['request_id']) ? $payload['request_id'] : null;
             $intent_id = isset($payload['intent_id']) ? $payload['intent_id'] : null;
             $externalid = isset($payload['external_id']) ? $payload['external_id'] : null;
-            $id_usuario = ($id_usuario == "") ? consultid($externalid) : "1";
-
+            $id_usuario = consultid($externalid, $mysqli) ?? "1";
+                        
             //si no esta external id consultar con el intent
             if( $externalid == null){
                 $externalid_consult = consultaintent($intent_id);
@@ -51,30 +52,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             $data_array = [];
-                $data_array['verify_token'] = $verifyToken;
+            $data_array['verify_token'] = $verifyToken;
 
-                $data_array['event_type'] = $event_type;
-                $data_array['event_id'] = $event_id;
-                $data_array['timestamp'] = $timestamp; 
+            $data_array['event_type'] = $event_type;
+            $data_array['event_id'] = $event_id;
+            $data_array['timestamp'] = $timestamp; 
 
-                $data_array['amount'] = $amount;
-                $data_array['concept'] = $concept;
-                $data_array['currency'] = $currency;
-                $data_array['origin_account'] = $origin_account;
-                $data_array['destination_account'] = $destination_account;
-                $data_array['destination_institution'] = $destination_institution;
-                $data_array['branch'] = $branch;
-                $data_array['destination_owner_name'] = $destination_owner_name; 
-                $data_array['destination_account_type'] = $destination_account_type; 
-                $data_array['document_type'] = $document_type; 
-                $data_array['document_number'] = $document_number;
-                $data_array['destination_bank_code'] = $destination_bank_code;
-                $data_array['mobile_os'] = $mobile_os;
-                $data_array['request_id'] = $request_id;
-                $data_array['intent_id'] = $intent_id;
-                $data_array['external_id'] = $externalid;
-                $data_array['id'] = $id_usuario;
-            
+            $data_array['amount'] = $amount;
+            $data_array['concept'] = $concept;
+            $data_array['currency'] = $currency;
+            $data_array['origin_account'] = $origin_account;
+            $data_array['destination_account'] = $destination_account;
+            $data_array['destination_institution'] = $destination_institution;
+            $data_array['branch'] = $branch;
+            $data_array['destination_owner_name'] = $destination_owner_name; 
+            $data_array['destination_account_type'] = $destination_account_type; 
+            $data_array['document_type'] = $document_type; 
+            $data_array['document_number'] = $document_number;
+            $data_array['destination_bank_code'] = $destination_bank_code;
+            $data_array['mobile_os'] = $mobile_os;
+            $data_array['request_id'] = $request_id;
+            $data_array['intent_id'] = $intent_id;
+            $data_array['external_id'] = $externalid;
+            $data_array['id_usuario'] = $id_usuario;
+
+            /*
+            if (isset($data_array['id'], )) {
+                echo "Contenido  " . $data_array['id'];
+            } else {
+                echo "No está definido en la solicitud.";
+            }  
+            */
+
             insert_bd($mysqli, $data_array);
 
             ///////////////////NUEVO CODIGO //////////////////////////////
@@ -447,55 +456,53 @@ function insert_bd($mysqli, $data){
                 }
     
 }*/
-function consultId($externalId) {
-    $idSel = "111111"; // Valor predeterminado en caso de que no se encuentre el registro
-
-    $sqlDetails = "SELECT * FROM transactions WHERE unique_id = ?";
-    $stmtDetails = $mysqli->prepare($sqlDetails);
-
-    if ($stmtDetails) {
-        $stmtDetails->bind_param("s", $externalId);
-        $stmtDetails->execute();
-        $resultDetails = $stmtDetails->get_result();
-
-        if ($resultDetails->num_rows > 0) {
-            $rowTransactions = $resultDetails->fetch_assoc();
-            $idSel = $rowTransactions["client_id"];
-        }
-        
-        $stmtDetails->close();
-    }
-
-    return $idSel;
+function consultId($externalId, $mysqli) {
+     // Valor predeterminado en caso de que no se encuentre el registro
+     $idSel = "";
+     $sqlDetails = "SELECT client_id FROM transactions WHERE unique_id = ?";
+     $stmtDetails = $mysqli->prepare($sqlDetails);
+ 
+     if ($stmtDetails) {
+         $stmtDetails->bind_param("s", $externalId);
+         $stmtDetails->execute();
+         $resultDetails = $stmtDetails->get_result();
+ 
+         if ($resultDetails->num_rows > 0) {
+             $rowTransactions = $resultDetails->fetch_assoc();
+             $idSel = $rowTransactions["client_id"];
+         }
+         
+         $stmtDetails->close();
+     }
+     
+     return $idSel;
 }
 
 function insert_bd($mysqli, $data_array) {
     // Crear la sentencia SQL preparada
-    $sql = "INSERT INTO prometeo_transactions (id_usuario, verify_token, event_type, event_id,
-            timestamp, amount, concept, currency, origin_account, destination_account,
-            destination_institution, branch, destination_owner_name, destination_account_type,
-            document_type, document_number, destination_bank_code, mobile_os, request_id,
-            intent_id, external_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // Preparar la consulta
-    $stmt = $mysqli->prepare($sql);
-
-    if($stmt){
-        $stmt->bind_param("ssssssssssssssssssss", $id_usuario, $data_array['verify_token'],
-                                                  $data_array['event_type'], $data_array['event_id'],
-                                                  $data_array['timestamp'], $data_array['amount'],
-                                                  $data_array['concept'], $data_array['currency'],
-                                                  $data_array['origin_account'], $data_array['destination_account'],
-                                                  $data_array['destination_institution'], $data_array['branch'],
-                                                  $data_array['destination_owner_name'], $data_array['destination_account_type'],
-                                                  $data_array['document_type'], $data_array['document_number'],
-                                                  $data_array['destination_bank_code'], $data_array['mobile_os'],
-                                                  $data_array['request_id'], $data_array['intent_id'],
-                                                  $data_array['external_id']);
-		$stmt->execute();		
+    $sqlDetails = " INSERT INTO prometeo_transactions (id_usuario, verify_token, event_type, event_id,
+                    timestamp, amount, concept, currency, origin_account, destination_account,
+                    destination_institution, branch, destination_owner_name, destination_account_type,
+                    document_type, document_number, destination_bank_code, mobile_os, request_id,
+                    intent_id, external_id)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmtDetails = $mysqli->prepare($sqlDetails);
+    if ($stmtDetails) {
+        $stmtDetails->bind_param("sssssssssssssssssssss", $data_array['id_usuario'], $data_array['verify_token'],
+                                                            $data_array['event_type'], $data_array['event_id'],
+                                                            $data_array['timestamp'], $data_array['amount'],
+                                                            $data_array['concept'], $data_array['currency'],
+                                                            $data_array['origin_account'], $data_array['destination_account'],
+                                                            $data_array['destination_institution'], $data_array['branch'],
+                                                            $data_array['destination_owner_name'], $data_array['destination_account_type'],
+                                                            $data_array['document_type'], $data_array['document_number'],
+                                                            $data_array['destination_bank_code'], $data_array['mobile_os'],
+                                                            $data_array['request_id'], $data_array['intent_id'],
+                                                            $data_array['external_id']);
+        $stmtDetails->execute();
+        $stmtDetails->close();
     }
-    $stmt->close();
 }
 
 function consultaintent($intent_id) {
