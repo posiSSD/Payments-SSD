@@ -1,8 +1,8 @@
 <?php
-include 'prometeo/env.php';
+/*include 'prometeo/env.php';
 include 'prometeo/db.php';
 include 'prometeo/sys/helpers.php';
-//include '/sys/helpers.php';
+//include '/sys/helpers.php';*/
 //include '/api/KushkiController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
