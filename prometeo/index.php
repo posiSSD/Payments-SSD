@@ -65,6 +65,7 @@ if(isset($_GET['auth_data'])){
 	$visit["auth_data"]=$auth_data;
 }
 
+echo $auth_token." ".$user_id;
 if($auth_data){
 	if(in_array($user_id, $test_users)){
 		?>
