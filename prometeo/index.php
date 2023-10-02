@@ -1,11 +1,11 @@
 <?php 
-require 'env.php';
-//require '/var/www/html/Payments-SSD/prometeo/env.php'; //amazon instace
-require 'db.php';
-//require '/var/www/html/Payments-SSD/prometeo/db.php'; //amazon instace
+//require 'env.php';
+require '/var/www/html/prometeo/env.php'; //amazon instace
+//require 'db.php';
+require '/var/www/html/prometeo/db.php'; //amazon instace
 //include '/var/www/gestion/sys/helpers.php';
-include '../sys/helpers.php';
-//include '/var/www/html/Payments-SSD/sys/helpers.php'; //amazon instace
+//include '../sys/helpers.php';
+include '/var/www/html/sys/helpers.php'; //amazon instace
 
 
 $test_users = [];

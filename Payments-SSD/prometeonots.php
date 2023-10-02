@@ -1,7 +1,7 @@
 <?php
-include 'prometeo/env.php';
-include 'prometeo/db.php';
-include 'prometeo/sys/helpers.php';
+include '../prometeo/env.php';
+include '../prometeo/db.php';
+include '../prometeo/sys/helpers.php';
 //include '/sys/helpers.php';
 //include '/api/KushkiController.php';
 
