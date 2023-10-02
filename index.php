@@ -121,7 +121,8 @@
             const user_id = "3333200"; // Reemplaza con tu ID de usuario
             const auth_data = JSON.stringify({ auth_token, user_id});
             
-            const redirectUrl = `${baseUrl}/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
+            //const redirectUrl = `${baseUrl}/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
+            const redirectUrl = `/Payments-SSD/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
             window.location.href = redirectUrl;
 
             //// Abre la ventana emergente con el iframe
