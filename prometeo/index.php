@@ -1,10 +1,10 @@
 <?php 
-require '/var/www/payments.apuestatotal.app/prometeo/env.php';
+require 'env.php';
 //require '/var/www/html/Payments-SSD/prometeo/env.php'; //amazon instace
-require '/var/www/payments.apuestatotal.app/prometeo/db.php';
+require 'db.php';
 //require '/var/www/html/Payments-SSD/prometeo/db.php'; //amazon instace
 //include '/var/www/gestion/sys/helpers.php';
-include '/var/www/payments.apuestatotal.app/sys/helpers.php';
+include '../sys/helpers.php';
 //include '/var/www/html/Payments-SSD/sys/helpers.php'; //amazon instace
 
 
