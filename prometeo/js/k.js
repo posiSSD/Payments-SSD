@@ -95,6 +95,7 @@ function kushki_create_payment_button(){
 	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
 	$("#kushki_details").html('Recarga: S/'+prueba.kushki_value);
 	usr_active.this_url = this_url;
+	console.log(this_url);
 	usr_active.kushki_value = prueba.kushki_value;
 	console.log(usr_active);
 	// build_form();
