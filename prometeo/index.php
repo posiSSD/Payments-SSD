@@ -24,7 +24,8 @@ $url = 'http';
 $url.= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'');
 $url.= '://';
 $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
-$url.= "/prometeo/";
+$url.= "/Payments-SSD/prometeo/";
+//$url.= "/prometeo/";
 //$url.= "/kushki/index.php";
 
 echo "la dir es: ".$url;
