@@ -84,7 +84,7 @@
 
         const kushkiCard = document.getElementById("kushkiCard");
         const prometeoCard = document.getElementById("prometeoCard");
-
+        /*
         kushkiCard.addEventListener("click", () => {
             const metodo = kushkiCard.getAttribute("data-metodo");
             
@@ -105,7 +105,7 @@
                 }
             }, 1000);
         });
-
+        */
         prometeoCard.addEventListener("click", () => {
             const metodo = prometeoCard.getAttribute("data-metodo");
 
