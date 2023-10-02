@@ -110,7 +110,6 @@ function kushki_create_payment_button(){
 	function(r, textStatus, xhr) {
 		//console.log("r : ");
 		//console.log(r);
-		debugger;
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
