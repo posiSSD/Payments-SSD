@@ -64,7 +64,7 @@ if(isset($_GET['auth_data'])){
 }else{
 	$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
 	$user_id = '3333200';
-	echo "Mllaguno";
+	echo "Mllaguno : ".$user_id;
 }
 
 if($auth_data){
