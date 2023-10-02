@@ -1,7 +1,11 @@
 <?php
-include '/var/www/payments.apuestatotal.app/prometeo/env.php';
-include '/var/www/payments.apuestatotal.app/prometeo/db.php';
-include '/var/www/payments.apuestatotal.app/prometeo/sys/helpers.php';
+include '../env.php';
+include '../db.php';
+include 'helpers.php';
+
+//include '/var/www/payments.apuestatotal.app/prometeo/env.php';
+//include '/var/www/payments.apuestatotal.app/prometeo/db.php';
+//include '/var/www/payments.apuestatotal.app/prometeo/sys/helpers.php';
 
 $ret["status"] = 500;
 $ret["return"] = "Error";
