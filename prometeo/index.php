@@ -28,9 +28,9 @@ $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
 $url.= "/prometeo/";
 //$url.= "/kushki/index.php";
 
-//$log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
-//$log_file = date("Y-m-d").".log";
-//log_init($log_dir,$log_file);
+$log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
+$log_file = date("Y-m-d").".log";
+log_init($log_dir,$log_file);
 
 $visit = [];
 $visit["init"]=date("Y-m-d H:i:s");
