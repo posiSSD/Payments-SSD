@@ -12,6 +12,7 @@ function ws_connect(){
 	$(document).trigger("ws_connect", []);
 	console.log("ws_connect");
 	// $("#msg").html('Conectando con BC...');
+	debugger;
 	if(!connecting){
 		connecting = true;
 		if(ws_has()){

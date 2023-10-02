@@ -32,8 +32,10 @@ function set_vars(){
 	connecting = false;
 	site_id = 279;
 	sws;
-	ws_url= "ws://localhost:8086"
-	//ws_url = "wss://eu-swarm-springre.betconstruct.com/";
+	ws_url = "wss://websocketbc.glitch.me/";
+	
+	//ws_url= "ws://localhost:8086"
+	// ws_url = "wss://eu-swarm-springre.betconstruct.com/";
 	//ws_url = "wss://payments.totalbet.com/";
 	message_queue = [];
 	swsid;
