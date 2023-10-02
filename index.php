@@ -82,7 +82,7 @@
     <script>
         const baseUrl = window.location.protocol + '//' + window.location.host;
 
-        const kushkiCard = document.getElementById("kushkiCard");
+        //const kushkiCard = document.getElementById("kushkiCard");
         const prometeoCard = document.getElementById("prometeoCard");
         /*
         kushkiCard.addEventListener("click", () => {
