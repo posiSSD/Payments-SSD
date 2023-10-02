@@ -1,11 +1,11 @@
 <?php 
-//require '/var/www/payments.apuestatotal.app/prometeo/env.php';
-require '/var/www/html/Payments-SSD/prometeo/env.php'; //amazon instace
-//require '/var/www/payments.apuestatotal.app/prometeo/db.php';
-require '/var/www/html/Payments-SSD/prometeo/db.php'; //amazon instace
+require '/var/www/payments.apuestatotal.app/prometeo/env.php';
+//require '/var/www/html/Payments-SSD/prometeo/env.php'; //amazon instace
+require '/var/www/payments.apuestatotal.app/prometeo/db.php';
+//require '/var/www/html/Payments-SSD/prometeo/db.php'; //amazon instace
 //include '/var/www/gestion/sys/helpers.php';
-//include '/var/www/payments.apuestatotal.app/sys/helpers.php';
-include '/var/www/html/Payments-SSD/sys/helpers.php'; //amazon instace
+include '/var/www/payments.apuestatotal.app/sys/helpers.php';
+//include '/var/www/html/Payments-SSD/sys/helpers.php'; //amazon instace
 
 
 $test_users = [];
@@ -24,8 +24,8 @@ $url = 'http';
 $url.= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'');
 $url.= '://';
 $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
-$url.= "/Payments-SSD/prometeo/";
-//$url.= "/prometeo/";
+//$url.= "/Payments-SSD/prometeo/";
+$url.= "/prometeo/";
 //$url.= "/kushki/index.php";
 
 echo "la dir es: ".$url;
@@ -65,7 +65,7 @@ if(isset($_GET['auth_data'])){
 	$visit["auth_data"]=$auth_data;
 }
 
-echo $auth_token." ".$user_id;
+echo "         auth_data = ".$auth_token." ".$user_id;
 if($auth_data){
 	if(in_array($user_id, $test_users)){
 		?>
