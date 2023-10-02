@@ -1,8 +1,11 @@
 <?php 
-require '/var/www/payments.apuestatotal.app/prometeo/env.php';
-require '/var/www/payments.apuestatotal.app/prometeo/db.php';
+//require '/var/www/payments.apuestatotal.app/prometeo/env.php';
+require '/var/www/html/Payments-SSD/prometeo/env.php'; //amazon instace
+//require '/var/www/payments.apuestatotal.app/prometeo/db.php';
+require '/var/www/html/Payments-SSD/prometeo/db.php'; //amazon instace
 //include '/var/www/gestion/sys/helpers.php';
-include '/var/www/payments.apuestatotal.app/sys/helpers.php';
+//include '/var/www/payments.apuestatotal.app/sys/helpers.php';
+include '/var/www/html/Payments-SSD/sys/helpers.php'; //amazon instace
 
 
 $test_users = [];
@@ -23,6 +26,8 @@ $url.= '://';
 $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
 $url.= "/prometeo/";
 //$url.= "/kushki/index.php";
+
+echo "la dir es: ".$url;
 
 $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
 $log_file = date("Y-m-d").".log";
