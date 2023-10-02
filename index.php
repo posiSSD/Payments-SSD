@@ -67,11 +67,12 @@
         <label>Método de Pago:</label>
 
         <!-- Tarjeta de Kushki -->
+        <!--
         <div class="cardview" id="kushkiCard" data-metodo="kushki">
             <h3>Kushki</h3>
             <p>Descripción de Kushki y detalles del método de pago.</p>
         </div>
-
+        -->
         <!-- Tarjeta de Prometeo -->
         <div class="cardview" id="prometeoCard" data-metodo="prometeo">
             <h3>Prometeo</h3>
