@@ -2,24 +2,23 @@
 
 function paymente_kushki($request)
     {
-        //CALL FUNCTION KUSHKI PAYMENT
-       
-        $myRequest = new \Illuminate\Http\Request();
-        $myRequest->setMethod('POST');
-        $myRequest->request->add([
-            'account' => $request->account,
-            'amount'  => $request->amount,
-        ]);
-
-        $response = KushkiPayment::payment_deposit($myRequest);
         
-        Log::info('WEB FUNCTION KUSHKI');
-        Log::info($response);
+        $myRequest = [];
+        $myRequest['setMethod'] = 'POST';
+        $myRequest['request'] = [
+            "account" => $request['account'],
+            "amount" => $request['amount']
+        ];
+               
+        $response = payment_deposit($myRequest);
+        
+        //Log::info('WEB FUNCTION KUSHKI');
+        //Log::info($response);
 
         if($response['http_code'] == 200)
         {
             
-            $transaction = Transaction::save_transaction($request,$response['result']['txn_id'],$type=3,$status=3);
+            $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=3);
 
             $data_activiy = [
                 'transaction_id' => $transaction->id,
@@ -27,7 +26,7 @@ function paymente_kushki($request)
                 'result'		 =>  $response['result'],
                 'status' 		 => '3'
             ];
-            $webTransaction = TransactionActivity::save_transaction_activity($data_activiy);
+            $webTransaction = save_transaction_activity($data_activiy);
 
 
             $response = [
@@ -42,7 +41,7 @@ function paymente_kushki($request)
         
         else if($response['http_code'] == 400)
         {
-            $transaction = Transaction::save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
+            $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
 
             $data_activiy = [
                 'transaction_id' => $transaction->id,
@@ -50,14 +49,14 @@ function paymente_kushki($request)
                 'result'		 =>  $response['result'],
                 'status' 		 => '4'
             ];
-            TransactionActivity::save_transaction_activity($data_activiy);
+            save_transaction_activity($data_activiy);
 
             return ['http_code' => 400, 'status' => 'Error', 'result' => 'recharge denied'];
         }
 
         else if($response['http_code'] == 408)
         {
-            $transaction = Transaction::save_transaction($request,$response['result'],$type=3,$status=5);
+            $transaction = save_transaction($request,$response['result'],$type=3,$status=5);
 
             $data_activiy = [
                 'transaction_id' => $transaction->id,
@@ -66,7 +65,7 @@ function paymente_kushki($request)
                 'status' 		 => '5'
             ];
 
-            TransactionActivity::save_transaction_activity($data_activiy);
+            save_transaction_activity($data_activiy);
 
             return ['http_code' => 408, 'status' => 'Error', 'result' => 'API timeout'];
         }

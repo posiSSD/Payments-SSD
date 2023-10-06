@@ -16,6 +16,8 @@ $test_users = [];
 	$test_users[]="119273784"; //merino peru
 	$test_users[]="120387760"; //tania
 	$test_users[]="3586027"; //helpdesk
+	$test_users[]="1674627753";//posi
+	//$test_users[]="1674627753";//joao
 
 // print_r($_SERVER); exit();
 $fv=time();
@@ -62,22 +64,30 @@ if(isset($_GET['auth_data'])){
 	$user_id = $auth_data["user_id"];
 	$visit["auth_data"]=$auth_data;
 }else{
-	$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
-	$user_id = '3333200';
-	echo "Mllaguno : ".$user_id;
+	$auth_token = '4185DA463F9818E547F591FEBA94799B';
+	
+				 //6EA6E7D400D5CD1B85AE9D596F0A791A
+				 
+	$user_id = '1674627753';
+	//$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
+	//$user_id = '3333200';
+	$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
+    $visit["auth_data"] = $auth_data;
 }
+//echo "datos : ".$auth_token." ".$user_id. " ".$url." ";
+//print_r($auth_data);
 
 if($auth_data){
+	//echo "hola mundo 1 ";
 	if(in_array($user_id, $test_users)){
+		//echo "hola mundo 2 ";
 		?>
 		<script type="text/javascript">
 			var this_url = "<?php echo $url;?>";
 			var user_id=<?php echo $user_id;?>;
 			var auth_token="<?php echo $auth_token;?>";
 		</script>
-		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>
-			
-		
+		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
 		
@@ -88,9 +98,9 @@ if($auth_data){
 	}
 }
 
-
 log_write($visit);
 if($auth_data){
+	//echo "hola mundo 3";
 	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 		$payment_limits['min']=number_format($payment_limits[0],0);
 		$payment_limits['max']=number_format($payment_limits[1],0);
@@ -117,7 +127,7 @@ if($auth_data){
 		<p class="text-muted text-start write-text">Escriba el valor aquí: *</p>
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon3">PEN</span>
+				<span class="input-group-text" id="basic-addon3">USD</span>
 			</div>
 
 			<input 

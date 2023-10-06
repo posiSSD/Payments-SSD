@@ -1,6 +1,7 @@
 html,body{
 	margin: 0;
 	padding: 0;
+	
 }
 .margin-title{
 	margin-left: 35px;
@@ -17,11 +18,13 @@ html,body{
 }
 
 form#kushki_payment_form{
+		
 	position: relative;
 	width: 350px;
 	left: 50%;
-	margin-left: -150px;
+	margin-left: -175px;
 	text-align: center;
+
 }
 form#kushki_payment_form span{
 	text-align: left;
@@ -62,7 +65,7 @@ form#kushki_payment_form button.ready{
 	position: relative;
 	width: 300px;
 	left: 50%;
-	margin-left: -150px;
+	margin-left: -1750px;
 	text-align: center;
 	display: none;
 }

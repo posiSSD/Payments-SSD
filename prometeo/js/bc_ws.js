@@ -12,7 +12,6 @@ function ws_connect(){
 	$(document).trigger("ws_connect", []);
 	console.log("ws_connect");
 	// $("#msg").html('Conectando con BC...');
-	debugger;
 	if(!connecting){
 		connecting = true;
 		if(ws_has()){
@@ -82,7 +81,6 @@ function ws_connect(){
 						}
 					}
 					else if(obj.rid === "sw_get_user_balance"){
-						debugger;
 						$(document).trigger("sw_get_user_balance", obj);
 						console.log("--------------> sw_get_user_balance");
 						// console.log(obj);
@@ -134,7 +132,7 @@ function sw_restore_login(){
 	// $("#msg").html('Validando credenciales...');
 	if(typeof user_id != 'undefined' && user_id && typeof auth_token != 'undefined' && auth_token){
 		var _msg = '{"command": "restore_login","rid":"restore_login","params": {"user_id": '+user_id+',"auth_token": "'+auth_token+'"}}';
-		console.log("sw_restore_login: "+_msg);
+		console.log("sw_restore_login: ");
 		sw_queue_msg(_msg);
 	}
 }
@@ -143,7 +141,7 @@ function sw_get_user_balance(){
 	// $("#msg").html('Obteniendo usuario...');
 	//console.log("sw_get_user_balance");
 	var _msg = '{"command":"get_user", "rid":"sw_get_user_balance"}';
-	console.log("sw_get_user_balance: "+_msg);
+	console.log("sw_get_user_balance: ");
 	sw_queue_msg(_msg);
 	return "sw_login_ok";
 }
@@ -154,7 +152,7 @@ function sw_open_session(){
 }
 function sw_send_msg(msg){
 	if(sws && sws.readyState == 1){
-		console.log("sw_send_msg: "+msg);
+		console.log("sw_send_msg");
 		sws.send(msg);
 	}
 }
@@ -165,5 +163,5 @@ function sw_queue_msg(msg){
 		message_queue.push(msg);
 		ws_connect();
 	}
-	console.log("sw_queue_msg: "+msg);
+	console.log("sw_queue_msg");
 }

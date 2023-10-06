@@ -1,11 +1,15 @@
 <?php
-include './prometeo/env.php';
-include './prometeo/db.php';
+include '../env.php';
+include '../db.php';
 
-$db = 'kushki_db';
-$table = 'transactions';
-$connection = 'kushki_db';
+
+
 function save_transaction($request, $txt_id, $type, $status){
+
+    $db = 'at_kushki';
+    $table = 'transactions';
+    $connection = 'kushki_db';
+
     /*
         0. Pendiente
         1. Enviado: (Enviado a BC)

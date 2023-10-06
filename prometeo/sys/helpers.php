@@ -27,7 +27,7 @@ function data_to_db($d){
 	}
 	return $tmp;
 }
-function bc_deposit($d=false){
+/*function bc_deposit($d=false){
 	$ret = false;
 	$rq = [];
 		$rq['url']='https://api.apuestatotal.com/v2/kushki/deposit';
@@ -52,7 +52,7 @@ function bc_deposit($d=false){
 		print_r($rq['rq']); exit();
 	}
 	return $ret;
-}
+}*/
 function kushki_get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
@@ -198,6 +198,7 @@ function kushki_create_payment_button($client=false){
     return $ret;
 }
 function kushki_curl($rq = false) {
+	
     $curl = curl_init();
     $curl_options = [
         CURLOPT_URL => $rq['url'],

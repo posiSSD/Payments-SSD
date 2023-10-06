@@ -30,12 +30,13 @@ function set_events(){
 function set_vars(){
 	console.log("set_vars");
 	connecting = false;
-	site_id = 279;
+	//site_id = 279;
+	site_id = 18751709;
 	sws;
-	ws_url = "wss://websocketbc.glitch.me/";
-	
+	//ws_url = "wss://websocketbc.glitch.me/";
+	ws_url = 'wss://eu-swarm-springre.trexname.com/';
 	//ws_url= "ws://localhost:8086"
-	// ws_url = "wss://eu-swarm-springre.betconstruct.com/";
+	//ws_url = "wss://eu-swarm-springre.betconstruct.com/";
 	//ws_url = "wss://payments.totalbet.com/";
 	message_queue = [];
 	swsid;

@@ -110,33 +110,28 @@
         prometeoCard.addEventListener("click", () => {
             const metodo = prometeoCard.getAttribute("data-metodo");
 
-            // Construye la URL para cargar en la ventana emergente
-            // const auth_token = "FAE2579BC8325A2F60B432173CEF4D77"; // Reemplaza con tu autenticación
-            // const user_id = "3333200"; // Reemplaza con tu ID de usuario
-            // const auth_data = JSON.stringify({ auth_token, user_id, metodo });
-            // const iframeSrc = `${baseUrl}/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
-            // const redirectUrl = "/prometeo/";
-
-            //const baseUrl = ""; // Reemplaza con la URL base adecuada
-            const auth_token = "FAE2579BC8325A2F60B432173CEF4D77"; // Reemplaza con tu autenticación
-            const user_id = "3333200"; // Reemplaza con tu ID de usuario
-            const auth_data = JSON.stringify({ auth_token, user_id});
+            //const auth_token = "FAE2579BC8325A2F60B432173CEF4D77"; // Reemplaza con tu autenticación
+            //const user_id = "3333200"; // Reemplaza con tu ID de usuario
+            //const auth_data = JSON.stringify({ auth_token, user_id});
+            //const redirectUrl = `/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
             
-            const redirectUrl = `/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
-            //const redirectUrl = `/Payments-SSD/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
+            
+            // Construye un objeto con los datos
+            //const auth_data = { "auth_token": auth_token, "user_id": user_id };
+            // Convierte el objeto en una cadena JSON válida
+            //const auth_data_json = JSON.stringify(auth_data);
+            // Codifica la cadena JSON para que sea segura en una URL
+            //const encoded_auth_data = encodeURIComponent(auth_data_json);
+            // Construye la URL con los datos en la cadena de consulta
+            //const redirectUrl = `/prometeo/index.php?auth_data=${encoded_auth_data}`
+            const redirectUrl = "/prometeo/";
+
+
+
+
             window.location.href = redirectUrl;
-
-            //// Abre la ventana emergente con el iframe
-            //const popupWindow = window.open(iframeSrc, "_blank", "width=800,height=600");
-            //window.location.href = redirectUrl;
             
-            // Agrega una función para cerrar la ventana emergente cuando sea necesario
-            //const checkPopupClosed = setInterval(() => {
-            //    if (popupWindow.closed) {
-            //        clearInterval(checkPopupClosed);
-                    // Realiza acciones adicionales después de que se cierre la ventana emergente
-            //    }
-            //}, 1000);
+            
         });
     </script>
 
