@@ -64,7 +64,7 @@ if(isset($_GET['auth_data'])){
 	$user_id = $auth_data["user_id"];
 	$visit["auth_data"]=$auth_data;
 }else{
-	$auth_token = '4185DA463F9818E547F591FEBA94799B';
+	$auth_token = '96FDA2083740BD2E5EA763C99943ED02';
 	
 				 //6EA6E7D400D5CD1B85AE9D596F0A791A
 				 
