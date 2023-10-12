@@ -17,7 +17,7 @@ $test_users = [];
 	$test_users[]="120387760"; //tania
 	$test_users[]="3586027"; //helpdesk
 	$test_users[]="1674627753";//posi
-	//$test_users[]="1674627753";//joao
+	$test_users[]="1674627753";//joao
 
 // print_r($_SERVER); exit();
 $fv=time();
@@ -55,6 +55,7 @@ $mysqli->close();
 //$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
 //$user_id = '3333200';
 $auth_data = null;
+echo "entrando al if";
 if(isset($_GET['auth_data'])){
 	// [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
 	// [user_id] => 3333200
@@ -63,39 +64,30 @@ if(isset($_GET['auth_data'])){
 	$auth_token = $auth_data["auth_token"]; /////TOKEN
 	$user_id = $auth_data["user_id"];
 	$visit["auth_data"]=$auth_data;
+	//echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
 }else{
-	$auth_token = '96FDA2083740BD2E5EA763C99943ED02';
-	
-				 //6EA6E7D400D5CD1B85AE9D596F0A791A
-				 
-	$user_id = '1674627753';
+	//$auth_token = '9930B8601035C35604B1E9DE5BA572E3';
+    //$user_id = '1674627753';
 	//$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
 	//$user_id = '3333200';
-	$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
-    $visit["auth_data"] = $auth_data;
+	//$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
+    $visit["auth_data"] = "vacio";
+	//echo "datos ELSE : ".$auth_token." ".$user_id. " ".$url." ";
 }
 //echo "datos : ".$auth_token." ".$user_id. " ".$url." ";
 //print_r($auth_data);
 
 if($auth_data){
-	//echo "hola mundo 1 ";
-	if(in_array($user_id, $test_users)){
-		//echo "hola mundo 2 ";
 		?>
 		<script type="text/javascript">
 			var this_url = "<?php echo $url;?>";
-			var user_id=<?php echo $user_id;?>;
+			var user_id= <?php echo $user_id;?>;
 			var auth_token="<?php echo $auth_token;?>";
 		</script>
 		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
-		
-		
-		<?php
-	}else{
-		$auth_data=false;
-	}
+	<?php
 }
 
 log_write($visit);

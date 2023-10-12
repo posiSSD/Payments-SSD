@@ -20,9 +20,16 @@
 //exit; // Asegurarse de detener la ejecución del script después de la redirección
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+
+
+<?php
+if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
+?>
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago</title>
@@ -54,25 +61,14 @@
             border-color: #007bff;
         }
     </style>
-</head>
+    </head>
 
-<body>
-<div class="container">
+    <body>
+    <div class="container">
         <h1 class="text-center">Payments.TB.app</h1>
-
-        <!-- Elimina los campos ocultos de autenticación -->
-        <!-- <input type="hidden" id="auth_token" name="auth_token" value="FAE2579BC8325A2F60B432173CEF4D77">
-        <input type="hidden" id="user_id" name="user_id" value="3333200"> -->
 
         <label>Método de Pago:</label>
 
-        <!-- Tarjeta de Kushki -->
-        <!--
-        <div class="cardview" id="kushkiCard" data-metodo="kushki">
-            <h3>Kushki</h3>
-            <p>Descripción de Kushki y detalles del método de pago.</p>
-        </div>
-        -->
         <!-- Tarjeta de Prometeo -->
         <div class="cardview" id="prometeoCard" data-metodo="prometeo">
             <h3>Prometeo</h3>
@@ -83,51 +79,13 @@
     <script>
         const baseUrl = window.location.protocol + '//' + window.location.host;
 
-        //const kushkiCard = document.getElementById("kushkiCard");
+        
         const prometeoCard = document.getElementById("prometeoCard");
-        /*
-        kushkiCard.addEventListener("click", () => {
-            const metodo = kushkiCard.getAttribute("data-metodo");
-            
-            // Construye la URL para cargar en la ventana emergente
-            const auth_token = "FAE2579BC8325A2F60B432173CEF4D77"; // Reemplaza con tu autenticación
-            const user_id = "3333200"; // Reemplaza con tu ID de usuario
-            const auth_data = JSON.stringify({ auth_token, user_id, metodo });
-            const iframeSrc = `${baseUrl}/kushki/index.php?auth_data=${encodeURIComponent(auth_data)}`;
-            const redirectUrl = "/prometeo/";
-            // Abre la ventana emergente con el iframe
-            const popupWindow = window.open(iframeSrc, "_blank", "width=800,height=600");
-            
-            // Agrega una función para cerrar la ventana emergente cuando sea necesario
-            const checkPopupClosed = setInterval(() => {
-                if (popupWindow.closed) {
-                    clearInterval(checkPopupClosed);
-                    // Realiza acciones adicionales después de que se cierre la ventana emergente
-                }
-            }, 1000);
-        });
-        */
+        
         prometeoCard.addEventListener("click", () => {
             const metodo = prometeoCard.getAttribute("data-metodo");
 
-            //const auth_token = "FAE2579BC8325A2F60B432173CEF4D77"; // Reemplaza con tu autenticación
-            //const user_id = "3333200"; // Reemplaza con tu ID de usuario
-            //const auth_data = JSON.stringify({ auth_token, user_id});
-            //const redirectUrl = `/prometeo/index.php?auth_data=${encodeURIComponent(auth_data)}`;
-            
-            
-            // Construye un objeto con los datos
-            //const auth_data = { "auth_token": auth_token, "user_id": user_id };
-            // Convierte el objeto en una cadena JSON válida
-            //const auth_data_json = JSON.stringify(auth_data);
-            // Codifica la cadena JSON para que sea segura en una URL
-            //const encoded_auth_data = encodeURIComponent(auth_data_json);
-            // Construye la URL con los datos en la cadena de consulta
-            //const redirectUrl = `/prometeo/index.php?auth_data=${encoded_auth_data}`
             const redirectUrl = "/prometeo/";
-
-
-
 
             window.location.href = redirectUrl;
             
@@ -155,22 +113,36 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: 10% auto;
-        padding: 20px;
+        background-colecho "¡Hola mundo!";: 20px;
         border: 1px solid #888;
         width: 80%;
     }
     </style>
 
-</body>
+    </body>
     
+    </html>
+<?php
+
+} else {
+    // El usuario no viene de totalbet.ec, muestra un mensaje de despedida
+    echo "Gracias por visitarnos. ¡Hasta luego!";
+}
+?>
 
 
 
-</html>
 
+
+
+<?php
+/*
+if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
+    // El usuario viene de totalbet.ec, muestra un saludo
+    echo "¡Hola mundo!";
+} else {
+    // El usuario no viene de totalbet.ec, muestra un mensaje de despedida
+    echo "Gracias por visitarnos. ¡Hasta luego!";
+}
+*/
+?>
