@@ -55,7 +55,6 @@ $mysqli->close();
 //$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
 //$user_id = '3333200';
 $auth_data = null;
-echo "entrando al if";
 if(isset($_GET['auth_data'])){
 	// [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
 	// [user_id] => 3333200
@@ -64,7 +63,7 @@ if(isset($_GET['auth_data'])){
 	$auth_token = $auth_data["auth_token"]; /////TOKEN
 	$user_id = $auth_data["user_id"];
 	$visit["auth_data"]=$auth_data;
-	//echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
+	echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
 }else{
 	//$auth_token = '9930B8601035C35604B1E9DE5BA572E3';
     //$user_id = '1674627753';
@@ -72,7 +71,7 @@ if(isset($_GET['auth_data'])){
 	//$user_id = '3333200';
 	//$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
     $visit["auth_data"] = "vacio";
-	//echo "datos ELSE : ".$auth_token." ".$user_id. " ".$url." ";
+	echo "datos ELSE ";
 }
 //echo "datos : ".$auth_token." ".$user_id. " ".$url." ";
 //print_r($auth_data);
