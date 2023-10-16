@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (json_last_error() === JSON_ERROR_NONE) {
         if(isset($data)) {
 
+            /*
             $verifyToken = isset($data['verify_token']) ? $data['verify_token'] : null;
             $events = $data['events'][0];
             $event_type = isset($events['event_type']) ? $events['event_type'] : null;
@@ -65,11 +66,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data_array['intent_id'] = $intent_id;
             $data_array['external_id'] = $externalid;
             $data_array['id_usuario'] = $id_usuario;
+            */
+
+            $data_array = [];
+            $data_array['verify_token'] = isset($data['verify_token']) ? $data['verify_token'] : null;
+
+            $events = $data['events'][0];
+            $data_array['event_type'] = isset($events['event_type']) ? $events['event_type'] : null;
+            $data_array['event_id'] = isset($events['event_id']) ? $events['event_id'] : null;
+            $data_array['timestamp'] = isset($events['timestamp']) ? $events['timestamp'] : null; 
+
+            $payload = isset($events['payload']) ? $events['payload'] : null;
+            $data_array['amount'] = isset($payload['amount']) ? $payload['amount'] : null;
+            $data_array['concept'] = isset($payload['concept']) ? $payload['concept'] : null;
+            $data_array['currency'] = isset($payload['currency']) ? $payload['currency'] : null;
+            $data_array['origin_account'] = isset($payload['origin_account']) ? $payload['origin_account'] : null;
+            $data_array['destination_account'] = isset($payload['destination_account']) ? $payload['destination_account'] : null;
+            $data_array['destination_institution'] = isset($payload['destination_institution']) ? $payload['destination_institution'] : null;
+            $data_array['branch'] = isset($payload['branch']) ? $payload['branch'] : null;
+            $data_array['destination_owner_name'] = isset($payload['destination_owner_name']) ? $payload['destination_owner_name'] : null; 
+            $data_array['destination_account_type'] = isset($payload['destination_account_type']) ? $payload['destination_account_type'] : null;
+            $data_array['document_type'] = isset($payload['document_type']) ? $payload['document_type'] : null;
+            $data_array['document_number'] = isset($payload['document_number']) ? $payload['document_number'] : null;
+            $data_array['destination_bank_code'] = isset($payload['destination_bank_code']) ? $payload['destination_bank_code'] : null;
+            $data_array['mobile_os'] = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
+            $data_array['request_id'] = isset($payload['request_id']) ? $payload['request_id'] : null;
+            $data_array['intent_id'] = isset($payload['intent_id']) ? $payload['intent_id'] : null;
+            $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : consultaintent($intent_id);
+            $data_array['id_usuario'] = consultid($externalid, $mysqli) ?? "xx";
+
 
             insert_bd($mysqli, $data_array);
 
-            /*
+            
+
+            
             ///////////////////NUEVO CODIGO //////////////////////////////
+            $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
             // definir parametros de log
             $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
             $log_file = date("Y-m-d").".log";
@@ -87,141 +120,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // declarar actividad y retorno
             $a=[];
             $ret=[];
+
             // declarar respuestas en caso de error
             $http_code = 500;
             $status = 'Error';
             $response = [];  
             
+            //verificacion de datos...
+            verificacion_datos($data_array);              
+                                    
             
-            //Inicio validaciones de campo que existen:
-            if(!array_key_exists('verify_token', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing verify_token';
-                api_ret($ret);
-            }
-            if(!array_key_exists('event_type', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing event_type';
-                api_ret($ret);
-            }
-            if(!array_key_exists('timestamp', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing timestamp';
-                api_ret($ret);
-            }
-            if(!array_key_exists('payload', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing payload';
-                api_ret($ret);
-            }
-            if(!array_key_exists('amount', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing amount';
-                api_ret($ret);
-            }
-            if(!array_key_exists('concept', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing concept';
-                api_ret($ret);
-            }
-            if(!array_key_exists('currency', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing currency';
-                api_ret($ret);
-            }
-            if(!array_key_exists('origin_account', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing origin_account';
-                api_ret($ret);
-            }
-            if(!array_key_exists('destination_account', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing destination_account';
-                api_ret($ret);
-            }
-            if(!array_key_exists('destination_institution', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing destination_institution';
-                api_ret($ret);
-            }
-            if(!array_key_exists('branch', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing branch';
-                api_ret($ret);
-            }
-            if(!array_key_exists('destination_owner_name', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing destination_owner_name';
-                api_ret($ret);
-            }
-            if(!array_key_exists('destination_account_type', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing destination_account_type';
-                api_ret($ret);
-            }
-            if(!array_key_exists('document_type', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing document_type';
-                api_ret($ret);
-            }
-            if(!array_key_exists('document_number', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing document_number';
-                api_ret($ret);
-            }
-            if(!array_key_exists('destination_bank_code', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing destination_bank_code';
-                api_ret($ret);
-            }
-            if(!array_key_exists('mobile_os', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing mobile_os';
-                api_ret($ret);
-            }
-            if(!array_key_exists('request_id', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing request_id';
-                api_ret($ret);
-            }
-            if(!array_key_exists('intent_id', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing intent_id';
-                api_ret($ret);
-            }
-            if(!array_key_exists('external_id', $data_array)){
-                $ret['http_code']=400;
-                $ret['status']='Error';
-                $ret['response']='Missing external_id';
-                api_ret($ret);
-            }
-            //fin validaciones de campo que existen:
-            
-
-            
-            $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 
             // obtener el unique_id de la transaccion
-	        //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+	        $trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
 
 
 
@@ -231,14 +142,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     // declarar el update
                     $new_trans=[];
-                        $new_trans['unique_id']=$data_array['external_id'];
-                        $new_trans['status']=9; // 3=pending deposit
-                        $new_trans['payment_id']=$data_array['event_id'];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=9; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
+
                     // ejecutar el update
                     kushki_create_or_update_transaction($new_trans);
-                    $trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+                    //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
                     //poner un if status 9
 
+
+                    //desde de aqui
+                    /*
                     $d=[];
                     $d['account']=$trans['client_id'];
                     $d['amount']=$trans['amount'];
@@ -250,62 +165,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             // declarar el update
                             $new_trans=[];
                                 $new_trans['unique_id']=$trans['unique_id'];
-                                $new_trans['status']=1; // 3=paid
+                                $new_trans['status']=7; // 3=paid
                                 $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
                             // ejecutar el update
                             kushki_create_or_update_transaction($new_trans);
                             // todo bien, transaccion pagada
                             $ret['http_code']=200;
                             $ret['status']='Ok';
-                            $ret['response']='Order '.$json_data['smartLink'].' paid';
+                            $ret['response']='Order '.$trans['unique_id'].' paid';
+                            api_ret($ret);
+                        }else{
+                            // declarar el update
+                            $new_trans=[];
+                            $new_trans['unique_id']=$trans['unique_id'];
+                            $new_trans['status']=11; // 5=failed deposit
+                            // ejecutar el update
+                            kushki_create_or_update_transaction($new_trans);
+                            
+                            $ret['http_code']=500;
+                            $ret['status']='Error';
+                            $ret['response']='Something went wrong, check logs';
                             api_ret($ret);
                         }
                     }
-                    // declarar el update
-                    $new_trans=[];
-                    $new_trans['unique_id']=$trans['unique_id'];
-                    $new_trans['status']=5; // 5=failed deposit
-                    // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
-                    
-                    $ret['http_code']=500;
-                    $ret['status']='Error';
-                    $ret['response']='Something went wrong, check logs';
-                    api_ret($ret);
+                    */
+                    //desde de aqui          
                 break;
 
                 case 'payment.error':
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=9; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
 
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
                 break;
 
                 case 'payment.rejected':
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=10; // 4=declined by payment
+                    $new_trans['payment_id']=$data_array['event_id'];
 
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
                 break;
 
                 case 'payment.cancelled':
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=10; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
 
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
                 break;
             }
-            
+
             /////////////////// FIN CODIGO //////////////////////////////
-            */
+            
             http_response_code(200);
-            echo json_encode(["message" => "Registro exitoso"]);
+            //echo json_encode(["message" => "Registro exitoso"]);
         } else {
             // No se recibieron datos válidos en la solicitud
             http_response_code(400); // Código 400 para solicitud incorrecta
-            echo json_encode(["message" => "No se recibieron datos válidos en la solicitud"]);
+            //echo json_encode(["message" => "No se recibieron datos válidos en la solicitud"]);
         }
     } else {
         // La solicitud no contenía JSON válido
         http_response_code(400); // Código 400 para solicitud incorrecta
-        echo json_encode(["message" => "El cuerpo de la solicitud no es JSON válido"]);
+        //echo json_encode(["message" => "El cuerpo de la solicitud no es JSON válido"]);
     }
 
 } else {
     // La solicitud no contenía JSON válido
     http_response_code(400); // Código 400 para solicitud incorrecta
-    echo json_encode(["message" => "El cuerpo REQUEST_METHOD no es POST"]);
+    //echo json_encode(["message" => "El cuerpo REQUEST_METHOD no es POST"]);
 }
 /*
 else{
@@ -456,6 +395,41 @@ function consultaintent($intent_id) {
   
 }
 
+function verificacion_datos($data_array){
 
+    $required_keys = [
+        'verify_token',
+        'event_type',
+        'timestamp',
+        'payload',
+        'amount',
+        'concept',
+        'currency',
+        'origin_account',
+        'destination_account',
+        'destination_institution',
+        'branch',
+        'destination_owner_name',
+        'destination_account_type',
+        'document_type',
+        'document_number',
+        'destination_bank_code',
+        'mobile_os',
+        'request_id',
+        'intent_id',
+        'external_id'
+    ];
+    
+    foreach ($required_keys as $key) {
+        if (!array_key_exists($key, $data_array)) {
+            $ret['http_code'] = 400;
+            $ret['status'] = 'Error';
+            $ret['response'] = "Missing $key";
+            api_ret($ret);
+            // Puedes decidir si quieres salir del bucle después del primer error o continuar verificando todas las claves.
+        }
+    }
+    
+}
 
 ?>

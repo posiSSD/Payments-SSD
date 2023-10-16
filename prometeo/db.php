@@ -1,14 +1,43 @@
 <?php
-$con_host=env('DB_HOST');
-$con_db_name=env('DB_DATABASE');
-$con_user=env('DB_USERNAME');
-$con_pass=env('DB_PASSWORD');
-$mysqli = new mysqli($con_host,$con_user,$con_pass,$con_db_name,3306);
-
-if (mysqli_connect_errno()) {
-	printf("Conexion fallida: %s\n", mysqli_connect_error());
-	exit();
+function conectarBaseDeDatos($config) {
+    $mysqli = new mysqli($config['host'], $config['user'], $config['password'], $config['database'], $config['port']);
+    if ($mysqli->connect_errno) {
+        die("Error en la conexión a la base de datos " . $config['database'] . ": " . $mysqli->connect_error);
+    }
+    $mysqli->query("SET CHARACTER SET utf8");
+    return $mysqli;
 }
-$mysqli->query("SET CHARACTER SET utf8");
+
+// Configuración de la base de datos principal
+$databaseConfig = [
+    'host' => env('DB_HOST'),
+    'user' => env('DB_USERNAME'),
+    'password' => env('DB_PASSWORD'),
+    'database' => env('DB_DATABASE'),
+    'port' => env('DB_PORT'),
+];
+$mysqli = conectarBaseDeDatos($databaseConfig);
+
+// Configuración de la base de datos de Kushki
+$kushkiConfig = [
+    'host' => env('DB_HOST'),
+    'user' => env('DB_USERNAME_KUSHKI'),
+    'password' => env('DB_PASSWORD_KUSHKI'),
+    'database' => env('DB_DATABASE_KUSHKI'),
+    'port' => env('DB_PORT'),
+];
+$mysqli_kushki = conectarBaseDeDatos($kushkiConfig);
+
+// Configuración de la base de datos de Kushki Payment
+$kushkiPaymentConfig = [
+    'host' => env('DB_HOST'),
+    'user' => env('DB_USERNAME_KUSHKIPAYMENT'),
+    'password' => env('DB_PASSWORD_KUSHKIPAYMENT'),
+    'database' => env('DB_DATABASE_KUSHKIPAYMENT'),
+    'port' => env('DB_PORT'),
+];
+$mysqli_kushkipayment = conectarBaseDeDatos($kushkiPaymentConfig);
+
 $date = date("Y-m-d H:i:s");
+
 ?>

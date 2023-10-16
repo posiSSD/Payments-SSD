@@ -65,12 +65,11 @@ if(isset($_GET['auth_data'])){
 	$visit["auth_data"]=$auth_data;
 	//echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
 }else{
-	//$auth_token = '9930B8601035C35604B1E9DE5BA572E3';
-    //$user_id = '1674627753';
-	//$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
-	//$user_id = '3333200';
-	//$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
-    $visit["auth_data"] = "vacio";
+	$auth_token = '08DDBA5D8A3AD95EF8FEE31A9D59D91C';
+    $user_id = '1674627753';
+	
+	$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
+    $visit["auth_data"]=$auth_data;
 	//echo "datos ELSE ";
 }
 //echo "datos : ".$auth_token." ".$user_id. " ".$url." ";
@@ -109,16 +108,18 @@ if($auth_data){
 </head>
 <body>
 	<div id="msg" style="font-style: italic;"></div>
-
+	<!--
 	<p class="text-start margin-title">
-		<span>Mínimo S/<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?></span>
+		<span>Mínimo S/
+			//<?php echo $payment_limits['min'];?> | Máximo S/<?php echo $payment_limits['max'];?>
+		</span>
 	</p>
-
-	<form action="#" id="kushki_payment_form">
-		<p class="text-muted text-start write-text">Escriba el valor aquí: *</p>
-		<div class="input-group mb-3">
+	-->
+	<form action="#" id="kushki_payment_form" style="display: width: 800px; height: 600px;">
+		<p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
+		<div class="input-group mb-3" id="inputtext">
 			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon3">USD</span>
+				<span class="input-group-text" id="basic-addon3">PEN</span>
 			</div>
 
 			<input 
@@ -137,11 +138,15 @@ if($auth_data){
 		<div>
 			<button type="button" class="btn btn-secondary" style="font-size: 14px; width: 150px;">
 				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-  				<span class="sr-only">Cargando Prometeo</span>
+  				<span class="sr-only">Cargando</span>
 			</button>
 		</div>
 
 	</form>
+	<div id="prometeoembeded">
+		<iframe id="prometeoframe" frameborder="0" allowfullscreen></iframe>
+		<button id="cerrarIframe" style="position: absolute; top: 0px; right: 10px; background-color: transparent; border: none; cursor: pointer; font-size: 20px;">X</button>   
+    </div>
 	<div id="kushki_payment_holder">
 		<div id="kushki_details"></div>
 		<br>

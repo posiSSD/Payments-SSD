@@ -56,7 +56,6 @@ function build_form(rs){
 		btn.addClass('ready');
 		btn.click(function(event) {
 			console.log("btn.click");
-			console.log("Valor del input 1: " + input.val()); // me sale el valor que pongo en el imput
 			if($.isNumeric(input.val())){
 				if(Number(input.val()) > Number(input.data('max'))){
 					input.addClass('is-invalid');
@@ -79,7 +78,7 @@ function build_form(rs){
 					form.hide();
 
 					prueba.kushki_value = Number(input.val());
-					console.log("valor de usr_active es: "+usr_active+" y el value es: "+ prueba.kushki_value);
+					//console.log("valor de usr_active es: "+usr_active+" y el value es: "+ prueba.kushki_value);
 
 					kushki_create_payment_button();
 				}
@@ -96,13 +95,19 @@ function kushki_create_payment_button(){
 	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
 	$("#kushki_details").html('Recarga: S/'+prueba.kushki_value);
 	usr_active.this_url = this_url;
-	console.log(this_url);
+	//console.log(this_url);
 	usr_active.kushki_value = prueba.kushki_value;
-	console.log(usr_active);
-	// build_form();
-	// $("#msg").html('Esperando Kushki...');
-	//console.log("verificacion de datos: usr_active");
 	//console.log(usr_active);
+	//////////////////////////////////////////
+	let form = $('#kushki_payment_form');
+	let btn = form.find('button');
+	//let input = form.find('input');
+	let inputtext = $("#inputtext");
+	let prodiv = $("#prometeoembeded");
+	let proframe = $("#prometeoframe");
+	let btncerrar = $("#cerrarIframe");
+	let texto = $("#texto");
+	//////////////////////////////////////////
 
 	$.post(this_url+'sys/', 
 	{
@@ -114,35 +119,28 @@ function kushki_create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
-			//console.log(usr_active);
-			// $("#msg").html("");
 			
 			if(rs.status==201){
-				$("#kushki_btn").addClass('ready');
-				$("#kushki_btn").html('Ir a Prometeo!');
-				//$("#kushki_btn").attr('href', rs.url);
-
-				// nuevo codigo	
-				var newWindow = window.open(rs.url, '_blank', 'width=800,height=600');
-				if (newWindow) {
-					// Aquí puedes realizar acciones adicionales si la ventana emergente se abrió correctamente
-					$("#kushki_btn").off();
-					$("#kushki_btn").removeClass('ready');
-					$("#kushki_btn").html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos</span>');
-					select_responde_to_bd(usr_active);
-				}
-				// fin nuevo codigo
 				
-				//$("#kushki_btn").click(function(event) {
-					/*
-					$("#kushki_btn").off();
-					$("#kushki_btn").removeClass('ready');
-					$("#kushki_btn").html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos</span>');
-					select_responde_to_bd(usr_active);
-					*/
-				//});
-				// build_form(rs);
-				// $("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
+
+				//find("iframe").attr("src", rs.url);
+				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
+				proframe.attr("src", rs.url);
+				proframe.show();
+				btncerrar.click(function(event) {
+					console.log("Close cerrarIframe ");
+					form.show();
+					inputtext.hide();
+					texto.hide();
+					//btn.html('Salir');
+					btn.addClass('ready');
+					btn.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos!!!</span>');
+					btn.off();
+					prodiv.hide();
+				});
+				
+				//select_responde_to_bd(usr_active);
+				
 			}else{
 				$('#kushki_payment_form').remove();
 				$('#kushki_payment_holder').html(rs.error);

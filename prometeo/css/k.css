@@ -92,3 +92,18 @@ form#kushki_payment_form button.ready{
 	background-color: #dc3545;
 	cursor: pointer;
 }
+
+#prometeoembeded{
+	position: relative;
+    width: 380px;
+    height: 650px;
+    margin: 0 auto; /* Esto centrará el contenido horizontalmente */
+    overflow: hidden;
+    text-align: center; /* Esto centrará el contenido dentro del div */
+	display: none;
+}
+
+#prometeoframe {
+    width: 100%; /* El iframe ocupará todo el ancho del div */
+    height: 100%; /* El iframe ocupará todo el alto del div */
+}

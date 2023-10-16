@@ -94,7 +94,10 @@ function kushki_create_or_update_transaction($trans=false){
 	$insert_arr = [];
 		$insert_arr['payment_method_id']=1; //1=kushki
 		$insert_arr['type_id']=1; //1=web_deposit
-		$insert_arr['unique_id']=(isset($trans['unique_id'])?$trans['unique_id']:$unique_id);
+		if(isset($trans['unique_id'])){
+			$insert_arr['unique_id']=$trans['unique_id'];
+		}
+		//$insert_arr['unique_id']=(isset($trans['unique_id'])?$trans['unique_id']:$unique_id);
 		if(isset($trans['client_id'])){
 			$insert_arr['client_id']=$trans['client_id'];
 		}
