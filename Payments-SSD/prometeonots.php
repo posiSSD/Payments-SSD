@@ -89,18 +89,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // obtener el unique_id de la transaccion
 	        //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
-            if($data_array['event_type']==="payment.success"){
-                // declarar el update
-                $new_trans=[];
-                $new_trans['unique_id']=$data_array['external_id'];
-                $new_trans['status']=9; // 3=pending deposit
-                $new_trans['payment_id']=$data_array['event_id'];
-
-                // ejecutar el update
-                kushki_create_or_update_transaction($new_trans);
-            }
-
+            
         
+            //switch para ver aprobacion
+            switch ($data_array['event_type']) {
+                case "payment.success":
+                    
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=9; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
+
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
+                    //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+                    //poner un if status 9
+
+
+                    //desde de aqui
+                    /*
+                    $d=[];
+                    $d['account']=$trans['client_id'];
+                    $d['amount']=$trans['amount'];
+                    $d['order_id']=$trans['order_id'];
+                    $bc_deposit = deposit_prometeo($d);
+
+                    if(array_key_exists('http_code', $bc_deposit)){
+                        if($bc_deposit['http_code']==200){
+                            // declarar el update
+                            $new_trans=[];
+                                $new_trans['unique_id']=$trans['unique_id'];
+                                $new_trans['status']=7; // 3=paid
+                                $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                            // ejecutar el update
+                            kushki_create_or_update_transaction($new_trans);
+                            // todo bien, transaccion pagada
+                            $ret['http_code']=200;
+                            $ret['status']='Ok';
+                            $ret['response']='Order '.$trans['unique_id'].' paid';
+                            api_ret($ret);
+                        }else{
+                            // declarar el update
+                            $new_trans=[];
+                            $new_trans['unique_id']=$trans['unique_id'];
+                            $new_trans['status']=11; // 5=failed deposit
+                            // ejecutar el update
+                            kushki_create_or_update_transaction($new_trans);
+                            
+                            $ret['http_code']=500;
+                            $ret['status']='Error';
+                            $ret['response']='Something went wrong, check logs';
+                            api_ret($ret);
+                        }
+                    }
+                    */
+                    //desde de aqui          
+                break;
+
+                case "payment.error":
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=9; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
+
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
+                break;
+
+                case "payment.rejected":
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=10; // 4=declined by payment
+                    $new_trans['payment_id']=$data_array['event_id'];
+
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
+                break;
+
+                case "payment.cancelled":
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array['external_id'];
+                    $new_trans['status']=10; // 3=pending deposit
+                    $new_trans['payment_id']=$data_array['event_id'];
+
+                    // ejecutar el update
+                    kushki_create_or_update_transaction($new_trans);
+                break;
+            }
             
             /////////////////// FIN CODIGO //////////////////////////////
             
