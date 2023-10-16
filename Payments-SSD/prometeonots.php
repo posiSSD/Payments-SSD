@@ -18,56 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (json_last_error() === JSON_ERROR_NONE) {
         if(isset($data)) {
 
-            /*
-            $verifyToken = isset($data['verify_token']) ? $data['verify_token'] : null;
-            $events = $data['events'][0];
-            $event_type = isset($events['event_type']) ? $events['event_type'] : null;
-            $event_id = isset($events['event_id']) ? $events['event_id'] : null;
-            $timestamp = isset($events['timestamp']) ? $events['timestamp'] : null;  
-            $payload = isset($events['payload']) ? $events['payload'] : null;
-            $amount = isset($payload['amount']) ? $payload['amount'] : null;
-            $concept = isset($payload['concept']) ? $payload['concept'] : null;
-            $currency = isset($payload['currency']) ? $payload['currency'] : null;
-            $origin_account = isset($payload['origin_account']) ? $payload['origin_account'] : null;
-            $destination_account = isset($payload['destination_account']) ? $payload['destination_account'] : null;
-            $destination_institution = isset($payload['destination_institution']) ? $payload['destination_institution'] : null;
-            $branch = isset($payload['branch']) ? $payload['branch'] : null;
-            $destination_owner_name = isset($payload['destination_owner_name']) ? $payload['destination_owner_name'] : null;
-            $destination_account_type = isset($payload['destination_account_type']) ? $payload['destination_account_type'] : null;
-            $document_type = isset($payload['document_type']) ? $payload['document_type'] : null;
-            $document_number = isset($payload['document_number']) ? $payload['document_number'] : null;
-            $destination_bank_code = isset($payload['destination_bank_code']) ? $payload['destination_bank_code'] : null;
-            $mobile_os = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
-            $request_id = isset($payload['request_id']) ? $payload['request_id'] : null;
-            $intent_id = isset($payload['intent_id']) ? $payload['intent_id'] : null;
-            $externalid = isset($payload['external_id']) ? $payload['external_id'] : consultaintent($intent_id);
-            $id_usuario = consultid($externalid, $mysqli) ?? "xx";
-                        
             
-            $data_array = [];
-            $data_array['verify_token'] = $verifyToken;
-            $data_array['event_type'] = $event_type;
-            $data_array['event_id'] = $event_id;
-            $data_array['timestamp'] = $timestamp; 
-            $data_array['amount'] = $amount;
-            $data_array['concept'] = $concept;
-            $data_array['currency'] = $currency;
-            $data_array['origin_account'] = $origin_account;
-            $data_array['destination_account'] = $destination_account;
-            $data_array['destination_institution'] = $destination_institution;
-            $data_array['branch'] = $branch;
-            $data_array['destination_owner_name'] = $destination_owner_name; 
-            $data_array['destination_account_type'] = $destination_account_type; 
-            $data_array['document_type'] = $document_type; 
-            $data_array['document_number'] = $document_number;
-            $data_array['destination_bank_code'] = $destination_bank_code;
-            $data_array['mobile_os'] = $mobile_os;
-            $data_array['request_id'] = $request_id;
-            $data_array['intent_id'] = $intent_id;
-            $data_array['external_id'] = $externalid;
-            $data_array['id_usuario'] = $id_usuario;
-            */
-
             $data_array = [];
             $data_array['verify_token'] = isset($data['verify_token']) ? $data['verify_token'] : null;
 
@@ -93,7 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data_array['request_id'] = isset($payload['request_id']) ? $payload['request_id'] : null;
             $data_array['intent_id'] = isset($payload['intent_id']) ? $payload['intent_id'] : null;
             $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : consultaintent($intent_id);
-            $data_array['id_usuario'] = consultid($externalid, $mysqli) ?? "xx";
+
+            // obtener el unique_id de la transaccion
+	        $trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+
+            //$data_array['id_usuario'] = $trans['client_id'];
+            $data_array['id_usuario'] = $trans['client_id'];
 
 
             insert_bd($mysqli, $data_array);
@@ -127,105 +83,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = [];  
             
             //verificacion de datos...
-            verificacion_datos($data_array);              
+            //verificacion_datos($data_array);              
                                     
             
 
             // obtener el unique_id de la transaccion
-	        $trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+	        //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
+            if($data_array['event_type']==="payment.success"){
+                // declarar el update
+                $new_trans=[];
+                $new_trans['unique_id']=$data_array['external_id'];
+                $new_trans['status']=9; // 3=pending deposit
+                $new_trans['payment_id']=$data_array['event_id'];
 
-
-
-            //switch para ver aprobacion
-            switch ($data_array['event_type']) {
-                case 'payment.success':
-                    
-                    // declarar el update
-                    $new_trans=[];
-                    $new_trans['unique_id']=$data_array['external_id'];
-                    $new_trans['status']=9; // 3=pending deposit
-                    $new_trans['payment_id']=$data_array['event_id'];
-
-                    // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
-                    //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
-                    //poner un if status 9
-
-
-                    //desde de aqui
-                    /*
-                    $d=[];
-                    $d['account']=$trans['client_id'];
-                    $d['amount']=$trans['amount'];
-                    $d['order_id']=$trans['order_id'];
-                    $bc_deposit = deposit_prometeo($d);
-
-                    if(array_key_exists('http_code', $bc_deposit)){
-                        if($bc_deposit['http_code']==200){
-                            // declarar el update
-                            $new_trans=[];
-                                $new_trans['unique_id']=$trans['unique_id'];
-                                $new_trans['status']=7; // 3=paid
-                                $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
-                            // ejecutar el update
-                            kushki_create_or_update_transaction($new_trans);
-                            // todo bien, transaccion pagada
-                            $ret['http_code']=200;
-                            $ret['status']='Ok';
-                            $ret['response']='Order '.$trans['unique_id'].' paid';
-                            api_ret($ret);
-                        }else{
-                            // declarar el update
-                            $new_trans=[];
-                            $new_trans['unique_id']=$trans['unique_id'];
-                            $new_trans['status']=11; // 5=failed deposit
-                            // ejecutar el update
-                            kushki_create_or_update_transaction($new_trans);
-                            
-                            $ret['http_code']=500;
-                            $ret['status']='Error';
-                            $ret['response']='Something went wrong, check logs';
-                            api_ret($ret);
-                        }
-                    }
-                    */
-                    //desde de aqui          
-                break;
-
-                case 'payment.error':
-                    // declarar el update
-                    $new_trans=[];
-                    $new_trans['unique_id']=$data_array['external_id'];
-                    $new_trans['status']=9; // 3=pending deposit
-                    $new_trans['payment_id']=$data_array['event_id'];
-
-                    // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
-                break;
-
-                case 'payment.rejected':
-                    // declarar el update
-                    $new_trans=[];
-                    $new_trans['unique_id']=$data_array['external_id'];
-                    $new_trans['status']=10; // 4=declined by payment
-                    $new_trans['payment_id']=$data_array['event_id'];
-
-                    // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
-                break;
-
-                case 'payment.cancelled':
-                    // declarar el update
-                    $new_trans=[];
-                    $new_trans['unique_id']=$data_array['external_id'];
-                    $new_trans['status']=10; // 3=pending deposit
-                    $new_trans['payment_id']=$data_array['event_id'];
-
-                    // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
-                break;
+                // ejecutar el update
+                kushki_create_or_update_transaction($new_trans);
             }
 
+        
+            
             /////////////////// FIN CODIGO //////////////////////////////
             
             http_response_code(200);
