@@ -26,7 +26,7 @@ function ws_connect(){
 				sws.onmessage = function(msg){
 					// console.log("onmessage");
 					var obj = jQuery.parseJSON(msg.data);
-					console.log(obj);
+					//console.log(obj);
 					// console.log(swsid);
 					if(obj.rid && obj.rid === "sw_open_session"){
 						$(document).trigger("sw_open_session", obj);
@@ -44,7 +44,7 @@ function ws_connect(){
 						$(document).trigger("restore_login", obj);
 						// $("#msg").append('<br>Validando credenciales...');
 						console.log("--------------> restore_login");
-						console.log(obj.code);
+						//console.log(obj.code);
 						if(obj.code == 12){
 							$(document).trigger("sw_login_error", obj);
 							// $("#msg").html('Sesión inválida!');
@@ -91,7 +91,7 @@ function ws_connect(){
 							// $(document).trigger("invalidSession", [data]);
 						}else{
 							console.log("LOGIN sw_get_user_balance OK");
-							console.log(obj);
+							//console.log(obj);
 							usr_active = {};
 							usr_active.auth_token = obj.data.auth_token;
 							usr_active.name = obj.data.name;
