@@ -22,7 +22,7 @@ function set_events(){
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
-		console.log(data);
+		//console.log(data);
 		build_form();
 	});
 	
