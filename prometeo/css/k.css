@@ -64,13 +64,11 @@ form#kushki_payment_form button.ready{
 #kushki_payment_holder{
 	position: relative;
 	width: 300px;
-	left: 50%;
-	margin-left: -150px;
 	text-align: center;
 	display: none;
 }
 #kushki_payment_holder #kushki_btn{
-	background-color: #6c757d;
+	background-color: #6b47af;
 	display: none;
 	/* 
 		font-family: "Open Sans";
@@ -84,7 +82,7 @@ form#kushki_payment_form button.ready{
 	text-decoration: none;
 	display: inline-block;
 	border: none;
-	width: 150px;
+	width: 200px;
 	height: 35px;
 	padding: 7px 10px;
 }

@@ -91,14 +91,16 @@ function build_form(rs){
 }
 function kushki_create_payment_button(){
 	console.log("kushki_create_payment_button");
-	$("#kushki_payment_holder").show();
-	//$("#kushki_details").html('Recarga: S/'+usr_active.kushki_value);
-	$("#kushki_details").html('Recarga: S/'+prueba.kushki_value);
+	
+	
+	
 	usr_active.this_url = this_url;
-	//console.log(this_url);
 	usr_active.kushki_value = prueba.kushki_value;
-	//console.log(usr_active);
+
 	//////////////////////////////////////////
+	let holder = $('#kushki_payment_holder');
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn')
 	let form = $('#kushki_payment_form');
 	let btn = form.find('button');
 	//let input = form.find('input');
@@ -108,6 +110,13 @@ function kushki_create_payment_button(){
 	let btncerrar = $("#cerrarIframe");
 	let texto = $("#texto");
 	//////////////////////////////////////////
+
+	//$("#kushki_payment_holder").show();
+	holder.show();
+	//$("#kushki_details").html('Recarga: $/'+prueba.kushki_value);
+	holderdetails.html('Recarga: $/'+prueba.kushki_value);
+
+	
 
 	$.post(this_url+'sys/', 
 	{
@@ -122,21 +131,24 @@ function kushki_create_payment_button(){
 			
 			if(rs.status==201){
 				
-
+				holder.hide();
 				//find("iframe").attr("src", rs.url);
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
 				proframe.show();
 				btncerrar.click(function(event) {
 					console.log("Close cerrarIframe ");
-					form.show();
-					inputtext.hide();
-					texto.hide();
+					//form.show();
+					//inputtext.hide();
+					//texto.hide();
 					//btn.html('Salir');
-					btn.addClass('ready');
-					btn.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos!!!</span>');
-					btn.off();
+					//btn.addClass('ready');
+					//btn.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos!!!</span>');
+					//btn.off();
 					prodiv.hide();
+					holderbutton.html('Salir');
+					holder.show();
+					
 				});
 				
 				//select_responde_to_bd(usr_active);
