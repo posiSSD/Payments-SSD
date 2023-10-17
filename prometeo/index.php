@@ -65,7 +65,7 @@ if(isset($_GET['auth_data'])){
 	$visit["auth_data"]=$auth_data;
 	//echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
 }else{
-	$auth_token = '08DDBA5D8A3AD95EF8FEE31A9D59D91C';
+	$auth_token = '59B2333C64214199BD4CFE0B4626325A';
     $user_id = '1674627753';
 	
 	$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
@@ -115,7 +115,7 @@ if($auth_data){
 		</span>
 	</p>
 	-->
-	<form action="#" id="kushki_payment_form" style="display: width: 800px; height: 600px;">
+	<form action="#" id="kushki_payment_form">
 		<p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
 		<div class="input-group mb-3" id="inputtext">
 			<div class="input-group-prepend">
@@ -166,3 +166,4 @@ if($auth_data){
 	<?php
 }
 ?>
+

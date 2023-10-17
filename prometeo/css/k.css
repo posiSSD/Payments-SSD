@@ -1,7 +1,9 @@
 html,body{
 	margin: 0;
 	padding: 0;
-	
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .margin-title{
 	margin-left: 35px;
@@ -18,13 +20,11 @@ html,body{
 }
 
 form#kushki_payment_form{
-		
+	padding-top: 200;
 	position: relative;
-	width: 350px;
-	left: 50%;
-	margin-left: -175px;
+	width: 380px;
+    height: 650px;
 	text-align: center;
-
 }
 form#kushki_payment_form span{
 	text-align: left;
@@ -65,7 +65,7 @@ form#kushki_payment_form button.ready{
 	position: relative;
 	width: 300px;
 	left: 50%;
-	margin-left: -1750px;
+	margin-left: -150px;
 	text-align: center;
 	display: none;
 }
@@ -97,10 +97,10 @@ form#kushki_payment_form button.ready{
 	position: relative;
     width: 380px;
     height: 650px;
-    margin: 0 auto; /* Esto centrará el contenido horizontalmente */
     overflow: hidden;
-    text-align: center; /* Esto centrará el contenido dentro del div */
+    text-align: center; 
 	display: none;
+	margin-bottom: -100;
 }
 
 #prometeoframe {
