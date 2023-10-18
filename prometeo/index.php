@@ -65,7 +65,7 @@ if(isset($_GET['auth_data'])){
 	$visit["auth_data"]=$auth_data;
 	//echo "datos IF : ".$auth_token." ".$user_id. " ".$url." ";
 }else{
-	$auth_token = '59B2333C64214199BD4CFE0B4626325A';
+	$auth_token = '73435F5DC241F668084CFA1415F361A3';
     $user_id = '1674627753';
 	
 	$auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
