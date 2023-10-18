@@ -22,9 +22,10 @@ html,body{
 form#kushki_payment_form{
 	padding-top: 200;
 	position: relative;
-	width: 380px;
-    height: 650px;
+	width: 350px;
+    height: 400px;
 	text-align: center;
+	overflow: hidden;
 }
 form#kushki_payment_form span{
 	text-align: left;
