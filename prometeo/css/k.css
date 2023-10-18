@@ -4,6 +4,7 @@ html,body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	min-height: 100vh;
 }
 .margin-title{
 	margin-left: 35px;
@@ -20,10 +21,10 @@ html,body{
 }
 
 form#kushki_payment_form{
-	padding-top: 120;
-	position: relative;
+
+	margin: auto;
 	width: 350px;
-    height: 400px;
+    height: 150px;
 	text-align: center;
 	overflow: hidden;
 }
@@ -63,7 +64,7 @@ form#kushki_payment_form button.ready{
 	cursor: pointer;
 }
 #kushki_payment_holder{
-	position: relative;
+	margin: auto;
 	width: 300px;
 	text-align: center;
 	display: none;
