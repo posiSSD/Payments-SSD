@@ -3,6 +3,7 @@
 include '../env.php';
 include '../db.php';
 include ROOT_PATH.'/sys/helpers.php';
+include ROOT_PATH.'/payphone/sys/k.php';
 include ROOT_PATH.'/payphone/sys/helpers.php';
 include ROOT_PATH.'/payphone/api/payphonecontroller.php';
 
@@ -11,14 +12,14 @@ include ROOT_PATH.'/payphone/api/payphonecontroller.php';
 $transaccion = $_GET["id"];
 $client = $_GET["clientTransactionId"];
 
-//Preparar JSON de llamada
-//$data_array = array(
-//"id"=> (int)$transaccion,
-//"clientTxId"=>$client );
+$data_array = array(
+    "id" => (int)$transaccion,
+    "clientTxId" => $client
+);
 
-$rq = [];
-	$rq['id']=(int)$transaccion;
-	$rq['clientTxId']=$client;
+//$rq = [];
+//$rq['id']=(int)$transaccion;
+//$rq['clientTxId']=$client;
 
 
 $create_response_apibuttonV2confirm = api_button_V2_Confirm ($data_array);

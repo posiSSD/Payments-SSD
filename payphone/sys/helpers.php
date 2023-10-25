@@ -276,79 +276,27 @@ function create_or_update_bd_api_details($data=false){
 		$insert_command.= ")";
 		$insert_command.= " ON DUPLICATE KEY UPDATE ";
 
-		$uqn=0;
-		foreach ($data_to_db as $k => $v) {
-			if($uqn>0) { $insert_command.=", \n"; }
-			$insert_command.= "".$k." = VALUES(".$k.")";
-			$uqn++;
-		}
-		$mysqli->query($insert_command);
-		if($mysqli->error){
-			echo $mysqli->error;
-			echo "\n";
-			echo $insert_command;
-			echo "\n";
-			exit();
-		}
-		return $data;
-
+		$uqn = 0;
+        foreach ($data_to_db as $k => $v) {
+            if ($uqn > 0) {
+                $insert_command .= ", \n";
+            }
+            $insert_command .= "" . $k . " = VALUES(" . $k . ")";
+            $uqn++;
+        }
+        $mysqli->query($insert_command);
+        if ($mysqli->error) {
+            echo $mysqli->error;
+            echo "\n";
+            echo $insert_command;
+            echo "\n";
+            exit();
+        }
+        return $data;
     }
 }
-/*
-function prometeo_select_bd($trans = false) {
-	global $mysqli;
 
-	if (!isset($trans) || !isset($trans['client_id']) || !isset($trans['order_id'])) {
-		return ["success" => false, "error" => "Faltan claves necesarias en el arreglo."];
-	}
-
-	$client_id = $trans['client_id'];
-	$order_id = $trans['order_id'];
-
-	// Consulta la tabla prometeo_details para obtener el external_id
-	$sql_details = "SELECT unique_id FROM transactions
-				   WHERE client_id = ? AND order_id = ?
-				   order by id DESC LIMIT 1";
-	$stmt_details = $mysqli->prepare($sql_details);
-	$stmt_details->bind_param("ss", $client_id, $order_id);
-	$stmt_details->execute();
-	$result_details = $stmt_details->get_result();
-
-	if ($result_details->num_rows > 0) {
-		$row_details = $result_details->fetch_assoc();
-		$external_id = $row_details["unique_id"];
-		$trans["unique_id"] = $external_id;
-		// Consulta la tabla prometeo_transactions usando el external_id
-		$sql_transactions = "SELECT event_type FROM prometeo_transactions
-							 WHERE external_id = ?
-							 ORDER BY id DESC LIMIT 1";
-		$stmt_transactions = $mysqli->prepare($sql_transactions);
-		$stmt_transactions->bind_param("s", $external_id);
-		$stmt_transactions->execute();
-		$result_transactions = $stmt_transactions->get_result();
-
-		if ($result_transactions->num_rows > 0) {
-			$row_transactions = $result_transactions->fetch_assoc();
-			$trans["event_type"] = $row_transactions["event_type"];
-			return $trans;
-		} else {
-			$trans["event_type"] = "payment.falla";
-			return $trans;
-		}
-	} else {
-		return "No se encontraron resultados en prometeo_details.";
-	}
-}
-*/
-/*
-function generateexpires_at() {
-    $currentTimestamp = time();
-    $expiresAtTimestamp = $currentTimestamp + 300;
-    $expiresAtISO8601 = date('Y-m-d\TH:i:s.v\Z', $expiresAtTimestamp);
-    return $expiresAtISO8601;
-}
-*/
-function api_button_V2_Confirm ($client=false){
+function api_button_V2_Confirm ($data_array){
 	
 	$ret = false;
 	$rq = [];
@@ -356,8 +304,8 @@ function api_button_V2_Confirm ($client=false){
 	$rq['method']="POST";
 
 	$rq['rq'] = [
-        "id" => $client['id'],
-		"clientTxId" => $client['clientTxId']
+        "id" => $data_array['id'],
+		"clientTxId" => $data_array['clientTxId']
     ];
 
 	// Define el header de la solicitud para Prometeo	
@@ -390,32 +338,32 @@ function create_or_update_bd_api_transactions($data=false){
 		$table = 'payphone_transactions';
 
 		$insert_arr = [];
-		$insert_arr['amount'] = isset($data['kushki_value']) ? $data['kushki_value'] : null;
-		$insert_arr['amountWithoutTax'] = isset($data['amountWithoutTax']) ? $data['amountWithoutTax'] : null;
-		$insert_arr['amountWithTax'] = isset($data['amountWithTax']) ? $data['amountWithTax'] : null;
-		$insert_arr['tax'] = isset($data['tax']) ? $data['tax'] : null;
-		$insert_arr['service'] = isset($data['service']) ? $data['service'] : null;
-		$insert_arr['tip'] = isset($data['tip']) ? $data['tip'] : null;
-		$insert_arr['currency'] = isset($data['currency']) ? $data['currency'] : null;
-		$insert_arr['clientTransactionId'] = isset($data['unique_id']) ? $data['unique_id'] : null;
-		$insert_arr['storeId'] = isset($data['storeId']) ? $data['storeId'] : null;
-		$insert_arr['reference'] = isset($data['reference']) ? $data['reference'] : null;
-		$insert_arr['phoneNumber'] = isset($data['phoneNumber']) ? $data['phoneNumber'] : null;
-		$insert_arr['email'] = isset($data['email']) ? $data['email'] : null;
-		$insert_arr['document'] = isset($data['documentId']) ? $data['documentId'] : null;
-		$insert_arr['paymentId'] = isset($data['paymentId']) ? $data['paymentId'] : null;
-		$insert_arr['payWithPayPhone'] = isset($data['payWithPayPhone']) ? $data['payWithPayPhone'] : null;
-		$insert_arr['payWithCard'] = isset($data['payWithCard']) ? $data['payWithCard'] : null;
-		$insert_arr['client_id'] = isset($data['client_id']) ? $data['client_id'] : null;
+        $insert_arr['amount'] = isset($data['kushki_value']) ? $data['kushki_value'] : null;
+        $insert_arr['amountWithoutTax'] = isset($data['amountWithoutTax']) ? $data['amountWithoutTax'] : null;
+        $insert_arr['amountWithTax'] = isset($data['amountWithTax']) ? $data['amountWithTax'] : null;
+        $insert_arr['tax'] = isset($data['tax']) ? $data['tax'] : null;
+        $insert_arr['service'] = isset($data['service']) ? $data['service'] : null;
+        $insert_arr['tip'] = isset($data['tip']) ? $data['tip'] : null;
+        $insert_arr['currency'] = isset($data['currency']) ? $data['currency'] : null;
+        $insert_arr['clientTransactionId'] = isset($data['clientTxId']) ? $data['clientTxId'] : null;
+        $insert_arr['storeId'] = isset($data['storeId']) ? $data['storeId'] : null;
+        $insert_arr['reference'] = isset($data['reference']) ? $data['reference'] : null;
+        $insert_arr['phoneNumber'] = isset($data['phoneNumber']) ? $data['phoneNumber'] : null;
+        $insert_arr['email'] = isset($data['email']) ? $data['email'] : null;
+        $insert_arr['document'] = isset($data['documentId']) ? $data['documentId'] : null;
+        $insert_arr['paymentId'] = isset($data['paymentId']) ? $data['paymentId'] : null;
+        $insert_arr['payWithPayPhone'] = isset($data['payWithPayPhone']) ? $data['payWithPayPhone'] : null;
+        $insert_arr['payWithCard'] = isset($data['payWithCard']) ? $data['payWithCard'] : null;
+        $insert_arr['client_id'] = isset($data['client_id']) ? $data['client_id'] : null;
 
-		$data_to_db = data_to_db($insert_arr);
-		$insert_command = "INSERT INTO {$db}.{$table} (";
-		$insert_command .= implode(", \n", array_keys($insert_arr));
-		$insert_command .= ") VALUES ";
-		$insert_command .= "(";
-		$insert_command .= implode(", \n", $data_to_db);
-		$insert_command .= ")";
-		$insert_command .= " ON DUPLICATE KEY UPDATE ";
+		$data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
+        $insert_command = "INSERT INTO {$db}.{$table} (";
+        $insert_command .= implode(", \n", array_keys($insert_arr));
+        $insert_command .= ") VALUES ";
+        $insert_command .= "(";
+        $insert_command .= implode(", \n", $data_to_db);
+        $insert_command .= ")";
+        $insert_command .= " ON DUPLICATE KEY UPDATE ";
 
 		$uqn = 0;
 		foreach ($data_to_db as $k => $v) {
