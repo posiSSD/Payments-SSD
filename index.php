@@ -175,7 +175,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $user_id = '1674627753';
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
         $visit["auth_data"]=$auth_data;
-        $metodo = "prometeo";
+        $metodo = "payphone";
         //echo "datos ELSE ";
     }
 

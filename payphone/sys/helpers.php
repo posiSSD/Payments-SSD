@@ -240,7 +240,7 @@ function details_payment_link($kushki_curl) {
 	return $data_curl; 
   }
 
-function create_or_update_bd_api_details($data){
+function create_or_update_bd_api_details($data=false){
 	global $mysqli;
 	//$data = json_decode($json_data, true);
     // Verificar que los datos se decodificaron correctamente
@@ -290,7 +290,7 @@ function create_or_update_bd_api_details($data){
 			echo "\n";
 			exit();
 		}
-		return $trans;
+		return $data;
 
     }
 }
@@ -382,7 +382,7 @@ function api_button_V2_Confirm ($client=false){
     return $ret;
 }
 
-function create_or_update_bd_api_transactions($data){
+function create_or_update_bd_api_transactions($data=false){
 	global $mysqli;
 
 	if ($data !== null) {
