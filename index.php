@@ -1,148 +1,340 @@
 <?php
-
-//$auth_data = true;
-//$auth_token = 'FAE2579BC8325A2F60B432173CEF4D77';
-//$user_id = '3333200';
-//$metodo = 'kushki';
-//$metodo = 'prometeo';
-
-// Construir la URL con los parámetros
-//$url = 'http';
-//$url .= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 's' : '');
-//$url .= '://';
-//$url .= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'], 0) : "");
-//$url .= "/kushki/";
-//$url .= "/kushki/index.php";
-// Agregar los parámetros a la URL
-//$url .= "?auth_data=" . json_encode(array("auth_token" => $auth_token, "user_id" => $user_id, "metodo" => $metodo));
-// Redireccionar al usuario a la URL
-//header("Location: " . $url);
-//exit; // Asegurarse de detener la ejecución del script después de la redirección
+require 'env.php'; //desde la raiz a otro lado
+require 'db.php';   
+include ROOT_PATH.'/sys/helpers.php';
 ?>
-
-
-
 
 <?php
 if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
-?>
     
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago</title>
-    <!-- Agregar enlace al archivo CSS de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estilos personalizados para centrar el formulario */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            max-width: 400px;
-        }
-        .cardview {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-        .cardview:hover {
-            border-color: #007bff;
-        }
-        .selected-card {
-            border-color: #007bff;
-        }
-    </style>
-    </head>
+    // construccion del array de la ip visitante.
+    $visit = [];
+    $visit["init"]=date("Y-m-d H:i:s");
+    $visit['ip']=$_SERVER['REMOTE_ADDR'];
+    $visit['device']=$_SERVER['HTTP_USER_AGENT'];
+    $visit['ref']=(array_key_exists('HTTP_REFERER', $_SERVER)?$_SERVER['HTTP_REFERER']:'direct');
+    $visit['url']=$_SERVER['REQUEST_URI'];
 
-    <body>
-    <div class="container">
-        <h1 class="text-center">Payments.TB.app</h1>
-
-        <label>Método de Pago:</label>
-
-        <!-- Tarjeta de Prometeo -->
-        <div class="cardview" id="prometeoCard" data-metodo="prometeo">
-            <h3>Prometeo</h3>
-            <p>Descripción de Prometeo y detalles del método de pago.</p>
-        </div>
-    </div>
-
-    <script>
-        const baseUrl = window.location.protocol + '//' + window.location.host;
-
-        
-        const prometeoCard = document.getElementById("prometeoCard");
-        
-        prometeoCard.addEventListener("click", () => {
-            const metodo = prometeoCard.getAttribute("data-metodo");
-
-            const redirectUrl = "/prometeo/";
-
-            window.location.href = redirectUrl;
-            
-            
-        });
-    </script>
-
-
-    <!-- Agrega esto al final de tu página principal, justo antes de cerrar el body -->
-    <div id="paymentModal" class="modal">
-    <div class="modal-content">
-        <!-- Contenido de tu iframe o popup -->
-        <iframe id="paymentIframe" name="mi_iframe" frameborder="0" width="100%" height="600"></iframe>
-    </div>
-    </div>
-
-    <style>
-    /* Estilos para el modal */
-    .modal {
-        display: none; /* Oculta el modal por defecto */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-colecho "¡Hola mundo!";: 20px;
-        border: 1px solid #888;
-        width: 80%;
+    // Manejo de los datos enviados por URI
+    $auth_data = null;
+    if(isset($_GET['auth_data'])){
+        // [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
+        // [user_id] => 3333200
+        // [avatarUrl] => https://static.springbuilder.site/assets/addon/avatar.png	
+        $auth_data = json_decode($_GET["auth_data"],true);
+        $auth_token = $auth_data["auth_token"]; /////TOKEN
+        $user_id = $auth_data["user_id"];
+        $metodo = $auth_data["metodo"];
+        $visit["auth_data"]=$auth_data;
+    }else{
+        $auth_token = '487259136B05F289C1A501FAB667EAAD';
+        $user_id = '1674627753';
+        $metodo = 'payphone';
+        $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
+        $visit["auth_data"]=$auth_data;
+        //echo "datos ELSE ";
     }
-    </style>
 
-    </body>
+    // conustruccion de URL 
+    $fv=time();
+    $url = 'http';
+    $url.= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'');
+    $url.= '://';
+    $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
+    $url.= '/';
+    $url.= $metodo;
+    $url.= '/';
+
+    // save logs
+    $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
+    $log_file = date("Y-m-d").".log";
+    log_init($log_dir,$log_file);
+    log_write($visit);
+     
+    // registro en bd de la visita.  
+    $visit_insert = "INSERT INTO 
+					tbl_visits 
+					(url,ip,server_info) 
+					VALUES ('".$visit["url"]."','".$visit['ip']."','".print_r($_SERVER,true)."')";
+    $mysqli->query($visit_insert);
+    if($mysqli->error){
+        echo $mysqli->error; die; 
+    }
+    $mysqli->close();
+
+    if($auth_data){
+        ?>
+
+        <script type="text/javascript">
+			var this_url = "<?php echo $url;?>";
+			var user_id= <?php echo $user_id;?>;
+			var auth_token="<?php echo $auth_token;?>";
+		</script>
+		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
+		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
+		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
+
+
+        <?php
+        $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
+        $payment_limits['min']=number_format($payment_limits[0],0);
+        $payment_limits['max']=number_format($payment_limits[1],0);
+        ?>
+        
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Payments.app</title>
+            <link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
+            <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        </head>
+        <body>
+            <div id="msg" style="font-style: italic;"></div>
+            
+            <form action="#" id="kushki_payment_form">
+                <p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
+                <div class="input-group mb-3" id="inputtext">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">USD</span>
+                    </div>
+        
+                    <input 
+                        autocomplete="off"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        type="text" 
+                        placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+                        data-min="<?php echo $payment_limits[0];?>"
+                        data-max="<?php echo $payment_limits[1];?>"
+                        class="form-control" 
+                        id="basic-url" 
+                        aria-describedby="basic-addon3" required onkeyup="validar()">
+                </div>
+                <p id="sms_alert"></p>
+                <div>
+                    <button type="button" class="btn btn-secondary" style="font-size: 14px; width: 150px;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Cargando</span>
+                    </button>
+                </div>
+        
+            </form>
+            <div id="prometeoembeded">
+                <iframe id="prometeoframe" frameborder="0" allowfullscreen></iframe>
+                <button id="cerrarIframe" style="position: absolute; top: 0px; right: 10px; background-color: transparent; border: none; cursor: pointer; font-size: 20px;">X</button>   
+            </div>
+            <div id="kushki_payment_holder">
+                <div id="kushki_details"></div>
+                <br>
+                <div>
+                    <a id="kushki_btn" target="_top">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Cargando <?php echo $metodo?></span>
+                    </a>
+                </div>
+            </div>
+        </body>
+        </html>
+
+    <?php
+    }else{
+        ?>
+            <div> <h5 style="text-align: center;  margin-top: 50px;">Por favor vuelva a intentarlo</h5> </div>
+        <?php
+    }
+
+}else{
     
+    // construccion del array de la ip visitante.
+    $visit = [];
+    $visit["init"]=date("Y-m-d H:i:s");
+    $visit['ip']=$_SERVER['REMOTE_ADDR'];
+    $visit['device']=$_SERVER['HTTP_USER_AGENT'];
+    $visit['ref']=(array_key_exists('HTTP_REFERER', $_SERVER)?$_SERVER['HTTP_REFERER']:'direct');
+    $visit['url']=$_SERVER['REQUEST_URI'];
+
+    // Manejo de los datos enviados por URI
+    $auth_data = null;
+    if(isset($_GET['auth_data'])){
+        // [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
+        // [user_id] => 3333200
+        // [avatarUrl] => https://static.springbuilder.site/assets/addon/avatar.png	
+        $auth_data = json_decode($_GET["auth_data"],true);
+        $auth_token = $auth_data["auth_token"]; /////TOKEN
+        $user_id = $auth_data["user_id"];
+        $metodo = $auth_data["metodo"];
+        $visit["auth_data"]=$auth_data;
+    }else{
+        $auth_token = '487259136B05F289C1A501FAB667EAAD';
+        $user_id = '1674627753';
+        $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
+        $visit["auth_data"]=$auth_data;
+        $metodo = "payphone";
+        //echo "datos ELSE ";
+    }
+
+    // conustruccion de URL 
+    $fv=time();
+    $url = 'http';
+    $url.= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on' ? 's':'');
+    $url.= '://';
+    $url.= (isset($_SERVER["HTTP_HOST"]) ? substr($_SERVER['HTTP_HOST'],0):"");
+    $url.= '/';
+    $url.= $metodo;
+    $url.= '/';
+
+    // save logs
+    $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
+    $log_file = date("Y-m-d").".log";
+    log_init($log_dir,$log_file);
+    log_write($visit);
+     
+    // registro en bd de la visita.  
+    $visit_insert = "INSERT INTO 
+					tbl_visits 
+					(url,ip,server_info) 
+					VALUES ('".$visit["url"]."','".$visit['ip']."','".print_r($_SERVER,true)."')";
+    $mysqli->query($visit_insert);
+    if($mysqli->error){
+        echo $mysqli->error; die; 
+    }
+    $mysqli->close();
+
+    if($auth_data){
+        ?>
+
+        <script type="text/javascript">
+			var this_url = "<?php echo $url;?>";
+			var user_id= <?php echo $user_id;?>;
+			var auth_token="<?php echo $auth_token;?>";
+		</script>
+		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
+		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
+		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
+
+
+        <?php
+        $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
+        $payment_limits['min']=number_format($payment_limits[0],0);
+        $payment_limits['max']=number_format($payment_limits[1],0);
+        ?>
+        
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Payments.app</title>
+            <link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
+            <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        </head>
+        <body>
+            <div id="msg" style="font-style: italic;"></div>
+            
+            <form action="#" id="kushki_payment_form">
+                <p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
+                <div class="input-group mb-3" id="inputtext">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">USD</span>
+                    </div>
+        
+                    <input 
+                        autocomplete="off"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        type="text" 
+                        placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+                        data-min="<?php echo $payment_limits[0];?>"
+                        data-max="<?php echo $payment_limits[1];?>"
+                        class="form-control" 
+                        id="basic-url" 
+                        aria-describedby="basic-addon3" required onkeyup="validar()">
+                </div>
+                <p id="sms_alert"></p>
+                <div>
+                    <button type="button" class="btn btn-secondary" style="font-size: 14px; width: 150px;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Cargando</span>
+                    </button>
+                </div>
+        
+            </form>
+            <div id="prometeoembeded">
+                <iframe id="prometeoframe" frameborder="0" allowfullscreen></iframe>
+                <button id="cerrarIframe" style="position: absolute; top: 0px; right: 10px; background-color: transparent; border: none; cursor: pointer; font-size: 20px;">X</button>   
+            </div>
+            <div id="kushki_payment_holder">
+                <div id="kushki_details"></div>
+                <br>
+                <div>
+                    <a id="kushki_btn" target="_top">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Cargando <?php echo $metodo?></span>
+                    </a>
+                </div>
+            </div>
+        </body>
+        </html>
+
+    <?php
+    }else{
+        ?>
+            <div> <h5 style="text-align: center;  margin-top: 50px;">Por favor vuelva a intentarlo</h5> </div>
+        <?php
+    }
+
+
+
+
+
+
+    //$metodo = "prometeo";
+    
+   
+    ?>  
+     <!-- 
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Payments.app</title>
+        <link rel="stylesheet" href="<?php //echo $url; ?>css/k.css">
+        <link rel="stylesheet" href="<?php //echo $url; ?>css/new.scss">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+    
+        <div id="divfalla">
+                <a id="divfalla_btn" target="_top">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <span class="sr-only">No se ha podido cargar <?php //echo $metodo?>, vuelva interntarlo.</span>
+                </a>
+        </div>
+       
+    </body>
     </html>
+    -->
 <?php
-
-} else {
-    // El usuario no viene de totalbet.ec, muestra un mensaje de despedida
-    echo "Gracias por visitarnos. ¡Hasta luego!";
 }
 ?>
+   
+
+    
+    
+    
+
+    
+
+    
 
 
 
 
 
 
-<?php
-/*
-if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
-    // El usuario viene de totalbet.ec, muestra un saludo
-    echo "¡Hola mundo!";
-} else {
-    // El usuario no viene de totalbet.ec, muestra un mensaje de despedida
-    echo "Gracias por visitarnos. ¡Hasta luego!";
-}
-*/
-?>
+

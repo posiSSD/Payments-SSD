@@ -14,6 +14,7 @@ $bc_param["resource"] = "TerminalCallbackPG";
 $bc_param["secretkey"] = env('BC_KUSHKI_SECRET_KEY');
 $bc_param["sid"] = "18751709";
 $bc_param["currency"] = "USD";
+$bs_param["paymentID"]=1819;
 
 $url_data["currency"] = $bc_param["currency"];
 $url_data["sid"] = $bc_param["sid"];
@@ -44,7 +45,11 @@ if ($response) {
         echo "Failed to decode JSON response.";
     }
 } else {
-    echo "Request to $bc_url failed. cURL error: " . curl_error($curl);
+    echo ($bc_url);
+    //echo "Request to $bc_url failed. cURL error: " . curl_error($curl)." Request : ".$request;
+
+    
+
 }
 
 curl_close($curl);
