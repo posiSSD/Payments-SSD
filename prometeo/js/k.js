@@ -96,7 +96,7 @@ function kushki_create_payment_button(){
 	
 	usr_active.this_url = this_url;
 	usr_active.kushki_value = prueba.kushki_value;
-
+	//console.log(usr_active);
 	//////////////////////////////////////////
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
@@ -128,7 +128,7 @@ function kushki_create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
-			
+			//console.log(rs);
 			if(rs.status==201){
 				
 				holder.hide();

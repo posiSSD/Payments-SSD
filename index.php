@@ -26,14 +26,17 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $user_id = $auth_data["user_id"];
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
-    }else{
+    }
+    /*
+    else{
         $auth_token = '487259136B05F289C1A501FAB667EAAD';
         $user_id = '1674627753';
-        $metodo = 'payphone';
+        $metodo = 'prometeo';
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
         $visit["auth_data"]=$auth_data;
         //echo "datos ELSE ";
     }
+    */
 
     // conustruccion de URL 
     $fv=time();
@@ -172,7 +175,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $user_id = '1674627753';
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
         $visit["auth_data"]=$auth_data;
-        $metodo = "payphone";
+        $metodo = "prometeo";
         //echo "datos ELSE ";
     }
 
