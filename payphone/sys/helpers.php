@@ -224,7 +224,7 @@ function kushki_curl($rq = false) {
     return $response_arr;
 }
 
-
+/*
 function details_payment_link($kushki_curl) {
 
 	$ret = false;
@@ -239,7 +239,7 @@ function details_payment_link($kushki_curl) {
 	$data_curl = kushki_curl($rk);
 	return $data_curl; 
   }
-
+*/
 function create_or_update_bd_api_details($data=false){
 	global $mysqli;
 	//$data = json_decode($json_data, true);
@@ -340,16 +340,16 @@ function prometeo_select_bd($trans = false) {
 	}
 }
 */
+/*
 function generateexpires_at() {
     $currentTimestamp = time();
     $expiresAtTimestamp = $currentTimestamp + 300;
     $expiresAtISO8601 = date('Y-m-d\TH:i:s.v\Z', $expiresAtTimestamp);
     return $expiresAtISO8601;
 }
-
+*/
 function api_button_V2_Confirm ($client=false){
 	
-	$expires_at = generateexpires_at();
 	$ret = false;
 	$rq = [];
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/V2/Confirm ';
