@@ -151,7 +151,7 @@ function create_or_update_transaction($trans=false){
 }
 function create_payment_button($client=false){
 	
-	$expires_at = generateexpires_at();
+	
 	$ret = false;
 	$rq = [];
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/Prepare';
