@@ -1,9 +1,9 @@
 <?php
-include '../prometeo/env.php';
-include '../prometeo/db.php';
-include '../prometeo/sys/helpers.php';
-include '../sys/helpers.php';
-include '../prometeo/api/KushkiController.php';
+include '../env.php';
+include ROOT_PATH.'/db.php';
+include ROOT_PATH.'/prometeo/sys/helpers.php';
+include ROOT_PATH.'/sys/helpers.php';
+include ROOT_PATH.'/prometeo/api/KushkiController.php';
 //include '/api/KushkiController.php';
 
 // Verificar que la solicitud sea de tipo POST

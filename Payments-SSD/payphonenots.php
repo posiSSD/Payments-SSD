@@ -1,21 +1,11 @@
 <?php
 include '../env.php';
-include '../db.php';
-include '../sys/helpers.php';
-include '../payphone/sys/k.php';
-include '../payphone/sys/helpers.php';
-//include '../payphone/api/payphonecontroller.php';
-
-/*
-include '../env.php';
-include '../db.php';
-include '../sys/helpers.php';
-include ROOT_PATH.'/payphone/sys/k.php';
+include ROOT_PATH.'/db.php';
 include ROOT_PATH.'/payphone/sys/helpers.php';
-include ROOT_PATH.'/payphone/api/payphonecontroller.php';
-*/
+include ROOT_PATH.'/sys/helpers.php';
 
-//Obtener parametros de la URL enviados por PayPhone
+
+
 $transaccion = $_GET["id"];
 $client = $_GET["clientTransactionId"];
 
@@ -24,13 +14,13 @@ $data_array = array(
     "clientTxId" => $client
 );
 
-echo "id: ".$transaccion;
-echo "clientTxId: ".$client;
-//$rq = [];
-//$rq['id']=(int)$transaccion;
-//$rq['clientTxId']=$client;
+//echo "dataarray : ".$data_array;
 
+$rq = [];
+$rq['id']=(int)$transaccion;
+$rq['clientTxId']=$client;
 
+//echo "rq : ".$rq;
 
 
 //Preparar JSON de llamada
