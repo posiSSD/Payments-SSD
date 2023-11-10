@@ -210,7 +210,7 @@ function response_to_payphone(usr_active){
 	function(r, textStatus, xhr) {
 		try {
 			let rs = jQuery.parseJSON(r);
-			
+			console.log("El status es : "+rs.status)
 			console.log(rs.status_response)
 
 			if(rs.status_response !== true ){

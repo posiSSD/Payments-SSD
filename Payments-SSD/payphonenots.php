@@ -20,6 +20,8 @@ $data_array = array(
     "clientTxId" => $client
 );
 
+var_dump($data_array); /// aqui por ejemplo
+
 $data_array_response = api_button_V2_Confirm ($data_array);
 create_or_update_bd_api_transactions($data_array_response);
 
@@ -76,7 +78,7 @@ switch ($data_array_response_details['transactionStatus']){
             $d['account']=$data_array_response_details['client_id'];
             $d['amount']=$data_array_response_details['amount'];
             $d['order_id']=$data_array_response_details['paymentId'];
-            $d['payment_method']="payphone";
+            $d['payment_method']=4; // 4 = payphone
         
         $bc_deposit = bc_deposit($d);
 
