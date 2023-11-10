@@ -83,7 +83,7 @@ switch ($data_array_response_details['transactionStatus']){
         //simular $bc_deposit['result']['trx_id']
         $bc_deposit['result']['trx_id'] = 1111111;
         //ver la respuesta
-        //var_dump($bc_deposit);
+        var_dump($bc_deposit);
         
         if(array_key_exists('http_code', $bc_deposit)){
             if($bc_deposit['http_code']==200){
