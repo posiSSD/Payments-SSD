@@ -20,12 +20,17 @@ $data_array = array(
     "clientTxId" => $client
 );
 
-var_dump($data_array); /// aqui por ejemplo
+var_dump($data_array); /// codigo para depurar 
 
 $data_array_response = api_button_V2_Confirm ($data_array);
+
+var_dump($data_array_response); /// aqui por ejemplo
+
 create_or_update_bd_api_transactions($data_array_response);
 
 $data_array_response_details = payphone_get_details($data_array_response);
+
+var_dump($data_array); /// aqui por ejemplo
 
  
 

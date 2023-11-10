@@ -215,14 +215,14 @@ function response_to_payphone(usr_active){
 
 			if(rs.status_response !== true ){
 
-				response_to_payphone(usr_active);
+				//response_to_payphone(usr_active);
 		
 				// Agrega un temporizador de 5 segundos antes de la próxima ejecución
-				/*
+				
 				setTimeout(function () {
 					response_to_payphone(usr_active);
 				  }, 5000);
-				*/
+				
 								
 			}  else {
 
