@@ -1,11 +1,9 @@
 <?php
-include '../env.php';
-include '../db.php';
-
-
 
 function save_transaction($request, $txt_id, $type, $status){
+    global $mysqli_kushki;
 
+    
     $db = 'at_kushki';
     $table = 'transactions';
     $connection = 'kushki_db';
@@ -22,9 +20,9 @@ function save_transaction($request, $txt_id, $type, $status){
     $type_transaction_id = $type;
     $txt_id = $txt_id??0;
     $amount  = $request['amount']??0;
-    $shop_id = $request['shop_id']??0;
-    $cashdesk_id  = $request['cashdesk_id']??0;
-    $user_id  = $request['user_id']??0;
+    $shop_id = "0";
+    $cashdesk_id  = "0";
+    $user_id  = $request['account']??0;
     $status  = $status;
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
@@ -52,7 +50,7 @@ function save_transaction($request, $txt_id, $type, $status){
         $rq['user_id '] = $status;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
-            
+
         return $rq;  
     } 
 }

@@ -27,32 +27,7 @@ function data_to_db($d){
 	}
 	return $tmp;
 }
-/*function bc_deposit($d=false){
-	$ret = false;
-	$rq = [];
-		$rq['url']='https://api.apuestatotal.com/v2/kushki/deposit';
-		
-		$rq['rq']=[];
-			$rq['rq']['account']=$d['account'];
-			$rq['rq']['amount']=$d['amount'];
-			$rq['rq']['order_id']=$d['order_id'];
-		// $rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
-		$rq['h']=[];
-			// $rq['h'][] = "Content-Type: application/json";
-			$rq['h'][] = "Authorization: Bearer " . env('API_V2_TOKEN');
-			// print_r($rq); 
-	$kushki_curl = kushki_curl($rq);
-	// print_r($rq); exit();
 
-	if(array_key_exists("http_code", $kushki_curl)){
-		$ret = $kushki_curl;
-	}else{
-		$ret['curl']=$kushki_curl;
-		$ret['rq']=$rq;
-		print_r($rq['rq']); exit();
-	}
-	return $ret;
-}*/
 function kushki_get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
@@ -157,7 +132,7 @@ function create_payment_button($client=false){
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/Prepare';
 	$rq['method']="POST";
 
-	$dolar_Value_Payphone = $client['kushki_value']*100;
+	$dolar_Value_Payphone = $client['kushki_value']*100;  //en la doc de payphone 1 dolar = 100//
 
 	$rq['rq'] = [
         "amount" => $dolar_Value_Payphone,
@@ -224,22 +199,6 @@ function kushki_curl($rq = false) {
     return $response_arr;
 }
 
-/*
-function details_payment_link($kushki_curl) {
-
-	$ret = false;
-	$rk = [];
-	$rk['url']='https://payment.prometeoapi.net/api/v1/payment-link/'.$kushki_curl['id'];
-	$rk['h']=[
-		"Content-Type: application/json",
-		'Accept: application/json',
-		"X-API-Key: " . env('API_KEY_PROMETEO') // Ajusta la clave de API correcta
-	];
-	// Imprimir el contenido de $RQ en la consola
-	$data_curl = kushki_curl($rk);
-	return $data_curl; 
-  }
-*/
 function create_or_update_bd_api_details($data=false){
 	global $mysqli;
 	//$data = json_decode($json_data, true);
@@ -250,8 +209,8 @@ function create_or_update_bd_api_details($data=false){
 
 		$insert_arr = [];
 		$insert_arr['amount'] = isset($data['kushki_value']) ? $data['kushki_value'] : null;
-		$insert_arr['amountWithoutTax'] = isset($data['amountWithoutTax']) ? $data['amountWithoutTax'] : null;
-		$insert_arr['amountWithTax'] = isset($data['amountWithTax']) ? $data['amountWithTax'] : null;
+		$insert_arr['amountWithoutTax'] = isset($data['kushki_value']) ? $data['kushki_value']: null;
+		$insert_arr['amountWithTax'] = isset($data['kushki_value']) ? $data['kushki_value'] : null;
 		$insert_arr['tax'] = isset($data['tax']) ? $data['tax'] : null;
 		$insert_arr['service'] = isset($data['service']) ? $data['service'] : null;
 		$insert_arr['tip'] = isset($data['tip']) ? $data['tip'] : null;
@@ -266,6 +225,7 @@ function create_or_update_bd_api_details($data=false){
 		$insert_arr['payWithPayPhone'] = isset($data['payWithPayPhone']) ? $data['payWithPayPhone'] : null;
 		$insert_arr['payWithCard'] = isset($data['payWithCard']) ? $data['payWithCard'] : null;
 		$insert_arr['client_id'] = isset($data['client_id']) ? $data['client_id'] : null;
+		$insert_arr['unique_id'] = isset($data['unique_id']) ? $data['unique_id'] : null;
 
 		$data_to_db = data_to_db($insert_arr);
 		$insert_command = "INSERT INTO {$db}.{$table} (";
@@ -338,23 +298,28 @@ function create_or_update_bd_api_transactions($data=false){
 		$table = 'payphone_transactions';
 
 		$insert_arr = [];
-        $insert_arr['amount'] = isset($data['kushki_value']) ? $data['kushki_value'] : null;
-        $insert_arr['amountWithoutTax'] = isset($data['amountWithoutTax']) ? $data['amountWithoutTax'] : null;
-        $insert_arr['amountWithTax'] = isset($data['amountWithTax']) ? $data['amountWithTax'] : null;
-        $insert_arr['tax'] = isset($data['tax']) ? $data['tax'] : null;
-        $insert_arr['service'] = isset($data['service']) ? $data['service'] : null;
-        $insert_arr['tip'] = isset($data['tip']) ? $data['tip'] : null;
-        $insert_arr['currency'] = isset($data['currency']) ? $data['currency'] : null;
-        $insert_arr['clientTransactionId'] = isset($data['clientTxId']) ? $data['clientTxId'] : null;
-        $insert_arr['storeId'] = isset($data['storeId']) ? $data['storeId'] : null;
-        $insert_arr['reference'] = isset($data['reference']) ? $data['reference'] : null;
-        $insert_arr['phoneNumber'] = isset($data['phoneNumber']) ? $data['phoneNumber'] : null;
-        $insert_arr['email'] = isset($data['email']) ? $data['email'] : null;
-        $insert_arr['document'] = isset($data['documentId']) ? $data['documentId'] : null;
-        $insert_arr['paymentId'] = isset($data['paymentId']) ? $data['paymentId'] : null;
-        $insert_arr['payWithPayPhone'] = isset($data['payWithPayPhone']) ? $data['payWithPayPhone'] : null;
-        $insert_arr['payWithCard'] = isset($data['payWithCard']) ? $data['payWithCard'] : null;
-        $insert_arr['client_id'] = isset($data['client_id']) ? $data['client_id'] : null;
+        $insert_arr['statusCode'] = isset($data['statusCode']) ? $data['statusCode'] : null;   ////////////////////////////////////
+        $insert_arr['transactionStatus'] = isset($data['transactionStatus']) ? $data['transactionStatus'] : null;   ////////////////////////////////////
+        $insert_arr['clientTransactionId'] = isset($data['clientTransactionId']) ? $data['clientTransactionId'] : null;  ////////////////////////////////////
+        $insert_arr['authorizationCode'] = isset($data['authorizationCode']) ? $data['authorizationCode'] : null;    ////////////////////////////////////
+        $insert_arr['transactionId'] = isset($data['transactionId']) ? $data['transactionId'] : null;   ////////////////////////////////////
+        $insert_arr['email'] = isset($data['email']) ? $data['email'] : null; ////////////////////////////////////
+        $insert_arr['currency'] = isset($data['currency']) ? $data['currency'] : null;   ////////////////////////////////////
+        $insert_arr['phoneNumber'] = isset($data['phoneNumber']) ? $data['phoneNumber'] : null;  ////////////////////////////////////
+        $insert_arr['document'] = isset($data['document']) ? $data['document'] : null;   ////////////////////////////////////
+        $insert_arr['amount'] = isset($data['amount']) ? (floatval($data['amount'])/100) : null;
+        $insert_arr['cardType'] = isset($data['cardType']) ? $data['cardType'] : null; ////////////////////////////////////
+        $insert_arr['cardBrandCode'] = isset($data['cardBrandCode']) ? $data['cardBrandCode'] : null;   ////////////////////////////////////
+        $insert_arr['cardBrand'] = isset($data['cardBrand']) ? $data['cardBrand'] : null;
+        $insert_arr['bin'] = isset($data['bin']) ? $data['bin'] : null;  ////////////////////////////////////
+        $insert_arr['lastDigits'] = isset($data['lastDigits']) ? $data['lastDigits'] : null;   ////////////////////////////////////
+        $insert_arr['deferredCode'] = isset($data['deferredCode']) ? $data['deferredCode'] : null;   ////////////////////////////////////
+        $insert_arr['deferredMessage'] = isset($data['deferredMessage']) ? $data['deferredMessage'] : null;
+		$insert_arr['deferred'] = isset($data['deferred']) ? $data['deferred'] : null;  ////////////////////////////////////
+		$insert_arr['message'] = isset($data['message']) ? $data['message'] : null;
+		$insert_arr['messageCode'] = isset($data['messageCode']) ? $data['messageCode'] : null;   ////////////////////////////////////
+		$insert_arr['optionalParameter1'] = isset($data['optionalParameter1']) ? $data['optionalParameter1'] : null;
+
 
 		$data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
         $insert_command = "INSERT INTO {$db}.{$table} (";
@@ -382,5 +347,87 @@ function create_or_update_bd_api_transactions($data=false){
 		return $data; // Debes devolver $data en lugar de $trans
 	}
 }
+function payphone_get_details($trans=false){
+	// $data=false
+	$ret = false;
+	global $mysqli;
+	
+	$trans_ret = $trans;
+	$db = 'at_payments_prueba';
+	$table = 'payphone_details';
+	$where = ' id > 0 ';
+	if(array_key_exists('clientTransactionId', $trans)){
+		$where.= " AND clientTransactionId = '".$trans['clientTransactionId']."'";
+	}
+	if(array_key_exists('order_id', $trans)){
+		$where.= " AND order_id = '".$trans['order_id']."'";
+	}
+	if(array_key_exists('payment_id', $trans)){
+		$where.= " AND payment_id = '".$trans['payment_id']."'";
+	}
+
+	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
+	$query = $mysqli->query($get_command);
+
+	$mysqli->query($get_command);
+	if($mysqli->error){
+		echo $mysqli->error;
+		echo "\n";
+		echo $get_command;
+		echo "\n";
+		exit();
+	}
+	$ret = $query->fetch_assoc();
+	$trans_ret['client_id'] = $ret['client_id'];
+	$trans_ret['unique_id'] = $ret['unique_id'];
+	$trans_ret['paymentId'] = $ret['paymentId'];
+	$trans_ret['amount'] = $ret['amount'];
+
+	return $trans_ret;
+}
+function status_transaction($trans=false){
+	// $data=false
+	$ret = false;
+	global $mysqli;
+	
+	//error_log("status_transaction - \$trans: " . print_r($trans, true));
+
+	$db = 'at_payments_prueba';
+	$table = 'transactions';
+	$where = ' id > 0 ';
+	if(array_key_exists('unique_id', $trans)){
+		$where.= " AND unique_id = '".$trans['unique_id']."'";
+	}
+	if(array_key_exists('client_id', $trans)){
+		$where.= " AND client_id = '".$trans['client_id']."'";
+	}
+	if(array_key_exists('order_id', $trans)){
+		$where.= " AND order_id = '".$trans['order_id']."'";
+	}
+	/*
+	if(array_key_exists('status', $trans)){
+		$where.= " AND status = '".$trans['status']."'";
+	}
+	*/
+	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
+	$query = $mysqli->query($get_command);
+
+	$mysqli->query($get_command);
+	if($mysqli->error){
+		echo $mysqli->error;
+		echo "\n";
+		echo $get_command;
+		echo "\n";
+		exit();
+	}
+	$ret = $query->fetch_assoc();
+
+	return $ret;
+}
+
+
+
+
+
 
 ?>

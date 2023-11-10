@@ -8,7 +8,7 @@ function conectarBaseDeDatos($config) {
     return $mysqli;
 }
 
-// Configuración de la base de datos principal
+// Configuración de la base de datos de at_payments_prueba
 $databaseConfig = [
     'host' => env('DB_HOST'),
     'user' => env('DB_USERNAME'),
@@ -18,7 +18,7 @@ $databaseConfig = [
 ];
 $mysqli = conectarBaseDeDatos($databaseConfig);
 
-// Configuración de la base de datos de Kushki
+// Configuración de la base de datos de at_kushki
 $kushkiConfig = [
     'host' => env('DB_HOST'),
     'user' => env('DB_USERNAME_KUSHKI'),
@@ -28,7 +28,7 @@ $kushkiConfig = [
 ];
 $mysqli_kushki = conectarBaseDeDatos($kushkiConfig);
 
-// Configuración de la base de datos de Kushki Payment
+// Configuración de la base de datos de bc_kushkipayment
 $kushkiPaymentConfig = [
     'host' => env('DB_HOST'),
     'user' => env('DB_USERNAME_KUSHKIPAYMENT'),

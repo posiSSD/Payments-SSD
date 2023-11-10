@@ -1,27 +1,23 @@
 <?php
-include '../env.php';
-include '../db.php';
-include '../sys/helpers.php';
 
 function payment_deposit($request){
 
-    //$myRequest = [];
-    //$myRequest['setMethod'] = 'POST';
-    //$myRequest['request'] = [
+    // $myRequest = [];
+    // $myRequest['setMethod'] = 'POST';
+    // $myRequest['request'] = [
     //    "account" => $request['account'],
-    //   "amount" => $request['amount']
-    //];
+    //    "amount" => $request['amount']
+    // ];
+    //$myRequest['payment_method'] = $request['payment_method'];
 
     $insert_db = [];
-    $insert_db['bd'] = 'bc_kushkipayment;';
-    $insert_db['table'] = 'tbl_transactions';
     $insert_db['eject'] = 'insert';
-    $insert_db['account'] = $request['client_id'];
-    $insert_db['amount'] = $request['amount'];
+    $insert_db['account'] = $request['request']['account'];
+    $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;   
-    
-    $transaction_id = insert_or_update_tbl_transactions($insert_db);
+    $insert_db['payment_method'] = $request['payment_method'];
 
+    $transaction_id = insert_or_update_tbl_transactions($insert_db);
 
     // $rq['id'] = $id;
     // $rq['client_id'] = $client_id;
@@ -30,13 +26,27 @@ function payment_deposit($request){
     // $rq['created_at '] = $created_at;
     // $rq['updated_at'] = $updated_at;
 
+    /*
     $url_data = [];
     $url_data["command"] = "pay";
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $transaction_id['client_id'];
     $url_data["amount"] = $transaction_id['amount']; 
+    */
 
-    $payment_curl = payment_curl($url_data);
+    //$payment_curl = payment_curl($url_data);
+        // 'result']['txn_id']
+    //simulacion
+    $txn_id = str_pad(mt_rand(1, 9999999), 7, '0', STR_PAD_LEFT);
+    $payment_curl = [
+        'http_code' => 200,
+        'created' => '2023-10-26 14:30:00',
+        'response' => [
+            'txn_id' => $txn_id,
+            'account' => $request['request']['account'],
+            'amount' => $request['request']['amount'],
+        ]
+    ];
 
     if($payment_curl){
         if($payment_curl["response"]["code"]){
@@ -44,10 +54,9 @@ function payment_deposit($request){
         }
         else{
             $transaction_id['status'] = 1;
-            insert_or_update_tbl_transactions($transaction_id);
+            $transaction_id['eject'] = 'update';
 
-            $payment_curl["response"]["account"] = $request['account'];
-            $payment_curl["response"]["Amount"] = $request['amount'];
+            insert_or_update_tbl_transactions($transaction_id);
             
             return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $payment_curl["response"]];
         }
@@ -117,8 +126,8 @@ function payment_curl($url_data){
 	}
 }
 
-
 function insert_tbl_api_activities($url_data, $bc_url, $response){
+    
 
 	$bd = 'bc_kushkipayment';
 	$table = 'tbl_api_activities';
@@ -158,58 +167,59 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
 
 }
 
+function insert_or_update_tbl_transactions($insert_db) {
+    global $mysqli_kushkipayment;
 
-function insert_or_update_tbl_transactions($insert_db){
+    $bd = 'bc_kushkipayment';
+	$table = 'tbl_transactions';
+    
+    $rq = [];
 
-    // $insert_db = [];
-    // $insert_db['bd'] = 'bc_kushkipayment;';
-    // $insert_db['table'] = 'tbl_transactions';
-    // $insert_db['account'] = $request['client_id'];
-    // $insert_db['amount'] = $request['amount'];
-    // $insert_db['status'] 
-
-    $bd = $insert_db['bd'];
-    $table = $insert_db['table'];
-
-    if($insert_db['eject'] == "insert"){
-
-        $client_id  = $insert_db['account']??0;
-        $amount = $insert_db['amount']??0;
-        $status  = $insert_db['status']??0;
+    if ($insert_db['eject'] == "insert") {
+        $client_id = $insert_db['account'] ?? 0;
+        $amount = $insert_db['amount'] ?? 0;
+        $status = $insert_db['status'] ?? 0;
         $created_at = date('Y-m-d H:i:s');
         $updated_at = date('Y-m-d H:i:s');
+        $payment_method = $insert_db['payment_method'];
 
         // Consulta SQL para insertar los datos en la tabla transactions
-        $sql_details = "INSERT INTO $table (client_id, amount, status, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?)";
-        $stmt_details = $mysqli_kushki->prepare($sql_details);
-        $stmt_details->bind_param("sssss", $client_id , $amount, $status, $created_at, $updated_at);
+        $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method)
+        VALUES (?, ?, ?, ?, ?, ?)";
+        $sql_insert = $mysqli_kushkipayment->prepare($sql_insert);
+        $sql_insert->bind_param("ssssss", $client_id, $amount, $status, $created_at, $updated_at, $payment_method);
+        
         // Ejecutar la consulta
-        if ( $stmt_details->execute() === TRUE) {
-
+        if ($sql_insert->execute() === TRUE) {
             // Obtener el ID de la transacción insertada
-            $id = $mysqli_kushki->insert_id;
+            $id = $mysqli_kushkipayment->insert_id;
 
             $rq['id'] = $id;
             $rq['client_id'] = $client_id;
             $rq['amount'] = $amount;
             $rq['status'] = $status;
-            $rq['created_at '] = $created_at;
+            $rq['created_at'] = $created_at;
             $rq['updated_at'] = $updated_at;
-        
+
             return $rq;  
         } 
-    }elseif($insert_db['eject'] == "update"){
+    } elseif ($insert_db['eject'] == "update") {
+        $transaction_id = $insert_db['id'];
+        $status = $insert_db['status'];
+        $updated_at = date('Y-m-d H:i:s'); // Agregar fecha y hora actual
 
-    }else{
-
+        // Consulta SQL para actualizar el estado de la transacción
+        $sql_update = "UPDATE $table SET status = ?, updated_at = ? WHERE id = ?";
+        $stmt_update = $mysqli_kushkipayment->prepare($sql_update);
+        $stmt_update->bind_param("ssi", $status, $updated_at, $transaction_id); // Cambiar "ii" a "ssi"
+        if ($stmt_update->execute() === TRUE) {
+            
+            return $rq;
+        }
     }
-
     
-    
-
+    return ['http_code' => 500, 'status' => 'Error', 'result' => 'Error en la base de datos'];
 }
-
 
 
 

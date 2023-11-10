@@ -171,11 +171,11 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
     }else{
-        $auth_token = '487259136B05F289C1A501FAB667EAAD';
+        $auth_token = '3811E0BFC5285FBD78D3F535B3D65E11';
         $user_id = '1674627753';
-        $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
-        $visit["auth_data"]=$auth_data;
         $metodo = "payphone";
+        $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id, "metodo" => $metodo);
+        $visit["auth_data"]=$auth_data;
         //echo "datos ELSE ";
     }
 

@@ -1,6 +1,6 @@
 var connecting,site_id,sws,ws_url,message_queue,swsid,ws_session,usr_active;
 var prueba ={};
-
+			
 $(document).ready(function() {
 	console.log("document.ready k.js");
 	set_events();
@@ -22,7 +22,6 @@ function set_events(){
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
-		//console.log(data);
 		build_form();
 	});
 	
@@ -50,7 +49,6 @@ function build_form(rs){
 	let input = form.find('input');
 	let sms = $('#sms_alert');
 
-	console.log(input);
 		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
@@ -78,7 +76,6 @@ function build_form(rs){
 					form.hide();
 
 					prueba.kushki_value = Number(input.val());
-					//console.log("valor de usr_active es: "+usr_active+" y el value es: "+ prueba.kushki_value);
 
 					create_payment_button();
 				}
@@ -94,7 +91,6 @@ function create_payment_button(){
 		
 	usr_active.this_url = this_url;
 	usr_active.kushki_value = prueba.kushki_value;
-	console.log(usr_active); //borrar
 	//////////////////////////////////////////
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
@@ -109,25 +105,19 @@ function create_payment_button(){
 	let texto = $("#texto");
 	//////////////////////////////////////////
 
-	//$("#kushki_payment_holder").show();
 	holder.show();
-	//$("#kushki_details").html('Recarga: $/'+prueba.kushki_value);
-	holderdetails.html('Recarga: $/'+prueba.kushki_value);
-
-	
+	holderdetails.html('Recargando: $/'+prueba.kushki_value);
 
 	$.post(this_url+'sys/', 
 	{
 		create_payment_button:usr_active,
 	}, 
 	function(r, textStatus, xhr) {
-		//console.log("r : ");
-		//console.log(r);
+
 		try {
 			let rs = jQuery.parseJSON(r);
-			usr_active.order_id = rs.id;
-			console.log("CONSOLE rs");
-			console.log(rs);
+        	usr_active.order_id = rs.id;
+			
 			if(rs.status==201){
 				
 				holder.hide();
@@ -135,23 +125,17 @@ function create_payment_button(){
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
 				proframe.show();
+
 				btncerrar.click(function(event) {
-					console.log("Close cerrarIframe ");
-					//form.show();
-					//inputtext.hide();
-					//texto.hide();
-					//btn.html('Salir');
-					//btn.addClass('ready');
-					//btn.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos!!!</span>');
-					//btn.off();
+
 					prodiv.hide();
 					holderbutton.html('Salir');
 					holder.show();
 					
 				});
 				
-				//select_responde_to_bd(usr_active);
-				
+				response_to_payphone(usr_active);
+							
 			}else{
 				$('#kushki_payment_form').remove();
 				$('#kushki_payment_holder').html(rs.error);
@@ -164,6 +148,7 @@ function create_payment_button(){
 			console.log(err);
 		}
 	});
+
 }
 function validar(){
 	let form = $('#kushki_payment_form');
@@ -202,29 +187,71 @@ function onlyEnter(e){
 		e.preventDefault();
 	  }
 }
-function select_responde_to_bd(usr_active) {
-	console.log("select_responde_to_bd");
-	$.post(usr_active.this_url+'sys/', 
+function response_to_payphone(usr_active){
+	/////////////////////////////////////////
+	let holder = $('#kushki_payment_holder');
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn')
+	let form = $('#kushki_payment_form');
+	let btn = form.find('button');
+	//let input = form.find('input');
+	let inputtext = $("#inputtext");
+	let prodiv = $("#prometeoembeded");
+	let proframe = $("#prometeoframe");
+	let btncerrar = $("#cerrarIframe");
+	let texto = $("#texto");
+	//////////////////////////////////////////
+
+	
+	$.post(this_url+'sys/', 
 	{
-		prometeo_select_transactions:usr_active,
+		status_payment_button:usr_active,
 	}, 
- 
-	function(response) {
-	  // Parsea la respuesta JSON
-	  var result = JSON.parse(response);
-  
-	  // Verificar si la respuesta es 'true'
-	  if (result.success === true) {
-		// Realizar acciones adicionales aquí si es necesario
-		console.log('Respuesta True desde PHP:');
-		console.log(result);
-	  } else {
-		// Si la respuesta no es 'true', ejecutar la solicitud nuevamente después de un cierto período de tiempo (por ejemplo, 1 segundo)
-		setTimeout(function() {
-		  console.log('Respuesta False select desde PHP:');
-		  console.log(result);
-		  select_responde_to_bd(usr_active);
-		}, 10000); // Espera 10 segundo antes de ejecutar la próxima solicitud
-	  }
+	function(r, textStatus, xhr) {
+		try {
+			let rs = jQuery.parseJSON(r);
+			
+			console.log(rs.status_response)
+
+			if(rs.status_response !== true ){
+
+				response_to_payphone(usr_active);
+		
+				// Agrega un temporizador de 5 segundos antes de la próxima ejecución
+				/*
+				setTimeout(function () {
+					response_to_payphone(usr_active);
+				  }, 5000);
+				*/
+								
+			}  else {
+
+				btncerrar.click();
+				prodiv.hide();
+				holderbutton.html('Salir');
+				holder.show();
+				
+				if (rs.status ==  7){
+					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
+
+				} else if (rs.status == 10) {
+					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
+
+				} else if (rs.status ==  11) {
+					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
+
+				}
+				
+			}
+
+		}
+		catch(err) {
+
+			console.log(usr_active);
+			console.log(r);
+			console.log(err);
+
+		}
 	});
-}
+	
+}		
