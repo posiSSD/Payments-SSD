@@ -28,7 +28,7 @@ create_or_update_bd_api_transactions($data_array_response);
 
 $data_array_response_details = payphone_get_details($data_array_response);
 
-var_dump($data_array_response_details); /// aqui por ejemplo
+//var_dump($data_array_response_details); /// aqui por ejemplo
 
  
 
