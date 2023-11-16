@@ -15,15 +15,10 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 $transaccion = $_GET["id"];
 $client = $_GET["clientTransactionId"];
 
-// Imprimir valores para verificar
-var_dump($transaccion);
-var_dump($client);
-
 $data_array = array(
     "id" => (int)$transaccion,
     "clientTxId" => $client
 );
-var_dump($data_array);
 
 $data_array_response = api_button_V2_Confirm ($data_array);
 

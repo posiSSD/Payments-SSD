@@ -164,6 +164,41 @@ function create_payment_button($client=false){
     }	
     return $ret;
 }
+
+function api_button_V2_Confirm ($data_array){
+	
+	$ret = false;
+	$rq = [];
+	$rq['url']='https://pay.payphonetodoesposible.com/api/button/V2/Confirm';
+	$rq['method']="POST";
+
+	$rq['rq'] = [
+        "id" => $data_array['id'],
+		"clientTxId" => $data_array['clientTxId']
+    ];
+
+	// Define el header de la solicitud para Prometeo	
+	$rq['h']=[
+		"Content-Type: application/json",
+		'Authorization: Bearer '. env('TOKEN_PAYPHONE') 
+	];
+	// Imprimir el contenido de $RQ en la consola
+	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
+	$peticion_curl = kushki_curl($rq);
+
+	if (array_key_exists("curl_error", $peticion_curl)) {
+        $ret['curl_error'] = $peticion_curl;
+    } elseif (array_key_exists("code", $peticion_curl)) {
+        $ret['curl'] = $peticion_curl;
+        $ret['rq'] = $rq;
+        //print_r($rq['rq']);
+        exit();
+    } else {
+        $ret = $peticion_curl;
+    }	
+	var_dump($ret);
+    return $ret;
+}
 function kushki_curl($rq = false) {
 	
     $curl = curl_init();
@@ -254,40 +289,6 @@ function create_or_update_bd_api_details($data=false){
         }
         return $data;
     }
-}
-
-function api_button_V2_Confirm ($data_array){
-	
-	$ret = false;
-	$rq = [];
-	$rq['url']='https://pay.payphonetodoesposible.com/api/button/V2/Confirm ';
-	$rq['method']="POST";
-
-	$rq['rq'] = [
-        "id" => $data_array['id'],
-		"clientTxId" => $data_array['clientTxId']
-    ];
-
-	// Define el header de la solicitud para Prometeo	
-	$rq['h']=[
-		"Content-Type: application/json",
-		'Authorization: Bearer '. env('TOKEN_PAYPHONE') 
-	];
-	// Imprimir el contenido de $RQ en la consola
-	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
-	$peticion_curl = kushki_curl($rq);
-
-	if (array_key_exists("curl_error", $peticion_curl)) {
-        $ret['curl_error'] = $peticion_curl;
-    } elseif (array_key_exists("code", $peticion_curl)) {
-        $ret['curl'] = $peticion_curl;
-        $ret['rq'] = $rq;
-        //print_r($rq['rq']);
-        exit();
-    } else {
-        $ret = $peticion_curl;
-    }	
-    return $ret;
 }
 
 function create_or_update_bd_api_transactions($data=false){
