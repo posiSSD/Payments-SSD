@@ -21,17 +21,9 @@ $data_array = array(
 );
 
 $data_array_response = api_button_V2_Confirm ($data_array);
-
-var_dump($data_array_response); /// aqui por ejemplo
-
 create_or_update_bd_api_transactions($data_array_response);
-
 $data_array_response_details = payphone_get_details($data_array_response);
  
-var_dump($data_array_response_details); /// aqui por ejemplo
-
- 
-
 // Imprimir $data_array_response_details
 
 
@@ -88,7 +80,6 @@ switch ($data_array_response_details['transactionStatus']){
         //simular $bc_deposit['result']['trx_id']
         $bc_deposit['result']['trx_id'] = 1111111;
         //ver la respuesta
-        var_dump($bc_deposit);
         
         if(array_key_exists('http_code', $bc_deposit)){
             if($bc_deposit['http_code']==200){

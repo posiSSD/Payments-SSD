@@ -97,7 +97,6 @@ function create_or_update_transaction($trans=false){
 		if(isset($trans['wallet_id'])){
 			$insert_arr['wallet_id']=$trans['wallet_id'];
 		}
-	//var_dump($trans);
 
 	$data_to_db = data_to_db($insert_arr);
 	$insert_command = "INSERT INTO {$db}.{$table} (";
@@ -196,7 +195,6 @@ function api_button_V2_Confirm ($data_array){
     } else {
         $ret = $peticion_curl;
     }	
-	var_dump($ret);
     return $ret;
 }
 function kushki_curl($rq = false) {

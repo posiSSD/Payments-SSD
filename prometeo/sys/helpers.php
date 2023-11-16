@@ -122,7 +122,7 @@ function kushki_create_or_update_transaction($trans=false){
 		if(isset($trans['wallet_id'])){
 			$insert_arr['wallet_id']=$trans['wallet_id'];
 		}
-	//var_dump($trans);
+
 
 	$data_to_db = data_to_db($insert_arr);
 	$insert_command = "INSERT INTO {$db}.{$table} (";
@@ -329,7 +329,6 @@ function bd_update_prometeo($data){
 /*
 function prometeo_select_bd($trans=false){
 	global $mysqli;
-	var_dump($trans);
 	if(isset($trans)){
 
 		$sql = "SELECT external_id from prometeo_details
