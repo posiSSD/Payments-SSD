@@ -85,7 +85,7 @@ function kushki_get_transaction($trans=false){
 
 	return $ret;
 }
-function kushki_create_or_update_transaction($trans=false){
+function create_or_update_transaction($trans=false){
 	global $unique_id;
 	global $mysqli;
 

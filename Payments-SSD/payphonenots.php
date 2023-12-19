@@ -62,8 +62,6 @@ switch ($data_array_response_details['transactionStatus']){
         $new_trans['client_id']=$data_array_response_details['client_id'];
         $new_trans['status']=9; // 3=pending deposit
         $new_trans['payment_id']=$transaccion;
-      
-        
 
         create_or_update_transaction($new_trans);
 
@@ -94,6 +92,18 @@ switch ($data_array_response_details['transactionStatus']){
                 $ret['http_code']=200;
                 $ret['status']='Ok';
                 $ret['response']='Order '.$transaccion.' paid';
+                //api_ret($ret);
+            }else{
+                // declarar el update
+                $new_trans=[];
+                $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                $new_trans['status']=11; // 5=failed deposit
+                // ejecutar el update
+                create_or_update_transaction($new_trans);
+                
+                $ret['http_code']=500;
+                $ret['status']='Error';
+                $ret['response']='Something went wrong, check logs';
                 //api_ret($ret);
             }
         }          

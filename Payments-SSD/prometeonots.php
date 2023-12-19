@@ -1,9 +1,9 @@
 <?php
 include '../env.php';
 include ROOT_PATH.'/db.php';
-include ROOT_PATH.'/prometeo/sys/helpers.php';
 include ROOT_PATH.'/sys/helpers.php';
-include ROOT_PATH.'/prometeo/api/KushkiController.php';
+include ROOT_PATH.'/prometeo/sys/helpers.php';
+include ROOT_PATH.'/Payments-SSD/api/Controller.php';
 //include '/api/KushkiController.php';
 
 // Verificar que la solicitud sea de tipo POST
@@ -54,9 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             insert_bd($mysqli, $data_array);
 
-            
-
-            
             ///////////////////NUEVO CODIGO //////////////////////////////
             $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
             // definir parametros de log
@@ -81,15 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $http_code = 500;
             $status = 'Error';
             $response = [];  
-            
-            //verificacion de datos...
-            //verificacion_datos($data_array);              
-                                    
-            
-
-            // obtener el unique_id de la transaccion
-	        //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
-            
+                                 
         
             //switch para ver aprobacion
             switch ($data_array['event_type']) {
@@ -102,49 +91,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $new_trans['payment_id']=$data_array['event_id'];
 
                     // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
+                    create_or_update_transaction($new_trans);
                     //$trans = kushki_get_transaction(['unique_id'=>$data_array['external_id']]);
                     //poner un if status 9
 
-
-                    //desde de aqui
-                    /*
                     $d=[];
-                    $d['account']=$trans['client_id'];
-                    $d['amount']=$trans['amount'];
-                    $d['order_id']=$trans['order_id'];
+                        $d['account']=$trans['client_id'];
+                        $d['amount']=$trans['amount'];
+                        $d['order_id']=$trans['order_id'];
+                        $d['payment_method']=3; // 3 = prometeo
+
                     $bc_deposit = deposit_prometeo($d);
+
+                    //simular $bc_deposit['result']['trx_id']
+                    $bc_deposit['result']['trx_id'] = 1111111;
 
                     if(array_key_exists('http_code', $bc_deposit)){
                         if($bc_deposit['http_code']==200){
                             // declarar el update
                             $new_trans=[];
-                                $new_trans['unique_id']=$trans['unique_id'];
-                                $new_trans['status']=7; // 3=paid
-                                $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                            $new_trans['unique_id']=$trans['unique_id'];
+                            $new_trans['status']=7; // 3=paid
+                            $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
                             // ejecutar el update
-                            kushki_create_or_update_transaction($new_trans);
+                            create_or_update_transaction($new_trans);
                             // todo bien, transaccion pagada
                             $ret['http_code']=200;
                             $ret['status']='Ok';
                             $ret['response']='Order '.$trans['unique_id'].' paid';
-                            api_ret($ret);
+                            //api_ret($ret);
                         }else{
                             // declarar el update
                             $new_trans=[];
                             $new_trans['unique_id']=$trans['unique_id'];
                             $new_trans['status']=11; // 5=failed deposit
                             // ejecutar el update
-                            kushki_create_or_update_transaction($new_trans);
+                            create_or_update_transaction($new_trans);
                             
                             $ret['http_code']=500;
                             $ret['status']='Error';
                             $ret['response']='Something went wrong, check logs';
-                            api_ret($ret);
+                            //api_ret($ret);
                         }
                     }
-                    */
-                    //desde de aqui          
+                            
                 break;
 
                 case "payment.error":
@@ -155,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $new_trans['payment_id']=$data_array['event_id'];
 
                     // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
+                    create_or_update_transaction($new_trans);
                 break;
 
                 case "payment.rejected":
@@ -166,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $new_trans['payment_id']=$data_array['event_id'];
 
                     // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
+                    create_or_update_transaction($new_trans);
                 break;
 
                 case "payment.cancelled":
@@ -177,40 +167,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $new_trans['payment_id']=$data_array['event_id'];
 
                     // ejecutar el update
-                    kushki_create_or_update_transaction($new_trans);
+                    create_or_update_transaction($new_trans);
                 break;
             }
             
-            /////////////////// FIN CODIGO //////////////////////////////
-            
             http_response_code(200);
-            //echo json_encode(["message" => "Registro exitoso"]);
+            
         } else {
-            // No se recibieron datos válidos en la solicitud
+            
             http_response_code(400); // Código 400 para solicitud incorrecta
-            //echo json_encode(["message" => "No se recibieron datos válidos en la solicitud"]);
+            
         }
     } else {
-        // La solicitud no contenía JSON válido
+        
         http_response_code(400); // Código 400 para solicitud incorrecta
-        //echo json_encode(["message" => "El cuerpo de la solicitud no es JSON válido"]);
+        
     }
 
 } else {
-    // La solicitud no contenía JSON válido
+    
     http_response_code(400); // Código 400 para solicitud incorrecta
-    //echo json_encode(["message" => "El cuerpo REQUEST_METHOD no es POST"]);
+    
 }
-/*
-else{
-	// retornar error al no json
-	$ret['http_code']=400;
-	$ret['status']='Error';
-	$ret['response']='no json';
-
-	api_ret($ret);
-}
-*/
 
 function api_ret($r){
 	global $a;

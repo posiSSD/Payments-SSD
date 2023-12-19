@@ -13,7 +13,7 @@ if(isset($_POST['kushki_create_payment_button'])){
 	$_POST['kushki_create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['kushki_create_payment_button']['status'] = 6;
 
-	kushki_create_or_update_transaction($_POST['kushki_create_payment_button']);
+	create_or_update_transaction($_POST['kushki_create_payment_button']);
 	$kushki_create_payment_button = kushki_create_payment_button($_POST['kushki_create_payment_button']);
 
 	//Guardando datos en table prometeo_details y prometeo_transactions
@@ -31,7 +31,7 @@ if(isset($_POST['kushki_create_payment_button'])){
 		$_POST['kushki_create_payment_button']['status'] = 6;
 		$_POST['kushki_create_payment_button']['order_id'] = $kushki_create_payment_button['id'];
 		//var_dump($_POST['kushki_create_payment_button']);
-		kushki_create_or_update_transaction($_POST['kushki_create_payment_button']);
+		create_or_update_transaction($_POST['kushki_create_payment_button']);
 		//
 	}elseif(array_key_exists("curl_error", $kushki_create_payment_button)){
 		$ret['status']=408;

@@ -19,24 +19,18 @@ function payment_deposit($request){
 
     $transaction_id = insert_or_update_tbl_transactions($insert_db);
 
-    // $rq['id'] = $id;
-    // $rq['client_id'] = $client_id;
-    // $rq['amount'] = $amount;
-    // $rq['status'] = $status;
-    // $rq['created_at '] = $created_at;
-    // $rq['updated_at'] = $updated_at;
-
-    /*
+    
     $url_data = [];
     $url_data["command"] = "pay";
     $url_data["txn_id"] = $transaction_id['id'];
-    $url_data["account"] = $transaction_id['client_id'];
-    $url_data["amount"] = $transaction_id['amount']; 
-    */
+    $url_data["account"] = $request['request']['account'];
+    $url_data["amount"] = $request['request']['amount']; 
+    //$url_data["payment_method"] = $request['payment_method'];
 
-    //$payment_curl = payment_curl($url_data);
-        // 'result']['txn_id']
+    $payment_curl = payment_curl($url_data);
+    
     //simulacion
+    /*
     $txn_id = str_pad(mt_rand(1, 9999999), 7, '0', STR_PAD_LEFT);
     $payment_curl = [
         'http_code' => 200,
@@ -47,7 +41,8 @@ function payment_deposit($request){
             'amount' => $request['request']['amount'],
         ]
     ];
-
+    */
+    
     if($payment_curl){
         if($payment_curl["response"]["code"]){
             return ['http_code' => 400, 'status' => 'Error', 'result' =>  $payment_curl["response"]];
@@ -73,18 +68,21 @@ function payment_curl($url_data){
     
     // $url_data = [];
     // $url_data["command"] = "pay";
-    // $url_data["txn_id"] = 1;
+    // $url_data["txn_id"] = 15;
     // $url_data["account"] = 1674627753;
-    // $url_data["amount"] = 1;
+    // $url_data["amount"] = 10;
     
-    
+
+
+    //Payment ID - 366
+
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";
-	$bc_param["secretkey"]=env('BC_KUSHKI_SECRET_KEY');
-	$bc_param["sid"]="18751709";
+	$bc_param["secretkey"]=env('TOKEN_PAYPHONE');
+	$bc_param["sid"]="279";
 	$bc_param["currency"]="USD";
-	$bs_param["paymentID"]=2064; //Kushki
+	$bs_param["paymentID"]=366; //payphone //Payment ID - 366
 
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
@@ -99,7 +97,7 @@ function payment_curl($url_data){
 	$bc_url.="?";
 	$bc_url.=http_build_query($url_data);
 
-	$request_headers = array();
+	//$request_headers = array();
 	$curl = curl_init($bc_url);
 
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -108,7 +106,7 @@ function payment_curl($url_data){
 		
 	$response = curl_exec($curl);
 
-	insert_tbl_api_activities($url_data, $bc_url, $response);
+	//insert_tbl_api_activities($url_data, $bc_url, $response);
 
 
 	if($response){
