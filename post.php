@@ -4,21 +4,21 @@ include 'prometeo/db.php';
 
 $url_data = [];
 $url_data["command"] = "pay";
-$url_data["txn_id"] = 1;
+$url_data["txn_id"] = str_pad(mt_rand(1, 9999999), 7, '0', STR_PAD_LEFT);;
 $url_data["account"] = 1674627753;
-$url_data["amount"] = 1;
+$url_data["amount"] = 10;
 
 $bc_param = [];
 $bc_param["host"] = "https://payments1.betconstruct.com/";
 $bc_param["resource"] = "TerminalCallbackPG";
-$bc_param["secretkey"] = env('BC_KUSHKI_SECRET_KEY');
-$bc_param["sid"] = "18751709";
+$bc_param["secretkey"] = env('TOKEN_PAYPHONE');
+$bc_param["sid"] = "279";
 $bc_param["currency"] = "USD";
-$bs_param["paymentID"]=1819;
+$bs_param["paymentID"]=366;
 
 $url_data["currency"] = $bc_param["currency"];
 $url_data["sid"] = $bc_param["sid"];
-$url_data["hashcode"] = md5(implode($url_data) . $bc_param["secretkey"]); // hashcode check
+$url_data["hashcode"] = md5(implode($url_data).$bc_param["secretkey"]); // hashcode check
 
 $bc_url = $bc_param["host"];
 $bc_url .= "Bets/PaymentsCallback/";

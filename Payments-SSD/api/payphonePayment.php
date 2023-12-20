@@ -87,7 +87,7 @@ function payment_curl($url_data){
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
 	$url_data["hashcode"]=md5(implode($url_data).$bc_param["secretkey"]);
-	$url_data["paymentID"]=$bs_param["paymentID"];
+	//$url_data["paymentID"]=$bs_param["paymentID"];
 
 	$bc_url="";
 	$bc_url =$bc_param["host"];
