@@ -1,6 +1,6 @@
 <?php
-include 'prometeo/env.php';
-include 'prometeo/db.php';
+include 'env.php';
+include 'db.php';
 
 $url_data = [];
 $url_data["command"] = "pay";
@@ -25,7 +25,7 @@ $bc_url .= "Bets/PaymentsCallback/";
 $bc_url .= $bc_param["resource"] . "/";
 $bc_url .= "?" . http_build_query($url_data);
 
-$request_headers = array();
+//$request_headers = array();
 // ... (código previo)
 
 $curl = curl_init($bc_url);
@@ -33,6 +33,8 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_POST, false);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
+
+echo ($response);
 
 if ($response) {
     $response_arr = json_decode($response, true);
@@ -47,9 +49,6 @@ if ($response) {
 } else {
     echo ($bc_url);
     //echo "Request to $bc_url failed. cURL error: " . curl_error($curl)." Request : ".$request;
-
-    
-
 }
 
 curl_close($curl);
