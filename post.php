@@ -55,7 +55,7 @@ if ($response) {
         echo "Failed to decode JSON response.";
     }
 } else {
-    echo ($bc_url);
+    echo "Else: ".$bc_url;
     //echo "Request to $bc_url failed. cURL error: " . curl_error($curl)." Request : ".$request;
 }
 
