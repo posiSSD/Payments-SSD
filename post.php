@@ -40,7 +40,7 @@ if ($response !== false) {
         }
         echo "Éxito: Contenido de la respuesta: " . print_r($response_arr, true);
     } else {
-        echo "La solicitud a $bc_url falló. Error cURL: " . curl_error($curl)
+        echo "La solicitud a $bc_url falló. Error cURL: " . curl_error($curl);
 
     }
 } else {
