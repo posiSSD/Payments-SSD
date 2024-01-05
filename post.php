@@ -40,12 +40,11 @@ if ($response !== false) {
         }
         echo "Éxito: Contenido de la respuesta: " . print_r($response_arr, true);
     } else {
-        echo "Fallo al decodificar la respuesta JSON.";
-        echo "Respuesta sin decodificar: " . $response;
+        echo "La solicitud a $bc_url falló. Error cURL: " . curl_error($curl)
 
     }
 } else {
-    echo "La solicitud a $bc_url falló. Error cURL: " . curl_error($curl);
+    echo "else";
 }
 
 curl_close($curl);
