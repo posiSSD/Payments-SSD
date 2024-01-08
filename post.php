@@ -31,20 +31,24 @@ curl_setopt($curl, CURLOPT_POST, false);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
-if ($response !== false) {
-    $response_arr = json_decode($response, true);
+if($response){
 
+    $response_arr = json_decode($response, true);
     if ($response_arr !== null) {
-        if (array_key_exists("txn_id", $url_data)) {
-            $response_arr["response"]["txn_id"] = $url_data["txn_id"];
-        }
-        echo "Éxito: Contenido de la respuesta: " . print_r($response_arr, true);
-    } else {
-        echo "La solicitud a $bc_url falló. Error cURL: " . curl_error($curl);
+
+        $response_arr["response"]["txn_id"] = $url_data["txn_id"];
+        echo "Éxito: $bc_url " . print_r($response_arr, true);
+    } 
+    else 
+    {
+        echo "La $bc_url falló. Error cURL: " . curl_error($curl);
 
     }
-} else {
-    echo "else";
+
+}
+else
+{
+    return false;
 }
 
 curl_close($curl);

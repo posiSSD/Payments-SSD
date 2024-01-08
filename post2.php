@@ -24,7 +24,7 @@ $url_data["hashcode"] = md5(implode($url_data) . $bc_param["secretkey"]); // Com
 $url_data["paymentID"] = $bs_param["paymentID"];
 
 $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
-
+//  https://payments1.betconstruct.com/Bets/PaymentsCallback/
 try {
     $curl = curl_init($bc_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -33,8 +33,6 @@ try {
 
     // Intentar realizar la solicitud cURL
     $response = curl_exec($curl);
-
-    echo $response;
 
     if ($response === false) {
         echo "True :" . $response;
