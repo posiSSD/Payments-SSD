@@ -35,12 +35,11 @@ try {
     $response = curl_exec($curl);
 
     if ($response === false) {
-        throw new Exception("true $bc_url cURL: " . curl_error($response));
-        echo $response;
+        echo "La solicitud al endpoint falló.";
+    } else {
+        echo "Respuesta del endpoint: " . $response;
     }
-    else{
-        throw new Exception("else $bc_url cURL: " . curl_error($response));
-    }
+    
 
 } catch (Exception $e) {
     // Manejar la excepción
