@@ -35,9 +35,9 @@ try {
     $response = curl_exec($curl);
 
     if ($response === false) {
-        echo "Respuesta del endpoint: " . $response;
+        echo "true :" . $response;
     } else {
-        echo "Respuesta del endpoint: " . $response;
+        echo "False :" . $response;
     }
     
 
