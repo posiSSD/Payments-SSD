@@ -43,7 +43,7 @@ if($response){
         echo "La $bc_url falló. Error cURL: " . curl_error($curl);
     }
 }else{
-    return false;
+    echo "Else: $bc_url ";
 }
 
 
