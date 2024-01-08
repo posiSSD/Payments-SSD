@@ -48,7 +48,7 @@ if($response){
 }
 else
 {
-    return false;
+    error_log("Else :" . print_r($response, true));
 }
 
 curl_close($curl);
