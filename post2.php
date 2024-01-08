@@ -35,21 +35,11 @@ try {
     $response = curl_exec($curl);
 
     if ($response === false) {
-        throw new Exception("La solicitud a $bc_url falló. Error cURL: " . curl_error($curl));
+        throw new Exception("true $bc_url falló. Error cURL: " . curl_error($curl));
     }
-
-    // Intentar decodificar la respuesta JSON
-    $response_arr = json_decode($response, true);
-
-    if ($response_arr === null && json_last_error() !== JSON_ERROR_NONE) {
-        throw new Exception("Fallo al decodificar la respuesta JSON. Detalles: " . json_last_error_msg());
+    else{
+        throw new Exception("else $bc_url falló. Error cURL: " . curl_error($curl));
     }
-
-    // Procede con el código cuando la decodificación y la solicitud son exitosas
-    if (array_key_exists("txn_id", $url_data)) {
-        $response_arr["response"]["txn_id"] = $url_data["txn_id"];
-    }
-    echo "Éxito: Contenido de la respuesta: " . print_r($response_arr, true);
 
 } catch (Exception $e) {
     // Manejar la excepción
