@@ -35,7 +35,7 @@ try {
     $response = curl_exec($curl);
 
     if ($response === false) {
-        echo "La solicitud al endpoint falló.";
+        echo "Respuesta del endpoint: " . $response;
     } else {
         echo "Respuesta del endpoint: " . $response;
     }
