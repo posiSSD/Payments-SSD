@@ -34,6 +34,8 @@ try {
     // Intentar realizar la solicitud cURL
     $response = curl_exec($curl);
 
+    echo $response;
+
     if ($response === false) {
         echo "true :" . $response;
     } else {
