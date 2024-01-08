@@ -35,10 +35,10 @@ try {
     $response = curl_exec($curl);
 
     if ($response === false) {
-        throw new Exception("true $bc_url falló. Error cURL: " . curl_error($curl));
+        throw new Exception("true $bc_url cURL: " . curl_error($response));
     }
     else{
-        throw new Exception("else $bc_url falló. Error cURL: " . curl_error($curl));
+        throw new Exception("else $bc_url cURL: " . curl_error($response));
     }
 
 } catch (Exception $e) {
