@@ -7,7 +7,7 @@ try {
     $response = file_get_contents($endpoint_url);
 
     if ($response === false) {
-        throw new Exception("La solicitud al endpoint falló.");
+        throw new Exception($response);
     }
 
     // Manejar la respuesta, por ejemplo, imprimir el contenido

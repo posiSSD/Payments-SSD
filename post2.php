@@ -37,8 +37,10 @@ try {
     echo $response;
 
     if ($response === false) {
-        echo "true :" . $response;
+        echo "True :" . $response;
+        error_log("True :" . print_r($response, true));
     } else {
+        error_log("False :" . print_r($response, true));
         echo "False :" . $response;
     }
     
