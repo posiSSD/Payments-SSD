@@ -36,6 +36,7 @@ try {
 
     if ($response === false) {
         throw new Exception("true $bc_url cURL: " . curl_error($response));
+        echo $response;
     }
     else{
         throw new Exception("else $bc_url cURL: " . curl_error($response));
