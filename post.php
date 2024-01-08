@@ -32,24 +32,20 @@ curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
 if($response){
-
-    $response_arr = json_decode($response, true);
-    if ($response_arr !== null) {
-
-        $response_arr["response"]["txn_id"] = $url_data["txn_id"];
+    $response_arr = json_decode($response,true);
+    if(is_array($response_arr)){
+            $response_arr["response"]["txn_id"]=$url_data["txn_id"];
+        
         echo "Éxito: $bc_url " . print_r($response_arr, true);
-    } 
-    else 
+    }
+    else
     {
         echo "La $bc_url falló. Error cURL: " . curl_error($curl);
-
     }
+}else{
+    return false;
+}
 
-}
-else
-{
-    error_log("Else :" . print_r($response, true));
-}
 
 curl_close($curl);
 ?>
