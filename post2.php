@@ -20,7 +20,7 @@ $bc_param["currency"] = "USD";
 //$bs_param["paymentID"] = 366; //PartnerPayment
 //$bs_param["paymentID"] = 14831; //
 
-$bs_param["paymentID"] = 999; //
+$bs_param["paymentID"] = "137"; //
 
 
 $url_data["currency"] = $bc_param["currency"];
@@ -38,8 +38,9 @@ $response = curl_exec($curl);
 
 echo $bc_url;
 
-//echo "Response es: " . $response;
+echo "\nResponse es: " . $response;
 
+/*
 if($response){
     $response_arr = json_decode($response,true);
     if(is_array($response_arr)){
@@ -55,6 +56,7 @@ if($response){
 }else{
     return false;
 }
+*/
 
 curl_close($curl);
 ?>
