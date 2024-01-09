@@ -20,7 +20,7 @@ $bc_param["currency"] = "USD";
 //$bs_param["paymentID"] = 366; //PartnerPayment
 //$bs_param["paymentID"] = 14831; //
 
-$bs_param["paymentID"] = "1630"; //
+$bs_param["paymentID"] = "51"; //
 
 
 $url_data["currency"] = $bc_param["currency"];
