@@ -17,10 +17,8 @@ $bc_param["secretkey"] ="wwaw4TbqSrO24gH22";
 $bc_param["sid"] = "18751709";
 //18751709
 $bc_param["currency"] = "USD";
-//2064
-//$bs_param["paymentID"] = 366;
-$bs_param["paymentID"] = 366;
-//
+//$bs_param["paymentID"] = 366; //PartnerPayment
+$bs_param["paymentID"] = 14831; //
 
 $url_data["currency"] = $bc_param["currency"];
 $url_data["sid"] = $bc_param["sid"];
