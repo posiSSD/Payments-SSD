@@ -12,7 +12,7 @@ $url_data["amount"] = 10;
 // Configuración de BetConstruct
 $bc_param = [];
 $bc_param["host"] = "https://payments1.betconstruct.com/";
-$bc_param["resource"] = "TerminalCallbackPG";
+$bc_param["resource"] = "TerminalCallbackPG/";
 $bc_param["secretkey"] ="wwaw4TbqSrO24gH22";
 $bc_param["sid"] = "18751709";
 //18751709
@@ -34,6 +34,8 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
+
+echo $bc_url;
 
 echo "Response es: " . $response;
 echo "curl error: " . curl_error($curl);
