@@ -33,10 +33,27 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
-echo $bc_url;
 
-echo "Response es: " . $response;
-echo "curl error: " . curl_error($curl);
+
+//echo $bc_url;
+
+//echo "Response es: " . $response;
+
+if($response){
+    $response_arr = json_decode($response,true);
+    if(is_array($response_arr)){
+        if(array_key_exists("txn_id",$url_data)){
+            $response_arr["response"]["txn_id"]=$url_data["txn_id"];
+        }
+
+        echo $response_arr;
+        //return $response_arr;
+    }else{
+        return false;
+    }
+}else{
+    return false;
+}
 
 curl_close($curl);
 ?>
