@@ -18,7 +18,10 @@ $bc_param["sid"] = "18751709";
 //18751709
 $bc_param["currency"] = "USD";
 //$bs_param["paymentID"] = 366; //PartnerPayment
-$bs_param["paymentID"] = 14831; //
+//$bs_param["paymentID"] = 14831; //
+
+$bs_param["paymentID"] = 999; //
+
 
 $url_data["currency"] = $bc_param["currency"];
 $url_data["sid"] = $bc_param["sid"];
@@ -33,9 +36,7 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
-
-
-//echo $bc_url;
+echo $bc_url;
 
 //echo "Response es: " . $response;
 
