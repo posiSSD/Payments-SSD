@@ -36,6 +36,7 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
+echo $bc_url;
 echo $response;
 
 if($response){
@@ -44,7 +45,6 @@ if($response){
         if(array_key_exists("txn_id",$url_data)){
             $response_arr["response"]["txn_id"]=$url_data["txn_id"];
         }
-
         echo $response_arr;
         //return $response_arr;
     }else{
@@ -53,7 +53,6 @@ if($response){
 }else{
     return false;
 }
-
 
 curl_close($curl);
 ?>

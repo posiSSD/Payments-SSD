@@ -106,7 +106,7 @@ function payment_curl($url_data){
 		
 	$response = curl_exec($curl);
 
-	//insert_tbl_api_activities($url_data, $bc_url, $response);
+	insert_tbl_api_activities($url_data, $bc_url, $response);
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -151,13 +151,13 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $id = $mysqli_kushki->insert_id;
 
         $rq['id'] = $id;
-        $rq['command'] = $type_transaction_id;
-        $rq['account'] = $txt_id;
-        $rq['txn_id'] = $amount;
-        $rq['url '] = $shop_id;
-        $rq['response'] = $cashdesk_id;
-        $rq['created_at '] = $user_id;
-        $rq['updated_at '] = $status;
+        $rq['command'] = $command;
+        $rq['account'] = $account;
+        $rq['txn_id'] = $txn_id;
+        $rq['url '] = $url;
+        $rq['response'] = $response;
+        $rq['created_at '] = $created_at;
+        $rq['updated_at '] = $updated_at;
             
         return $rq;  
     } 
