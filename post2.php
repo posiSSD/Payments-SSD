@@ -36,11 +36,8 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_TIMEOUT, 6);
 $response = curl_exec($curl);
 
-echo $bc_url;
+echo $response;
 
-echo "\nResponse es: " . $response;
-
-/*
 if($response){
     $response_arr = json_decode($response,true);
     if(is_array($response_arr)){
@@ -56,7 +53,7 @@ if($response){
 }else{
     return false;
 }
-*/
+
 
 curl_close($curl);
 ?>

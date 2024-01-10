@@ -79,15 +79,15 @@ function payment_curl($url_data){
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";
-	$bc_param["secretkey"]=env('TOKEN_PAYPHONE');
-	$bc_param["sid"]="279";
+	$bc_param["secretkey"]=env('BC_PAYPHONE_SECRET_KEY');
+	$bc_param["sid"]="18751709";
 	$bc_param["currency"]="USD";
-	$bs_param["paymentID"]=366; //payphone //Payment ID - 366
+	$bs_param["paymentID"]=366; //payphone  - 366
 
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
 	$url_data["hashcode"]=md5(implode($url_data).$bc_param["secretkey"]);
-	//$url_data["paymentID"]=$bs_param["paymentID"];
+	$url_data["paymentID"]=$bs_param["paymentID"];
 
 	$bc_url="";
 	$bc_url =$bc_param["host"];
@@ -107,7 +107,6 @@ function payment_curl($url_data){
 	$response = curl_exec($curl);
 
 	//insert_tbl_api_activities($url_data, $bc_url, $response);
-
 
 	if($response){
 		$response_arr = json_decode($response,true);
