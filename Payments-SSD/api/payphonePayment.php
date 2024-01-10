@@ -19,7 +19,6 @@ function payment_deposit($request){
 
     $transaction_id = insert_or_update_tbl_transactions($insert_db);
 
-    
     $url_data = [];
     $url_data["command"] = "pay";
     $url_data["txn_id"] = $transaction_id['id'];
@@ -42,7 +41,17 @@ function payment_deposit($request){
         ]
     ];
     */
-    
+
+    // variable payment_curl how turn back
+    /*
+    {"response":{   "code": 0,
+                    "message": "OK",
+                    "FirstName": "",
+                    "LastName": "",
+                    "txn_id": ""}
+    }
+    */
+    /*
     if($payment_curl){
         if($payment_curl["response"]["code"]){
             return ['http_code' => 400, 'status' => 'Error', 'result' =>  $payment_curl["response"]];
@@ -58,9 +67,30 @@ function payment_deposit($request){
     }else{
         return ['http_code' => 408, 'status' => 'Error', 'result' =>  $transaction_id];
     }
-    return ['http_code' => 200, 'status' => 'Ok', 'result' => $transaction_id];
-        // Resto del código...
 
+    return ['http_code' => 200, 'status' => 'Ok', 'result' => $transaction_id];
+    
+    */
+
+    if ($payment_curl) {
+        if ($payment_curl["response"]["code"] == 0) {
+            // El código de respuesta es 0, lo que indica una respuesta exitosa
+    
+            $transaction_id['status'] = 1;
+            $transaction_id['eject'] = 'update';
+    
+            insert_or_update_tbl_transactions($transaction_id);
+    
+            return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
+        } else {
+            // El código de respuesta no es 0, indica un error
+            return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
+        }
+    } else {
+        // No se recibió ninguna respuesta, indica un error de timeout u otro problema de conexión
+        return ['http_code' => 408, 'status' => 'Error', 'result' => $transaction_id];
+    }
+    
 }   
 
 
@@ -109,13 +139,11 @@ function payment_curl($url_data){
     {"response":{   "code": 0,
                     "message": "OK",
                     "FirstName": "",
-                    "LastName": ""}
+                    "LastName": "",
+                    "txn_id": ""}
     }
     */
-	insert_tbl_api_activities($url_data, $bc_url, $response);
-
-
-    
+	insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -123,7 +151,7 @@ function payment_curl($url_data){
 			if(array_key_exists("txn_id",$url_data)){
 					$response_arr["response"]["txn_id"]=$url_data["txn_id"];
 			}
-            error_log("\$response_arr: " . print_r($response_arr, true));
+            //error_log("\$response_arr: " . print_r($response_arr, true));
 			return $response_arr;
 		}else{
 			return false;
@@ -223,9 +251,11 @@ function insert_or_update_tbl_transactions($insert_db) {
             
             return $rq;
         }
+    } else{
+        return $rq;
     }
     
-    return ['http_code' => 500, 'status' => 'Error', 'result' => 'Error en la base de datos'];
+    //return ['http_code' => 500, 'status' => 'Error', 'result' => 'Error en la base de datos'];
 }
 
 
