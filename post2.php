@@ -45,7 +45,8 @@ if($response){
         if(array_key_exists("txn_id",$url_data)){
             $response_arr["response"]["txn_id"]=$url_data["txn_id"];
         }
-        echo $response_arr;
+
+        error_log("\$response_arr: " . print_r($response_arr, true));
         //return $response_arr;
     }else{
         return false;

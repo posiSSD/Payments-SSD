@@ -105,8 +105,17 @@ function payment_curl($url_data){
 	curl_setopt($curl, CURLOPT_TIMEOUT,6); //Timeout Seconds	
 		
 	$response = curl_exec($curl);
-
+    /*
+    {"response":{   "code": 0,
+                    "message": "OK",
+                    "FirstName": "",
+                    "LastName": ""}
+    }
+    */
 	insert_tbl_api_activities($url_data, $bc_url, $response);
+
+
+    
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -114,7 +123,8 @@ function payment_curl($url_data){
 			if(array_key_exists("txn_id",$url_data)){
 					$response_arr["response"]["txn_id"]=$url_data["txn_id"];
 			}
-				return $response_arr;
+            error_log("\$response_arr: " . print_r($response_arr, true));
+			return $response_arr;
 		}else{
 			return false;
 		}
