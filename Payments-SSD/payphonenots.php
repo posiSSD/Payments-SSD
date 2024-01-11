@@ -53,6 +53,9 @@ $status = 'Error';
 $response = [];  
 
 
+var_dump($data_array_response_details);
+
+
 
 switch ($data_array_response_details['transactionStatus']){
     case "Approved":
