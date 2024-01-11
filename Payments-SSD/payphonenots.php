@@ -56,7 +56,7 @@ $response = [];
 
 
 error_log("array " . print_r($data_array, true));
-
+/*
 
 switch ($data_array_response_details['transactionStatus']){
     case "Approved":
@@ -165,4 +165,5 @@ function api_activities($a){
 	}
 	$mysqli->close();
 }
+*/
 ?>
