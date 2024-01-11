@@ -5,6 +5,31 @@ include ROOT_PATH.'/sys/helpers.php';
 ?>
 
 <?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
     
     // construccion del array de la ip visitante.

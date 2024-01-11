@@ -25,7 +25,7 @@ create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
  
 // Imprimir $data_array_response_details
-
+var_dump($data_array_response_details);
 
 ///////////////////NUEVO CODIGO //////////////////////////////
 $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
@@ -53,7 +53,7 @@ $status = 'Error';
 $response = [];  
 
 
-var_dump($data_array_response_details);
+
 
 
 
