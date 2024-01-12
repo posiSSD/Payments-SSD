@@ -76,11 +76,11 @@ if($data_array_response_details){
             $d['amount']=$data_array_response_details['amount'];
             $d['order_id']=$data_array_response_details['paymentId'];
             $d['payment_method']=4; // 4 = payphone
-            consolelogdata($new_trans);
-            /*
+            consolelogdata($d);
 
             $bc_deposit = bc_deposit($d);
     
+            /*
             //simular $bc_deposit['result']['trx_id']
             $bc_deposit['result']['trx_id'] = 1111111;
             //ver la respuesta

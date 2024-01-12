@@ -18,7 +18,7 @@ function bc_deposit($request){
     $request['ip_address'] = $_SERVER['REMOTE_ADDR'];
     $validator = validateRequest($request);
 
-    
+    consolelogdata($validator);
 
 
     if ($validator !== true){
@@ -44,11 +44,13 @@ function bc_deposit($request){
 
     
 
-    $response = paymente_bc($request);
+    //$response = paymente_bc($request);
 
     //error_log("Contenido de \$response: " . print_r($response, true));
     
-	return $response; 
+	//return $response; 
+
+    return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
 
 }
 
@@ -57,7 +59,7 @@ function validateRequest($request) {
 
     // Validación del campo 'ip_address, // Validación del campo 'account', // Validación del campo 'amount'
     // comando en terminal de ubuntu para saber tu ip curl ifconfig.me
-    $validIPs = ["45.169.92.244", "200.107.154.26","190.223.60.40","127.0.0.1"];
+    $validIPs = ["45.169.92.244", "200.107.154.26","190.223.60.40","127.0.0.1, 54.242.68.233"];
     if (!isset($request['ip_address']) || !filter_var($request['ip_address'], FILTER_VALIDATE_IP) || !in_array($request['ip_address'], $validIPs)){
         $errors = "El campo 'ip_address' es inválido: ".$request['ip_address'];        
     }elseif(!isset($request['account']) || !is_numeric($request['account']) || $request['account'] <= 0){
