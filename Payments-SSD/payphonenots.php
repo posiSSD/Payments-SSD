@@ -19,18 +19,6 @@ $data_array_response = api_button_V2_Confirm ($data_array);
 create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
 
-//////////////////////////////////////////////
-//consolelogdata($data_array);
-//consolelogdata($data_array_response_details);
-////////////////////////////////////////////////
-/*
-
-consolelogdata($data_array);
-consolelogdata($data_array_response_details);
-error_log("array " . print_r($data_array, true));
-error_log("array " . print_r($data_array_response_details, true));
-*/
-//////////////////////////////////////////////
 
 ///////////////////NUEVO CODIGO //////////////////////////////
 $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
@@ -77,7 +65,7 @@ if($data_array_response_details){
             $d['payment_method']=4; // 4 = payphone
 
             $bc_deposit = bc_deposit($d);
-
+            //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
             consolelogdata($bc_deposit);
             /*
             //simular $bc_deposit['result']['trx_id']

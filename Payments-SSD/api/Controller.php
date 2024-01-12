@@ -29,20 +29,10 @@ function bc_deposit($request){
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
 
     }
-    
-    //$d=[];
-    //$d['account']=$data_array_response_details['client_id'];
-    //$d['amount']=$data_array_response_details['amount'];
-    //$d['order_id']=$data_array_response_details['paymentId'];
-    //$d['payment_method']=4; // 4 = payphone
 
     $response = paymente_bc($request);
-
-    //error_log("Contenido de \$response: " . print_r($response, true));
-    
-	return $response; 
-
     //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
+	return $response;     
 
 }
 
