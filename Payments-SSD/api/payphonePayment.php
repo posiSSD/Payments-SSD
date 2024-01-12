@@ -15,7 +15,7 @@ function payment_deposit($request){
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;   
-    $insert_db['payment_method'] = $request['payment_method'];
+    //$insert_db['payment_method'] = $request['payment_method'];
 
     $transaction_id = insert_or_update_tbl_transactions($insert_db);
 
@@ -24,24 +24,10 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
-    //$url_data["payment_method"] = $request['payment_method'];
+    $url_data["payment_method"] = $request['payment_method'];
 
     $payment_curl = payment_curl($url_data);
     
-    //simulacion
-    /*
-    $txn_id = str_pad(mt_rand(1, 9999999), 7, '0', STR_PAD_LEFT);
-    $payment_curl = [
-        'http_code' => 200,
-        'created' => '2023-10-26 14:30:00',
-        'response' => [
-            'txn_id' => $txn_id,
-            'account' => $request['request']['account'],
-            'amount' => $request['request']['amount'],
-        ]
-    ];
-    */
-
     // variable payment_curl how turn back
     /*
     {"response":{   "code": 0,

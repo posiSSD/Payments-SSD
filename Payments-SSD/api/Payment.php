@@ -28,6 +28,8 @@ function paymente_bc($request){
     //codigo de pago         
     $response = payment_deposit($myRequest);
 
+    consolelogdata($response);
+
     if($response['http_code'] == 200){
             
         $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=3);      

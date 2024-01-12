@@ -79,7 +79,8 @@ if($data_array_response_details){
             consolelogdata($d);
 
             $bc_deposit = bc_deposit($d);
-    
+            
+            consolelogdata($bc_deposit);
             /*
             //simular $bc_deposit['result']['trx_id']
             $bc_deposit['result']['trx_id'] = 1111111;

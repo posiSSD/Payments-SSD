@@ -42,15 +42,13 @@ function bc_deposit($request){
 
     }
 
-    
-
-    //$response = paymente_bc($request);
+    $response = paymente_bc($request);
 
     //error_log("Contenido de \$response: " . print_r($response, true));
     
-	//return $response; 
+	return $response; 
 
-    return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
+    //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
 
 }
 
