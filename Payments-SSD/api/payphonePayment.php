@@ -75,8 +75,11 @@ function payment_curl($url_data){
 	$curl = curl_init($bc_url);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
-	curl_setopt($curl, CURLOPT_TIMEOUT,6); 	
+	curl_setopt($curl, CURLOPT_TIMEOUT,6); 
+
 	$response = curl_exec($curl);
+
+    consolelogdata($response); 
     
 	insert_tbl_api_activities($url_data, $bc_url, $response);  
 
