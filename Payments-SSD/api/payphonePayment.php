@@ -25,11 +25,11 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
-    //$url_data["payment_method"] = $request['payment_method'];
+    $url_data["payment_method"] = $request['payment_method'];
+    consolelogdata($url_data ); 
 
     $payment_curl = payment_curl($url_data);
-    consolelogdata($payment_curl);
-    dump_var($payment_curl);   
+  
 
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
