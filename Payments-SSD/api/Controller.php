@@ -6,20 +6,8 @@ include ROOT_PATH.'/Payments-SSD/api/Payment.php';
 
 function bc_deposit($request){
 
-    // Realiza una comprobación de las direcciones IP permitidas aquí
-    //$ipAddress = $_SERVER['REMOTE_ADDR'];
-    // $request=[];
-    // $request['account']=$trans['client_id'];
-    // $request['amount']=$trans['amount'];
-    // $request['order_id']=$trans['order_id'];
-    // $request['payment_method']="payphone";
-    // $request['ip_address']=$_SERVER['REMOTE_ADDR'];
-
     $request['ip_address'] = $_SERVER['REMOTE_ADDR'];
     $validator = validateRequest($request);
-
-    consolelogdata($validator);
-
 
     if ($validator !== true){
         //INSERT TRANSACCTION
@@ -41,6 +29,12 @@ function bc_deposit($request){
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
 
     }
+    
+    //$d=[];
+    //$d['account']=$data_array_response_details['client_id'];
+    //$d['amount']=$data_array_response_details['amount'];
+    //$d['order_id']=$data_array_response_details['paymentId'];
+    //$d['payment_method']=4; // 4 = payphone
 
     $response = paymente_bc($request);
 

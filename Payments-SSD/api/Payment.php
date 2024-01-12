@@ -6,16 +6,13 @@ include ROOT_PATH.'/Payments-SSD/api/payphonePayment.php';
 
 function paymente_bc($request){
 
-    $payment_method = $request['payment_method'];
     //include ROOT_PATH.'/Payments-SSD/api/'.$payment_method.'Payment.php';
     
-    // $request=[];
-    // $request['account'];
-    // $request['amount'];
-    // $request['order_id'];
-    // $request['payment_method']
-    // $request['ip_address'];
-    // 
+    //$d=[];
+    //$d['account']=$data_array_response_details['client_id'];
+    //$d['amount']=$data_array_response_details['amount'];
+    //$d['order_id']=$data_array_response_details['paymentId'];
+    //$d['payment_method']=4; // 4 = payphone
 
     $myRequest = [];
     $myRequest['setMethod'] = 'POST';
@@ -25,6 +22,7 @@ function paymente_bc($request){
     ];
     $myRequest['payment_method'] = $request['payment_method'];
 
+    consolelogdata($myRequest);
     //codigo de pago         
     $response = payment_deposit($myRequest);
 
