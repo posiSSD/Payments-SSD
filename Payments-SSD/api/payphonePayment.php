@@ -29,8 +29,8 @@ function payment_deposit($request){
 
     $payment_curl = payment_curl($url_data);
 
-    consolelogdata($payment_curl);
-    
+    dump_var($payment_curl);   
+     
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
             // El código de respuesta es 0, lo que indica una respuesta exitosa

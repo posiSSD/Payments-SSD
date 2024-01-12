@@ -66,12 +66,7 @@ if($data_array_response_details){
 
             $bc_deposit = bc_deposit($d);
             //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
-            consolelogdata($bc_deposit);
-            /*
-            //simular $bc_deposit['result']['trx_id']
-            $bc_deposit['result']['trx_id'] = 1111111;
-            //ver la respuesta
-            
+                        
             if(array_key_exists('http_code', $bc_deposit)){
                 if($bc_deposit['http_code']==200){
                     // declarar el update
@@ -99,8 +94,7 @@ if($data_array_response_details){
                     $ret['response']='Something went wrong, check logs';
                     //api_ret($ret);
                 }
-            }  
-            */        
+            }         
         break;
         case "Canceled":
             
@@ -110,65 +104,6 @@ if($data_array_response_details){
 }
 
 /*
-switch ($data_array_response_details['transactionStatus']){
-    case "Approved":
-        // declarar el update
-        $new_trans=[];
-        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-        $new_trans['client_id']=$data_array_response_details['client_id'];
-        $new_trans['status']=9; // 3=pending deposit
-        $new_trans['payment_id']=$transaccion;
-
-        create_or_update_transaction($new_trans);
-
-        //desde de aqui
-        
-        $d=[];
-            $d['account']=$data_array_response_details['client_id'];
-            $d['amount']=$data_array_response_details['amount'];
-            $d['order_id']=$data_array_response_details['paymentId'];
-            $d['payment_method']=4; // 4 = payphone
-        
-        $bc_deposit = bc_deposit($d);
-
-        //simular $bc_deposit['result']['trx_id']
-        $bc_deposit['result']['trx_id'] = 1111111;
-        //ver la respuesta
-        
-        if(array_key_exists('http_code', $bc_deposit)){
-            if($bc_deposit['http_code']==200){
-                // declarar el update
-                $new_trans=[];
-                $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                $new_trans['status']=7; // 3=paid
-                $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
-                // ejecutar el update
-                create_or_update_transaction($new_trans);
-                // todo bien, transaccion pagada
-                $ret['http_code']=200;
-                $ret['status']='Ok';
-                $ret['response']='Order '.$transaccion.' paid';
-                //api_ret($ret);
-            }else{
-                // declarar el update
-                $new_trans=[];
-                $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                $new_trans['status']=11; // 5=failed deposit
-                // ejecutar el update
-                create_or_update_transaction($new_trans);
-                
-                $ret['http_code']=500;
-                $ret['status']='Error';
-                $ret['response']='Something went wrong, check logs';
-                //api_ret($ret);
-            }
-        }          
-    break;
-    case "Canceled":
-        
-    break;
-    
-}
 
 function api_ret($r){
 	
