@@ -21,7 +21,8 @@ $data_array_response_details = payphone_get_details($data_array_response);
 
 consolelogdata($data_array);
 consolelogdata($data_array_response_details);
-
+error_log("array " . print_r($data_array, true));
+error_log("array " . print_r($data_array_response_details, true));
 
 // Imprimir $data_array_response_details
 
@@ -50,9 +51,6 @@ $http_code = 500;
 $status = 'Error';
 $response = [];  
 
-
-
-error_log("array " . print_r($data_array, true));
 /*
 
 switch ($data_array_response_details['transactionStatus']){
