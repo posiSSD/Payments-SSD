@@ -10,12 +10,16 @@ function payment_deposit($request){
     // ];
     //$myRequest['payment_method'] = $request['payment_method'];
 
+
+
     $insert_db = [];
     $insert_db['eject'] = 'insert';
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;   
     //$insert_db['payment_method'] = $request['payment_method'];
+
+    consolelogdata($insert_db);
 
     $transaction_id = insert_or_update_tbl_transactions($insert_db);
 
@@ -25,6 +29,8 @@ function payment_deposit($request){
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
     $url_data["payment_method"] = $request['payment_method'];
+
+    consolelogdata($url_data);
 
     $payment_curl = payment_curl($url_data);
     
