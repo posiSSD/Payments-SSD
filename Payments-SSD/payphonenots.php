@@ -22,9 +22,7 @@ $data_array_response_details = payphone_get_details($data_array_response);
 //////////////////////////////////////////////
 consolelogdata($data_array);
 consolelogdata($data_array_response_details);
-
-var_dump($data_array);
-var_dump($data_array_response_details);
+////////////////////////////////////////////////
 /*
 
 consolelogdata($data_array);
@@ -68,7 +66,7 @@ if($data_array_response_details){
             $new_trans['client_id']=$data_array_response_details['client_id'];
             $new_trans['status']=9; // 3=pending deposit
             $new_trans['payment_id']=$transaccion;
-            var_dump($new_trans);
+            consolelogdata($new_trans);
             create_or_update_transaction($new_trans);
     
             //desde de aqui
@@ -78,7 +76,7 @@ if($data_array_response_details){
             $d['amount']=$data_array_response_details['amount'];
             $d['order_id']=$data_array_response_details['paymentId'];
             $d['payment_method']=4; // 4 = payphone
-            var_dump($d);
+            consolelogdata($new_trans);
             /*
 
             $bc_deposit = bc_deposit($d);
