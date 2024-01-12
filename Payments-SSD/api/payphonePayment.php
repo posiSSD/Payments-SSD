@@ -28,9 +28,9 @@ function payment_deposit($request){
     //$url_data["payment_method"] = $request['payment_method'];
 
     $payment_curl = payment_curl($url_data);
-
+    consolelogdata($payment_curl);
     dump_var($payment_curl);   
-     
+
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
             // El código de respuesta es 0, lo que indica una respuesta exitosa
@@ -55,14 +55,6 @@ function payment_deposit($request){
 
 function payment_curl($url_data){
     
-    // $url_data = [];
-    // $url_data["command"] = "pay";
-    // $url_data["txn_id"] = 15;
-    // $url_data["account"] = 1674627753;
-    // $url_data["amount"] = 10;
-    
-    //Payment ID - 366
-
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";
@@ -77,16 +69,6 @@ function payment_curl($url_data){
 	$url_data["paymentID"]=$bs_param["paymentID"];
 
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
-
-    /*
-	$bc_url="";
-	$bc_url =$bc_param["host"];
-	$bc_url.="Bets/PaymentsCallback/";
-	$bc_url.=$bc_param["resource"];
-	$bc_url.="/";
-	$bc_url.="?";
-	$bc_url.=http_build_query($url_data);
-    */
 
 	$curl = curl_init($bc_url);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

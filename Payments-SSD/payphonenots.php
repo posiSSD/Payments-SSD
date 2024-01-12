@@ -104,12 +104,9 @@ if($data_array_response_details){
 }
 
 /*
-
 function api_ret($r){
 	
-	
 	api_activities($r);
-	
 	log_write($r);
 	exit();
 }
