@@ -28,42 +28,14 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
-    $url_data["payment_method"] = $request['payment_method'];
+    //$url_data["payment_method"] = $request['payment_method'];
 
     consolelogdata($url_data);
 
     $payment_curl = payment_curl($url_data);
+
+    consolelogdata($url_data);
     
-    // variable payment_curl how turn back
-    /*
-    {"response":{   "code": 0,
-                    "message": "OK",
-                    "FirstName": "",
-                    "LastName": "",
-                    "txn_id": ""}
-    }
-    */
-    /*
-    if($payment_curl){
-        if($payment_curl["response"]["code"]){
-            return ['http_code' => 400, 'status' => 'Error', 'result' =>  $payment_curl["response"]];
-        }
-        else{
-            $transaction_id['status'] = 1;
-            $transaction_id['eject'] = 'update';
-
-            insert_or_update_tbl_transactions($transaction_id);
-            
-            return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $payment_curl["response"]];
-        }
-    }else{
-        return ['http_code' => 408, 'status' => 'Error', 'result' =>  $transaction_id];
-    }
-
-    return ['http_code' => 200, 'status' => 'Ok', 'result' => $transaction_id];
-    
-    */
-
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
             // El código de respuesta es 0, lo que indica una respuesta exitosa
@@ -94,8 +66,6 @@ function payment_curl($url_data){
     // $url_data["account"] = 1674627753;
     // $url_data["amount"] = 10;
     
-
-
     //Payment ID - 366
 
 	$bc_param = [];
@@ -104,13 +74,16 @@ function payment_curl($url_data){
 	$bc_param["secretkey"]=env('BC_PAYPHONE_SECRET_KEY');
 	$bc_param["sid"]="18751709";
 	$bc_param["currency"]="USD";
-	$bs_param["paymentID"]=366; //payphone  - 366
+	$bs_param["paymentID"]="51"; //payphone  - 366
 
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
 	$url_data["hashcode"]=md5(implode($url_data).$bc_param["secretkey"]);
 	$url_data["paymentID"]=$bs_param["paymentID"];
 
+    $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
+
+    /*
 	$bc_url="";
 	$bc_url =$bc_param["host"];
 	$bc_url.="Bets/PaymentsCallback/";
@@ -118,23 +91,14 @@ function payment_curl($url_data){
 	$bc_url.="/";
 	$bc_url.="?";
 	$bc_url.=http_build_query($url_data);
-
-	//$request_headers = array();
-	$curl = curl_init($bc_url);
-
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_POST, false);
-	curl_setopt($curl, CURLOPT_TIMEOUT,6); //Timeout Seconds	
-		
-	$response = curl_exec($curl);
-    /*
-    {"response":{   "code": 0,
-                    "message": "OK",
-                    "FirstName": "",
-                    "LastName": "",
-                    "txn_id": ""}
-    }
     */
+
+	$curl = curl_init($bc_url);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_POST, true);
+	curl_setopt($curl, CURLOPT_TIMEOUT,6); 	
+	$response = curl_exec($curl);
+    
 	insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){

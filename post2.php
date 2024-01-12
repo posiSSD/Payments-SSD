@@ -15,11 +15,7 @@ $bc_param["host"] = "https://payments1.betconstruct.com/";
 $bc_param["resource"] = "TerminalCallbackPG";
 $bc_param["secretkey"] ="wwaw4TbqSrO24gH22";
 $bc_param["sid"] = "18751709";
-//18751709
 $bc_param["currency"] = "USD";
-//$bs_param["paymentID"] = 366; //PartnerPayment
-//$bs_param["paymentID"] = 14831; //
-
 $bs_param["paymentID"] = "51"; //
 
 
