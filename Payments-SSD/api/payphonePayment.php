@@ -27,11 +27,9 @@ function payment_deposit($request){
     $url_data["amount"] = $request['request']['amount']; 
     //$url_data["payment_method"] = $request['payment_method'];
 
-    consolelogdata($url_data); 
-
     $payment_curl = payment_curl($url_data);
 
-    consolelogdata($payment_curl); 
+    //consolelogdata($payment_curl); 
 
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
@@ -79,9 +77,9 @@ function payment_curl($url_data){
 
 	$response = curl_exec($curl);
 
-    consolelogdata($response); 
+    //consolelogdata($response); 
     
-	//insert_tbl_api_activities($url_data, $bc_url, $response);  
+	insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -100,8 +98,27 @@ function payment_curl($url_data){
 }
 
 function insert_tbl_api_activities($url_data, $bc_url, $response){
-    
 
+    /* //////$url
+    $url_data["command"] = "pay";
+    $url_data["txn_id"] = $transaction_id['id'];
+    $url_data["account"] = $request['request']['account'];
+    $url_data["amount"] = $request['request']['amount']; 
+    $url_data["currency"]=$bc_param["currency"];
+	$url_data["sid"]=$bc_param["sid"];
+	$url_data["hashcode"]=md5(implode($url_data).$bc_param["secretkey"]);
+	$url_data["paymentID"]=$bs_param["paymentID"];
+    */
+
+    //$bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
+
+    /*response
+    {"response":{"code":0,
+                 "message":"OK",
+                 "FirstName":"",
+                 "LastName":""}
+    }
+    */
 	$bd = 'bc_kushkipayment';
 	$table = 'tbl_api_activities';
 
@@ -114,10 +131,17 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
     $response  = $response?$response:null;
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
+    
+    consolelogdata($command); 
+    consolelogdata($account); 
+    consolelogdata($txn_id); 
+    consolelogdata($url); 
+    consolelogdata($response); 
+    consolelogdata($created_at); 
+    consolelogdata($updated_at); 
 
     // Consulta SQL para insertar los datos en la tabla transactions
-    $sql_details = "INSERT INTO $table (command, account, txn_id, url, response, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql_details = "INSERT INTO $table (command, account, txn_id, url, response, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt_details = $mysqli_kushki->prepare($sql_details);
     $stmt_details->bind_param("sssssss", $command, $account, $txn_id, $url, $response, $created_at, $updated_at);
     // Ejecutar la consulta
