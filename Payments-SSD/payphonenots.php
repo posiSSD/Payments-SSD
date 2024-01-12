@@ -20,12 +20,18 @@ create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
 
 //////////////////////////////////////////////
-var_dump($data_array_response);
+consolelogdata($data_array);
+consolelogdata($data_array_response_details);
+
+var_dump($data_array);
 var_dump($data_array_response_details);
+/*
+
 consolelogdata($data_array);
 consolelogdata($data_array_response_details);
 error_log("array " . print_r($data_array, true));
 error_log("array " . print_r($data_array_response_details, true));
+*/
 //////////////////////////////////////////////
 
 ///////////////////NUEVO CODIGO //////////////////////////////
@@ -53,8 +59,72 @@ $http_code = 500;
 $status = 'Error';
 $response = [];  
 
-/*
+if($data_array_response_details){
+    switch ($data_array_response_details['transactionStatus']){
+        case "Approved":
+            // declarar el update
+            $new_trans=[];
+            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+            $new_trans['client_id']=$data_array_response_details['client_id'];
+            $new_trans['status']=9; // 3=pending deposit
+            $new_trans['payment_id']=$transaccion;
+            var_dump($new_trans);
+            create_or_update_transaction($new_trans);
+    
+            //desde de aqui
+            
+            $d=[];
+            $d['account']=$data_array_response_details['client_id'];
+            $d['amount']=$data_array_response_details['amount'];
+            $d['order_id']=$data_array_response_details['paymentId'];
+            $d['payment_method']=4; // 4 = payphone
+            var_dump($d);
+            /*
 
+            $bc_deposit = bc_deposit($d);
+    
+            //simular $bc_deposit['result']['trx_id']
+            $bc_deposit['result']['trx_id'] = 1111111;
+            //ver la respuesta
+            
+            if(array_key_exists('http_code', $bc_deposit)){
+                if($bc_deposit['http_code']==200){
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                    $new_trans['status']=7; // 3=paid
+                    $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                    // ejecutar el update
+                    create_or_update_transaction($new_trans);
+                    // todo bien, transaccion pagada
+                    $ret['http_code']=200;
+                    $ret['status']='Ok';
+                    $ret['response']='Order '.$transaccion.' paid';
+                    //api_ret($ret);
+                }else{
+                    // declarar el update
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                    $new_trans['status']=11; // 5=failed deposit
+                    // ejecutar el update
+                    create_or_update_transaction($new_trans);
+                    
+                    $ret['http_code']=500;
+                    $ret['status']='Error';
+                    $ret['response']='Something went wrong, check logs';
+                    //api_ret($ret);
+                }
+            }  
+            */        
+        break;
+        case "Canceled":
+            
+        break;
+        
+    }
+}
+
+/*
 switch ($data_array_response_details['transactionStatus']){
     case "Approved":
         // declarar el update
@@ -167,7 +237,7 @@ function api_activities($a){
 //function personalizada para emitir salidas en la consola del navegador
 function consolelogdata($data) {
     echo '<script>';
-    echo 'Data: (' . json_encode($data) . ')';
+    echo 'console.log("Data:", ' . json_encode($data) . ');';
     echo '</script>';
 }
 //function personalizada para emitir salidas en la consola del navegador
