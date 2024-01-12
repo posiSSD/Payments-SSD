@@ -19,7 +19,7 @@ $data_array = array(
     "id" => (int)$transaccion,
     "clientTxId" => $client
 );
-
+https://payments.totalbet.com/Payments-SSD/payphonenots.php
 
  
 $data_array_response = api_button_V2_Confirm ($data_array);
