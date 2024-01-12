@@ -31,6 +31,7 @@ function bc_deposit($request){
     }
 
     $response = paymente_bc($request);
+    consolelogdata($response); 
     //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
 	return $response;     
 
