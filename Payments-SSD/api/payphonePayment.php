@@ -81,7 +81,7 @@ function payment_curl($url_data){
 
     consolelogdata($response); 
     
-	insert_tbl_api_activities($url_data, $bc_url, $response);  
+	//insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){
 		$response_arr = json_decode($response,true);
