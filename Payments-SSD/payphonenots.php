@@ -5,13 +5,7 @@ include ROOT_PATH.'/sys/helpers.php';
 include ROOT_PATH.'/payphone/sys/helpers.php';
 include ROOT_PATH.'/Payments-SSD/api/Controller.php';
 
-/*
-if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
 
-} else{
-    Echo "Gracias por su visita";
-}
-*/
 $transaccion = $_GET["id"];
 $client = $_GET["clientTransactionId"];
 
@@ -19,13 +13,16 @@ $data_array = array(
     "id" => (int)$transaccion,
     "clientTxId" => $client
 );
-https://payments.totalbet.com/Payments-SSD/payphonenots.php
 
  
 $data_array_response = api_button_V2_Confirm ($data_array);
 create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
- 
+
+consolelogdata($data_array);
+consolelogdata($data_array_response_details);
+
+
 // Imprimir $data_array_response_details
 
 ///////////////////NUEVO CODIGO //////////////////////////////
@@ -166,4 +163,12 @@ function api_activities($a){
 	$mysqli->close();
 }
 */
+
+//function personalizada para emitir salidas en la consola del navegador
+function consolelogdata($data) {
+    echo '<script>';
+    echo 'Data: (' . json_encode($data) . ')';
+    echo '</script>';
+}
+//function personalizada para emitir salidas en la consola del navegador
 ?>
