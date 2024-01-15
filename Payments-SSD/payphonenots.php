@@ -14,19 +14,14 @@ $data_array = array(
     "clientTxId" => $client
 );
 
- 
 $data_array_response = api_button_V2_Confirm ($data_array);
 create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
 
-
-///////////////////NUEVO CODIGO //////////////////////////////
 $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
-// definir parametros de log
 $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
 $log_file = date("Y-m-d").".log";
 log_init($log_dir,$log_file);
-// iniciar log
 log_write('-----------------------------------------------------------------------------------------');
 log_write('_POST');
 log_write($_POST);
@@ -36,7 +31,7 @@ log_write('_SERVER');
 log_write($_SERVER);
 log_write('json');
 log_write($data_array_response_details);
-// declarar actividad y retorno
+
 $a=[];
 $ret=[];
 
@@ -48,7 +43,7 @@ $response = [];
 if($data_array_response_details){
     switch ($data_array_response_details['transactionStatus']){
         case "Approved":
-            // declarar el update
+            
             $new_trans=[];
             $new_trans['unique_id']=$data_array_response_details['unique_id'];
             $new_trans['client_id']=$data_array_response_details['client_id'];
@@ -56,7 +51,6 @@ if($data_array_response_details){
             $new_trans['payment_id']=$transaccion;
             
             create_or_update_transaction($new_trans);
-            //desde de aqui
             
             $d=[];
             $d['account']=$data_array_response_details['client_id'];

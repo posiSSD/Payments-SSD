@@ -15,9 +15,11 @@ function paymente_bc($request){
     $myRequest['payment_method'] = $request['payment_method'];
         
     $response = payment_deposit($myRequest);
-   
-    $response['result']['account'] = $myRequest['request']['account'];
-    $response['result']['amount'] = $myRequest['request']['amount'];
+
+    if($response){
+        $response['result']['account'] = $myRequest['request']['account'];
+        $response['result']['amount'] = $myRequest['request']['amount'];
+    }
 
     consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
@@ -51,10 +53,12 @@ function paymente_bc($request){
         $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
 
         $data_activiy = [
-            'transaction_id' => $transaction->id,
+            'transaction_id' => $transaction['id'],
             'http_code' 	 => '400',
             'result'		 =>  $response['result'],
-            'status' 		 => '4'
+            'status' 		 => '4',
+            'ip_address'      => $request['ip_address'],
+            'method'         => $request['payment_method']
         ];
         save_transaction_activity($data_activiy);
 
@@ -65,10 +69,12 @@ function paymente_bc($request){
         $transaction = save_transaction($request,$response['result'],$type=3,$status=5);
 
         $data_activiy = [
-            'transaction_id' => $transaction->id,
+            'transaction_id' => $transaction['id'],
             'http_code' 	 => '408',
             'result'		 =>  $response['result'],
-            'status' 		 => '5'
+            'status' 		 => '5',
+            'ip_address'      => $request['ip_address'],
+            'method'         => $request['payment_method']
         ];
 
         save_transaction_activity($data_activiy);

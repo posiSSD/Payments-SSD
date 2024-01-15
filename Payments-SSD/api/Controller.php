@@ -10,10 +10,9 @@ function bc_deposit($request){
     $validator = validateRequest($request);
 
     if ($validator !== true){
-        //INSERT TRANSACCTION
+
         $transaction = save_transaction($request, $txt_id=0, $type=3, $status=0);
 
-        //INSERT ACTIVITY TRANSACTION
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '422',
@@ -23,7 +22,7 @@ function bc_deposit($request){
             'REMOTE_ADDR' 	 => $request['ip_address'],
             'method ' 		 => $request['payment_method']
         ];
-         //INSERT TRANSACCTION ACTIVITY
+         
         save_transaction_activity($data_activiy);
 
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
@@ -31,7 +30,7 @@ function bc_deposit($request){
     }
 
     $response = paymente_bc($request);
-    
+
     consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
 	return $response;     
@@ -39,10 +38,8 @@ function bc_deposit($request){
 }
 
 function validateRequest($request) {
-    $errors = "";
 
-    // Validación del campo 'ip_address, // Validación del campo 'account', // Validación del campo 'amount'
-    // comando en terminal de ubuntu para saber tu ip curl ifconfig.me
+    $errors = "";
     $validIPs = ["45.169.92.244", "200.107.154.26","190.223.60.40","127.0.0.1, 54.242.68.233"];
     if (!isset($request['ip_address']) || !filter_var($request['ip_address'], FILTER_VALIDATE_IP) || !in_array($request['ip_address'], $validIPs)){
         $errors = "El campo 'ip_address' es inválido: ".$request['ip_address'];        
@@ -59,6 +56,5 @@ function validateRequest($request) {
     }
     return $errors;
 }
-
 
 ?>
