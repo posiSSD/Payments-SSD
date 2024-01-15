@@ -47,6 +47,8 @@ function paymente_bc($request){
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
         ];
+        
+        consolelogdata($data_activiy); 
 
         $webTransaction = save_transaction_activity($data_activiy);
 
