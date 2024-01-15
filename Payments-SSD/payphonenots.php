@@ -62,7 +62,7 @@ if($data_array_response_details){
             $d['account']=$data_array_response_details['client_id'];
             $d['amount']=$data_array_response_details['amount'];
             $d['order_id']=$data_array_response_details['paymentId'];
-            $d['payment_method']=4; // 4 = payphone
+            $d['payment_method']='payphone'; // 4 = payphone
 
             $bc_deposit = bc_deposit($d);
             //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];

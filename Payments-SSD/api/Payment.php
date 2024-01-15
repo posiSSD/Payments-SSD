@@ -33,6 +33,8 @@ function paymente_bc($request){
              txn_id: 82}
     status: "Ok"
     */
+    $response['result']['account'] = $myRequest['request']['account'];
+    $response['result']['amount'] = $myRequest['request']['amount'];
     consolelogdata($response); 
 
     if($response['http_code'] == 200){
