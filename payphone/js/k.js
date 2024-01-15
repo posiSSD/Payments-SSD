@@ -220,7 +220,7 @@ function response_to_payphone(usr_active){
 				
 				setTimeout(function () {
 					response_to_payphone(usr_active);
-				  }, 5000);
+				  }, 3000);
 				
 								
 			}  else {

@@ -69,31 +69,59 @@ if($data_array_response_details){
             consolelogdata($bc_deposit); 
                         
             if(array_key_exists('http_code', $bc_deposit)){
-                if($bc_deposit['http_code']==200){
-                    // declarar el update
+                if ($bc_deposit['http_code']==200){
+                    
                     $new_trans=[];
                     $new_trans['unique_id']=$data_array_response_details['unique_id'];
                     $new_trans['status']=7; // 3=paid
                     $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
-                    // ejecutar el update
+                    
                     create_or_update_transaction($new_trans);
-                    // todo bien, transaccion pagada
+                    
                     $ret['http_code']=200;
                     $ret['status']='Ok';
                     $ret['response']='Order '.$transaccion.' paid';
                     api_ret($ret);
-                }else{
-                    // declarar el update
+
+                } elseif ($bc_deposit['http_code']==400){
+                    
                     $new_trans=[];
                     $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                    $new_trans['status']=11; // 5=failed deposit
-                    // ejecutar el update
+                    $new_trans['status']=10; // 11 failed deposit
+                    
+                    create_or_update_transaction($new_trans);
+                   
+                    $ret['http_code']=400;
+                    $ret['status']='denied';
+                    $ret['response']='Order '.$transaccion.' denied';
+                    api_ret($ret);
+
+                } elseif ($bc_deposit['http_code']==408){
+                   
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                    $new_trans['status']=10; // 11 failed deposit
+                    
+                    create_or_update_transaction($new_trans);
+                    
+                    $ret['http_code']=408;
+                    $ret['status']='timeout';
+                    $ret['response']='Order '.$transaccion.' timeout';
+                    api_ret($ret);
+
+                } else {
+                
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                    $new_trans['status']=11; // 
+                    
                     create_or_update_transaction($new_trans);
                     
                     $ret['http_code']=500;
                     $ret['status']='Error';
                     $ret['response']='Something went wrong, check logs';
-                    //api_ret($ret);
+                    api_ret($ret);
+
                 }
             }         
         break;
