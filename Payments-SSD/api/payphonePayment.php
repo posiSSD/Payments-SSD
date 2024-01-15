@@ -129,7 +129,7 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;
             
-         
+        consolelogdata($rq); 
         return $rq;  
 
     } 
@@ -169,7 +169,7 @@ function insert_or_update_tbl_transactions($insert_db) {
             $rq['status'] = $status;
             $rq['created_at'] = $created_at;
             $rq['updated_at'] = $updated_at;
-
+            consolelogdata($rq); 
             return $rq;  
         } 
     } elseif ($insert_db['eject'] == "update") {
@@ -182,10 +182,16 @@ function insert_or_update_tbl_transactions($insert_db) {
         $stmt_update = $mysqli_kushkipayment->prepare($sql_update);
         $stmt_update->bind_param("ssi", $status, $updated_at, $transaction_id); // Cambiar "ii" a "ssi"
         if ($stmt_update->execute() === TRUE) {
-            
+            $rq['id'] = $transaction_id;
+            $rq['status'] = $status;
+            $rq['updated_at'] = $updated_at;
+            consolelogdata($rq); 
             return $rq;
         }
     } else{
+        $rq['id'] = $insert_db['id'];
+        $status = "fallo";
+        consolelogdata($rq); 
         return $rq;
     }
     

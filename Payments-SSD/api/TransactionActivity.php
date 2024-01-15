@@ -46,6 +46,8 @@ function save_transaction_activity($data_activiy){
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
 
+        consolelogdata($rq); 
+
         return $rq; // Éxito en la inserción
 
     } else {

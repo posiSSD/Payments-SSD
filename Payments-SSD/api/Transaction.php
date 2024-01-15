@@ -51,6 +51,8 @@ function save_transaction($request, $txt_id, $type, $status){
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
 
+        consolelogdata($rq); 
+
         return $rq;  
     } 
 }
