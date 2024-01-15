@@ -77,7 +77,7 @@ function payment_curl($url_data){
 
 	$response = curl_exec($curl);
     
-	insert_tbl_api_activities($url_data, $bc_url, $response);  
+	//insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -129,7 +129,9 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;
             
+        consolelogdata($rq); 
         return $rq;  
+
     } 
 
 }
