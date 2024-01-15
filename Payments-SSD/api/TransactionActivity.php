@@ -21,9 +21,7 @@ function save_transaction_activity($data_activiy){
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
 
-
-
-
+    /*
     $id = "999";
     $rq['id'] = $id;
     $rq['transaction_id'] = $transaction_id;
@@ -38,9 +36,8 @@ function save_transaction_activity($data_activiy){
     $rq['token'] = $token;
     $rq['created_at'] = $created_at;
     $rq['updated_at'] = $updated_at;
-
-
-    consolelogdata($rq); 
+    */
+    //consolelogdata($rq); 
 
     // Consulta SQL para insertar los datos en la tabla activity_transactions
     $sql_activity = "INSERT INTO $table (transaction_id, user_id, ip, url, method, request, http_code, result, status, token, created_at, updated_at)
@@ -73,8 +70,9 @@ function save_transaction_activity($data_activiy){
 
     } else {
 
+        $error = $stmt_activity->error;
         // Manejo de errores en la inserción
-        consolelogdata("Error en la inserción: " . $stmt_activity->error);
+        consolelogdata($error);
         return false; // Error en la inserción
     }
 }
