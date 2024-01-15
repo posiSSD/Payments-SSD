@@ -25,7 +25,6 @@ function save_transaction_activity($data_activiy){
 
 
     $id = "999";
-
     $rq['id'] = $id;
     $rq['transaction_id'] = $transaction_id;
     $rq['user_id'] = $user_id;
@@ -73,6 +72,9 @@ function save_transaction_activity($data_activiy){
         return $rq; // Éxito en la inserción
 
     } else {
+
+        // Manejo de errores en la inserción
+        consolelogdata("Error en la inserción: " . $stmt_activity->error);
         return false; // Error en la inserción
     }
 }
