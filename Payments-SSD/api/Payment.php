@@ -24,8 +24,16 @@ function paymente_bc($request){
 
     //codigo de pago         
     $response = payment_deposit($myRequest);
+    /*
+    http_code: 200,
+    result: {code: 0,
+             message: 'OK',
+             FirstName: '',
+             LastName: '',
+             txn_id: 82}
+    status: "Ok"
+    */
     consolelogdata($response); 
-    // return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
 
     if($response['http_code'] == 200){
             

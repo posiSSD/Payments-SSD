@@ -129,7 +129,7 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;
             
-        consolelogdata($rq); 
+         
         return $rq;  
 
     } 
