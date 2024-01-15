@@ -157,10 +157,10 @@ function api_activities($a){
 //function personalizada para emitir salidas en la consola del navegador
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $previousFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
 
     echo '<script>';
-    echo 'console.log("Previous Function:", "' . $previousFunction . '");';
+    echo 'console.log("'. $pFunction . '");';
     echo 'console.log("Data:", ' . json_encode($data) . ');';
     echo '</script>';
 }
