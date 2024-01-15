@@ -66,6 +66,7 @@ if($data_array_response_details){
 
             $bc_deposit = bc_deposit($d);
             //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
+            consolelogdata2($bc_deposit); 
                         
             if(array_key_exists('http_code', $bc_deposit)){
                 if($bc_deposit['http_code']==200){
@@ -155,6 +156,11 @@ function api_activities($a){
 function consolelogdata($data) {
     echo '<script>';
     echo 'console.log("Data:", ' . json_encode($data) . ');';
+    echo '</script>';
+}
+function consolelogdata2($data) {
+    echo '<script>';
+    echo 'console.log("Final:", ' . json_encode($data) . ');';
     echo '</script>';
 }
 //function personalizada para emitir salidas en la consola del navegador
