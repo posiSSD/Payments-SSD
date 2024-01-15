@@ -6,14 +6,6 @@ include ROOT_PATH.'/Payments-SSD/api/payphonePayment.php';
 
 function paymente_bc($request){
 
-    //include ROOT_PATH.'/Payments-SSD/api/'.$payment_method.'Payment.php';
-    
-    //$d=[];
-    //$d['account']=$data_array_response_details['client_id'];
-    //$d['amount']=$data_array_response_details['amount'];
-    //$d['order_id']=$data_array_response_details['paymentId'];
-    //$d['payment_method']=4; // 4 = payphone
-
     $myRequest = [];
     $myRequest['setMethod'] = 'POST';
     $myRequest['request'] = [
@@ -21,21 +13,13 @@ function paymente_bc($request){
         "amount" => $request['amount']
     ];
     $myRequest['payment_method'] = $request['payment_method'];
-
-    //codigo de pago         
+        
     $response = payment_deposit($myRequest);
-    /*
-    http_code: 200,
-    result: {code: 0,
-             message: 'OK',
-             FirstName: '',
-             LastName: '',
-             txn_id: 82}
-    status: "Ok"
-    */
+   
     $response['result']['account'] = $myRequest['request']['account'];
     $response['result']['amount'] = $myRequest['request']['amount'];
-    consolelogdata($response); 
+
+    consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
     if($response['http_code'] == 200){
             
@@ -48,9 +32,7 @@ function paymente_bc($request){
             'status' 		 => '3',
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
-        ];
-
-        consolelogdata($data_activiy); 
+        ]; 
 
         $webTransaction = save_transaction_activity($data_activiy);
 
@@ -61,7 +43,7 @@ function paymente_bc($request){
             'amount' 	 => $response['result']['amount']
         ];
 
-
+        consolelogdata($response);
         return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
         
     } else if ($response['http_code'] == 400){

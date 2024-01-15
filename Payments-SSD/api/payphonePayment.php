@@ -77,7 +77,7 @@ function payment_curl($url_data){
 
 	$response = curl_exec($curl);
     
-	//insert_tbl_api_activities($url_data, $bc_url, $response);  
+	insert_tbl_api_activities($url_data, $bc_url, $response);  
 
 	if($response){
 		$response_arr = json_decode($response,true);
@@ -131,7 +131,12 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
             
         consolelogdata($rq); 
         return $rq;  
-
+    }
+    else {
+        $errordb = $stmt_details->error;
+        // Manejo de errores en la inserción
+        consolelogdata($errordb);
+        return false; // Error en la inserción
     } 
 
 }

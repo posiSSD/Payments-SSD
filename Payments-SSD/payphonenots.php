@@ -81,7 +81,7 @@ if($data_array_response_details){
                     $ret['http_code']=200;
                     $ret['status']='Ok';
                     $ret['response']='Order '.$transaccion.' paid';
-                    //api_ret($ret);
+                    api_ret($ret);
                 }else{
                     // declarar el update
                     $new_trans=[];
@@ -104,7 +104,7 @@ if($data_array_response_details){
     }
 }
 
-/*
+
 function api_ret($r){
 	
 	api_activities($r);
@@ -148,9 +148,11 @@ function api_activities($a){
 		// echo $mysqli->error; 
 		// print_r($insert_command); exit();
 	}
+
+    consolelogdata($insert_command); 
 	$mysqli->close();
 }
-*/
+
 
 //function personalizada para emitir salidas en la consola del navegador
 function consolelogdata($data) {
