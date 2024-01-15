@@ -96,7 +96,7 @@ function payment_curl($url_data){
 }
 
 function insert_tbl_api_activities($url_data, $bc_url, $response){
-
+    global $mysqli_kushkipayment;
 	$bd = 'bc_kushkipayment';
 	$table = 'tbl_api_activities';
 
@@ -138,7 +138,6 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
 
 function insert_or_update_tbl_transactions($insert_db) {
     global $mysqli_kushkipayment;
-
     $bd = 'bc_kushkipayment';
 	$table = 'tbl_transactions';
     
@@ -171,7 +170,12 @@ function insert_or_update_tbl_transactions($insert_db) {
             $rq['updated_at'] = $updated_at;
             consolelogdata($rq); 
             return $rq;  
-        } 
+        } else {
+            $errordb = $sql_insert->error;
+            // Manejo de errores en la inserción
+            consolelogdata($errordb);
+            return false; // Error en la inserción
+        }
     } elseif ($insert_db['eject'] == "update") {
         $transaction_id = $insert_db['id'];
         $status = $insert_db['status'];
@@ -187,8 +191,16 @@ function insert_or_update_tbl_transactions($insert_db) {
             $rq['updated_at'] = $updated_at;
             consolelogdata($rq); 
             return $rq;
+        } else {
+            $errordb = $stmt_update->error;
+            // Manejo de errores en la inserción
+            consolelogdata($errordb);
+            return false; // Error en la inserción
         }
+        
     } else{
+
+        
         $rq['id'] = $insert_db['id'];
         $status = "fallo";
         consolelogdata($rq); 

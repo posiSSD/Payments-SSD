@@ -2,8 +2,6 @@
 
 function save_transaction($request, $txt_id, $type, $status){
     global $mysqli_kushki;
-
-    
     $db = 'at_kushki';
     $table = 'transactions';
     $connection = 'kushki_db';
@@ -54,7 +52,13 @@ function save_transaction($request, $txt_id, $type, $status){
         consolelogdata($rq); 
 
         return $rq;  
-    } 
+    } else {
+
+        $errordb = $stmt_details->error;
+        // Manejo de errores en la inserción
+        consolelogdata($errordb);
+        return false; // Error en la inserción
+    }
 }
     
 ?>

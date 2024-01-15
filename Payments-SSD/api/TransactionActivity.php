@@ -2,7 +2,6 @@
     
 function save_transaction_activity($data_activiy){
     global $mysqli_kushki;
-    
     $db = 'at_kushki';
     $table = 'activity_transactions';
     $connection = 'kushki_db';
@@ -20,33 +19,15 @@ function save_transaction_activity($data_activiy){
     $token = $data_activiy['token'] ?? 0;
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
-
-    /*
-    $id = "999";
-    $rq['id'] = $id;
-    $rq['transaction_id'] = $transaction_id;
-    $rq['user_id'] = $user_id;
-    $rq['ip'] = $ip;
-    $rq['url'] = $url;
-    $rq['method'] = $method;
-    $rq['request'] = $input_data;
-    $rq['http_code'] = $http_code;
-    $rq['result'] = $result;
-    $rq['status'] = $status;
-    $rq['token'] = $token;
-    $rq['created_at'] = $created_at;
-    $rq['updated_at'] = $updated_at;
-    */
-    //consolelogdata($rq); 
-
+  
     // Consulta SQL para insertar los datos en la tabla activity_transactions
-    $sql_activity = "INSERT INTO $table (transaction_id, user_id, ip, url, method, request, http_code, result, status, token, created_at, updated_at)
+    $sql_details = "INSERT INTO $table (transaction_id, user_id, ip, url, method, request, http_code, result, status, token, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-    $stmt_activity = $mysqli_kushki->prepare($sql_activity);
-    $stmt_activity->bind_param("ssssssssssss", $transaction_id, $user_id, $ip, $url, $method, $input_data, $http_code, $result, $status, $token, $created_at, $updated_at);
+    $stmt_details = $mysqli_kushki->prepare($sql_details);
+    $stmt_details->bind_param("ssssssssssss", $transaction_id, $user_id, $ip, $url, $method, $input_data, $http_code, $result, $status, $token, $created_at, $updated_at);
 
-    if ($stmt_activity->execute() === TRUE) {
+    if ($stmt_details->execute() === TRUE) {
 
         $id = $mysqli_kushki->insert_id;
 
@@ -70,9 +51,9 @@ function save_transaction_activity($data_activiy){
 
     } else {
 
-        $error = $stmt_activity->error;
+        $errordb = $stmt_details->error;
         // Manejo de errores en la inserción
-        consolelogdata($error);
+        consolelogdata($errordb);
         return false; // Error en la inserción
     }
 }
