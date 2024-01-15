@@ -103,6 +103,19 @@ if($data_array_response_details){
                     $ret['response']='Order '.$transaccion.' timeout';
                     api_ret($ret);
 
+                } elseif ($bc_deposit['http_code']==402){
+                   
+                    $new_trans=[];
+                    $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                    $new_trans['status']=10; // 11 failed deposit
+                    
+                    create_or_update_transaction($new_trans);
+                    
+                    $ret['http_code']=402;
+                    $ret['status']='Validator fail';
+                    $ret['response']='Order '.$transaccion.' Validator fail';
+                    api_ret($ret);
+
                 } else {
                 
                     $new_trans=[];
