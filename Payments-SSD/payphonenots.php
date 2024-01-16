@@ -14,6 +14,8 @@ $data_array = array(
     "clientTxId" => $client
 );
 
+consolelogdata($data_array);
+
 $data_array_response = api_button_V2_Confirm ($data_array);
 create_or_update_bd_api_transactions($data_array_response);
 $data_array_response_details = payphone_get_details($data_array_response);
