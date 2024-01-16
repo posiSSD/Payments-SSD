@@ -10,9 +10,7 @@ function bc_deposit($request){
     $validator = validateRequest($request);
 
     if ($validator !== true){
-
         $transaction = save_transaction($request, $txt_id=0, $type=3, $status=0);
-
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '422',
@@ -21,19 +19,14 @@ function bc_deposit($request){
             'user_id' 		 => $request['account'],
             'REMOTE_ADDR' 	 => $request['ip_address'],
             'method ' 		 => $request['payment_method']
-        ];
-         
+        ]; 
         save_transaction_activity($data_activiy);
-
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
-
     }
 
     $response = paymente_bc($request);
-
     consolelogdata($response); //codigo para ver los resultados en al consola del navegador
-
-	return $response;     
+	return $response;
 
 }
 
@@ -55,6 +48,6 @@ function validateRequest($request) {
         $errors = true;
     }
     return $errors;
+    
 }
-
 ?>

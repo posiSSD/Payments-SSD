@@ -132,22 +132,17 @@ if($data_array_response_details){
                 }
             }         
         break;
-        case "Canceled":
-            
-        break;
-        
+        case "Canceled":   
+        break;    
     }
 }
 
-
 function api_ret($r){
-	
 	api_activities($r);
 	log_write($r);
 	exit();
 }
 
-// registrar la actividad 
 function api_activities($a){
 	global $mysqli;
 
@@ -199,7 +194,6 @@ function consolelogdata($data) {
     echo 'console.log("Data:", ' . json_encode($data) . ');';
     echo '</script>';
 }
-
-
 //function personalizada para emitir salidas en la consola del navegador
+
 ?>

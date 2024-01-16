@@ -3,34 +3,8 @@ require 'env.php'; //desde la raiz a otro lado
 require 'db.php';   
 include ROOT_PATH.'/sys/helpers.php';
 ?>
-
 <?php
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.ec") !== false) {
+if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbet.com") !== false) {
     
     // construccion del array de la ip visitante.
     $visit = [];
@@ -43,14 +17,12 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     // Manejo de los datos enviados por URI
     $auth_data = null;
     if(isset($_GET['auth_data'])){
-        // [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
-        // [user_id] => 3333200
-        // [avatarUrl] => https://static.springbuilder.site/assets/addon/avatar.png	
         $auth_data = json_decode($_GET["auth_data"],true);
         $auth_token = $auth_data["auth_token"]; /////TOKEN
         $user_id = $auth_data["user_id"];
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
+        consolelogfrontdata($auth_data);
     }
     /*
     else{
@@ -102,7 +74,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
 
-
         <?php
         $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
         $payment_limits['min']=number_format($payment_limits[0],0);
@@ -173,10 +144,8 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <div> <h5 style="text-align: center;  margin-top: 50px;">Por favor vuelva a intentarlo</h5> </div>
         <?php
     }
-
 }else{
-    
-    // construccion del array de la ip visitante.
+    ////////Desde https://payments.totalbet.com/ - cambiar $auth_token, $user_id, $metodo
     $visit = [];
     $visit["init"]=date("Y-m-d H:i:s");
     $visit['ip']=$_SERVER['REMOTE_ADDR'];
@@ -187,21 +156,17 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     // Manejo de los datos enviados por URI
     $auth_data = null;
     if(isset($_GET['auth_data'])){
-        // [auth_token] => FAE2579BC8325A2F60B432173CEF4D77
-        // [user_id] => 3333200
-        // [avatarUrl] => https://static.springbuilder.site/assets/addon/avatar.png	
         $auth_data = json_decode($_GET["auth_data"],true);
-        $auth_token = $auth_data["auth_token"]; /////TOKEN
+        $auth_token = $auth_data["auth_token"]; 
         $user_id = $auth_data["user_id"];
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
     }else{
-        $auth_token = '777A3DC23BE06BFAFBDFFD283D3217DA';
+        $auth_token = '52A73A12741300534CC1A8114CC3F997';
         $user_id = '1674627753';
         $metodo = "payphone";
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id, "metodo" => $metodo);
         $visit["auth_data"]=$auth_data;
-        //echo "datos ELSE ";
     }
 
     // conustruccion de URL 
@@ -243,7 +208,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
 
-
         <?php
         $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
         $payment_limits['min']=number_format($payment_limits[0],0);
@@ -314,55 +278,18 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <div> <h5 style="text-align: center;  margin-top: 50px;">Por favor vuelva a intentarlo</h5> </div>
         <?php
     }
-
-
-
-
-
-
-    //$metodo = "prometeo";
-    
-   
     ?>  
-     <!-- 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Payments.app</title>
-        <link rel="stylesheet" href="<?php //echo $url; ?>css/k.css">
-        <link rel="stylesheet" href="<?php //echo $url; ?>css/new.scss">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    </head>
-    <body>
-    
-        <div id="divfalla">
-                <a id="divfalla_btn" target="_top">
-                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    <span class="sr-only">No se ha podido cargar <?php //echo $metodo?>, vuelva interntarlo.</span>
-                </a>
-        </div>
-       
-    </body>
-    </html>
-    -->
+  
 <?php
 }
 ?>
    
-
-    
-    
-    
-
-    
-
-    
-
-
-
-
-
-
-
+<?php
+function consolelogfrontdata($auth_data) {
+   
+    echo '<script>';
+    echo 'console.log("IF:", ' . json_encode($auth_data ) . ');';
+    echo '</script>';
+}
+?>
+ 

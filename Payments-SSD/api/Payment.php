@@ -15,18 +15,11 @@ function paymente_bc($request){
     $myRequest['payment_method'] = $request['payment_method'];
         
     $response = payment_deposit($myRequest);
-
-    /*if($response){
-        $response['result']['account'] = $myRequest['request']['account'];
-        $response['result']['amount'] = $myRequest['request']['amount'];
-    }*/
-
     consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
     if($response['http_code'] == 200){
             
         $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=3);      
-
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '200',
@@ -35,10 +28,8 @@ function paymente_bc($request){
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
         ]; 
-        consolelogdata($data_activiy);
         
         $webTransaction = save_transaction_activity($data_activiy);
-
         $response = [
             'created'    => date("Y-m-d H:i:s", strtotime($webTransaction['created_at'])),
             'trx_id' 	 => $response['result']['txn_id'],
@@ -52,7 +43,6 @@ function paymente_bc($request){
     } else if ($response['http_code'] == 400){
 
         $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
-
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '400',
@@ -61,14 +51,13 @@ function paymente_bc($request){
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
         ];
-        save_transaction_activity($data_activiy);
 
+        save_transaction_activity($data_activiy);
         return ['http_code' => 400, 'status' => 'Error', 'result' => 'recharge denied'];
 
     } else if ($response['http_code'] == 408){
 
         $transaction = save_transaction($request,$response['result'],$type=3,$status=5);
-
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '408',
@@ -79,11 +68,7 @@ function paymente_bc($request){
         ];
 
         save_transaction_activity($data_activiy);
-
         return ['http_code' => 408, 'status' => 'Error', 'result' => 'API timeout'];
-
     }
 }
-
-
 ?>

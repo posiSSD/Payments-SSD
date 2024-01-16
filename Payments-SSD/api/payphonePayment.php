@@ -3,11 +3,9 @@
 function payment_deposit($request){
 
     $insert_db = [];
-    //$insert_db['eject'] = 'insert';
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;   
-    //$insert_db['payment_method'] = $request['payment_method'];
     $transaction_id = insert_tbl_transactions($insert_db);
 
     $url_data = [];
@@ -15,42 +13,32 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
-    //$url_data["payment_method"] = $request['payment_method'];
 
     $paymentExecuted = false;
     if (!$paymentExecuted) {
         $payment_curl = payment_curl($url_data);
         $paymentExecuted = true; 
     }
-    //$payment_curl = payment_curl($url_data);
     consolelogdata($payment_curl); 
 
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
-            // El código de respuesta es 0, lo que indica una respuesta exitosa
             $insert_db_new = [];
             $$insert_db_new['id'] = $transaction_id['id'];
             $insert_db_new['status'] = 1; 
-            //$transaction_id['status'] = 1;
-            //$transaction_id['eject'] = 'update';
+
             update_tbl_transactions($transaction_id);
 
             $payment_curl['response']['account'] = $request['request']['account'];
             $payment_curl['response']['amount'] = $request['request']['amount'];
-    
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
-            // El código de respuesta no es 0, indica un error
             return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
         }
     } else {
-        // No se recibió ninguna respuesta, indica un error de timeout u otro problema de conexión
         return ['http_code' => 408, 'status' => 'Error', 'result' => $transaction_id];
-    }
-    
+    }   
 }   
-
-
 function payment_curl($url_data){
     
 	$bc_param = [];

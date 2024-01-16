@@ -119,19 +119,15 @@ function create_payment_button(){
         	usr_active.order_id = rs.id;
 			
 			if(rs.status==201){
-				
 				holder.hide();
-				//find("iframe").attr("src", rs.url);
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
 				proframe.show();
 
 				btncerrar.click(function(event) {
-
 					prodiv.hide();
 					holderbutton.html('Salir');
-					holder.show();
-					
+					holder.show();	
 				});
 				
 				response_to_payphone(usr_active);
@@ -214,15 +210,11 @@ function response_to_payphone(usr_active){
 
 			if(rs.status_response !== true ){
 
-				//response_to_payphone(usr_active);
-		
 				// Agrega un temporizador de 5 segundos antes de la próxima ejecución
-				
 				setTimeout(function () {
 					response_to_payphone(usr_active);
 				  }, 3000);
-				
-								
+									
 			}  else {
 
 				console.log("El status es : "+rs.status)
@@ -234,17 +226,12 @@ function response_to_payphone(usr_active){
 				
 				if (rs.status ==  7){
 					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
-
 				} else if (rs.status == 10) {
 					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
-
 				} else if (rs.status ==  11) {
 					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
-
-				}
-				
+				}	
 			}
-
 		}
 		catch(err) {
 
