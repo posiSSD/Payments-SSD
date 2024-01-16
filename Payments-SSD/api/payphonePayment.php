@@ -3,7 +3,7 @@
 function payment_deposit($request){
 
     $insert_db = [];
-    $insert_db['eject'] = 'insert';
+    //$insert_db['eject'] = 'insert';
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;   
@@ -22,21 +22,23 @@ function payment_deposit($request){
         $payment_curl = payment_curl($url_data);
         $paymentExecuted = true; 
     }
-
-    $payment_curl = payment_curl($url_data);
-
+    //$payment_curl = payment_curl($url_data);
     consolelogdata($payment_curl); 
 
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
             // El código de respuesta es 0, lo que indica una respuesta exitosa
-    
-            $transaction_id['status'] = 1;
-            $transaction_id['eject'] = 'update';
-    
+            $insert_db_new = [];
+            $$insert_db_new['id'] = $transaction_id['id'];
+            $insert_db_new['account'] = $request['request']['account'];
+            $insert_db_new['amount'] = $request['request']['amount'];
+            $insert_db_new['status'] = 1; 
+            //$transaction_id['status'] = 1;
+            //$transaction_id['eject'] = 'update';
             update_tbl_transactions($transaction_id);
-            //$response['result']['account'] = $myRequest['request']['account'];
-            //$response['result']['amount'] = $myRequest['request']['amount'];
+
+            $payment_curl['result']['account'] = $request['request']['account'];
+            $payment_curl['result']['amount'] = $request['request']['amount'];
     
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {

@@ -16,10 +16,10 @@ function paymente_bc($request){
         
     $response = payment_deposit($myRequest);
 
-    if($response){
+    /*if($response){
         $response['result']['account'] = $myRequest['request']['account'];
         $response['result']['amount'] = $myRequest['request']['amount'];
-    }
+    }*/
 
     consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
