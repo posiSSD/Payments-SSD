@@ -184,30 +184,25 @@ function onlyEnter(e){
 	  }
 }
 function response_to_payphone(usr_active){
-	/////////////////////////////////////////
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn')
 	let form = $('#kushki_payment_form');
 	let btn = form.find('button');
-	//let input = form.find('input');
 	let inputtext = $("#inputtext");
 	let prodiv = $("#prometeoembeded");
 	let proframe = $("#prometeoframe");
 	let btncerrar = $("#cerrarIframe");
 	let texto = $("#texto");
-	//////////////////////////////////////////
 
-	
-	$.post(this_url+'sys/', 
-	{
+	$.post(this_url+'sys/', {
 		status_payment_button:usr_active,
 	}, 
 	function(r, textStatus, xhr) {
 		try {
+			
 			let rs = jQuery.parseJSON(r);
 			
-
 			if(rs.status_response !== true ){
 
 				// Agrega un temporizador de 5 segundos antes de la próxima ejecución
@@ -222,6 +217,9 @@ function response_to_payphone(usr_active){
 				btncerrar.click();
 				prodiv.hide();
 				holderbutton.html('Salir');
+				setTimeout(function() {
+					holderbutton.hide(); // Otra opción: holderbutton.css('display', 'none');
+				}, 5000);
 				holder.show();
 				
 				if (rs.status ==  7){

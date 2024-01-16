@@ -34,8 +34,6 @@ log_write($data_array_response_details);
 
 $a=[];
 $ret=[];
-
-// declarar respuestas en caso de error
 $http_code = 500;
 $status = 'Error';
 $response = [];  
@@ -179,7 +177,7 @@ function api_activities($a){
 		// print_r($insert_command); exit();
 	}
 
-    consolelogdata($insert_command); 
+    //consolelogdata($insert_command); 
 	$mysqli->close();
 }
 

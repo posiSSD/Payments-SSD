@@ -22,7 +22,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $user_id = $auth_data["user_id"];
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
-        consolelogfrontdata($auth_data);
+        //consolelogfrontdata($auth_data);
     }
     /*
     else{
@@ -285,11 +285,13 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 ?>
    
 <?php
+/*
 function consolelogfrontdata($auth_data) {
    
     echo '<script>';
     echo 'console.log("IF:", ' . json_encode($auth_data ) . ');';
     echo '</script>';
 }
+*/
 ?>
  

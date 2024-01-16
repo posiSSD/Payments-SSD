@@ -25,7 +25,7 @@ function bc_deposit($request){
     }
 
     $response = paymente_bc($request);
-    consolelogdata($response); //codigo para ver los resultados en al consola del navegador
+    //consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 	return $response;
 
 }
@@ -48,6 +48,6 @@ function validateRequest($request) {
         $errors = true;
     }
     return $errors;
-    
+
 }
 ?>
