@@ -186,7 +186,7 @@ function onlyEnter(e){
 function response_to_payphone(usr_active){
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
-	let holderbutton = $('#kushki_btn')
+	let holderbutton = $('#kushki_btn');
 	let form = $('#kushki_payment_form');
 	let btn = form.find('button');
 	let inputtext = $("#inputtext");
@@ -200,7 +200,7 @@ function response_to_payphone(usr_active){
 	}, 
 	function(r, textStatus, xhr) {
 		try {
-			
+
 			let rs = jQuery.parseJSON(r);
 			
 			if(rs.status_response !== true ){
@@ -209,25 +209,35 @@ function response_to_payphone(usr_active){
 				setTimeout(function () {
 					response_to_payphone(usr_active);
 				  }, 3000);
-									
+			
+			holderbutton.html('Espere un momento...');
+				  
 			}  else {
 
 				console.log("El status es : "+rs.status)
 				console.log(rs.status_response)
 				btncerrar.click();
 				prodiv.hide();
-				holderbutton.html('Salir');
+				
+				/*
 				setTimeout(function() {
 					holderbutton.hide(); // Otra opción: holderbutton.css('display', 'none');
 				}, 5000);
+				*/
 				holder.show();
 				
 				if (rs.status ==  7){
 					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
+					holderbutton[0].style.cursor = 'pointer';
+					holderbutton.html('Salir');
 				} else if (rs.status == 10) {
 					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
+					holderbutton[0].style.cursor = 'pointer';
+					holderbutton.html('Salir');
 				} else if (rs.status ==  11) {
 					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
+					holderbutton[0].style.cursor = 'pointer';
+					holderbutton.html('Salir');
 				}	
 			}
 		}
