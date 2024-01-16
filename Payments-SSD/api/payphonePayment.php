@@ -30,15 +30,13 @@ function payment_deposit($request){
             // El código de respuesta es 0, lo que indica una respuesta exitosa
             $insert_db_new = [];
             $$insert_db_new['id'] = $transaction_id['id'];
-            $insert_db_new['account'] = $request['request']['account'];
-            $insert_db_new['amount'] = $request['request']['amount'];
             $insert_db_new['status'] = 1; 
             //$transaction_id['status'] = 1;
             //$transaction_id['eject'] = 'update';
             update_tbl_transactions($transaction_id);
 
-            $payment_curl['result']['account'] = $request['request']['account'];
-            $payment_curl['result']['amount'] = $request['request']['amount'];
+            $payment_curl['response']['account'] = $request['request']['account'];
+            $payment_curl['response']['amount'] = $request['request']['amount'];
     
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
@@ -130,8 +128,7 @@ function insert_tbl_transactions($insert_db) {
         $errordb = $sql_insert->error;
         consolelogdata($errordb);
         return false; 
-    }    
-      
+    }        
 }
 function update_tbl_transactions($insert_db) {
 
@@ -189,8 +186,7 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['url '] = $url;
         $rq['response'] = $response;
         $rq['created_at '] = $created_at;
-        $rq['updated_at '] = $updated_at;
-            
+        $rq['updated_at '] = $updated_at;   
         consolelogdata($rq); 
         return $rq;  
     }
@@ -199,7 +195,6 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         consolelogdata($errordb);
         return false; 
     } 
-
 }
 
 ?>
