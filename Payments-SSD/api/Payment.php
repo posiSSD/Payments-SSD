@@ -13,8 +13,10 @@ function paymente_bc($request){
         "amount" => $request['amount']
     ];
     $myRequest['payment_method'] = $request['payment_method'];
-        
+
+    consolelogdata($request);
     $response = payment_deposit($myRequest);
+    consolelogdata($response);
     //consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 
     if($response['http_code'] == 200){

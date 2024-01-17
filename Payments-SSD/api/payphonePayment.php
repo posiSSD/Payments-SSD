@@ -14,11 +14,13 @@ function payment_deposit($request){
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
 
+    consolelogdata($request);
     $paymentExecuted = false;
     if (!$paymentExecuted) {
         $payment_curl = payment_curl($url_data);
         $paymentExecuted = true; 
     }
+    consolelogdata($payment_curl);
     //consolelogdata($payment_curl); 
 
     if ($payment_curl) {
@@ -187,73 +189,4 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         return false; 
     } 
 }
-
-/*
-// 2. Check Transaction Status
-function payment_status($request){
-		
-    $url_data = [];
-    $url_data["command"]="status";
-    $url_data["txn_id"]=$request['id'];
-    $payment_curl = KushkiPayment::payment_curl($url_data);
-    if($payment_curl)
-    {
-        if($payment_curl["response"]["code"])
-        {
-            DB::connection('mysql_bc_kushkipayment')
-                ->table('tbl_transactions')
-                ->where('id',$request->txn_id)
-                ->update([
-                    'status'=>$payment_curl["response"]["code"]
-                ]);
-        }
-        unset($payment_curl["response"]["FirstName"]);
-        unset($payment_curl["response"]["LastName"]);
-        ksort($payment_curl["response"]);
-        if($payment_curl["response"]["code"]===1){
-            return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $payment_curl["response"]];
-        }
-        else{
-            return ['http_code' => 400, 'status' => 'Error', 'result' =>  $payment_curl["response"]];
-        }
-    }
-    else
-    {
-        return ['http_code' => 408, 'status' => 'Error', 'result' =>  $payment_curl];
-    }
-    
-}
-
-// 3. Cancel Transaction
-function payment_cancel($request){
-    
-    $url_data = [];
-    $url_data["command"]="cancel";
-    $url_data["txn_id"]=$request->txn_id;
-    $payment_curl = KushkiPayment::payment_curl($url_data);
-    if($payment_curl)
-    {
-        if($payment_curl["response"]["code"]===2)
-        {
-            DB::connection('mysql_bc_kushkipayment')
-                ->table('tbl_transactions')
-                ->where('id',$request->txn_id)
-                ->update([
-                    'status'=>2 // 2=Cancelled
-                ]);
-            return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $payment_curl["response"]];
-        }
-        else
-        {
-            return ['http_code' => 400, 'status' => 'Error', 'result' =>  $payment_curl["response"]];
-        }
-    }
-    else
-    {
-        return ['http_code' => 408, 'status' => 'Error', 'result' =>  $payment_curl];
-    }
-}
-*/
-
-
 ?>

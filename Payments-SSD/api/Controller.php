@@ -23,8 +23,11 @@ function bc_deposit($request){
         save_transaction_activity($data_activiy);
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
     }
-
+    
+    consolelogdata($request);
     $response = paymente_bc($request);
+    consolelogdata($response);
+
     //consolelogdata($response); //codigo para ver los resultados en al consola del navegador
 	return $response;
 
