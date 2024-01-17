@@ -228,15 +228,15 @@ function response_to_payphone(usr_active){
 				
 				if (rs.status ==  7){
 					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'pointer';
+					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
 				} else if (rs.status == 10) {
 					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'pointer';
+					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
 				} else if (rs.status ==  11) {
 					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'pointer';
+					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
 				}	
 			}
