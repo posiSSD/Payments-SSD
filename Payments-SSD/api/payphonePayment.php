@@ -18,14 +18,14 @@ function payment_deposit($request){
 
     //consulta 
 
-    consolelogdata($request);
+    //consolelogdata($request);
     $paymentExecuted = false;
     if (!$paymentExecuted) {
         $payment_curl = payment_curl($url_data);
         $paymentExecuted = true; 
     }
-    consolelogdata($payment_curl);
-    //consolelogdata($payment_curl); 
+    //consolelogdata($payment_curl);
+    ////consolelogdata($payment_curl); 
 
     if ($payment_curl) {
         if ($payment_curl["response"]["code"] == 0) {
@@ -64,7 +64,7 @@ function payment_curl($url_data){
 
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
 
-    consolelogdata($bc_url);
+    //consolelogdata($bc_url);
 
     // Bandera para evitar ejecutar la función más de una vez
     $paymentExecuted = false;
@@ -75,7 +75,7 @@ function payment_curl($url_data){
         curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
         $response = curl_exec($curl);
-        consolelogdata($response);
+        //consolelogdata($response);
 
         // Establecer la bandera como verdadera después de la ejecución
         $paymentExecuted = true;
@@ -136,11 +136,11 @@ function insert_tbl_transactions($insert_db) {
         $rq['status'] = $status;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
-        //consolelogdata($rq); 
+        ////consolelogdata($rq); 
         return $rq;  
     } else {
         $errordb = $sql_insert->error;
-        //consolelogdata($errordb);
+        ////consolelogdata($errordb);
         return false; 
     }        
 }
@@ -163,11 +163,11 @@ function update_tbl_transactions($insert_db) {
         $rq['id'] = $transaction_id;
         $rq['status'] = $status;
         $rq['updated_at'] = $updated_at;
-        //consolelogdata($rq); 
+        ////consolelogdata($rq); 
         return $rq;
     } else {
         $errordb = $stmt_update->error;
-        //consolelogdata($errordb);
+        ////consolelogdata($errordb);
         return false; 
     }
 }
@@ -201,12 +201,12 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['response'] = $response;
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;   
-        //consolelogdata($rq); 
+        ////consolelogdata($rq); 
         return $rq;  
     }
     else {
         $errordb = $stmt_details->error;
-        //consolelogdata($errordb);
+        ////consolelogdata($errordb);
         return false; 
     } 
 }

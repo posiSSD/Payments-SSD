@@ -13,11 +13,11 @@ $data_array = array(
     "clientTxId" => $transaccion
 );
 
-consolelogdata($data_array);
+//consolelogdata($data_array);
 
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-consolelogdata($status_payphone_transactions);
+//consolelogdata($status_payphone_transactions);
 
 if (!$status_payphone_transactions){
     //https://payments.totalbet.com/Payments-SSD/payphonenots.php?id=25680440&clientTransactionId=c82fe876b8dfba0db07b11b1f86e1a20
@@ -27,7 +27,7 @@ if (!$status_payphone_transactions){
     $payphone_array_response = payphone_api_confirm ($data_array);
     payphone_api_transactions($payphone_array_response);
     $data_array_response_details = payphone_api_bd_details($payphone_array_response);
-    consolelogdata($data_array_response_details);
+    //consolelogdata($data_array_response_details);
 
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
@@ -69,7 +69,7 @@ if (!$status_payphone_transactions){
 
                 $bc_deposit = bc_deposit($d);
                 //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
-                consolelogdata($bc_deposit); 
+                //consolelogdata($bc_deposit); 
                             
                 if(array_key_exists('http_code', $bc_deposit)){
                     if ($bc_deposit['http_code']==200){
@@ -200,7 +200,7 @@ function api_activities($a){
 		// print_r($insert_command); exit();
 	}
 
-    //consolelogdata($insert_command); 
+    ////consolelogdata($insert_command); 
 	$mysqli->close();
 }
 
