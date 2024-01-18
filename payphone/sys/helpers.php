@@ -433,19 +433,11 @@ function payphone_status_transaction($trans = false) {
 	//	"clientTxId" => $client
 	//);
 
-
-
     $trans_ret = false;
     $db = 'at_payments_prueba';
     $table = 'payphone_transactions';
     $where = ' 1=1 '; // Cambiado para que siempre sea verdadero
 	
-	//$ret=[];
-	// clientTxId: "3b76ad7d96a0d27211e57f8fbccc8e32"  // clientTransactionId
-	// id: 25685534  // transactionId
-
-
-
     if (array_key_exists('clientTxId', $trans)) {
         $where .= " AND clientTransactionId = '" . $trans['clientTxId'] . "'";
     }
@@ -465,10 +457,5 @@ function payphone_status_transaction($trans = false) {
 
     return $trans_ret;
 }
-
-
-
-
-
 
 ?>

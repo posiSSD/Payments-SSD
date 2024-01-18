@@ -5,12 +5,12 @@ include ROOT_PATH.'/sys/helpers.php';
 include ROOT_PATH.'/payphone/sys/helpers.php';
 include ROOT_PATH.'/Payments-SSD/api/Controller.php';
 
-$transaccion = $_GET["id"];
-$client = $_GET["clientTransactionId"];
+$id = $_GET["id"];
+$transaccion = $_GET["clientTransactionId"];
 
 $data_array = array(
-    "id" => (int)$transaccion,
-    "clientTxId" => $client
+    "id" => (int)$id,
+    "clientTxId" => $transaccion
 );
 
 consolelogdata($data_array);
