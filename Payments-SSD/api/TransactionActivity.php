@@ -44,16 +44,14 @@ function save_transaction_activity($data_activiy){
         $rq['token'] = $token;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
-
-        ////consolelogdata($rq); 
+        consolelogdata($rq); 
 
         return $rq; // Éxito en la inserción
 
     } else {
 
         $errordb = $stmt_details->error;
-        // Manejo de errores en la inserción
-        ////consolelogdata($errordb);
+        consolelogdata($errordb);
         return false; // Error en la inserción
     }
 }
