@@ -428,16 +428,29 @@ function status_transaction($trans=false){
 function payphone_status_transaction($trans = false) {
     global $mysqli;
 
+	//$data_array = array(
+	//	"id" => (int)$transaccion,
+	//	"clientTxId" => $client
+	//);
+
+
+
     $trans_ret = false;
     $db = 'at_payments_prueba';
-    $table = 'payphone_details';
+    $table = 'payphone_transactions';
     $where = ' 1=1 '; // Cambiado para que siempre sea verdadero
+	
+	//$ret=[];
+	// clientTxId: "3b76ad7d96a0d27211e57f8fbccc8e32"  // clientTransactionId
+	// id: 25685534  // transactionId
 
-    if (array_key_exists('clientTransactionId', $trans)) {
-        $where .= " AND clientTransactionId = '" . $trans['clientTransactionId'] . "'";
+
+
+    if (array_key_exists('clientTxId', $trans)) {
+        $where .= " AND clientTransactionId = '" . $trans['clientTxId'] . "'";
     }
-    if (array_key_exists('transactionId', $trans)) {
-        $where .= " AND transactionId = '" . $trans['transactionId'] . "'";
+    if (array_key_exists('id', $trans)) {
+        $where .= " AND transactionId = '" . $trans['id'] . "'";
     }
 
     $get_command = "SELECT COUNT(*) as count FROM {$db}.{$table} WHERE {$where}";
