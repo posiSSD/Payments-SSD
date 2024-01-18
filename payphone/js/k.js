@@ -195,6 +195,9 @@ function response_to_payphone(usr_active){
 	let btncerrar = $("#cerrarIframe");
 	let texto = $("#texto");
 
+
+	holderbutton.html('Espere un momento...');
+
 	$.post(this_url+'sys/', {
 		status_payment_button:usr_active,
 	}, 
@@ -210,7 +213,7 @@ function response_to_payphone(usr_active){
 					response_to_payphone(usr_active);
 				  }, 3000);
 			
-			holderbutton.html('Espere un momento...');
+			
 				  
 			}  else {
 
