@@ -164,7 +164,7 @@ function create_payment_button($client=false){
     return $ret;
 }
 
-function api_button_V2_Confirm ($data_array){
+function payphone_api_confirm ($data_array){
 	
 	$ret = false;
 	$rq = [];
@@ -318,6 +318,7 @@ function create_or_update_bd_api_transactions($data=false){
 		$insert_arr['message'] = isset($data['message']) ? $data['message'] : null;
 		$insert_arr['messageCode'] = isset($data['messageCode']) ? $data['messageCode'] : null;   ////////////////////////////////////
 		$insert_arr['optionalParameter1'] = isset($data['optionalParameter1']) ? $data['optionalParameter1'] : null;
+		$insert_arr['created_at'] = date('Y-m-d H:i:s');
 
 
 		$data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
@@ -346,7 +347,7 @@ function create_or_update_bd_api_transactions($data=false){
 		return $data; // Debes devolver $data en lugar de $trans
 	}
 }
-function payphone_get_details($trans=false){
+function payphone_bd_api_details($trans=false){
 	// $data=false
 	$ret = false;
 	global $mysqli;

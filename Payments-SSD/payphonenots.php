@@ -5,7 +5,6 @@ include ROOT_PATH.'/sys/helpers.php';
 include ROOT_PATH.'/payphone/sys/helpers.php';
 include ROOT_PATH.'/Payments-SSD/api/Controller.php';
 
-
 $transaccion = $_GET["id"];
 $client = $_GET["clientTransactionId"];
 
@@ -16,9 +15,16 @@ $data_array = array(
 
 consolelogdata($data_array);
 
-$data_array_response = api_button_V2_Confirm ($data_array);
-create_or_update_bd_api_transactions($data_array_response);
-$data_array_response_details = payphone_get_details($data_array_response);
+// https://payments.totalbet.com/Payments-SSD/payphonenots.php?id=25615359&clientTransactionId=97c447e0ac059dde991795c8d05ba9c5
+
+$payphone_array_response = payphone_api_confirm ($data_array);
+create_or_update_bd_api_transactions($payphone_array_response);
+$data_array_response_details = payphone_bd_api_details($payphone_array_response);
+consolelogdata($data_array_response_details);
+
+
+
+
 
 $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";

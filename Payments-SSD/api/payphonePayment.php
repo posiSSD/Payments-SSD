@@ -5,7 +5,9 @@ function payment_deposit($request){
     $insert_db = [];
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
-    $insert_db['status'] = 0;   
+    $insert_db['status'] = 0; 
+    
+    
     $transaction_id = insert_tbl_transactions($insert_db);
 
     $url_data = [];
@@ -13,6 +15,8 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
+
+    //consulta 
 
     consolelogdata($request);
     $paymentExecuted = false;
@@ -42,6 +46,8 @@ function payment_deposit($request){
     }   
 }   
 function payment_curl($url_data){
+
+    
     
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
@@ -60,31 +66,46 @@ function payment_curl($url_data){
 
     consolelogdata($bc_url);
 
-	$curl = curl_init($bc_url);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_POST, false);
-	curl_setopt($curl, CURLOPT_TIMEOUT,6); 
+    // Bandera para evitar ejecutar la función más de una vez
+    $paymentExecuted = false;
+    if (!$paymentExecuted) {
+        $curl = curl_init($bc_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, false);
+        curl_setopt($curl, CURLOPT_TIMEOUT,6);
+        
+        $response = curl_exec($curl);
+        consolelogdata($response);
 
-	$response = curl_exec($curl);
-    consolelogdata($bc_url);
-    //consolelogdata($response); 
+        // Establecer la bandera como verdadera después de la ejecución
+        $paymentExecuted = true;
+
+        insert_tbl_api_activities($url_data, $bc_url, $response);
+        
+        if($response){
+            $response_arr = json_decode($response,true);
+            if(is_array($response_arr)){
+                if(array_key_exists("txn_id",$url_data)){
+                        $response_arr["response"]["txn_id"]=$url_data["txn_id"];
+                }
+                consolelogdata($response_arr); 
+                return $response_arr;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+
+    }
+
+	
+
+	
     
-	insert_tbl_api_activities($url_data, $bc_url, $response);  
+	 
 
-	if($response){
-		$response_arr = json_decode($response,true);
-		if(is_array($response_arr)){
-			if(array_key_exists("txn_id",$url_data)){
-					$response_arr["response"]["txn_id"]=$url_data["txn_id"];
-			}
-            //consolelogdata($response_arr); 
-			return $response_arr;
-		}else{
-			return false;
-		}
-	}else{
-		return false;
-	}
+	
 }
 
 function insert_tbl_transactions($insert_db) {
