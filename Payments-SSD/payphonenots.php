@@ -13,7 +13,7 @@ $data_array = array(
     "clientTxId" => $transaccion
 );
 
-//consolelogdata($data_array);
+consolelogdata($data_array);
 
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
