@@ -179,7 +179,7 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
     
     if ( $stmt_details->execute() === TRUE) {
 
-        $id = $mysqli_kushki->insert_id;
+        $id = $mysqli_kushkipayment->insert_id;
         $rq['id'] = $id;
         $rq['command'] = $command;
         $rq['account'] = $account;
