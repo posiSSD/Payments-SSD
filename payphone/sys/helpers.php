@@ -289,7 +289,7 @@ function create_or_update_bd_api_details($data=false){
     }
 }
 
-function create_or_update_bd_api_transactions($data=false){
+function payphone_api_transactions($data=false){
 	global $mysqli;
 
 	if ($data !== null) {
@@ -347,7 +347,7 @@ function create_or_update_bd_api_transactions($data=false){
 		return $data; // Debes devolver $data en lugar de $trans
 	}
 }
-function payphone_bd_api_details($trans=false){
+function payphone_api_bd_details($trans=false){
 	// $data=false
 	$ret = false;
 	global $mysqli;
@@ -423,6 +423,34 @@ function status_transaction($trans=false){
 	$ret = $query->fetch_assoc();
 
 	return $ret;
+}
+
+function payphone_status_transaction($trans = false) {
+    global $mysqli;
+
+    $trans_ret = false;
+    $db = 'at_payments_prueba';
+    $table = 'payphone_details';
+    $where = ' 1=1 '; // Cambiado para que siempre sea verdadero
+
+    if (array_key_exists('clientTransactionId', $trans)) {
+        $where .= " AND clientTransactionId = '" . $trans['clientTransactionId'] . "'";
+    }
+    if (array_key_exists('transactionId', $trans)) {
+        $where .= " AND transactionId = '" . $trans['transactionId'] . "'";
+    }
+
+    $get_command = "SELECT COUNT(*) as count FROM {$db}.{$table} WHERE {$where}";
+    $result = $mysqli->query($get_command);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+		if($row['count'] > 0){
+			$trans_ret = true;
+		}
+    }
+
+    return $trans_ret;
 }
 
 
