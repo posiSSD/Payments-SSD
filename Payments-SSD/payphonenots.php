@@ -20,15 +20,11 @@ $status_payphone_transactions = payphone_status_transaction($data_array);
 //consolelogdata($status_payphone_transactions);
 
 if (!$status_payphone_transactions){
-    //https://payments.totalbet.com/Payments-SSD/payphonenots.php?id=25680440&clientTransactionId=c82fe876b8dfba0db07b11b1f86e1a20
-    //c82fe876b8dfba0db07b11b1f86e1a20
-    //c82fe876b8dfba0db07b11b1f86e1a20
-    //unique_id c82fe876b8dfba0db07b11b1f86e1a20
+    
     $payphone_array_response = payphone_api_confirm ($data_array);
     payphone_api_transactions($payphone_array_response);
     $data_array_response_details = payphone_api_bd_details($payphone_array_response);
-    //consolelogdata($data_array_response_details);
-
+    
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
     $log_file = date("Y-m-d").".log";

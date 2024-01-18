@@ -17,13 +17,8 @@ function payment_deposit($request){
     $url_data["amount"] = $request['request']['amount']; 
 
     //consulta 
-
     consolelogdata($request);
-    $paymentExecuted = false;
-    if (!$paymentExecuted) {
-        $payment_curl = payment_curl($url_data);
-        $paymentExecuted = true; 
-    }
+    $payment_curl = payment_curl($url_data);
     consolelogdata($payment_curl);
     ////consolelogdata($payment_curl); 
 
@@ -75,7 +70,7 @@ function payment_curl($url_data){
         curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
         $response = curl_exec($curl);
-        //consolelogdata($response);
+        consolelogdata($response);
 
         // Establecer la bandera como verdadera después de la ejecución
         $paymentExecuted = true;
