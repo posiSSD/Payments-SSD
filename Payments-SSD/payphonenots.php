@@ -207,8 +207,8 @@ function consolelogdata($data) {
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
 
     echo '<script>';
-    echo 'console.log("'. $pFunction . '");';
-    echo 'console.log("Data:", ' . json_encode($data) . ');';
+    // echo 'console.log("'. $pFunction . '");';
+    echo 'console.log("' . $pFunction . '": ' . json_encode($data) . ');';
     echo '</script>';
 }
 //function personalizada para emitir salidas en la consola del navegador
