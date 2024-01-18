@@ -68,8 +68,8 @@ if (!$status_payphone_transactions){
                 $d['payment_method']='payphone'; // 4 = payphone
 
                 $bc_deposit = bc_deposit($d);
-                //return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
-                //consolelogdata($bc_deposit); 
+                
+                consolelogdata($bc_deposit); 
                             
                 if(array_key_exists('http_code', $bc_deposit)){
                     if ($bc_deposit['http_code']==200){

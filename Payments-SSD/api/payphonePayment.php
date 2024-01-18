@@ -18,13 +18,13 @@ function payment_deposit($request){
 
     //consulta 
 
-    //consolelogdata($request);
+    consolelogdata($request);
     $paymentExecuted = false;
     if (!$paymentExecuted) {
         $payment_curl = payment_curl($url_data);
         $paymentExecuted = true; 
     }
-    //consolelogdata($payment_curl);
+    consolelogdata($payment_curl);
     ////consolelogdata($payment_curl); 
 
     if ($payment_curl) {
