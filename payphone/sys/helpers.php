@@ -318,7 +318,9 @@ function payphone_api_transactions($data=false){
 		$insert_arr['message'] = isset($data['message']) ? $data['message'] : null;
 		$insert_arr['messageCode'] = isset($data['messageCode']) ? $data['messageCode'] : null;   ////////////////////////////////////
 		$insert_arr['optionalParameter1'] = isset($data['optionalParameter1']) ? $data['optionalParameter1'] : null;
-		$insert_arr['created_at'] = date('Y-m-d H:i:s');
+		
+		$fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
+		$insert_arr['created_at'] = $fecha_hora_actual->format('Y-m-d H:i:s');
 
 
 		$data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
