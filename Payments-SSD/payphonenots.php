@@ -17,7 +17,7 @@ consolelogdata($data_array);
 
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-consolelogdata($data_array);
+consolelogdata($status_payphone_transactions);
 
 if (!$status_payphone_transactions){
     //https://payments.totalbet.com/Payments-SSD/payphonenots.php?id=25680440&clientTransactionId=c82fe876b8dfba0db07b11b1f86e1a20
