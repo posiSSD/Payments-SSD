@@ -28,7 +28,7 @@ function payment_deposit($request){
             $$insert_db_new['id'] = $transaction_id['id'];
             $insert_db_new['status'] = 1; 
 
-            update_tbl_transactions($transaction_id);
+            update_tbl_transactions($insert_db_new );
 
             $payment_curl['response']['account'] = $request['request']['account'];
             $payment_curl['response']['amount'] = $request['request']['amount'];
@@ -44,8 +44,6 @@ function payment_deposit($request){
 }   
 function payment_curl($url_data){
 
-    
-    
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";

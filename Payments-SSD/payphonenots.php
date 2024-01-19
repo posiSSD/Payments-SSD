@@ -43,7 +43,7 @@ if (!$status_payphone_transactions){
     $ret=[];
     $http_code = 500;
     $status = 'Error';
-    $response = [];  
+    $response = [];
 
     if($data_array_response_details){
         switch ($data_array_response_details['transactionStatus']){
@@ -62,80 +62,76 @@ if (!$status_payphone_transactions){
                 $d['amount']=$data_array_response_details['amount'];
                 $d['order_id']=$data_array_response_details['paymentId'];
                 $d['payment_method']='payphone'; // 4 = payphone
+                consolelogdata($d);
 
-                $bc_deposit = bc_deposit($d);
-                
-                consolelogdata($bc_deposit); 
+                do{
+                    sleep(30); //demorar 10seg
+                    $bc_deposit = bc_deposit($d);
+                    consolelogdata($bc_deposit);
+
+                    if(array_key_exists('http_code', $bc_deposit)){
+                        if ($bc_deposit['http_code']==200){
                             
-                if(array_key_exists('http_code', $bc_deposit)){
-                    if ($bc_deposit['http_code']==200){
+                            $new_trans=[];
+                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['status']=7; // 3=paid
+                            $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                            create_or_update_transaction($new_trans);
+                            $ret['http_code']=200;
+                            $ret['status']='Ok';
+                            $ret['response']='Order '.$transaccion.' paid';
+                            api_ret($ret);
+    
+                        } elseif ($bc_deposit['http_code']==400){
+                            
+                            $new_trans=[];
+                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['status']=10; // 11 failed deposit
+                            create_or_update_transaction($new_trans);
+                            $ret['http_code']=400;
+                            $ret['status']='denied';
+                            $ret['response']='Order '.$transaccion.' denied';
+                            api_ret($ret);
+    
+                        } elseif ($bc_deposit['http_code']==408){
                         
-                        $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['status']=7; // 3=paid
-                        $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                            $new_trans=[];
+                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['status']=10; // 11 failed deposit
+                            create_or_update_transaction($new_trans);
+                            $ret['http_code']=408;
+                            $ret['status']='timeout';
+                            $ret['response']='Order '.$transaccion.' timeout';
+                            api_ret($ret);
+    
+                        } elseif ($bc_deposit['http_code']==402){
                         
-                        create_or_update_transaction($new_trans);
+                            $new_trans=[];
+                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['status']=10; // 11 failed deposit
+                            create_or_update_transaction($new_trans);
+                            $ret['http_code']=402;
+                            $ret['status']='Validator fail';
+                            $ret['response']='Order '.$transaccion.' Validator fail';
+                            api_ret($ret);
+    
+                        } else {
                         
-                        $ret['http_code']=200;
-                        $ret['status']='Ok';
-                        $ret['response']='Order '.$transaccion.' paid';
-                        api_ret($ret);
+                            $new_trans=[];
+                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['status']=11; // 
+                            create_or_update_transaction($new_trans);
+                            $ret['http_code']=500;
+                            $ret['status']='Error';
+                            $ret['response']='Something went wrong, check logs';
+                            api_ret($ret);
+    
+                        }
+                    }         
 
-                    } elseif ($bc_deposit['http_code']==400){
-                        
-                        $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['status']=10; // 11 failed deposit
-                        
-                        create_or_update_transaction($new_trans);
-                    
-                        $ret['http_code']=400;
-                        $ret['status']='denied';
-                        $ret['response']='Order '.$transaccion.' denied';
-                        api_ret($ret);
-
-                    } elseif ($bc_deposit['http_code']==408){
-                    
-                        $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['status']=10; // 11 failed deposit
-                        
-                        create_or_update_transaction($new_trans);
-                        
-                        $ret['http_code']=408;
-                        $ret['status']='timeout';
-                        $ret['response']='Order '.$transaccion.' timeout';
-                        api_ret($ret);
-
-                    } elseif ($bc_deposit['http_code']==402){
-                    
-                        $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['status']=10; // 11 failed deposit
-                        
-                        create_or_update_transaction($new_trans);
-                        
-                        $ret['http_code']=402;
-                        $ret['status']='Validator fail';
-                        $ret['response']='Order '.$transaccion.' Validator fail';
-                        api_ret($ret);
-
-                    } else {
-                    
-                        $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['status']=11; // 
-                        
-                        create_or_update_transaction($new_trans);
-                        
-                        $ret['http_code']=500;
-                        $ret['status']='Error';
-                        $ret['response']='Something went wrong, check logs';
-                        api_ret($ret);
-
-                    }
-                }         
+                } while (!array_key_exists('http_code', $bc_deposit) && $bc_deposit['http_code'] !== 200);
+                                            
+                
             break;
             case "Canceled":   
             break;    
