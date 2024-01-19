@@ -34,7 +34,9 @@ function payment_deposit($request){
             $payment_curl['response']['amount'] = $request['request']['amount'];
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
-            return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
+            //$payment_curl["response"]["code"]
+            //return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
+            return ['http_code' => $payment_curl["response"]["code"], 'status' => 'Error', 'result' => $payment_curl["response"]];
         }
     } else {
         return ['http_code' => 408, 'status' => 'Error', 'result' => $transaction_id];

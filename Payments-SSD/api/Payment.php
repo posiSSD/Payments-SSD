@@ -47,6 +47,16 @@ function paymente_bc($request){
     } else if ($response['http_code'] == 400){
 
         $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
+
+        $data_activiy = [
+            'transaction_id' => $transaction['id'],
+            'http_code' 	 => '200',
+            'result'		 =>  $response['result'],
+            'status' 		 => '3',
+            'ip_address'      => $request['ip_address'],
+            'method'         => $request['payment_method']
+        ]; 
+        
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '400',
@@ -73,6 +83,20 @@ function paymente_bc($request){
 
         save_transaction_activity($data_activiy);
         return ['http_code' => 408, 'status' => 'Error', 'result' => 'API timeout'];
+    } else {
+
+        $transaction = save_transaction($request,$response['result'],$type=3,$status=6);
+        $data_activiy = [
+            'transaction_id' => $transaction['id'],
+            'http_code' 	 => $response['result']['code'],
+            'result'		 =>  $response['result'],
+            'status' 		 => '6',
+            'ip_address'      => $request['ip_address'],
+            'method'         => $request['payment_method']
+        ]; 
+
+        save_transaction_activity($data_activiy);
+        return ['http_code' => $response['result']['code'], 'status' => 'Error', 'result' => $response['result']['message']];
     }
 }
 ?>
