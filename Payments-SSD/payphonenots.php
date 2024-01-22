@@ -56,7 +56,7 @@ if (!$status_payphone_transactions){
                 $new_trans['status']=9; // 3=pending deposit
                 $new_trans['payment_id']=$transaccion;
                 create_or_update_transaction($new_trans);
-                sleep(5);
+                sleep(10);
                 $d=[];
                 $d['account']=$data_array_response_details['client_id'];
                 $d['amount']=$data_array_response_details['amount'];
