@@ -210,16 +210,18 @@ function response_to_payphone(usr_active){
 
 			let rs = jQuery.parseJSON(r);
 			//console.log(rs);
+
+			if (rs.status == 9) {
+				prodiv.hide();
+				holder.show();
+				holderbutton.show();
+				holderdetails.html('Recargando: $/'+prueba.kushki_value);
+				holderbutton.html('Espere un momento...');
+			}
 			
 			if (rs.status !== 7 || rs.status !== 10 || rs.status !== 11) {
 
-				if (rs.status == 9) {
-					prodiv.hide();
-					holder.show();
-					holderbutton.show();
-					holderdetails.html('Recargando: $/'+prueba.kushki_value);
-					holderbutton.html('Espere un momento...');
-				}
+				console.log("El status es : "+rs.status);
 
 				setTimeout(function () {
 					response_to_payphone(usr_active); //temporizador de 5 seg
@@ -228,8 +230,9 @@ function response_to_payphone(usr_active){
 			}else {
 
 				console.log("El status es : "+rs.status);
-				//prodiv.hide();
-				//holder.show();
+				prodiv.hide();
+				holder.show();
+				holderbutton.show();
 				
 				if (rs.status ==  7) {
 

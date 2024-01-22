@@ -13,11 +13,11 @@ $data_array = array(
     "clientTxId" => $transaccion
 );
 
-consolelogdata($data_array);
+//consolelogdata($data_array);
 
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-//consolelogdata($status_payphone_transactions);
+////consolelogdata($status_payphone_transactions);
 
 if (!$status_payphone_transactions){
     
@@ -62,7 +62,7 @@ if (!$status_payphone_transactions){
                 $d['amount']=$data_array_response_details['amount'];
                 $d['order_id']=$data_array_response_details['paymentId'];
                 $d['payment_method']='payphone'; // 4 = payphone
-                consolelogdata($d);
+                //consolelogdata($d);
 
                 do{
                     $bc_deposit = bc_deposit($d);
@@ -174,7 +174,7 @@ function api_activities($a){
 		// print_r($insert_command); exit();
 	}
 
-    ////consolelogdata($insert_command); 
+    //////consolelogdata($insert_command); 
 	$mysqli->close();
 }
 
