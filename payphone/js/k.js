@@ -211,34 +211,42 @@ function response_to_payphone(usr_active){
 			let rs = jQuery.parseJSON(r);
 			//console.log(rs);
 
-			if (rs.status == 9) {
+			if ( rs.status == 9 ) {
 				prodiv.hide();
 				holder.show();
 				holderbutton.show();
 				holderdetails.html('Recargando: $/'+prueba.kushki_value);
 				holderbutton.html('Espere un momento...');
-			} else{
-				if (rs.status ==  7) {
-					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'default';
-					holderbutton.html('Salir');
-					console.log("El status es : "+rs.status);
-				} else if (rs.status == 10) {
-					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'default';
-					holderbutton.html('Salir');
-					console.log("El status es : "+rs.status);
-				} else if (rs.status ==  11) {
-					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
-					holderbutton[0].style.cursor = 'default';
-					holderbutton.html('Salir');
-					console.log("El status es : "+rs.status);
-				} else{
-					console.log("El status es : "+rs.status);
-					setTimeout(function () {
-					response_to_payphone(usr_active); //temporizador de 5 seg
-				 	}, 1000);
-				}
+				console.log("El status es : "+rs.status);
+			} else if ( rs.status ==  7 ){
+				prodiv.hide();
+				holder.show();
+				holderbutton.show();
+				holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+				holderbutton.html('Salir');
+				console.log("El status es : "+rs.status);
+			} else if ( rs.status ==  10 ){
+				prodiv.hide();
+				holder.show();
+				holderbutton.show();
+				holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+				holderbutton.html('Salir');
+				console.log("El status es : "+rs.status);
+			} else if ( rs.status ==  11 ){
+				prodiv.hide();
+				holder.show();
+				holderbutton.show();
+				holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+				holderbutton.html('Salir');
+				console.log("El status es : "+rs.status);
+			} else {
+				console.log("El status es : "+rs.status);
+				setTimeout(function () {
+				response_to_payphone(usr_active); //temporizador de 5 seg
+				}, 1000);
 			}		
 		}
 		catch(err) {
