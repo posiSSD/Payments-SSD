@@ -218,6 +218,9 @@ function response_to_payphone(usr_active){
 				holderbutton.show();
 				holderdetails.html('Recargando: $/'+prueba.kushki_value);
 				holderbutton.html('Espere un momento...');
+				setTimeout(function () {
+				response_to_payphone(usr_active); //temporizador de 5 seg
+				}, 3000);
 				
 			} else if ( rs.status ==  7 ){
 				console.log("El status es : "+rs.status);
