@@ -209,7 +209,7 @@ function response_to_payphone(usr_active){
 		try {
 
 			let rs = jQuery.parseJSON(r);
-			console.log(rs);
+			//console.log(rs);
 			
 			if (rs.status !== 7 || rs.status !== 10 || rs.status !== 11) {
 
