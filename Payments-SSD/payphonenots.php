@@ -56,6 +56,7 @@ if (!$status_payphone_transactions){
                 $new_trans['status']=9; // 3=pending deposit
                 $new_trans['payment_id']=$transaccion;
                 create_or_update_transaction($new_trans);
+                sleep(5);
                 $d=[];
                 $d['account']=$data_array_response_details['client_id'];
                 $d['amount']=$data_array_response_details['amount'];
@@ -117,7 +118,7 @@ if (!$status_payphone_transactions){
                         }
                     }
                     $limit_try++;
-                    sleep(10);
+                    sleep(5);
                 } while ($bc_deposit['http_code'] !== 200 || $bc_deposit['http_code'] !== 400 || $bc_deposit['http_code'] !== 500 || ($limit_try <= 5));    
             break;
 
