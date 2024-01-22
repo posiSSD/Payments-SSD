@@ -27,7 +27,6 @@ function data_to_db($d){
 	}
 	return $tmp;
 }
-
 function kushki_get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
@@ -163,7 +162,6 @@ function create_payment_button($client=false){
     }	
     return $ret;
 }
-
 function payphone_api_confirm ($data_array){
 	
 	$ret = false;
@@ -231,7 +229,6 @@ function kushki_curl($rq = false) {
     curl_close($curl);
     return $response_arr;
 }
-
 function create_or_update_bd_api_details($data=false){
 	global $mysqli;
 	//$data = json_decode($json_data, true);
@@ -288,7 +285,6 @@ function create_or_update_bd_api_details($data=false){
         return $data;
     }
 }
-
 function payphone_api_transactions($data=false){
 	global $mysqli;
 
@@ -426,7 +422,6 @@ function status_transaction($trans=false){
 
 	return $ret;
 }
-
 function payphone_status_transaction($trans = false) {
     global $mysqli;
 

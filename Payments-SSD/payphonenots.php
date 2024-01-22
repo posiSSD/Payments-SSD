@@ -44,6 +44,7 @@ if (!$status_payphone_transactions){
     $http_code = 500;
     $status = 'Error';
     $response = [];
+    $limit_try = 0;
 
     if($data_array_response_details){
         switch ($data_array_response_details['transactionStatus']){
@@ -63,13 +64,10 @@ if (!$status_payphone_transactions){
                 consolelogdata($d);
 
                 do{
-                    sleep(30); //demorar 10seg
                     $bc_deposit = bc_deposit($d);
                     consolelogdata($bc_deposit);
-
                     if(array_key_exists('http_code', $bc_deposit)){
                         if ($bc_deposit['http_code']==200){
-                            
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=7; // 3=paid
@@ -79,9 +77,7 @@ if (!$status_payphone_transactions){
                             $ret['status']='Ok';
                             $ret['response']='Order '.$transaccion.' paid';
                             api_ret($ret);
-    
                         } elseif ($bc_deposit['http_code']==400){
-                            
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=10; // 11 failed deposit
@@ -90,9 +86,7 @@ if (!$status_payphone_transactions){
                             $ret['status']='denied';
                             $ret['response']='Order '.$transaccion.' denied';
                             api_ret($ret);
-    
                         } elseif ($bc_deposit['http_code']==408){
-                        
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=10; // 11 failed deposit
@@ -101,9 +95,7 @@ if (!$status_payphone_transactions){
                             $ret['status']='timeout';
                             $ret['response']='Order '.$transaccion.' timeout';
                             api_ret($ret);
-    
                         } elseif ($bc_deposit['http_code']==402){
-                        
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=10; // 11 failed deposit
@@ -112,9 +104,8 @@ if (!$status_payphone_transactions){
                             $ret['status']='Validator fail';
                             $ret['response']='Order '.$transaccion.' Validator fail';
                             api_ret($ret);
-    
                         } else {
-                        
+                            $bc_deposit['http_code'] = 500;
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=11; // 
@@ -123,15 +114,15 @@ if (!$status_payphone_transactions){
                             $ret['status']='Error';
                             $ret['response']='Something went wrong, check logs';
                             api_ret($ret);
-    
                         }
-                    }         
-
-                } while (!array_key_exists('http_code', $bc_deposit) && $bc_deposit['http_code'] !== 200);
-                                            
-                
+                    }
+                    $limit_try++;
+                    sleep(10);
+                } while ($bc_deposit['http_code'] !== 200 || $bc_deposit['http_code'] !== 400 || $bc_deposit['http_code'] !== 500 || ($limit_try <= 5));    
             break;
-            case "Canceled":   
+
+            case "Canceled": 
+
             break;    
         }
     }
@@ -139,14 +130,6 @@ if (!$status_payphone_transactions){
 } else {
     exit();
 }
-
-
-
-
-
-
-
-
 
 function api_ret($r){
 	api_activities($r);

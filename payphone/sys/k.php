@@ -66,7 +66,9 @@ if(isset($_POST['status_payment_button'])){
 		// pending deposit = waiting confirmation from wallet
 		// declined payment = order declined by payment method
 		// failed deposit = deposit failed by wallet
+		$ret_res['status_response'] = $status_payment_button['status'];
 
+		/*
 		if($status_payment_button['status'] == 7){ 		// paid = money in client wallet
 			$ret_res['status_response'] = true;
 		} else if ($status_payment_button['status'] == 10){ // declined payment = order declined by payment method
@@ -82,6 +84,7 @@ if(isset($_POST['status_payment_button'])){
 		} else {
 			$ret_res['status_response'] = false;
 		}
+		*/
 			
 	} else {
 		$ret_res['status_response'] = null;

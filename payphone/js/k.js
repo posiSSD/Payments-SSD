@@ -105,8 +105,8 @@ function create_payment_button(){
 	let texto = $("#texto");
 	//////////////////////////////////////////
 
-	holder.show();
-	holderdetails.html('Recargando: $/'+prueba.kushki_value);
+	//holder.show();
+	//holderdetails.html('Recargando: $/'+prueba.kushki_value);
 
 	$.post(this_url+'sys/', 
 	{
@@ -124,11 +124,13 @@ function create_payment_button(){
 				proframe.attr("src", rs.url);
 				proframe.show();
 
+				/*
 				btncerrar.click(function(event) {
 					prodiv.hide();
 					holderbutton.html('Salir');
 					holder.show();	
 				});
+				*/
 				
 				response_to_payphone(usr_active);
 							
@@ -177,7 +179,6 @@ function onlyNumbers(e) {
 		e.target.value = e.target.value.slice(0, 9);
 	}
 }
-
 function onlyEnter(e){
 	if (e.keyCode == 13) {
 		e.preventDefault();
@@ -195,52 +196,57 @@ function response_to_payphone(usr_active){
 	let btncerrar = $("#cerrarIframe");
 	let texto = $("#texto");
 
-
-	holderbutton.html('Espere un momento...');
+	//holder.show();
+	//holderdetails.html('Recargando: $/'+prueba.kushki_value);
+	//holderbutton.html('Espere un momento...');
 
 	$.post(this_url+'sys/', {
+
 		status_payment_button:usr_active,
+
 	}, 
 	function(r, textStatus, xhr) {
 		try {
 
 			let rs = jQuery.parseJSON(r);
+			console.log(rs);
 			
-			if(rs.status_response !== true ){
+			if (rs.status !== 7 || rs.status !== 10 || rs.status !== 11) {
 
-				// Agrega un temporizador de 5 segundos antes de la próxima ejecución
-				setTimeout(function () {
-					response_to_payphone(usr_active);
-				  }, 3000);
-			
-			
-				  
-			}  else {
-
-				console.log("El status es : "+rs.status)
-				console.log(rs.status_response)
-				btncerrar.click();
 				prodiv.hide();
-				
-				/*
-				setTimeout(function() {
-					holderbutton.hide(); // Otra opción: holderbutton.css('display', 'none');
-				}, 5000);
-				*/
+				holder.show();
+				holderbutton.show();
+				holderdetails.html('Recargando: $/'+prueba.kushki_value);
+				holderbutton.html('Espere un momento...');
+
+				setTimeout(function () {
+					response_to_payphone(usr_active); //temporizador de 5 seg
+				  }, 1000);
+				  
+			}else {
+
+				console.log("El status es : "+rs.status);
+				prodiv.hide();
 				holder.show();
 				
-				if (rs.status ==  7){
+				if (rs.status ==  7) {
+
 					holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
 					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
+
 				} else if (rs.status == 10) {
+
 					holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
 					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
+
 				} else if (rs.status ==  11) {
+
 					holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
 					holderbutton[0].style.cursor = 'default';
 					holderbutton.html('Salir');
+
 				}	
 			}
 		}
