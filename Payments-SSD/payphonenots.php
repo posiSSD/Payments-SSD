@@ -17,8 +17,6 @@ consolelogdata($data_array);
 
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-consolelogdata($status_payphone_transactions);
-
 if (!$status_payphone_transactions){
     
     $payphone_array_response = payphone_api_confirm ($data_array);
