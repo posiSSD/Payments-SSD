@@ -226,14 +226,12 @@ function response_to_payphone(usr_active){
                 }, 3000);	
 			} else if ( rs.status ==  6 ){ 
 				console.log("new  : "+rs.status);
-				
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_payphone(usr_active);
                 }, 3000);	
 			} else if ( rs.status ==  8 ){
 				console.log("pending payment : "+rs.status);
-				
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_payphone(usr_active);
