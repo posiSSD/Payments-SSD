@@ -14,11 +14,11 @@ function paymente_bc($request){
     ];
     $myRequest['payment_method'] = $request['payment_method'];
 
-    //consolelogdata($request);
+    consolelogdata($request);
 
     $response = payment_deposit($myRequest);
 
-    //consolelogdata($response);
+    consolelogdata($response);
     
 
     if($response['http_code'] == 200){
@@ -41,7 +41,7 @@ function paymente_bc($request){
             'amount' 	 => $response['result']['amount']
         ];
 
-        //////consolelogdata($response);
+        ////consolelogdata($response);
         return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
         
     } else if ($response['http_code'] == 400){

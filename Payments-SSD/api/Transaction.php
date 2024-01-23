@@ -48,13 +48,13 @@ function save_transaction($request, $txt_id, $type, $status){
         $rq['user_id '] = $status;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
-        //consolelogdata($rq); 
+        consolelogdata($rq); 
 
         return $rq;  
     } else {
 
         $errordb = $stmt_details->error;
-        //consolelogdata($errordb);
+        consolelogdata($errordb);
         return false; // Error en la inserción
     }
 }
