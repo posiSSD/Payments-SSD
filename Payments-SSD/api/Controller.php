@@ -7,6 +7,8 @@ include ROOT_PATH.'/Payments-SSD/api/Payment.php';
 function bc_deposit($request){
 
     $request['ip_address'] = $_SERVER['REMOTE_ADDR'];
+    consolelogdata($request);
+
     $validator = validateRequest($request);
 
     if ($validator !== true){
@@ -20,6 +22,7 @@ function bc_deposit($request){
             'REMOTE_ADDR' 	 => $request['ip_address'],
             'method ' 		 => $request['payment_method']
         ]; 
+        consolelogdata($data_activiy);
         save_transaction_activity($data_activiy);
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
     }
@@ -52,6 +55,7 @@ function validateRequest($request) {
     }else{
         $errors = true;
     }
+    consolelogdata($request);
     return $errors;
 
 }
