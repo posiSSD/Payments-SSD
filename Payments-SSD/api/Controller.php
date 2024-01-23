@@ -41,10 +41,10 @@ function bc_deposit($request){
 function validateRequest($request) {
 
     $errors = "";
-    $validIPs = ["45.169.92.244","192.168.12.111", "200.107.154.26","190.223.60.40","127.0.0.1, 54.242.68.233"];
+    $validIPs = ["45.169.92.244","190.187.126.145","192.168.12.111", "200.107.154.26","190.223.60.40","127.0.0.1, 54.242.68.233"];
     if (!isset($request['ip_address']) || !filter_var($request['ip_address'], FILTER_VALIDATE_IP) || !in_array($request['ip_address'], $validIPs)){
         $errors = "El campo 'ip_address' es inválido: ".$request['ip_address'];        
-    }elseif(!isset($request['account']) || !is_numeric($request['account']) || $request['account'] <= 0){
+    }else if(!isset($request['account']) || !is_numeric($request['account']) || $request['account'] <= 0){
         $errors = "El campo 'account' no es numerico: ".$request['account'];
     }elseif(!isset($request['amount'])){
         if(!is_numeric($request['amount'])){
