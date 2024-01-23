@@ -6,7 +6,7 @@ include ROOT_PATH.'/Payments-SSD/api/Payment.php';
 
 function bc_deposit($request){
 
-    $request['ip_address'] = $_SERVER['REMOTE_ADDR'];
+    $request['ip_address'] = $_SERVER['SERVER_ADDR'];
     consolelogdata($request);
 
     $validator = validateRequest($request);

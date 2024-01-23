@@ -8,14 +8,14 @@ function save_transaction_activity($data_activiy){
     $rq = [];
 
     $transaction_id = $data_activiy['transaction_id'];
-    $user_id = $data_activiy['result']['account'];
+    $user_id = $data_activiy['result']['account'] ?? $data_activiy['account'] ?? 0;
     $ip = $data_activiy['ip_address'];
     $url = url_insert();
-    $method = $data_activiy['method'];
+    $method = $data_activiy['method'] ?? "sin metodo";
     $input_data = json_encode($data_activiy);
-    $http_code = $data_activiy['http_code'];
+    $http_code = $data_activiy['http_code'] ?? 0;
     $result = json_encode($data_activiy['result']);
-    $status = $data_activiy['status'];
+    $status = $data_activiy['status'] ?? 0;
     $token = $data_activiy['token'] ?? 0;
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
