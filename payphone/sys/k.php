@@ -60,32 +60,14 @@ if(isset($_POST['status_payment_button'])){
 
 	if(array_key_exists('status', $status_payment_button)){
 
-		// new = waiting order_id
-		// paid = money in client wallet
-		// pending payment = waiting confirmation from payment method
-		// pending deposit = waiting confirmation from wallet
-		// declined payment = order declined by payment method
-		// failed deposit = deposit failed by wallet
+		// new = waiting order_id 6
+		// paid = money in client wallet 7
+		// pending payment = waiting confirmation from payment method 8
+		// pending deposit = waiting confirmation from wallet 9
+		// declined payment = order declined by payment method 10
+		// failed deposit = deposit failed by wallet 11
 		$ret_res['status_response'] = $status_payment_button['status'];
 
-		/*
-		if($status_payment_button['status'] == 7){ 		// paid = money in client wallet
-			$ret_res['status_response'] = true;
-		} else if ($status_payment_button['status'] == 10){ // declined payment = order declined by payment method
-			$ret_res['status_response'] = true;
-		} else if ($status_payment_button['status'] == 11){ // failed deposit = deposit failed by wallet
-			$ret_res['status_response'] = true;
-		} else if ($status_payment_button['status'] == 6){ // new = waiting order_id
-			$ret_res['status_response'] = false;
-		} else if ($status_payment_button['status'] == 8){ // pending payment = waiting confirmation from payment method
-			$ret_res['status_response'] = false;
-		} else if ($status_payment_button['status'] == 9){ // pending deposit = waiting confirmation from wallet
-			$ret_res['status_response'] = false;
-		} else {
-			$ret_res['status_response'] = false;
-		}
-		*/
-			
 	} else {
 		$ret_res['status_response'] = null;
 	}

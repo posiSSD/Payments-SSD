@@ -184,6 +184,7 @@ function onlyEnter(e){
 		e.preventDefault();
 	  }
 }
+
 function response_to_payphone(usr_active){
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
@@ -210,50 +211,53 @@ function response_to_payphone(usr_active){
 
 			let rs = jQuery.parseJSON(r);
 			//console.log(rs);
-
+			function showStatusMessage(message) {
+                prodiv.hide();
+                holder.show();
+                holderbutton.show();
+                holderdetails.html(message);
+            }
 			if ( rs.status == 9 ) {
-				console.log("El status es : "+rs.status);
-				prodiv.hide();
-				holder.show();
-				holderbutton.show();
-				holderdetails.html('Recargando: $/'+prueba.kushki_value);
-				holderbutton.html('Espere un momento...');
-				setTimeout(function () {
-				response_to_payphone(usr_active); //temporizador de 5 seg
-				}, 3000);
-				
+				console.log("pending deposit : "+rs.status);
+				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  6 ){ 
+				console.log("new  : "+rs.status);
+				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  8 ){
+				console.log("pending payment : "+rs.status);
+				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
 			} else if ( rs.status ==  7 ){
-				console.log("El status es : "+rs.status);
-				prodiv.hide();
-				holder.show();
-				holderbutton.show();
-				holderdetails.html('Recarga Realizada: $/'+prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
-				holderbutton.html('Salir');
-				
+				console.log("paid : "+rs.status);
+				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
+				holderbutton[0].style.cursor = 'default';	
 			} else if ( rs.status ==  10 ){
-				console.log("El status es : "+rs.status);
-				prodiv.hide();
-				holder.show();
-				holderbutton.show();
-				holderdetails.html('Recarga Declinada: $/'+prueba.kushki_value);
+				console.log("declined payment : "+rs.status);
+				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
 				holderbutton[0].style.cursor = 'default';
-				holderbutton.html('Salir');
-				
 			} else if ( rs.status ==  11 ){
-				console.log("El status es : "+rs.status);
-				prodiv.hide();
-				holder.show();
-				holderbutton.show();
-				holderdetails.html('Recarga Fallida: $/'+prueba.kushki_value);
+				console.log("failed deposit : "+rs.status);
+				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
 				holderbutton[0].style.cursor = 'default';
-				holderbutton.html('Salir');
-				
+                holderbutton.html('Salir');	
 			} else {
-				console.log("El status es : "+rs.status);
-				setTimeout(function () {
-				response_to_payphone(usr_active); //temporizador de 5 seg
-				}, 3000);
+				console.log("Error deposit: "+rs.status);
+				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+                holderbutton.html('Contacta con nosotros');
 			}		
 		}
 		catch(err) {
@@ -265,4 +269,61 @@ function response_to_payphone(usr_active){
 		}
 	});
 	
-}		
+}
+/*	
+function response_to_payphone(usr_active) {
+    let holder = $('#kushki_payment_holder');
+    let holderdetails = $('#kushki_details');
+    let holderbutton = $('#kushki_btn');
+    let prodiv = $("#prometeoembeded");
+    let btncerrar = $("#cerrarIframe");
+
+    $.post(this_url + 'sys/', {
+        status_payment_button: usr_active,
+    },
+    function (r, textStatus, xhr) {
+        try {
+            let rs = jQuery.parseJSON(r);
+            console.log("El status es: " + rs.status);
+
+            function showStatusMessage(message) {
+                prodiv.hide();
+                holder.show();
+                holderbutton.show();
+                holderdetails.html(message);
+                holderbutton[0].style.cursor = 'default';
+            }
+
+            switch (rs.status) {
+                case 7:
+                    showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
+                    holderbutton.html('Salir');
+                    break;
+                case 10:
+                    showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
+                    holderbutton.html('Salir');
+                    break;
+                case 11:
+                    showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
+                    holderbutton.html('Salir');
+                    break;
+                case 9:
+                    showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                    holderbutton.html('Espere un momento...');
+                    setTimeout(function () {
+                        response_to_payphone(usr_active);
+                    }, 3000);
+                    break;
+                default:
+                    setTimeout(function () {
+                        response_to_payphone(usr_active);
+                    }, 3000);
+            }
+        } catch (err) {
+            console.log(usr_active);
+            console.log(r);
+            console.log(err);
+        }
+    });
+}
+*/
