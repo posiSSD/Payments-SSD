@@ -18,8 +18,9 @@ if(isset($_POST['create_payment_button'])){
 	$_POST['create_payment_button']['status'] = 6;
 
 	create_or_update_transaction($_POST['create_payment_button']);
+
+
 	$create_payment_button = create_payment_button($_POST['create_payment_button']);
-	
 	$_POST['create_payment_button']['paymentId'] = $create_payment_button['paymentId'];
 	$_POST['create_payment_button']['payWithPayPhone'] = $create_payment_button['payWithPayPhone'];
 	$_POST['create_payment_button']['payWithCard'] = $create_payment_button['payWithCard'];
