@@ -231,10 +231,13 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 
             <!--  payphone scripts -->
             <link rel=»stylesheet» href=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css»>
-            <!--
+            
             <script type=»module» src=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js»></script>
-            -->
+            
+            <!--
             <script src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+            -->
+            
 
         </head>
         <body>
