@@ -129,39 +129,28 @@ function create_payment_button(){
 
 
 				try {
-					ppb = new PPaymentButtonBox({
-						token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
-						// Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-						amount: usr_active.kushki_value, // monto total de venta
-						amountWithoutTax: usr_active.kushki_value, // monto total que no cobra IVA
-						amountWithTax: 0, // monto total que sí cobra IVA
-						tax: 0, // monto del IVA
-						service: 0, // Si existe monto por servicio
-						tip: 0, // Si existe monto por propina
-						reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
-						clientTransactionId: rs.unique_id, // Id único. Debe cambiar para cada transacción
-					}).render('pp-button');
+					document.addEventListener("DOMContentLoaded", function() {
+						ppb = new PPaymentButtonBox({
+											
+							token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
+							// Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
+							amount: usr_active.kushki_value, // monto total de venta
+							amountWithoutTax: usr_active.kushki_value, // monto total que no cobra IVA
+							amountWithTax: 0, // monto total que sí cobra IVA
+							tax: 0, // monto del IVA
+							service: 0, // Si existe monto por servicio
+							tip: 0, // Si existe monto por propina
+							reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
+							clientTransactionId: rs.unique_id, // Id único. Debe cambiar para cada transacción
+						}).render('pp-button');
+					});
 				} catch (error) {
 					console.error("Error al inicializar PPaymentButtonBox:", error);
 				}
 				
-				/*
-				document.addEventListener("DOMContentLoaded", function() {
-					ppb = new PPaymentButtonBox({
-										
-						token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
-						// Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-						amount: usr_active.kushki_value, // monto total de venta
-						amountWithoutTax: usr_active.kushki_value, // monto total que no cobra IVA
-						amountWithTax: 0, // monto total que sí cobra IVA
-						tax: 0, // monto del IVA
-						service: 0, // Si existe monto por servicio
-						tip: 0, // Si existe monto por propina
-						reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
-						clientTransactionId: rs.unique_id, // Id único. Debe cambiar para cada transacción
-					}).render('pp-button');
-				});
-				*/
+				
+				
+				
 				
 				
 				response_to_payphone(usr_active);
