@@ -111,47 +111,27 @@ function kushki_create_payment_button(){
 	let texto = $("#texto");
 	//////////////////////////////////////////
 
-	//$("#kushki_payment_holder").show();
 	holder.show();
-	//$("#kushki_details").html('Recarga: $/'+prueba.kushki_value);
-	holderdetails.html('Recarga: $/'+prueba.kushki_value);
-
-	
+	holderdetails.html('Cargando Prometeo');
 
 	$.post(this_url+'sys/', 
 	{
 		kushki_create_payment_button:usr_active,
 	}, 
 	function(r, textStatus, xhr) {
-		//console.log("r : ");
-		//console.log(r);
+		
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
-			//console.log(rs);
+			
 			if(rs.status==201){
 				
 				holder.hide();
-				//find("iframe").attr("src", rs.url);
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
 				proframe.show();
-				btncerrar.click(function(event) {
-					console.log("Close cerrarIframe ");
-					//form.show();
-					//inputtext.hide();
-					//texto.hide();
-					//btn.html('Salir');
-					//btn.addClass('ready');
-					//btn.html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span><span class="sr-only">Vamos!!!</span>');
-					//btn.off();
-					prodiv.hide();
-					holderbutton.html('Salir');
-					holder.show();
-					
-				});
 				
-				//select_responde_to_bd(usr_active);
+				response_to_prometeo(usr_active);
 				
 			}else{
 				$('#kushki_payment_form').remove();
@@ -197,12 +177,12 @@ function onlyNumbers(e) {
 		e.target.value = e.target.value.slice(0, 9);
 	}
 }
-
 function onlyEnter(e){
 	if (e.keyCode == 13) {
 		e.preventDefault();
 	  }
 }
+/*
 function select_responde_to_bd(usr_active) {
 	console.log("select_responde_to_bd");
 	$.post(usr_active.this_url+'sys/', 
@@ -228,4 +208,89 @@ function select_responde_to_bd(usr_active) {
 		}, 10000); // Espera 10 segundo antes de ejecutar la próxima solicitud
 	  }
 	});
+}
+*/
+
+function response_to_prometeo(usr_active){
+	let holder = $('#kushki_payment_holder');
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn');
+	let form = $('#kushki_payment_form');
+	let btn = form.find('button');
+	let inputtext = $("#inputtext");
+	let prodiv = $("#prometeoembeded");
+	let proframe = $("#prometeoframe");
+	let btncerrar = $("#cerrarIframe");
+	let texto = $("#texto");
+
+	//holder.show();
+	//holderdetails.html('Recargando: $/'+prueba.kushki_value);
+	//holderbutton.html('Espere un momento...');
+
+	$.post(this_url+'sys/', {
+
+		status_payment_button:usr_active,
+
+	}, 
+	function(r, textStatus, xhr) {
+		try {
+
+			let rs = jQuery.parseJSON(r);
+			//console.log(rs);
+			function showStatusMessage(message) {
+                prodiv.hide();
+                holder.show();
+                holderbutton.show();
+                holderdetails.html(message);
+            }
+			if ( rs.status == 9 ) {
+				console.log("pending deposit : "+rs.status);
+				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  6 ){ 
+				console.log("new  : "+rs.status);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  8 ){
+				console.log("pending payment : "+rs.status);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_payphone(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  7 ){
+				console.log("paid : "+rs.status);
+				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
+				holderbutton[0].style.cursor = 'default';	
+			} else if ( rs.status ==  10 ){
+				console.log("declined payment : "+rs.status);
+				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
+				holderbutton[0].style.cursor = 'default';
+			} else if ( rs.status ==  11 ){
+				console.log("failed deposit : "+rs.status);
+				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+                holderbutton.html('Salir');	
+			} else {
+				console.log("Error deposit: "+rs.status);
+				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+                holderbutton.html('Contacta con nosotros');
+			}		
+		}
+		catch(err) {
+
+			console.log(usr_active);
+			console.log(r);
+			console.log(err);
+
+		}
+	});
+	
 }

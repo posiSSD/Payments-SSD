@@ -89,6 +89,11 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
             <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+            <!--  payphone scripts -->
+            <link rel=»stylesheet» href=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css»>
+            <script type=»module» src=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js»></script>
+
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
@@ -162,7 +167,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
     }else{
-        $auth_token = '52A73A12741300534CC1A8114CC3F997';
+        $auth_token = '8AF54F2B9D7FA1671D550419DEF7FF17';
         $user_id = '1674627753';
         $metodo = "payphone";
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id, "metodo" => $metodo);
@@ -223,6 +228,11 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
             <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+            <!--  payphone scripts -->
+            <link rel=»stylesheet» href=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css»>
+            <script type=»module» src=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js»></script>
+            
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
