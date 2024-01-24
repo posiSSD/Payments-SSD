@@ -45,6 +45,7 @@
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
             }).render('pp-button');
+            
         });
     </script>
 </body>

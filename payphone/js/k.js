@@ -122,9 +122,9 @@ function create_payment_button(){
 			
 			if(rs.status==201){
 				holder.hide();
-				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
+				//prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				//proframe.attr("src", rs.url);
-				proframe.show();
+				//proframe.show(); // iframe"
 
 
 
@@ -143,6 +143,8 @@ function create_payment_button(){
 							reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
 							clientTransactionId: rs.unique_id, // Id único. Debe cambiar para cada transacción
 						}).render('pp-button');
+						prodiv.show();
+    					proframe.show();
 					});
 				} catch (error) {
 					console.error("Error al inicializar PPaymentButtonBox:", error);
