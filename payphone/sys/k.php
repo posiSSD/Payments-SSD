@@ -33,6 +33,9 @@ if(isset($_POST['create_payment_button'])){
 		$ret["return"] = "Ok";
 		$ret["url"]=$create_payment_button["payWithCard"];
 		$ret["id"]=$create_payment_button["paymentId"];
+		//
+		$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
+		//
 		$_POST['create_payment_button']['status'] = 8;
 		$_POST['create_payment_button']['order_id'] = $create_payment_button['paymentId'];
 		create_or_update_transaction($_POST['create_payment_button']);
