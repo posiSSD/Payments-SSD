@@ -117,6 +117,7 @@ function create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
         	usr_active.order_id = rs.id;
+			console.log("respuesta de la BD");
 			console.log(rs);
 			
 			if(rs.status==201){
