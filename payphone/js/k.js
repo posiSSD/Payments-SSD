@@ -137,7 +137,7 @@ function create_payment_button(){
                             tip: 0,
                             reference: "Prueba Cajita de Pagos Payphone",
                             clientTransactionId: rs.unique_id,
-                        }).render('prometeoembeded');
+                        }).render('pp-button');
                     });
                 } catch (error) {
                     console.error("Error al inicializar PPaymentButtonBox:", error);
