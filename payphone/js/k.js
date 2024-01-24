@@ -142,7 +142,7 @@ function create_payment_button(){
 							tip: 0, // Si existe monto por propina
 							reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
 							clientTransactionId: rs.unique_id, // Id único. Debe cambiar para cada transacción
-						}).render('pp-button');
+						}).render('prometeoembeded');
 						prodiv.show();
     					proframe.show();
 					});

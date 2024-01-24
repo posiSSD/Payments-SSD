@@ -232,8 +232,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <!--  payphone scripts -->
             <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
             <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
-            <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-            <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+            
 
             
             <!--
@@ -274,7 +273,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         
             </form>
             <div id="prometeoembeded">
-                <iframe id="ppp-button" frameborder="0" allowfullscreen></iframe>
+                <!-- <iframe id="ppp-button" frameborder="0" allowfullscreen></iframe> -->
                 <!-- <iframe id="prometeoframe" frameborder="0" allowfullscreen></iframe> -->
                 <!-- <button id="cerrarIframe" style="position: absolute; top: 0px; right: 10px; background-color: transparent; border: none; cursor: pointer; font-size: 20px;">X</button>   -->
             </div>
