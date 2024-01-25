@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Título</title>
     
-    
+    <script type="text/javascript">
+			var this_url = "<?php echo 'https://payments.totalbet.com/payphone/';?>";
+			var user_id= <?php echo '1674627753';?>;
+			var auth_token="<?php echo '0F042972D06A43D60C49525695F5EAB3';?>";
+		</script>
     <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?1706194641"></script>	
     <script type="text/javascript" src="/payphone/js/bc_ws.js?1706194641"></script>
     <script type="text/javascript" src="/payphone/js/k.js?1706194641"></script>		
