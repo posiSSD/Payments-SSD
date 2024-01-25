@@ -127,7 +127,9 @@ function create_payment_button(){
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
 
 
-            }).render('#pp-button');
+            });
+			console.log("PPaymentButtonBox creado:", ppb);
+			ppb.render('pp-button');
 
         });
 	} catch (error) {

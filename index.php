@@ -239,7 +239,32 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
-            
+            <form action="#" id="kushki_payment_form">
+                <p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
+                <div class="input-group mb-3" id="inputtext">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">USD</span>
+                    </div>
+                    <input 
+                        autocomplete="off"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        type="text" 
+                        placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
+                        data-min="<?php echo $payment_limits[0];?>"
+                        data-max="<?php echo $payment_limits[1];?>"
+                        class="form-control" 
+                        id="basic-url" 
+                        aria-describedby="basic-addon3" required onkeyup="validar()">
+                </div>
+                <p id="sms_alert"></p>
+                <div>
+                    <button type="button" class="btn btn-secondary" style="font-size: 14px; width: 150px;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Cargando</span>
+                    </button>
+                </div>
+            </form>
             <div id="pp-button"></div>
            
             <div id="kushki_payment_holder">
