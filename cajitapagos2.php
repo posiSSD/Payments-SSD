@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
     
     <!-- Añade el script principal -->
-    <script type="text/javascript" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
 </head>
 <body>
-    
-    <iframe id="pp-button"></iframe>
+    <div id="pp-button-payphone"></div>
+
     <script>
         function generateUniqueId() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -44,7 +44,7 @@
 
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
-            }).render('pp-button');
+            }).render('pp-button-payphone');
 
         });
     </script>
