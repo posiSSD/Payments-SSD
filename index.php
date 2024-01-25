@@ -239,7 +239,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
-           
+            
             <div id="pp-button"></div>
            
             <div id="kushki_payment_holder">

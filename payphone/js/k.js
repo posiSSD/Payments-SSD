@@ -100,6 +100,43 @@ function create_payment_button(){
 	//let prodiv = $("#prometeoembeded");
 	//////////////////////////////////////////
 	//prodiv.show();
+	try {
+		document.addEventListener("DOMContentLoaded", function () {
+			ppb = new PPaymentButtonBox({
+				token: '...tu_token_aqui...',
+				amount: usr_active.kushki_value,
+				amountWithoutTax: usr_active.kushki_value,
+				amountWithTax: 0,
+				tax: 0,
+				service: 0,
+				tip: 0,
+				reference: "Prueba Cajita de Pagos Payphone",
+				clientTransactionId: generateUniqueId(),
+			}).render('pp-button');
+		});
+	} catch (error) {
+		console.error("Error al inicializar PPaymentButtonBox:", error);
+	}
+	
+	
+	
+	response_to_payphone(usr_active);
+
+}
+/*
+function create_payment_button(){
+	console.log("create_payment_button");
+		
+	//usr_active.this_url = this_url;
+	usr_active.this_url = 'https://payments.totalbet.com/payphone/';
+	//usr_active.kushki_value = prueba.kushki_value * 100;
+	usr_active.kushki_value = 5* 100;
+
+	console.log(usr_active);
+	//////////////////////////////////////////
+	//let prodiv = $("#prometeoembeded");
+	//////////////////////////////////////////
+	//prodiv.show();
 
 	$.post(this_url+'sys/', 
 	{
@@ -154,6 +191,7 @@ function create_payment_button(){
 	});
 
 }
+*/
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
@@ -269,4 +307,11 @@ function response_to_payphone(usr_active){
 		}
 	});
 	
+}
+function generateUniqueId() {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		var r = Math.random() * 16 | 0,
+			v = c === 'x' ? r : (r & 0x3 | 0x8);
+		return v.toString(16);
+	});
 }
