@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Título</title>
     
+    
+    <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?"></script>	
+    
+
+
     <!-- Añade los enlaces CSS -->
     <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
     
@@ -12,7 +17,7 @@
     <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
 </head>
 <body>
-    <div id="pp-button-payphone"></div>
+    <div id="pp-button"></div>
 
     <script>
         function generateUniqueId() {
@@ -44,7 +49,7 @@
 
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
-            }).render('pp-button-payphone');
+            }).render('pp-button');
 
         });
     </script>
