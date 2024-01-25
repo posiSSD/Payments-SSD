@@ -151,6 +151,20 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     }
 }else{
 ?>   
+        <script type="text/javascript">
+			var this_url = "<?php echo $url;?>";
+			var user_id= <?php echo $user_id;?>;
+			var auth_token="<?php echo $auth_token;?>";
+		</script>
+		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
+		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
+		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
+
+        <?php
+        $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
+        $payment_limits['min']=number_format($payment_limits[0],0);
+        $payment_limits['max']=number_format($payment_limits[1],0);
+        ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -166,8 +180,10 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 		</script>
     <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?1706194641"></script>	
     <script type="text/javascript" src="/payphone/js/bc_ws.js?1706194641"></script>
-    <script type="text/javascript" src="/payphone/js/k.js?1706194641"></script>		
-   
+    <script type="text/javascript" src="/payphone/js/k.js?1706194641"></script>	
+    
+    
+    <script type="text/javascript" src="cajitas.js?1706194641"></script>
     
     
     
@@ -194,8 +210,8 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
                         data-bs-placement="top"
                         type="text" 
                         placeholder="Min <?php echo $payment_limits['min'];?> | Max <?php echo $payment_limits['max'];?>" 
-                        data-min="<?php echo $payment_limits[0];?>"
-                        data-max="<?php echo $payment_limits[1];?>"
+                        data-min="<?php echo '1'?>"
+                        data-max="<?php echo '500';?>"
                         class="form-control" 
                         id="basic-url" 
                         aria-describedby="basic-addon3" required onkeyup="validar()">
