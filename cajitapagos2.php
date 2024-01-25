@@ -7,6 +7,9 @@
     
     
     <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?1706194641"></script>	
+    <script type="text/javascript" src="/payphone/js/js/bc_ws.js?1706194641"></script>
+    <script type="text/javascript" src="/payphone/js/js/js/k.js?1706194641"></script>		
+    <script type="text/javascript" src="cakitas.js?1706194641"></script>	
     
 
 
