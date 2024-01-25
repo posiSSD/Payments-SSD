@@ -95,13 +95,14 @@ function create_payment_button(){
 	usr_active.this_url = 'https://payments.totalbet.com/payphone/';
 	//usr_active.kushki_value = prueba.kushki_value * 100;
 	usr_active.kushki_value = 5* 100;
-
+	let prodiv = $("#pp-button");
 	console.log(usr_active);
 	//////////////////////////////////////////
 	//let prodiv = $("#prometeoembeded");
 	//////////////////////////////////////////
-	//prodiv.show();
+	prodiv.show();
 	try {
+		console.log("ingresando a payphone");
 		document.addEventListener("DOMContentLoaded", function () {
 			ppb = new PPaymentButtonBox({
 				token: '...tu_token_aqui...',
