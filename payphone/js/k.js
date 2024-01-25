@@ -104,8 +104,9 @@ function create_payment_button(){
 	try {
 		console.log("ingresando a payphone");
 		document.addEventListener("DOMContentLoaded", () => {
+			console.log("ingresando a paddEventListener");
 
-            ppb = new PPaymentButtonBox({
+            var ppb = new PPaymentButtonBox({
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
