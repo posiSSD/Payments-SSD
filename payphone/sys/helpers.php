@@ -123,8 +123,6 @@ function create_or_update_transaction($trans=false){
 	return $trans;
 }
 function create_payment_button($client=false){
-	
-	
 	$ret = false;
 	$rq = [];
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/Prepare';
@@ -162,6 +160,48 @@ function create_payment_button($client=false){
     }	
     return $ret;
 }
+
+/// para la api
+/*
+function create_payment_button($client=false){
+	$ret = false;
+	$rq = [];
+	$rq['url']='https://pay.payphonetodoesposible.com/api/Links';
+	$rq['method']="POST";
+
+	$dolar_Value_Payphone = $client['kushki_value']*100;  //en la doc de payphone 1 dolar = 100//
+
+	$rq['rq'] = [
+        "amount" => $dolar_Value_Payphone,
+		"amountWithoutTax" => $dolar_Value_Payphone,
+        "currency" => "USD", 
+        "clientTransactionId" => $client['unique_id'],
+        "email" => $client['email'],
+		"responseUrl" => env('RESPONSEURL_PAYPHONE'),
+    ];
+
+	// Define el header de la solicitud para Prometeo	
+	$rq['h']=[
+		"Content-Type: application/json",
+		'Authorization: Bearer '. env('TOKEN_PAYPHONE') 
+	];
+	// Imprimir el contenido de $RQ en la consola
+	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
+	$peticion_curl = kushki_curl($rq);
+
+	if (array_key_exists("curl_error", $peticion_curl)) {
+        $ret['curl_error'] = $peticion_curl;
+    } elseif (array_key_exists("code", $peticion_curl)) {
+        $ret['curl'] = $peticion_curl;
+        $ret['rq'] = $rq;
+        //print_r($rq['rq']);
+        exit();
+    } else {
+        $ret = $peticion_curl;
+    }	
+    return $ret;
+}
+*/
 function payphone_api_confirm ($data_array){
 	
 	$ret = false;
