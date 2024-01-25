@@ -91,6 +91,7 @@ function create_payment_button(){
 		
 	usr_active.this_url = this_url;
 	usr_active.kushki_value = prueba.kushki_value * 100;
+	console.log(usr_active);
 	//////////////////////////////////////////
 	//let prodiv = $("#prometeoembeded");
 	//////////////////////////////////////////

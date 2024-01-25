@@ -239,8 +239,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
-            <?php echo $url;?>
-            <?php echo $fv;?>
             <form action="#" id="kushki_payment_form">
                 <p class="text-muted text-start write-text" id="texto">Escriba el valor aquí: *</p>
                 <div class="input-group mb-3" id="inputtext">
