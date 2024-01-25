@@ -203,15 +203,16 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 
     if($auth_data){
         ?>
-        <!-- Añade el script principal payphone -->
-        <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+        
         
         <script type="text/javascript">
 			var this_url = "<?php echo $url;?>";
 			var user_id= <?php echo $user_id;?>;
 			var auth_token="<?php echo $auth_token;?>";
 		</script>
-		<script type="text/javascript" src="<?php echo $url;?>js/jquery-3.6.0.min.js?<?php echo $fv;?>"></script>		
+        <!-- Añade el script principal payphone -->
+        <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+			
 		<script type="text/javascript" src="<?php echo $url;?>js/bc_ws.js?<?php echo $fv;?>"></script>
 		<script type="text/javascript" src="<?php echo $url;?>js/k.js?<?php echo $fv;?>"></script>
         
