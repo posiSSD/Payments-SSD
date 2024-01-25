@@ -3,10 +3,10 @@ var prueba ={};
 			
 $(document).ready(function() {
 	console.log("document.ready k.js");
-	//set_events();
+	set_events();
 	set_vars();
-	//ws_connect();
-	create_payment_button()
+	ws_connect();
+	//create_payment_button()
 });
 
 function set_events(){
@@ -23,8 +23,8 @@ function set_events(){
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
-		//build_form();
-		create_payment_button()
+		build_form();
+		//create_payment_button()
 	});
 	
 }
