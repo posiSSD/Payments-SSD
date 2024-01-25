@@ -170,28 +170,11 @@ function create_payment_button(){
 			
 			if(rs.status==201){
 				
-				//prodiv.show(); // Esto muestra el div con id "prometeoembeded"
-				//proframe.attr("src", rs.url);
-				//proframe.show(); // iframe"	
-				try {
-					console.log("ingresando al try");
-					document.addEventListener("DOMContentLoaded", function () {
-						console.log("addEventListener");
-						ppb = new PPaymentButtonBox({
-							token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
-							amount: 180,
-							amountWithoutTax: 180,
-							amountWithTax: 0,
-							tax: 0,
-							service: 0,
-							tip: 0,
-							reference: "Prueba Cajita de Pagos Payphone",
-							clientTransactionId: generateUniqueId(),
-						}).render('pp-button');
-					});
-				} catch (error) {
-					console.error("Error al inicializar PPaymentButtonBox:", error);
-				}
+				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
+				proframe.attr("src", rs.url);
+				proframe.show(); // iframe"
+				
+				
 				
 				
 				
