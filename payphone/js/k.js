@@ -145,11 +145,14 @@ function create_payment_button(){
 function create_payment_button(){
 	console.log("create_payment_button");
 		
-	//usr_active.this_url = this_url;
-	usr_active.this_url = 'https://payments.totalbet.com/payphone/';
-	//usr_active.kushki_value = prueba.kushki_value * 100;
-	usr_active.kushki_value = 5* 100;
+	usr_active.this_url = this_url;
+	//usr_active.this_url = 'https://payments.totalbet.com/payphone/';
+	usr_active.kushki_value = prueba.kushki_value * 100;
+	//usr_active.kushki_value = 5* 100;
 
+	let prodiv = $("#prometeoembeded");
+	let proframe = $("#prometeoframe");
+	
 	console.log(usr_active);
 	//////////////////////////////////////////
 	//let prodiv = $("#prometeoembeded");
@@ -170,10 +173,11 @@ function create_payment_button(){
 			
 			if(rs.status==201){
 				
-				//prodiv.show(); // Esto muestra el div con id "prometeoembeded"
-				//proframe.attr("src", rs.url);
-				//proframe.show(); // iframe"
+				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
+				proframe.attr("src", rs.url);
+				proframe.show(); // iframe"
 				
+				/*
 				payphone_api(usr_active);
 				try {
 					console.log("ingresando al try");
@@ -194,7 +198,7 @@ function create_payment_button(){
 				} catch (error) {
 					console.error("Error al inicializar PPaymentButtonBox:", error);
 				}
-				
+				*/
 				
 				
 				response_to_payphone(usr_active);
@@ -330,6 +334,7 @@ function response_to_payphone(usr_active){
 	});
 	
 }
+/*
 function generateUniqueId() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random() * 16 | 0,
@@ -337,3 +342,4 @@ function generateUniqueId() {
 		return v.toString(16);
 	});
 }
+*/
