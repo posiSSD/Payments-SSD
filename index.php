@@ -183,7 +183,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     <script type="text/javascript" src="/payphone/js/k.js?1706194641"></script>	
     
     
-    <script type="text/javascript" src="cajitas.js?1706194641"></script>
+    
     
     
     
