@@ -177,23 +177,18 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
 			var this_url = "<?php echo 'https://payments.totalbet.com/payphone/';?>";
 			var user_id= <?php echo '1674627753';?>;
 			var auth_token="<?php echo '0F042972D06A43D60C49525695F5EAB3';?>";
-		</script>
+	</script>
+    <!-- Añade el script principal -->
+    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+    <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
     <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?1706194641"></script>	
     <script type="text/javascript" src="/payphone/js/bc_ws.js?1706194641"></script>
     <script type="text/javascript" src="/payphone/js/k.js?1706194641"></script>	
-    
-    
-    
-    
-    
-    
-
 
     <!-- Añade los enlaces CSS -->
-    <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
     
-    <!-- Añade el script principal -->
-    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+    
+    
 </head>
 <body>
 
