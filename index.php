@@ -167,7 +167,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $metodo = $auth_data["metodo"];
         $visit["auth_data"]=$auth_data;
     }else{
-        $auth_token = '8AF54F2B9D7FA1671D550419DEF7FF17';
+        $auth_token = '0F042972D06A43D60C49525695F5EAB3';
         $user_id = '1674627753';
         $metodo = "payphone";
         $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id, "metodo" => $metodo);
