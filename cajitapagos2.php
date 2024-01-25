@@ -6,7 +6,7 @@
     <title>Tu Título</title>
     
     
-    <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?"></script>	
+    <script type="text/javascript" src="/payphone/js/jquery-3.6.0.min.js?1706194641"></script>	
     
 
 
