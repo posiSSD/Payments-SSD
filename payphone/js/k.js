@@ -100,27 +100,34 @@ function create_payment_button(){
 	//let prodiv = $("#prometeoembeded");
 	//////////////////////////////////////////
 	//prodiv.show();
-	try {
-		document.addEventListener("DOMContentLoaded", function () {
-			ppb = new PPaymentButtonBox({
-				token: '...tu_token_aqui...',
-				amount: usr_active.kushki_value,
-				amountWithoutTax: usr_active.kushki_value,
-				amountWithTax: 0,
-				tax: 0,
-				service: 0,
-				tip: 0,
-				reference: "Prueba Cajita de Pagos Payphone",
-				clientTransactionId: generateUniqueId(),
-			}).render('pp-button');
-		});
-	} catch (error) {
-		console.error("Error al inicializar PPaymentButtonBox:", error);
-	}
+	document.addEventListener("DOMContentLoaded", () => {
+		ppb = new PPaymentButtonBox({
+			// Configuraciones de pago
+
+			// Token obtenido desde la consola de desarrollador que identifica la empresa
+			token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
+
+			// Monto a cobrar: Debe cumplir la siguiente regla
+			// Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
+			// Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
+			amount: 180, // monto total de venta
+			amountWithoutTax: 180, // monto total que no cobra IVA
+			amountWithTax: 0, // monto total que sí cobra IVA
+			tax: 0, // monto del IVA
+			service: 0, // Si existe monto por servicio
+			tip: 0, // Si existe monto por propina
+
+			// storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer. Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
+
+			reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
+			clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
+		}).render('pp-button');
+
+	});
 	
 	
 	
-	response_to_payphone(usr_active);
+	//response_to_payphone(usr_active);
 
 }
 /*
