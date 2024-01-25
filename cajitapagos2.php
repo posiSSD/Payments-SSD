@@ -12,8 +12,8 @@
     <script type="text/javascript" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
 </head>
 <body>
-    <div id="pp-button"></div>
-
+    
+    <iframe id="pp-button"></iframe>
     <script>
         function generateUniqueId() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
