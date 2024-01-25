@@ -104,6 +104,7 @@ function create_payment_button(){
 	try {
 		console.log("ingresando a payphone");
 		document.addEventListener("DOMContentLoaded", () => {
+
             ppb = new PPaymentButtonBox({
                 // Configuraciones de pago
 
@@ -124,7 +125,9 @@ function create_payment_button(){
 
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
-            }).render('pp-button');
+
+
+            }).render('#pp-button');
 
         });
 	} catch (error) {
