@@ -6,7 +6,6 @@ $(document).ready(function() {
 	set_events();
 	set_vars();
 	ws_connect();
-	//create_payment_button()
 });
 
 function set_events(){
@@ -23,8 +22,7 @@ function set_events(){
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
-		build_form();
-		//create_payment_button()
+		build_form();		
 	});
 	
 }
@@ -88,6 +86,7 @@ function build_form(rs){
 		});
 		// btn.delay(500).click(); //test
 }
+/*
 function create_payment_button(){
 	console.log("create_payment_button");
 		
@@ -141,8 +140,8 @@ function create_payment_button(){
 	
 	//response_to_payphone(usr_active);
 
-}
-/*
+}*/
+
 function create_payment_button(){
 	console.log("create_payment_button");
 		
@@ -210,7 +209,7 @@ function create_payment_button(){
 	});
 
 }
-*/
+
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
