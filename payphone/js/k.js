@@ -4,7 +4,7 @@ var prueba ={};
 $(document).ready(function() {
 	console.log("document.ready k.js");
 	//set_events();
-	//set_vars();
+	set_vars();
 	//ws_connect();
 	create_payment_button()
 });
