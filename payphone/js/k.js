@@ -22,7 +22,8 @@ function set_events(){
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
 	$(document).on('sw_login_ok', function(e,data) {
-		build_form();
+		//build_form();
+		create_payment_button()
 	});
 	
 }
@@ -89,8 +90,11 @@ function build_form(rs){
 function create_payment_button(){
 	console.log("create_payment_button");
 		
-	usr_active.this_url = this_url;
-	usr_active.kushki_value = prueba.kushki_value * 100;
+	//usr_active.this_url = this_url;
+	usr_active.this_url = 'https://payments.totalbet.com/payphone/';
+	//usr_active.kushki_value = prueba.kushki_value * 100;
+	usr_active.kushki_value = 5* 100;
+
 	console.log(usr_active);
 	//////////////////////////////////////////
 	//let prodiv = $("#prometeoembeded");
