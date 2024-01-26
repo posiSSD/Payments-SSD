@@ -8,7 +8,7 @@ include '../../db.php';
 
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
-    $value = $data['value'];
+    $value = $data['value']*100;
     $uniqueid = null;
     if($data['unique_id'] == '1234567890'){
         $uniqueid = md5(microtime().rand(0,1000));
