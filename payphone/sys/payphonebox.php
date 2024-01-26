@@ -45,13 +45,9 @@ consolelogdata($key_payphone);
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
-                token: $key_payphone,
-
-                // Monto a cobrar: Debe cumplir la siguiente regla
-                // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
-                // Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-                amount: $value, // monto total de venta
-                amountWithoutTax: $value, // monto total que no cobra IVA
+                token: <?php echo $key_payphone; ?>,
+                amount: <?php echo $value; ?>, // monto total de venta
+                amountWithoutTax: <?php echo $value; ?>, // monto total que no cobra IVA
                 amountWithTax: 0, // monto total que sí cobra IVA
                 tax: 0, // monto del IVA
                 service: 0, // Si existe monto por servicio
@@ -60,7 +56,7 @@ consolelogdata($key_payphone);
                 // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer. Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
 
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
-                clientTransactionId: uniqueid, // Id único. Debe cambiar para cada transacción
+                clientTransactionId: <?php echo $uniqueid; ?>, // Id único. Debe cambiar para cada transacción
             }).render('pp-button');
 
         });
