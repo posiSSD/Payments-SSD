@@ -5,7 +5,6 @@ include '../../env.php';
 include '../../db.php';
 ?>
 <?php
-
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $value = $data['value']*100;
@@ -17,13 +16,10 @@ if(isset($_GET['data'])){
     }
 }
 $key_payphone = env('TOKEN_PAYPHONE');
-
 consolelogdata($data);
 consolelogdata($value);
 consolelogdata($uniqueid);
 consolelogdata($key_payphone);
-
-
 ?>
 
 <!DOCTYPE html>
