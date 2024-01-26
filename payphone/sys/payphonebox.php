@@ -1,7 +1,8 @@
 <?php
+$hola = $_SERVER['SERVER_ADDR'];
+consolelogdata($hola);
 include '../../env.php';
 include '../../db.php';
-include 'helpers.php';
 ?>
 <?php
 
@@ -10,7 +11,7 @@ if(isset($_GET['data'])){
     $kushki_value = $data['kushki_value'];
 }
 
-
+consolelogdata($data);
 ?>
 
 <!DOCTYPE html>
@@ -64,3 +65,15 @@ if(isset($_GET['data'])){
     </script>
 </body>
 </html>
+<?php
+function consolelogdata($data) {
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+
+    echo '<script>';
+    echo 'console.log("'. $pFunction . '");';
+    echo 'console.log(": ", ' . json_encode($data) . ');';
+    echo '</script>';
+}   
+
+?>
