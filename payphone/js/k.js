@@ -86,6 +86,7 @@ function build_form(rs){
 		});
 		// btn.delay(500).click(); //test
 }
+/*
 function create_payment_button() {
     console.log("create_payment_button");
 
@@ -100,39 +101,45 @@ function create_payment_button() {
         unique_id: '1234567890'
     };
 
-
-
 	let iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
 	embeded.show(); // Esto muestra el div con id "prometeoembeded"
 	proframe.attr("src", iframeurl);
-	proframe.show(); // iframe"
+	proframe.show(); // iframe"	
+}
+*/
+function create_payment_button(){
+	console.log("create_payment_button");
+		
+	usr_active.this_url = this_url;
+	usr_active.kushki_value = prueba.kushki_value ;
+	let prodiv = $("#prometeoembeded");
+	let proframe = $("#prometeoframe");
+	console.log(usr_active);
+	let iframeurl = "";
+	let data = {
+		value: usr_active.kushki_value,
+		unique_id: '1234567890'
+	};
 
-	/*
 	$.post(this_url+'sys/', 
 	{
-		create_payment_button:usr_active,
+		create_payment_button: usr_active,
 	}, 
 	function(r, textStatus, xhr) {
 
 		try {
 			let rs = jQuery.parseJSON(r);
         	usr_active.order_id = rs.id;
-			console.log("respuesta de la BD");
-			console.log(rs);
-			
-			if(rs.status==201){
-				
+			if (rs.status == 201) {
+				iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
-				proframe.attr("src", rs.url);
-				proframe.show(); // iframe"			
-				
-				response_to_payphone(usr_active);
-							
-			}else{
+				proframe.attr("src", iframeurl);
+				proframe.show(); // iframe"				
+				//response_to_payphone(usr_active);				
+			} else {
 				$('#kushki_payment_form').remove();
 				$('#kushki_payment_holder').html(rs.error);
 			}
-
 		}
 		catch(err) {
 			console.log(usr_active);
@@ -140,10 +147,8 @@ function create_payment_button() {
 			console.log(err);
 		}
 	});
-	*/
-
-	
 }
+
 
 /*
 function create_payment_button(){

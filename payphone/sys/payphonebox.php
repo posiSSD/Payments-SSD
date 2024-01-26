@@ -15,11 +15,12 @@ if(isset($_GET['data'])){
     }
 }
 $key_payphone = env('TOKEN_PAYPHONE');
+/*
 consolelogdata($data);
 consolelogdata($value);
 consolelogdata($uniqueid);
 consolelogdata($key_payphone);
-
+*/
 
 ?>
 
@@ -57,6 +58,7 @@ consolelogdata($key_payphone);
     </script>
 </body>
 </html>
+
 <?php
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
