@@ -16,10 +16,6 @@ if(isset($_GET['data'])){
     }
 }
 $key_payphone = env('TOKEN_PAYPHONE');
-consolelogdata($data);
-consolelogdata($value);
-consolelogdata($uniqueid);
-consolelogdata($key_payphone);
 ?>
 
 <!DOCTYPE html>

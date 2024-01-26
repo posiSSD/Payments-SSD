@@ -127,7 +127,7 @@ function create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			console.log(rs);
-        	usr_active.order_id = rs.id;
+        	usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
 				data = {
 					value: rs.value,
@@ -137,7 +137,7 @@ function create_payment_button(){
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", iframeurl);
 				proframe.show(); // iframe"				
-				//response_to_payphone(usr_active);				
+				response_to_payphone(usr_active);				
 			} else {
 				$('#kushki_payment_form').remove();
 				$('#kushki_payment_holder').html(rs.error);
@@ -244,16 +244,12 @@ function onlyEnter(e){
 }
 
 function response_to_payphone(usr_active){
+	
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
-	let form = $('#kushki_payment_form');
-	let btn = form.find('button');
-	let inputtext = $("#inputtext");
 	let prodiv = $("#prometeoembeded");
-	let proframe = $("#prometeoframe");
-	let btncerrar = $("#cerrarIframe");
-	let texto = $("#texto");
+	
 
 	$.post(this_url+'sys/', {
 

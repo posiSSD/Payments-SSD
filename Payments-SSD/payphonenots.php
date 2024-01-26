@@ -15,11 +15,14 @@ $data_array = array(
 
 consolelogdata($data_array);
 
-$status_payphone_transactions = payphone_status_transaction($data_array);
+//$status_payphone_transactions = payphone_status_transaction($data_array);
+$payphone_array_response = payphone_api_confirm ($data_array);
 
-if (!$status_payphone_transactions){
+consolelogdata($payphone_array_response);
+
+if ($payphone_array_response){
     
-    $payphone_array_response = payphone_api_confirm ($data_array);
+   
     payphone_api_transactions($payphone_array_response);
     $data_array_response_details = payphone_api_bd_details($payphone_array_response);
     
