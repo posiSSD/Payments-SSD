@@ -62,7 +62,6 @@ function kushki_get_transaction($trans=false){
 function create_or_update_transaction($trans=false){
 	global $unique_id;
 	global $mysqli;
-
 	$db = 'at_payments_prueba';
 	$table = 'transactions';
 
