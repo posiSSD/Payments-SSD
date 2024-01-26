@@ -86,24 +86,29 @@ function build_form(rs){
 		});
 		// btn.delay(500).click(); //test
 }
-/*
-function create_payment_button(){
-	console.log("create_payment_button");
-		
-	usr_active.this_url = this_url;
-	//usr_active.this_url = 'https://payments.totalbet.com/payphone/';
-	usr_active.kushki_value = prueba.kushki_value * 100;
-	//usr_active.kushki_value = 5* 100;
-	let prodiv = $("#pp-button");
-	console.log(usr_active);
-	//////////////////////////////////////////
-	//let prodiv = $("#prometeoembeded");
-	//////////////////////////////////////////
-	prodiv.show();
-	try {
-		console.log("ingresando a payphone");
-		document.addEventListener("DOMContentLoaded", () => {
-			console.log("ingresando a paddEventListener");
+function create_payment_button() {
+    console.log("create_payment_button");
+
+    usr_active.this_url = this_url;
+    // usr_active.this_url = 'https://payments.totalbet.com/payphone/';
+    usr_active.kushki_value = prueba.kushki_value * 100;
+    // usr_active.kushki_value = 5 * 100;
+
+    let pp_button = $("#pp-button");
+    let embeded = $("#prometeoembeded");
+    let proframe = $("#prometeoframe");
+
+    console.log(usr_active);
+
+    embeded.hide();
+    proframe.hide();
+    pp_button.show();
+
+    try {
+        console.log("try api payphone");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("ingresando a paddEventListener");
 
             var ppb = new PPaymentButtonBox({
                 // Configuraciones de pago
@@ -114,34 +119,28 @@ function create_payment_button(){
                 // Monto a cobrar: Debe cumplir la siguiente regla
                 // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
                 // Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-                amount: 180, // monto total de venta
-                amountWithoutTax: 180, // monto total que no cobra IVA
+                amount: usr_active.kushki_value, // monto total de venta
+                amountWithoutTax: usr_active.kushki_value, // monto total que no cobra IVA
                 amountWithTax: 0, // monto total que sí cobra IVA
                 tax: 0, // monto del IVA
                 service: 0, // Si existe monto por servicio
                 tip: 0, // Si existe monto por propina
 
-                // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer. Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
-
+                // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer.
+                // Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
-
-
             });
-			console.log("PPaymentButtonBox creado:", ppb);
-			ppb.render('pp-button');
 
+            console.log("PPaymentButtonBox creado:", ppb);
+            ppb.render('pp-button');
         });
-	} catch (error) {
-		console.error("Error al inicializar PPaymentButtonBox:", error);
-	}
-	
-	
-	
-	//response_to_payphone(usr_active);
+    } catch (error) {
+        console.error("Error al inicializar PPaymentButtonBox:", error);
+    }
+}
 
-}*/
-
+/*
 function create_payment_button(){
 	console.log("create_payment_button");
 		
@@ -175,31 +174,7 @@ function create_payment_button(){
 				
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
-				proframe.show(); // iframe"
-				
-				/*
-				payphone_api(usr_active);
-				try {
-					console.log("ingresando al try");
-					document.addEventListener("DOMContentLoaded", function () {
-						console.log("addEventListener");
-						ppb = new PPaymentButtonBox({
-							token: '3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ',
-							amount: 180,
-							amountWithoutTax: 180,
-							amountWithTax: 0,
-							tax: 0,
-							service: 0,
-							tip: 0,
-							reference: "Prueba Cajita de Pagos Payphone",
-							clientTransactionId: generateUniqueId(),
-						}).render('pp-button');
-					});
-				} catch (error) {
-					console.error("Error al inicializar PPaymentButtonBox:", error);
-				}
-				*/
-				
+				proframe.show(); // iframe"			
 				
 				response_to_payphone(usr_active);
 							
@@ -217,6 +192,7 @@ function create_payment_button(){
 	});
 
 }
+*/
 
 function validar(){
 	let form = $('#kushki_payment_form');
@@ -334,7 +310,7 @@ function response_to_payphone(usr_active){
 	});
 	
 }
-/*
+
 function generateUniqueId() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random() * 16 | 0,
@@ -342,4 +318,3 @@ function generateUniqueId() {
 		return v.toString(16);
 	});
 }
-*/
