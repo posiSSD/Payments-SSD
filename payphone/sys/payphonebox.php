@@ -10,7 +10,7 @@ if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $kushki_value = $data['kushki_value'];
 }
-
+$key_payphone = env('TOKEN_PAYPHONE');
 consolelogdata($data);
 ?>
 
@@ -43,7 +43,7 @@ consolelogdata($data);
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
-                token: env('BC_PAYPHONE_SECRET_KEY'),
+                token: $key_payphone, TOKEN_PAYPHONE
 
                 // Monto a cobrar: Debe cumplir la siguiente regla
                 // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
