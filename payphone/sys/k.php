@@ -13,16 +13,9 @@ $ret["return"] = "Error";
 if(isset($_POST['create_payment_button'])){
 	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 
-
-	// clientTransactionId
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['create_payment_button']['status'] = 6;
-
-	consolelogdata($_POST['create_payment_button']);
-
 	$create_payment_button = create_or_update_transaction($_POST['create_payment_button']);
-
-	consolelogdata($create_payment_button);
 
 	if($create_payment_button){
 		$ret["status"] = 201;

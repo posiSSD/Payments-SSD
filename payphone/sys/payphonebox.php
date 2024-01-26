@@ -12,15 +12,17 @@ if(isset($_GET['data'])){
     $uniqueid = null;
     if($data['unique_id'] == '1234567890'){
         $uniqueid = md5(microtime().rand(0,1000));
+    }else{
+        $uniqueid = $data['unique_id'];
     }
 }
 $key_payphone = env('TOKEN_PAYPHONE');
-/*
+
 consolelogdata($data);
 consolelogdata($value);
 consolelogdata($uniqueid);
 consolelogdata($key_payphone);
-*/
+
 
 ?>
 
