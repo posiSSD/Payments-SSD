@@ -21,21 +21,20 @@ if(isset($_POST['create_payment_button'])){
 	consolelogdata($_POST['create_payment_button']);
 
 	$create_payment_button = create_or_update_transaction($_POST['create_payment_button']);
-	
+
 	consolelogdata($create_payment_button);
 
-	if(array_key_exists("payWithCard", $create_payment_button)){
+	if($create_payment_button){
 		$ret["status"] = 201;
-		$ret["return"] = "Ok";
-		$ret["url"]=$create_payment_button["payWithCard"];
-		$ret["id"]=$create_payment_button["paymentId"];
-		//
+		$ret["return"] = "Ok";		//
 		$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
+		$ret["value"]=$_POST['create_payment_button']['kushki_value'];
 		//
 		$_POST['create_payment_button']['status'] = 8;
-		$_POST['create_payment_button']['order_id'] = $create_payment_button['paymentId'];
+
+		//$_POST['create_payment_button']['order_id'] = $create_payment_button['paymentId'];
 		create_or_update_transaction($_POST['create_payment_button']);
-	}elseif(array_key_exists("curl_error", $create_payment_button)){
+	}elseif($create_payment_button==false){
 		$ret['status']=408;
 		$ret['error']='Ocurrio un error, refresca la pagina y vuelve a intentar.';
 	}else{

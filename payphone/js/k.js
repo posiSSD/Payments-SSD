@@ -129,6 +129,7 @@ function create_payment_button(){
 
 		try {
 			let rs = jQuery.parseJSON(r);
+			console.log(rs);
         	usr_active.order_id = rs.id;
 			if (rs.status == 201) {
 				iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
