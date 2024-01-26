@@ -8,10 +8,19 @@ include '../../db.php';
 
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
-    $kushki_value = $data['kushki_value'];
+    $value = $data['value'];
+    $uniqueid = null;
+    if($data['unique_id'] == '1234567890'){
+        $uniqueid = md5(microtime().rand(0,1000));
+    }
 }
 $key_payphone = env('TOKEN_PAYPHONE');
 consolelogdata($data);
+consolelogdata($value);
+consolelogdata($uniqueid);
+consolelogdata($key_payphone);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -30,26 +39,19 @@ consolelogdata($data);
     <div id="pp-button"></div>
 
     <script>
-        function generateUniqueId() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0,
-                    v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
+        
         document.addEventListener("DOMContentLoaded", () => {
             ppb = new PPaymentButtonBox({
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
-                token: $key_payphone, TOKEN_PAYPHONE
+                token: key_payphone,
 
                 // Monto a cobrar: Debe cumplir la siguiente regla
                 // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
                 // Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-                amount: $kushki_value, // monto total de venta
-                amountWithoutTax: $kushki_value, // monto total que no cobra IVA
+                amount: $value, // monto total de venta
+                amountWithoutTax: $value, // monto total que no cobra IVA
                 amountWithTax: 0, // monto total que sí cobra IVA
                 tax: 0, // monto del IVA
                 service: 0, // Si existe monto por servicio
@@ -58,7 +60,7 @@ consolelogdata($data);
                 // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer. Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
 
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
-                clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
+                clientTransactionId: uniqueid, // Id único. Debe cambiar para cada transacción
             }).render('pp-button');
 
         });
