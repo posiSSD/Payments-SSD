@@ -45,7 +45,7 @@ consolelogdata($key_payphone);
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
-                token: key_payphone,
+                token: $key_payphone,
 
                 // Monto a cobrar: Debe cumplir la siguiente regla
                 // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
