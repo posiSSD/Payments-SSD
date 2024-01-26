@@ -100,17 +100,17 @@ function create_payment_button() {
 
     console.log(usr_active);
 
-    embeded.hide();
-    proframe.hide();
-    pp_button.show();
 
+	embeded.show(); // Esto muestra el div con id "prometeoembeded"
+	proframe.attr("src", 'https://payments.totalbet.com/cajitapagos.php');
+	proframe.show(); // iframe"
+
+	/*
     try {
         console.log("try api payphone");
 
         document.addEventListener("DOMContentLoaded", () => {
-            console.log("ingresando a paddEventListener");
-
-            var ppb = new PPaymentButtonBox({
+            ppb = new PPaymentButtonBox({
                 // Configuraciones de pago
 
                 // Token obtenido desde la consola de desarrollador que identifica la empresa
@@ -119,25 +119,23 @@ function create_payment_button() {
                 // Monto a cobrar: Debe cumplir la siguiente regla
                 // Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
                 // Todos los valores se multiplican por 100, es decir $1 = 100, $15.67 = 1567
-                amount: usr_active.kushki_value, // monto total de venta
-                amountWithoutTax: usr_active.kushki_value, // monto total que no cobra IVA
+                amount: usr_active.kushki_value , // monto total de venta
+                amountWithoutTax: usr_active.kushki_value , // monto total que no cobra IVA
                 amountWithTax: 0, // monto total que sí cobra IVA
                 tax: 0, // monto del IVA
                 service: 0, // Si existe monto por servicio
                 tip: 0, // Si existe monto por propina
 
-                // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer.
-                // Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
+                // storeId: "", Identificador de la sucursal que cobra. Puedes obtener este campo desde la consola de Payphone Developer. Si lo envías se cobra con la sucursal indicada, si no lo envías se cobra con la sucursal matriz.
+
                 reference: "Prueba Cajita de Pagos Payphone", // Referencia de pago
                 clientTransactionId: generateUniqueId(), // Id único. Debe cambiar para cada transacción
-            });
+            }).render('pp-button');
 
-            console.log("PPaymentButtonBox creado:", ppb);
-            ppb.render('pp-button');
         });
     } catch (error) {
         console.error("Error al inicializar PPaymentButtonBox:", error);
-    }
+    }*/
 }
 
 /*
