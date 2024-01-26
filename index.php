@@ -269,15 +269,11 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
                  </button>
              </div>
      
-         </form>
-         <div id="pp-button"></div>
-         
+         </form>         
          <div id="prometeoembeded">
              <iframe id="prometeoframe" frameborder="0" allowfullscreen></iframe>
-        
          </div>
-        
-
+    
          <div id="kushki_payment_holder">
              <div id="kushki_details"></div>
              <br>
