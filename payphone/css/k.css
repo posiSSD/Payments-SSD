@@ -96,8 +96,10 @@ form#kushki_payment_form button.ready{
 
 #prometeoembeded{
 	position: relative;
-    width: 380px;
-    height: 650px;
+    /* width: 380px;
+    height: 650px;*/
+	width: 414px;
+    height: 830px;
     overflow: hidden;
     text-align: center; 
 	display: none;
