@@ -48,12 +48,6 @@ if (!$status_payphone_transactions){
         log_write($data_array);
     }
 
-    // obtener client_id,    
-    $data_array_response_details = payphone_bd_details($payphone_array_response);
-    consolelogdata($data_array_response_details); 
-    
-    
-
     $a=[];
     $ret=[];
     $http_code = 500;
@@ -61,22 +55,24 @@ if (!$status_payphone_transactions){
     $response = [];
     $limit_try = 0;
 
-    /*
     if($payphone_array_response){
         switch ($payphone_array_response['transactionStatus']){
             case "Approved":
-                
+                // obtener client_id, amount,  
+                $data_array_response_details = payphone_bd_details($payphone_array_response);
+                consolelogdata($data_array_response_details); 
                 $new_trans=[];
                 $new_trans['unique_id']=$data_array_response_details['unique_id'];
                 $new_trans['client_id']=$data_array_response_details['client_id'];
                 $new_trans['status']=9; // 3=pending deposit
-                $new_trans['payment_id']=$transaccion;
+                $new_trans['order_id']=$payphone_array_response['transactionId'];
+                //$new_trans['payment_id']=$payphone_array_response['clientTransactionId'];
                 create_or_update_transaction($new_trans);
                 sleep(10);
                 $d=[];
                 $d['account']=$data_array_response_details['client_id'];
                 $d['amount']=$data_array_response_details['amount'];
-                $d['order_id']=$data_array_response_details['paymentId'];
+                $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
                 consolelogdata($d);
 
@@ -143,7 +139,7 @@ if (!$status_payphone_transactions){
             break;    
         }
     }
-    */
+    
 } else {
     exit();
 }

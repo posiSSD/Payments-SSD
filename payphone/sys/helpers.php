@@ -388,8 +388,7 @@ function payphone_bd_details($trans=false){
 	// $data=false
 	$ret = false;
 	global $mysqli;
-	consolelogdata($trans);
-	
+
 	$db = 'at_payments_prueba';
 	$table = 'transactions';
 	$where = ' id > 0 ';
@@ -413,10 +412,12 @@ function payphone_bd_details($trans=false){
 		echo $get_command;
 		echo "\n";
 
+		/*
 		consolelogdata(array(
 			'error' => $mysqli->error,
 			'get_command' => $get_command,
 		));
+		*/
 
 		exit();
 	}
@@ -425,7 +426,7 @@ function payphone_bd_details($trans=false){
 	$trans_ret['unique_id'] = $ret['unique_id'];
 	$trans_ret['payment_method_id'] = $ret['payment_method_id'];
 	$trans_ret['amount'] = $ret['amount'];
-	consolelogdata($trans_ret);
+	
 	return $trans_ret;
 }
 function status_transaction($trans=false){
