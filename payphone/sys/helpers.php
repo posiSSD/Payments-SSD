@@ -389,7 +389,7 @@ function payphone_bd_details($trans=false){
 	$ret = false;
 	global $mysqli;
 	consolelogdata($trans);
-	$trans_ret = $trans;
+	
 	$db = 'at_payments_prueba';
 	$table = 'transactions';
 	$where = ' id > 0 ';
