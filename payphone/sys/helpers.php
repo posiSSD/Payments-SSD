@@ -425,7 +425,7 @@ function payphone_bd_details($trans=false){
 	$trans_ret['unique_id'] = $ret['unique_id'];
 	$trans_ret['payment_method_id'] = $ret['payment_method_id'];
 	$trans_ret['amount'] = $ret['amount'];
-
+	consolelogdata($trans_ret);
 	return $trans_ret;
 }
 function status_transaction($trans=false){
