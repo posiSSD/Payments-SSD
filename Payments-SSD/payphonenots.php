@@ -24,7 +24,8 @@ if ($payphone_array_response){
     
    
     payphone_api_transactions($payphone_array_response);
-    $data_array_response_details = payphone_api_bd_details($payphone_array_response);
+    
+    //$data_array_response_details = payphone_api_bd_details($payphone_array_response);
     
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";

@@ -381,7 +381,8 @@ function payphone_api_transactions($data=false){
 			echo "\n";
 			exit();
 		}
-		return $data; // Debes devolver $data en lugar de $trans
+		return $insert_arr;
+		//return $data; 
 	}
 }
 function payphone_api_bd_details($trans=false){
