@@ -394,7 +394,7 @@ function payphone_bd_details($trans=false){
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('clientTransactionId', $trans)){
-		$where.= " AND clientTransactionId = '".$trans['clientTransactionId']."'";
+		$where.= " AND unique_id = '".$trans['clientTransactionId']."'";
 	}
 	if(array_key_exists('order_id', $trans)){
 		$where.= " AND order_id = '".$trans['order_id']."'";
@@ -423,7 +423,7 @@ function payphone_bd_details($trans=false){
 	$ret = $query->fetch_assoc();
 	$trans_ret['client_id'] = $ret['client_id'];
 	$trans_ret['unique_id'] = $ret['unique_id'];
-	$trans_ret['paymentId'] = $ret['paymentId'];
+	$trans_ret['payment_method_id'] = $ret['payment_method_id'];
 	$trans_ret['amount'] = $ret['amount'];
 
 	return $trans_ret;
