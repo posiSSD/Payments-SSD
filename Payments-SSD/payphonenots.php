@@ -13,24 +13,17 @@ $data_array = array(
     "clientTxId" => $transaccion
 );
 
-consolelogdata($data_array);
+//consolelogdata($data_array);
+$status_payphone_transactions = payphone_status_transaction($data_array);
 
-//$status_payphone_transactions = payphone_status_transaction($data_array);
-$payphone_array_response = payphone_api_confirm ($data_array);
+if (!$payphone_array_response){
 
-consolelogdata($payphone_array_response);
+    $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
 
-if ($payphone_array_response){
-    
-   
-    payphone_api_transactions($payphone_array_response);
-    
-    //$data_array_response_details = payphone_api_bd_details($payphone_array_response);
-    
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
     $log_file = date("Y-m-d").".log";
-    log_init($log_dir,$log_file);
+    log_init($log_dir, $log_file);
     log_write('-----------------------------------------------------------------------------------------');
     log_write('_POST');
     log_write($_POST);
@@ -38,8 +31,27 @@ if ($payphone_array_response){
     log_write($_GET);
     log_write('_SERVER');
     log_write($_SERVER);
-    log_write('json');
-    log_write($data_array_response_details);
+
+    if($payphone_array_response){
+        payphone_api_transactions($payphone_array_response);
+        $payphone_array_response['Status_api_response'] = true;
+        log_write('json');
+        log_write($payphone_array_response);
+    }else{
+        payphone_api_transactions([
+            'transactionId' => $data_array['id'],
+            'clientTransactionId' => $data_array['clientTxId'],
+        ]);
+        $data_array['Status_api_response'] = false;
+        log_write('json');
+        log_write($data_array);
+    }
+
+    // obtener client_id,    
+    $data_array_response_details = payphone_bd_details($payphone_array_response);
+    consolelogdata($data_array_response_details); 
+    
+    
 
     $a=[];
     $ret=[];
@@ -48,8 +60,9 @@ if ($payphone_array_response){
     $response = [];
     $limit_try = 0;
 
-    if($data_array_response_details){
-        switch ($data_array_response_details['transactionStatus']){
+    /*
+    if($payphone_array_response){
+        switch ($payphone_array_response['transactionStatus']){
             case "Approved":
                 
                 $new_trans=[];
@@ -129,7 +142,7 @@ if ($payphone_array_response){
             break;    
         }
     }
-
+    */
 } else {
     exit();
 }

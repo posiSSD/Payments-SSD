@@ -348,15 +348,14 @@ function payphone_api_transactions($data=false){
         $insert_arr['bin'] = isset($data['bin']) ? $data['bin'] : null;  ////////////////////////////////////
         $insert_arr['lastDigits'] = isset($data['lastDigits']) ? $data['lastDigits'] : null;   ////////////////////////////////////
         $insert_arr['deferredCode'] = isset($data['deferredCode']) ? $data['deferredCode'] : null;   ////////////////////////////////////
-        $insert_arr['deferredMessage'] = isset($data['deferredMessage']) ? $data['deferredMessage'] : null;
-		$insert_arr['deferred'] = isset($data['deferred']) ? $data['deferred'] : null;  ////////////////////////////////////
-		$insert_arr['message'] = isset($data['message']) ? $data['message'] : null;
-		$insert_arr['messageCode'] = isset($data['messageCode']) ? $data['messageCode'] : null;   ////////////////////////////////////
+        $insert_arr['deferredMessage'] = isset($data['deferredMessage']) ? $data['deferredMessage'] : "No Response Api";
+		$insert_arr['deferred'] = isset($data['deferred']) ? $data['deferred'] : "No Response Api";  ////////////////////////////////////
+		$insert_arr['message'] = isset($data['message']) ? $data['message'] : "No Response Api";
+		$insert_arr['messageCode'] = isset($data['messageCode']) ? $data['messageCode'] : "No Response Api";   ////////////////////////////////////
 		$insert_arr['optionalParameter1'] = isset($data['optionalParameter1']) ? $data['optionalParameter1'] : null;
 		
 		$fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
 		$insert_arr['created_at'] = $fecha_hora_actual->format('Y-m-d H:i:s');
-
 
 		$data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
         $insert_command = "INSERT INTO {$db}.{$table} (";
@@ -385,14 +384,14 @@ function payphone_api_transactions($data=false){
 		//return $data; 
 	}
 }
-function payphone_api_bd_details($trans=false){
+function payphone_bd_details($trans=false){
 	// $data=false
 	$ret = false;
 	global $mysqli;
 	
 	$trans_ret = $trans;
 	$db = 'at_payments_prueba';
-	$table = 'payphone_details';
+	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('clientTransactionId', $trans)){
 		$where.= " AND clientTransactionId = '".$trans['clientTransactionId']."'";
