@@ -23,8 +23,7 @@ function set_events(){
 	});
 	$(document).on('sw_login_ok', function(e,data) {
 		build_form();		
-	});
-	
+	});	
 }
 function set_vars(){
 	console.log("set_vars");
@@ -150,8 +149,6 @@ function create_payment_button(){
 		}
 	});
 }
-
-
 /*
 function create_payment_button(){
 	console.log("create_payment_button");
@@ -205,7 +202,6 @@ function create_payment_button(){
 
 }
 */
-
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
@@ -242,7 +238,6 @@ function onlyEnter(e){
 		e.preventDefault();
 	  }
 }
-
 function response_to_payphone(usr_active){
 	
 	let holder = $('#kushki_payment_holder');
@@ -318,7 +313,6 @@ function response_to_payphone(usr_active){
 	});
 	
 }
-
 function generateUniqueId() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random() * 16 | 0,
