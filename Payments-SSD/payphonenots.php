@@ -16,9 +16,10 @@ $data_array = array(
 //consolelogdata($data_array);
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-if (!$payphone_array_response){
+if (!$status_payphone_transactions){
 
     $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
+    consolelogdata($payphone_array_response);
 
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
