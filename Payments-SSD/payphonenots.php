@@ -85,6 +85,7 @@ if (!$status_payphone_transactions){
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
                             $new_trans['status']=7; // 3=paid
                             $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                            $new_trans['payment_id']=$payphone_array_response['transactionId'];
                             create_or_update_transaction($new_trans);
                             $ret['http_code']=200;
                             $ret['status']='Ok';
