@@ -388,7 +388,7 @@ function payphone_bd_details($trans=false){
 	// $data=false
 	$ret = false;
 	global $mysqli;
-	
+	consolelogdata($trans);
 	$trans_ret = $trans;
 	$db = 'at_payments_prueba';
 	$table = 'transactions';
@@ -412,6 +412,12 @@ function payphone_bd_details($trans=false){
 		echo "\n";
 		echo $get_command;
 		echo "\n";
+
+		consolelogdata(array(
+			'error' => $mysqli->error,
+			'get_command' => $get_command,
+		));
+
 		exit();
 	}
 	$ret = $query->fetch_assoc();
