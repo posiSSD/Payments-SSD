@@ -170,7 +170,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = '2D70A9E6205BDC302840DE9E50C3CDAC';
+     $auth_token = '5EC10F26D79AE335277FB7AB5E5ED8CB';
      $user_id = '1674627753';
      $metodo = 'payphone';
      $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
