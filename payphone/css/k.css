@@ -104,8 +104,8 @@ form#kushki_payment_form button.ready{
 }
 
 #prometeoframe {
-    width: 100%; /* El iframe ocupará todo el ancho del div */
-    height: 100%; /* El iframe ocupará todo el alto del div */
+    width: 100%; 
+    height: 100%; 
 }
 
 
