@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //$data_array['id_usuario'] = $trans['client_id'];
             $data_array['id_usuario'] = $trans['client_id'];
 
-
             insert_bd($mysqli, $data_array);
 
             ///////////////////NUEVO CODIGO //////////////////////////////
@@ -70,11 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             log_write($_SERVER);
             log_write('json');
             log_write($data);
-            // declarar actividad y retorno
+            
             $a=[];
             $ret=[];
-
-            // declarar respuestas en caso de error
             $http_code = 500;
             $status = 'Error';
             $response = [];  
@@ -365,4 +362,13 @@ function verificacion_datos($data_array){
     
 }
 
+function consolelogdata($data) {
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+
+    echo '<script>';
+    echo 'console.log("'. $pFunction . '");';
+    echo 'console.log(": ", ' . json_encode($data) . ');';
+    echo '</script>';
+}
 ?>
