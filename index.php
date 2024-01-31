@@ -285,8 +285,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
      <?php
  }
     
-
-
 }
 ?>
    

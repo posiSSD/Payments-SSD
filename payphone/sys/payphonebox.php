@@ -44,7 +44,7 @@ $key_payphone = env('TOKEN_PAYPHONE');
                 tax: 0,
                 service: 0,
                 tip: 0,
-                reference: "Prueba Cajita de Pagos Payphone",
+                reference: "Pagos Payphone",
                 clientTransactionId: "<?php echo $uniqueid; ?>",
             }).render('pp-button');
         });
