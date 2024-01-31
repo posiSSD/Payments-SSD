@@ -1,5 +1,7 @@
 html,body{
 	margin: 0;
+	width: 100%; /*  nuevo */
+    height: 100%; /* nuevo */
 	padding: 0;
 	display: flex;
 	justify-content: center;
@@ -96,8 +98,10 @@ form#kushki_payment_form button.ready{
 
 #prometeoembeded{
 	position: relative;
-	width: 414px;
-    height: 830px;
+	/* width: 414px; */ /*  old */
+    /* height: 830px; */ /*  old */
+	width: 100%; /*  nuevo */
+    height: 100%; /*  nuevo */
     overflow: hidden;
     text-align: center; 
 	display: none;
@@ -109,30 +113,4 @@ form#kushki_payment_form button.ready{
 }
 
 
-
-
-#divfalla{
-	margin: auto;
-	width: 350px;
-	height: 200px;
-	text-align: center;
-}
-#divfalla #divfalla_btn{
-	background-color: #2bb660;
-	/* 
-		font-family: "Open Sans";
-		padding: 5px 10px;
-		font-size: 14px; 
-	*/
-	font-size: 14px; 
-	color: #fff;
-	border-radius: 25px;
-	cursor: wait;
-	text-decoration: none;
-	display: inline-block;
-	border: none;
-	width: 300px;
-	height: 50px;
-	padding: 7px 10px;
-}
 
