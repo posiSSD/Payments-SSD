@@ -90,10 +90,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
             <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-            <!--  payphone scripts -->
-            <link rel=»stylesheet» href=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css»>
-            <script type=»module» src=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js»></script>
-
         </head>
         <body>
             <div id="msg" style="font-style: italic;"></div>
@@ -169,7 +165,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = '5EC10F26D79AE335277FB7AB5E5ED8CB';
+     $auth_token = '875EA9257409FD36A63571F6C682BD1B';
      $user_id = '1674627753';
      $metodo = 'payphone';
      $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
@@ -232,10 +228,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
          <link rel="stylesheet" href="<?php echo $url; ?>css/k.css">
          <link rel="stylesheet" href="<?php echo $url; ?>css/new.scss">
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-         <!--  payphone scripts -->
-         <link rel=»stylesheet» href=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css»>
-         <script type=»module» src=»https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js»></script>
 
      </head>
      <body>
