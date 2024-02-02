@@ -576,6 +576,45 @@ function consultaintent($intent_id) {
     return $external_id;
   
 }
+function status_transaction($trans=false){
+	// $data=false
+	$ret = false;
+	global $mysqli;
+	
+	//error_log("status_transaction - \$trans: " . print_r($trans, true));
+
+	$db = 'at_payments_prueba';
+	$table = 'transactions';
+	$where = ' id > 0 ';
+	if(array_key_exists('unique_id', $trans)){
+		$where.= " AND unique_id = '".$trans['unique_id']."'";
+	}
+	if(array_key_exists('client_id', $trans)){
+		$where.= " AND client_id = '".$trans['client_id']."'";
+	}
+	if(array_key_exists('order_id', $trans)){
+		$where.= " AND order_id = '".$trans['order_id']."'";
+	}
+	/*
+	if(array_key_exists('status', $trans)){
+		$where.= " AND status = '".$trans['status']."'";
+	}
+	*/
+	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
+	$query = $mysqli->query($get_command);
+
+	$mysqli->query($get_command);
+	if($mysqli->error){
+		echo $mysqli->error;
+		echo "\n";
+		echo $get_command;
+		echo "\n";
+		exit();
+	}
+	$ret = $query->fetch_assoc();
+
+	return $ret;
+}
 
 function prometeo_status_transaction($trans = false){
     global $mysqli;

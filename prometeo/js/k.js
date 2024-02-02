@@ -123,6 +123,7 @@ function kushki_create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
+			console.log(usr_active);
 			
 			if(rs.status==201){
 				
@@ -182,50 +183,14 @@ function onlyEnter(e){
 		e.preventDefault();
 	  }
 }
-/*
-function select_responde_to_bd(usr_active) {
-	console.log("select_responde_to_bd");
-	$.post(usr_active.this_url+'sys/', 
-	{
-		prometeo_select_transactions:usr_active,
-	}, 
- 
-	function(response) {
-	  // Parsea la respuesta JSON
-	  var result = JSON.parse(response);
-  
-	  // Verificar si la respuesta es 'true'
-	  if (result.success === true) {
-		// Realizar acciones adicionales aquí si es necesario
-		console.log('Respuesta True desde PHP:');
-		console.log(result);
-	  } else {
-		// Si la respuesta no es 'true', ejecutar la solicitud nuevamente después de un cierto período de tiempo (por ejemplo, 1 segundo)
-		setTimeout(function() {
-		  console.log('Respuesta False select desde PHP:');
-		  console.log(result);
-		  select_responde_to_bd(usr_active);
-		}, 10000); // Espera 10 segundo antes de ejecutar la próxima solicitud
-	  }
-	});
-}
-*/
+
 
 function response_to_prometeo(usr_active){
+
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
-	let form = $('#kushki_payment_form');
-	let btn = form.find('button');
-	let inputtext = $("#inputtext");
 	let prodiv = $("#prometeoembeded");
-	let proframe = $("#prometeoframe");
-	let btncerrar = $("#cerrarIframe");
-	let texto = $("#texto");
-
-	//holder.show();
-	//holderdetails.html('Recargando: $/'+prueba.kushki_value);
-	//holderbutton.html('Espere un momento...');
 
 	$.post(this_url+'sys/', {
 
