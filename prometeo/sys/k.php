@@ -26,6 +26,7 @@ if(isset($_POST['kushki_create_payment_button'])){
 		$ret["return"] = "Ok";
 		$ret["url"]=$kushki_create_payment_button["url"];
 		$ret["id"]=$kushki_create_payment_button["id"];
+		$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
 		$_POST['create_payment_button']['status'] = 8;
 		$_POST['create_payment_button']['order_id'] = $kushki_create_payment_button['id'];
 		create_or_update_transaction($_POST['create_payment_button']);
@@ -43,9 +44,16 @@ if(isset($_POST['kushki_create_payment_button'])){
 
 
 if(isset($_POST['status_payment_button'])){
+
+	consolelogdata($_POST['status_payment_button']);
+	// unique_id / client_id / order_id
+	$d=[];
+	$d['client_id']=$_POST['status_payment_button']['client_id'];
+    $d['order_id']=$_POST['status_payment_button']['order_id'];
+    $d['unique_id']=$_POST['status_payment_button']['unique_id'];
+
 	$ret_res = [];
-	$status_payment_button = status_transaction($_POST['status_payment_button']);
-	$ret_res = $status_payment_button;
+	$status_payment_button = status_transaction($d);
 
 	if(array_key_exists('status', $status_payment_button)){
 
@@ -55,12 +63,22 @@ if(isset($_POST['status_payment_button'])){
 		// pending deposit = waiting confirmation from wallet 9
 		// declined payment = order declined by payment method 10
 		// failed deposit = deposit failed by wallet 11
-		$ret_res['status_response'] = $status_payment_button['status'];
+		echo json_encode($ret_res);
 
 	} else {
-		$ret_res['status_response'] = null;
+		$ret_res['status'] = null;
 	}
 
-	echo json_encode($ret_res);
+	
 }
+
+function consolelogdata($data) {
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+
+    echo '<script>';
+    echo 'console.log("'. $pFunction . '");';
+    echo 'console.log(": ", ' . json_encode($data) . ');';
+    echo '</script>';
+}  
 ?> 

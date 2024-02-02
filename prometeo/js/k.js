@@ -123,6 +123,7 @@ function kushki_create_payment_button(){
 		try {
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
+			usr_active.unique_id = rs.unique_id;
 			console.log(usr_active);
 			
 			if(rs.status==201){
