@@ -42,6 +42,7 @@ function set_vars(){
 	swsid;
 	ws_session = false;
 	usr_active = true;
+	usr_data = true;
 }
 function build_form(rs){
 	console.log('build_form');
@@ -124,6 +125,11 @@ function kushki_create_payment_button(){
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
+
+			usr_data.order_id = rs.id;
+			usr_data.unique_id = rs.unique_id;
+			usr_data.client_id = rs.client_id;
+
 			console.log(usr_active);
 			
 			if(rs.status==201){
@@ -132,8 +138,9 @@ function kushki_create_payment_button(){
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", rs.url);
 				proframe.show();
-				
-				response_to_prometeo(usr_active);
+
+				usr_data
+				response_to_prometeo(usr_data);
 				
 			}else{
 				$('#kushki_payment_form').remove();
@@ -186,17 +193,17 @@ function onlyEnter(e){
 }
 
 
-function response_to_prometeo(usr_active){
+function response_to_prometeo(usr_data){
 
 	let holder = $('#kushki_payment_holder');
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
-	console.log(usr_active);
+	console.log(usr_data);
 
 	$.post(this_url+'sys/', {
 
-		status_payment_button:usr_active,
+		status_payment_button:usr_data,
 
 	}, 
 	function(r, textStatus, xhr) {
@@ -215,18 +222,18 @@ function response_to_prometeo(usr_active){
 				showStatusMessage('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
-                    response_to_payphone(usr_active);
+                    response_to_payphone(usr_data);
                 }, 3000);	
 			} else if ( rs.status ==  6 ){ 
 				console.log("new  : "+rs.status);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
-                    response_to_payphone(usr_active);
+                    response_to_payphone(usr_data);
                 }, 3000);	
 			} else if ( rs.status ==  8 ){
 				console.log("pending payment : "+rs.status);
                 holderbutton.html('Espere un momento...');
-                setTimeout(function () {
+                setTimeout(function () {usr_data
                     response_to_payphone(usr_active);
                 }, 3000);	
 			} else if ( rs.status ==  7 ){
