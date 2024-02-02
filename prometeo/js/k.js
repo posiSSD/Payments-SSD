@@ -42,7 +42,7 @@ function set_vars(){
 	swsid;
 	ws_session = false;
 	usr_active = true;
-	usr_data = true;
+	
 }
 function build_form(rs){
 	console.log('build_form');
@@ -126,6 +126,8 @@ function kushki_create_payment_button(){
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
 
+
+			var usr_data = {};
 			usr_data.order_id = rs.id;
 			usr_data.unique_id = rs.unique_id;
 			usr_data.client_id = rs.client_id;
@@ -139,7 +141,6 @@ function kushki_create_payment_button(){
 				proframe.attr("src", rs.url);
 				proframe.show();
 
-				usr_data
 				response_to_prometeo(usr_data);
 				
 			}else{
