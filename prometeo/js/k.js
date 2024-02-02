@@ -192,6 +192,7 @@ function response_to_prometeo(usr_active){
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
+	console.log(usr_active);
 
 	$.post(this_url+'sys/', {
 
