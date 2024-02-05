@@ -45,8 +45,13 @@ if(isset($_POST['kushki_create_payment_button'])){
 
 if(isset($_POST['status_payment_button'])){
 	$data = $_POST['status_payment_button'];
-
 	consolelogdata($data);
+
+	// Registra los datos de la solicitud POST y cualquier otro mensaje de error específico
+    $error_message = 'Mensaje de error específico: ' . json_encode($_POST);
+    error_log($error_message, 0);
+    consolelogdata($error_message);
+
 	// unique_id / client_id / order_id
 	$d=[];
 	$d['client_id']=$_POST['status_payment_button']['client_id'];
