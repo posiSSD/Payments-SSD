@@ -44,13 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // revisa si existe el external_id en la BD
             $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
             if(!$status_prometeo_transactions){
-                prometeo_api_transactions($payphone_array_response);
-                //false//
-                /////////////////// LOGS - Guardar JSON //////////////////////////////
+
                 $data['Status_api_response'] = true;
                 $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
                 $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($data); 
+                log_write('datos');
+                log_write($payphone_array_response);
+
+                prometeo_api_transactions($payphone_array_response);
+                
                  
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
