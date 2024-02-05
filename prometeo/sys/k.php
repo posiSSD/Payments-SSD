@@ -41,7 +41,8 @@ if(isset($_POST['kushki_create_payment_button'])){
 	echo json_encode($ret);
 }
 
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if(isset($_POST['status_payment_button'])){
 	$data = $_POST['status_payment_button'];
