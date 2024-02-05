@@ -51,9 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
                 $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($data); 
-
-                /////////////////// SAVE BD //////////////////////////////
-                
                  
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
@@ -61,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         // obtener client_id, amount,  
                         //$data_array_response_details = prometeo_bd_details($payphone_array_response);
-                        
+        
                         $new_trans=[];
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];

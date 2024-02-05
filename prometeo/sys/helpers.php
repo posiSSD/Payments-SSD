@@ -103,7 +103,6 @@ function create_or_update_transaction($trans=false){
 		if(isset($trans['unique_id'])){
 			$insert_arr['unique_id']=$trans['unique_id'];
 		}
-		//$insert_arr['unique_id']=(isset($trans['unique_id'])?$trans['unique_id']:$unique_id);
 		if(isset($trans['client_id'])){
 			$insert_arr['client_id']=$trans['client_id'];
 		}
@@ -180,15 +179,6 @@ function kushki_create_payment_button($client=false){
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 	$kushki_curl = kushki_curl($rq);
 	
-	//imprimir y guardar en la bd
-	//bd_save_prometeo($kushki_curl);
-	
-	//obtener detalles de pago
-	//$update_kushi = details_payment_link($kushki_curl);
-
-	//update en bd
-	//bd_update_prometeo($update_kushi);
-
 	if (array_key_exists("curl_error", $kushki_curl)) {
         $ret['curl_error'] = $kushki_curl;
     } elseif (array_key_exists("code", $kushki_curl)) {
@@ -329,34 +319,6 @@ function bd_update_prometeo($data){
         }
     }  
 }
-
-/*
-function prometeo_select_bd($trans=false){
-	global $mysqli;
-	if(isset($trans)){
-
-		$sql = "SELECT external_id from prometeo_details
-				WHERE client_id = '$trans['client_id']' && order_id = '$trans['order_id']'"
-
-        
-        $sql = "SELECT event_type FROM prometeo_transactions
-                WHERE external_id='$external_id'
-                ORDER BY id DESC
-                LIMIT 1";
-
-        $result = $mysqli->query($sql); // Ejecutar la consulta
-
-        if ($result->num_rows > 0) {
-            // Si se encontraron resultados, obtén el valor resultante y devuélvelo
-            $row = $result->fetch_assoc();
-			$trans["event_type"] = $row["event_type"];
-            return $trans;
-        } else {
-            return "No se encontraron resultados.";
-        }
-    }
-}
-*/
 
 function prometeo_select_bd($trans = false) {
 	global $mysqli;
@@ -592,14 +554,10 @@ function dataconstruccion($data) {
 
     $trans = get_transaction(['unique_id'=>$data_array['external_id']]);
     $data_array['id_usuario'] = $trans['client_id'];
-                    
-
-    //consolelogdata($data_array);
 
     return $data_array;
     
 }
-
 
 function consultaintent($intent_id) {
 
@@ -659,11 +617,7 @@ function status_transaction($trans=false){
 	if(array_key_exists('order_id', $trans)){
 		$where.= " AND order_id = '".$trans['order_id']."'";
 	}
-	/*
-	if(array_key_exists('status', $trans)){
-		$where.= " AND status = '".$trans['status']."'";
-	}
-	*/
+	
 	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
 	$query = $mysqli->query($get_command);
 
