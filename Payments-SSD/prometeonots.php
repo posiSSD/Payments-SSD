@@ -48,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //false//
                 /////////////////// LOGS - Guardar JSON //////////////////////////////
                 $data['Status_api_response'] = true;
+                $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
+                $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($data); 
 
                 /////////////////// SAVE BD //////////////////////////////
