@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             log_write('_SERVER');
             log_write($_SERVER);
             log_write('json');
-            log_write($data); 
+            //log_write($data); 
 
             $a=[];
             $ret=[];
@@ -44,23 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
 
-                // DAR RESPUSETA AQUI A LA PETICION POST //
-                responsejson($payphone_array_response);
-               
+                              
 
                 // revisa si existe el external_id en la BD
                 $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
                 if(!$status_prometeo_transactions){
 
-                    // DAR RESPUSETA AQUI A LA PETICION POST //
-                    responsejson($status_prometeo_transactions);
+                    /////////////////// LOGS - Guardar JSON //////////////////////////////
+                    $payphone_array_response['Status_api_response'] = true;
+                    log_write($payphone_array_response); 
 
                     /////////////////// SAVE BD //////////////////////////////
                     prometeo_api_transactions($payphone_array_response);
-                    /////////////////// LOGS - Guardar JSON //////////////////////////////
-                    $payphone_array_response['Status_api_response'] = true;
-                    //log_write('json');
-                    log_write($payphone_array_response['Status_api_response']); 
+                     
 
                     //switch aprobacion transaccion
                     switch ($payphone_array_response['event_type']) {

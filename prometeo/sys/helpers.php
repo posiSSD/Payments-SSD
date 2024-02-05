@@ -420,6 +420,9 @@ function prometeo_bd_details($trans=false){
 	if(array_key_exists('payment_id', $trans)){
 		$where.= " AND payment_id = '".$trans['payment_id']."'";
 	}
+	if(array_key_exists('id_usuario', $trans)){
+		$where.= " AND client_id = '".$trans['id_usuario']."'";
+	}
 
 	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
 	$query = $mysqli->query($get_command);
@@ -471,8 +474,9 @@ function consultId($externalId, $mysqli) {
 	return $idSel;
 }
 
-function pprometeo_api_transactions($mysqli, $data_array) {
+function pprometeo_api_transactions($data_array) {
     // Crear la sentencia SQL preparada
+	global $mysqli;
 
     $sqlDetails = " INSERT INTO prometeo_transactions (id_usuario, verify_token, event_type, event_id,
                     timestamp, amount, concept, currency, origin_account, destination_account,
