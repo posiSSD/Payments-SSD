@@ -13,6 +13,8 @@ if(isset($_POST['kushki_create_payment_button'])){
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['create_payment_button']['status'] = 6;
 
+	consolelogdata($_POST['kushki_create_payment_button']);
+
 	create_or_update_transaction($_POST['create_payment_button']);
 	$kushki_create_payment_button = kushki_create_payment_button($_POST['create_payment_button']);
 
@@ -53,13 +55,18 @@ if(isset($_POST['status_payment_button'])){
     consolelogdata($error_message);
 
 	// unique_id / client_id / order_id
+	/*
 	$d=[];
+	$d['order_id']=$_POST['status_payment_button']['order_id'];
+	$d['unique_id']=$_POST['status_payment_button']['unique_id'];
 	$d['client_id']=$_POST['status_payment_button']['client_id'];
-    $d['order_id']=$_POST['status_payment_button']['order_id'];
-    $d['unique_id']=$_POST['status_payment_button']['unique_id'];
+	*/
+    
+    
 
 	$ret_res = [];
-	$status_payment_button = status_transaction($d);
+	$status_payment_button = status_transaction($data);
+	consolelogdata($data);
 
 	if(array_key_exists('status', $status_payment_button)){
 

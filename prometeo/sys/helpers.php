@@ -612,6 +612,7 @@ function status_transaction($trans=false){
 		exit();
 	}
 	$ret = $query->fetch_assoc();
+	consolelogdata($ret);
 
 	return $ret;
 }
