@@ -435,35 +435,6 @@ function consultId($externalId, $mysqli) {
 	
 	return $idSel;
 }
-/*
-function pprometeo_api_transactions($data=false) {
-    // Crear la sentencia SQL preparada
-	global $mysqli;
-
-    $sqlDetails = " INSERT INTO prometeo_transactions (id_usuario, verify_token, event_type, event_id,
-                    timestamp, amount, concept, currency, origin_account, destination_account,
-                    destination_institution, branch, destination_owner_name, destination_account_type,
-                    document_type, document_number, destination_bank_code, mobile_os, request_id,
-                    intent_id, external_id)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmtDetails = $mysqli->prepare($sqlDetails);
-    if ($stmtDetails) {
-        $stmtDetails->bind_param("sssssssssssssssssssss", $data_array['id_usuario'], $data_array['verify_token'],
-                                                            $data_array['event_type'], $data_array['event_id'],
-                                                            $data_array['timestamp'], $data_array['amount'],
-                                                            $data_array['concept'], $data_array['currency'],
-                                                            $data_array['origin_account'], $data_array['destination_account'],
-                                                            $data_array['destination_institution'], $data_array['branch'],
-                                                            $data_array['destination_owner_name'], $data_array['destination_account_type'],
-                                                            $data_array['document_type'], $data_array['document_number'],
-                                                            $data_array['destination_bank_code'], $data_array['mobile_os'],
-                                                            $data_array['request_id'], $data_array['intent_id'],
-                                                            $data_array['external_id']);
-        $stmtDetails->execute();
-        $stmtDetails->close();
-    }
-}
-*/
 
 function pprometeo_api_transactions($data = false) {
     global $mysqli;

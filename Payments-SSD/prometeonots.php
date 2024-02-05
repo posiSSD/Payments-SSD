@@ -50,9 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($data); 
                 log_write('datos');
+                $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
+                $payphone_array_response['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($payphone_array_response);
 
-                prometeo_api_transactions($payphone_array_response);
+                //prometeo_api_transactions($payphone_array_response);
                 
                  
                 //switch aprobacion transaccion
