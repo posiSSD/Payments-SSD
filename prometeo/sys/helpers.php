@@ -577,11 +577,11 @@ function consultaintent($intent_id) {
   
 }
 function status_transaction($trans=false){
-	// $data=false
+	
 	$ret = false;
 	global $mysqli;
 	
-	//error_log("status_transaction - \$trans: " . print_r($trans, true));
+	
 
 	$db = 'at_payments_prueba';
 	$table = 'transactions';
@@ -612,8 +612,7 @@ function status_transaction($trans=false){
 		exit();
 	}
 	$ret = $query->fetch_assoc();
-	consolelogdata($ret);
-
+	
 	return $ret;
 }
 
@@ -665,6 +664,7 @@ function consolelogdata($data) {
     echo '</script>';
 }
 */
+/*
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
@@ -672,5 +672,5 @@ function consolelogdata($data) {
     echo 'console.log("'. $pFunction . '");';
     echo 'console.log(": ", ' . json_encode($data) . ');';
 }
-
+*/
 ?> 

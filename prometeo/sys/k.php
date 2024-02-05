@@ -46,10 +46,6 @@ if(isset($_POST['kushki_create_payment_button'])){
 if(isset($_POST['status_payment_button'])){
 	$data = $_POST['status_payment_button'];
 
-	echo '<script>';
-    echo 'console.log("Mensaje para la consola del navegador: ' . json_encode($data) . '");';
-    echo '</script>';
-
 	$status_payment = status_transaction($data);
 	$ret_res = [];
 	

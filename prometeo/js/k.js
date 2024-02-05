@@ -199,13 +199,10 @@ function onlyEnter(e){
 
 function response_to_prometeo(usr_data){
 
-	let holder = $('#kushki_payment_holder');
-	let holderdetails = $('#kushki_details');
-	let holderbutton = $('#kushki_btn');
-	let prodiv = $("#prometeoembeded");
+	
+	
 	console.log("contenido de USR");
 	console.log(usr_data);
-	console.log(this_url);
 	$.post(this_url+'sys/', {
 
 		status_payment_button:usr_data,
@@ -215,53 +212,7 @@ function response_to_prometeo(usr_data){
 		try {
 
 			let rs = jQuery.parseJSON(r);
-			//console.log(rs);
-			function showStatusMessage(message) {
-                prodiv.hide();
-                holder.show();
-                holderbutton.show();
-                holderdetails.html(message);
-            }
-			if ( rs.status == 9 ) {
-				console.log("pending deposit : "+rs.status);
-				showStatusMessage('Recargando: $/' + prueba.kushki_value);
-                holderbutton.html('Espere un momento...');
-                setTimeout(function () {
-                    response_to_payphone(usr_data);
-                }, 3000);	
-			} else if ( rs.status ==  6 ){ 
-				console.log("new  : "+rs.status);
-                holderbutton.html('Espere un momento...');
-                setTimeout(function () {
-                    response_to_payphone(usr_data);
-                }, 3000);	
-			} else if ( rs.status ==  8 ){
-				console.log("pending payment : "+rs.status);
-                holderbutton.html('Espere un momento...');
-                setTimeout(function () {usr_data
-                    response_to_payphone(usr_active);
-                }, 3000);	
-			} else if ( rs.status ==  7 ){
-				console.log("paid : "+rs.status);
-				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
-                holderbutton.html('Salir');
-				holderbutton[0].style.cursor = 'default';	
-			} else if ( rs.status ==  10 ){
-				console.log("declined payment : "+rs.status);
-				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
-                holderbutton.html('Salir');
-				holderbutton[0].style.cursor = 'default';
-			} else if ( rs.status ==  11 ){
-				console.log("failed deposit : "+rs.status);
-				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
-                holderbutton.html('Salir');	
-			} else {
-				console.log("Error deposit: "+rs.status);
-				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
-                holderbutton.html('Contacta con nosotros');
-			}		
+			console.log(rs);
 		}
 		catch(err) {
 
