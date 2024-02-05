@@ -196,7 +196,7 @@ function onlyEnter(e){
 	  }
 }
 
-
+/*
 function response_to_prometeo(usr_data){
 
 	
@@ -222,5 +222,25 @@ function response_to_prometeo(usr_data){
 
 		}
 	});
+	
+}*/
+
+function response_to_prometeo(usr_data){
+
+	$.post(this_url + 'sys/', { status_payment_button: usr_data }, 
+    function(r, textStatus, xhr) {
+        try {
+            let rs = jQuery.parseJSON(r);
+            console.log(rs);
+        } catch (err) {
+            console.log("Error al procesar la respuesta del servidor:", err);
+        }
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        console.log("Error en la solicitud POST:", errorThrown);
+    });
+
+	
+	
 	
 }
