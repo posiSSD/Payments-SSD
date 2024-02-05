@@ -227,8 +227,8 @@ function response_to_prometeo(usr_active){
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
 
-	//console.log("response_to_prometeo - usr_active:");
-	//console.log(usr_active);
+	console.log("response_to_prometeo - usr_active:");
+	console.log(usr_active);
 
 	$.post(this_url + 'sys/', { status_payment_button: usr_active }, 
     function(r, textStatus, xhr) {

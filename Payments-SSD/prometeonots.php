@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     log_write($payphone_array_response); 
 
                     /////////////////// SAVE BD //////////////////////////////
-                    prometeo_api_transactions($payphone_array_response);
+                    //prometeo_api_transactions($payphone_array_response);
                      
 
                     //switch aprobacion transaccion
