@@ -127,15 +127,10 @@ function create_payment_button(){
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
 
-			/*
-			var usr_data = {};
-			usr_data.order_id = rs.id;
-			usr_data.unique_id = rs.unique_id;
-			usr_data.client_id = usr_active.client_id;*/
-			console.log("create_payment_button - usr_active:");
-			console.log(usr_active);
-			console.log("create_payment_button - rs:");
-			console.log(rs);
+			//console.log("create_payment_button - usr_active:");
+			//console.log(usr_active);
+			//console.log("create_payment_button - rs:");
+			//console.log(rs);
 			
 			if(rs.status==201){
 				
@@ -227,16 +222,70 @@ function response_to_prometeo(usr_data){
 
 function response_to_prometeo(usr_active){
 
-	console.log("response_to_prometeo - usr_active:");
-	console.log(usr_active);
+	let holder = $('#kushki_payment_holder');
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn');
+	let prodiv = $("#prometeoembeded");
+
+	//console.log("response_to_prometeo - usr_active:");
+	//console.log(usr_active);
 
 	$.post(this_url + 'sys/', { status_payment_button: usr_active }, 
     function(r, textStatus, xhr) {
         try {
             let rs = jQuery.parseJSON(r);
-            console.log(rs);
+            //console.log(rs);
+			function showStatusMessage(message) {
+                prodiv.hide();
+                holder.show();
+                holderbutton.show();
+                holderdetails.html(message);
+            }
+			if ( rs.status == 9 ) {
+				console.log("pending deposit : "+rs.status);
+				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_prometeo(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  6 ){ 
+				console.log("new  : "+rs.status);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_prometeo(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  8 ){
+				console.log("pending payment : "+rs.status);
+                holderbutton.html('Espere un momento...');
+                setTimeout(function () {
+                    response_to_prometeo(usr_active);
+                }, 3000);	
+			} else if ( rs.status ==  7 ){
+				console.log("paid : "+rs.status);
+				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
+				holderbutton[0].style.cursor = 'default';	
+			} else if ( rs.status ==  10 ){
+				console.log("declined payment : "+rs.status);
+				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
+                holderbutton.html('Salir');
+				holderbutton[0].style.cursor = 'default';
+			} else if ( rs.status ==  11 ){
+				console.log("failed deposit : "+rs.status);
+				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+                holderbutton.html('Salir');	
+			} else {
+				console.log("Error deposit: "+rs.status);
+				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
+				holderbutton[0].style.cursor = 'default';
+                holderbutton.html('Contacta con nosotros');
+			}	
+
         } catch (err) {
-            console.log("Error al procesar la respuesta del servidor:", err);
+            console.log(usr_active);
+			console.log(r);
+			console.log(err);
         }
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
