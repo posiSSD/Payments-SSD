@@ -29,6 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             log_write($_GET);
             log_write('_SERVER');
             log_write($_SERVER);
+            log_write('json');
+            log_write($data); 
 
             $a=[];
             $ret=[];
@@ -39,45 +41,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
 
             // DAR RESPUSETA AQUI A LA PETICION POST //
-
-            $response = [
-                'http_code' => 200,  // Puedes ajustar el código de respuesta según la lógica de tu aplicación
-                'status' => 'OK',
-                'response' => 'Tu mensaje de respuesta aquí',
-            ];
-
-            // Convertir la respuesta a formato JSON
-            $json_response = json_encode($response);
-
-            // Establecer los encabezados de respuesta
-            header('Content-Type: application/json');
-
-            // Imprimir la respuesta
-            echo $json_response;
-
-            // Fin de la ejecución del script
-            exit();
-
-
-
-
-
+            responsejson($data);
             // DAR RESPUSETA AQUI A LA PETICION POST //
 
             // construccion y ordenamiento de la data
             $payphone_array_response = dataconstruccion($data);
+            // DAR RESPUSETA AQUI A LA PETICION POST //
+            responsejson($payphone_array_response);
+            // DAR RESPUSETA AQUI A LA PETICION POST //
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
+
+
+                // DAR RESPUSETA AQUI A LA PETICION POST //
+                responsejson($payphone_array_response);
+                // DAR RESPUSETA AQUI A LA PETICION POST //
 
                 // revisa si existe el external_id en la BD
                 $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
                 if(!$status_prometeo_transactions){
 
+                    // DAR RESPUSETA AQUI A LA PETICION POST //
+                    responsejson($payphone_array_response);
+                    // DAR RESPUSETA AQUI A LA PETICION POST //
+
                     /////////////////// SAVE BD //////////////////////////////
                     prometeo_api_transactions($mysqli, $payphone_array_response);
                     /////////////////// LOGS - Guardar JSON //////////////////////////////
                     $payphone_array_response['Status_api_response'] = true;
-                    log_write('json');
-                    log_write($payphone_array_response); 
+                    //log_write('json');
+                    log_write($payphone_array_response['Status_api_response']); 
 
                     //switch aprobacion transaccion
                     switch ($payphone_array_response['event_type']) {
@@ -217,6 +209,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $data['Status_api_response'] = false;
                     log_write('json');
                     log_write($data); 
+                    $payphone_array_response['Status_api_response'] = true;
+                    //log_write('json');
+                    log_write($payphone_array_response['Status_api_response']);
                     
 
                 }
@@ -289,5 +284,22 @@ function consolelogdata($data) {
     echo 'console.log("'. $pFunction . '");';
     echo 'console.log(": ", ' . json_encode($data) . ');';
     echo '</script>';
+}
+
+function responsejson($data) {
+
+    // DAR RESPUSETA AQUI A LA PETICION POST //
+    $response = [
+        'http_code' => 200,  // Puedes ajustar el código de respuesta según la lógica de tu aplicación
+        'status' => 'OK',
+        'response' => $data,
+    ];
+    // Convertir la respuesta a formato JSON
+    $json_response = json_encode($response);
+    // Establecer los encabezados de respuesta
+    header('Content-Type: application/json');
+    // Imprimir la respuesta
+    echo $json_response;
+    // DAR RESPUSETA AQUI A LA PETICION POST //
 }
 ?>
