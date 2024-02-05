@@ -46,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // construccion y ordenamiento de la data
             $payphone_array_response = dataconstruccion($data);
+
             // DAR RESPUSETA AQUI A LA PETICION POST //
             responsejson($payphone_array_response);
             // DAR RESPUSETA AQUI A LA PETICION POST //
+            
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
 
 
