@@ -465,8 +465,9 @@ function pprometeo_api_transactions($data = false) {
         $insert_arr['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $insert_arr['intent_id'] = isset($data['intent_id']) ? $data['intent_id'] : null;
         $insert_arr['external_id'] = isset($data['external_id']) ? $data['external_id'] : null;
+		/*
         $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
-        $insert_arr['created_at'] = $fecha_hora_actual->format('Y-m-d H:i:s');
+        $insert_arr['created_at'] = $fecha_hora_actual->format('Y-m-d H:i:s');*/
 
         $data_to_db = data_to_db($insert_arr); // Asegúrate de que esta función esté definida.
         $insert_command = "INSERT INTO {$db}.{$table} (";
