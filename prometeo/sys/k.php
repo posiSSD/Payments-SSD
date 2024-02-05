@@ -6,9 +6,8 @@ include 'helpers.php';
 $ret["status"] = 500;
 $ret["return"] = "Error";
 
-if(isset($_POST['kushki_create_payment_button'])){
+if(isset($_POST['create_payment_button'])){
 	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
-
 	// clientTransactionId
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['create_payment_button']['status'] = 6;
@@ -66,3 +65,9 @@ if(isset($_POST['status_payment_button'])){
 	echo json_encode($ret_res);
 }
 
+/*
+if(isset($_POST['status_payment_button'])){
+	
+	echo json_encode($ret);
+}
+*/

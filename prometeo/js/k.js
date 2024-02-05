@@ -81,7 +81,7 @@ function build_form(rs){
 					prueba.kushki_value = Number(input.val());
 					//console.log("valor de usr_active es: "+usr_active+" y el value es: "+ prueba.kushki_value);
 
-					kushki_create_payment_button();
+					create_payment_button();
 				}
 			}else{
 				input.addClass('is-invalid');
@@ -90,8 +90,8 @@ function build_form(rs){
 		});
 		// btn.delay(500).click(); //test
 }
-function kushki_create_payment_button(){
-	console.log("kushki_create_payment_button");
+function create_payment_button(){
+	console.log("create_payment_button");
 	
 	
 	
@@ -118,7 +118,7 @@ function kushki_create_payment_button(){
 
 	$.post(this_url+'sys/', 
 	{
-		kushki_create_payment_button:usr_active,
+		create_payment_button:usr_active,
 	}, 
 	function(r, textStatus, xhr) {
 		
@@ -132,9 +132,9 @@ function kushki_create_payment_button(){
 			usr_data.order_id = rs.id;
 			usr_data.unique_id = rs.unique_id;
 			usr_data.client_id = usr_active.client_id;*/
-			console.log("kushki_create_payment_button - usr_active:");
+			console.log("create_payment_button - usr_active:");
 			console.log(usr_active);
-			console.log("kushki_create_payment_button - rs:");
+			console.log("create_payment_button - rs:");
 			console.log(rs);
 			
 			if(rs.status==201){
