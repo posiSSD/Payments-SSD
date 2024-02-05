@@ -421,7 +421,7 @@ function prometeo_bd_details($trans=false){
 		$where.= " AND payment_id = '".$trans['payment_id']."'";
 	}
 	if(array_key_exists('id_usuario', $trans)){
-		$where.= " AND client_id = '".$trans['id_usuario']."'";
+		$where.= " AND id_usuario = '".$trans['id_usuario']."'";
 	}
 
 	$get_command = "SELECT * FROM {$db}.{$table} WHERE {$where}";
@@ -657,24 +657,5 @@ function generateexpires_at() {
     return $expiresAtISO8601;
 }
 
-/*
-function consolelogdata($data) {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
 
-    echo '<script>';
-    echo 'console.log("'. $pFunction . '");';
-    echo 'console.log(": ", ' . json_encode($data) . ');';
-    echo '</script>';
-}
-*/
-/*
-function consolelogdata($data) {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
-
-    echo 'console.log("'. $pFunction . '");';
-    echo 'console.log(": ", ' . json_encode($data) . ');';
-}
-*/
 ?> 

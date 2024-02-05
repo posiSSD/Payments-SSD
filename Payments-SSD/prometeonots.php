@@ -64,8 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             // obtener client_id, amount,  
                             $data_array_response_details = prometeo_bd_details($payphone_array_response);
+                            consolelogdata($data_array_response_details);
                             // DAR RESPUSETA AQUI A LA PETICION POST //
-                            responsejson($data_array_response_details);
+                            //($data_array_response_details);
                             // DAR RESPUSETA AQUI A LA PETICION POST //
 
                             $new_trans=[];
@@ -285,4 +286,5 @@ function responsejson($data) {
     echo $json_response;
     // DAR RESPUSETA AQUI A LA PETICION POST //
 }
+
 ?>
