@@ -97,6 +97,7 @@ function kushki_create_payment_button(){
 	
 	usr_active.this_url = this_url;
 	usr_active.kushki_value = prueba.kushki_value;
+
 	//console.log(usr_active);
 	//////////////////////////////////////////
 	let holder = $('#kushki_payment_holder');
@@ -130,9 +131,11 @@ function kushki_create_payment_button(){
 			var usr_data = {};
 			usr_data.order_id = rs.id;
 			usr_data.unique_id = rs.unique_id;
-			usr_data.client_id = rs.client_id;
-
+			usr_data.client_id = usr_active.client_id;
+			console.log("contenido de usr_active:");
 			console.log(usr_active);
+			console.log("contenido de rs:");
+			console.log(rs);
 			
 			if(rs.status==201){
 				
