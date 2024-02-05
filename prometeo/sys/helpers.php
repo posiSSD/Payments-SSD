@@ -151,7 +151,6 @@ function create_or_update_transaction($trans=false){
 		echo "\n";
 		exit();
 	}
-	consolelogdata($trans);
 	return $trans;
 }
 function kushki_create_payment_button($client=false){
