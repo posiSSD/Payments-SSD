@@ -41,9 +41,6 @@ if(isset($_POST['kushki_create_payment_button'])){
 	echo json_encode($ret);
 }
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 if(isset($_POST['status_payment_button'])){
 	$data = $_POST['status_payment_button'];
 
@@ -60,12 +57,12 @@ if(isset($_POST['status_payment_button'])){
 		// declined payment = order declined by payment method 10
 		// failed deposit = deposit failed by wallet 11
 		$ret_res = $status_payment;
-		echo json_encode($ret_res);
+		
 
 	} else {
 		$ret_res['status'] = null;
 	}
 
-	
+	echo json_encode($ret_res);
 }
 
