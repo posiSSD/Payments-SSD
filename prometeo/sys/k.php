@@ -13,8 +13,6 @@ if(isset($_POST['kushki_create_payment_button'])){
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['create_payment_button']['status'] = 6;
 
-	consolelogdata($_POST['kushki_create_payment_button']);
-
 	create_or_update_transaction($_POST['create_payment_button']);
 	$kushki_create_payment_button = kushki_create_payment_button($_POST['create_payment_button']);
 
