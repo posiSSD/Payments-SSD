@@ -127,14 +127,14 @@ function kushki_create_payment_button(){
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
 
-
+			/*
 			var usr_data = {};
 			usr_data.order_id = rs.id;
 			usr_data.unique_id = rs.unique_id;
-			usr_data.client_id = usr_active.client_id;
-			console.log("contenido de usr_active:");
+			usr_data.client_id = usr_active.client_id;*/
+			console.log("kushki_create_payment_button - usr_active:");
 			console.log(usr_active);
-			console.log("contenido de rs:");
+			console.log("kushki_create_payment_button - rs:");
 			console.log(rs);
 			
 			if(rs.status==201){
@@ -144,7 +144,7 @@ function kushki_create_payment_button(){
 				proframe.attr("src", rs.url);
 				proframe.show();
 
-				response_to_prometeo(usr_data);
+				response_to_prometeo(usr_active);
 				
 			}else{
 				$('#kushki_payment_form').remove();
@@ -225,9 +225,12 @@ function response_to_prometeo(usr_data){
 	
 }*/
 
-function response_to_prometeo(usr_data){
+function response_to_prometeo(usr_active){
 
-	$.post(this_url + 'sys/', { status_payment_button: usr_data }, 
+	console.log("response_to_prometeo - usr_active:");
+	console.log(usr_active);
+
+	$.post(this_url + 'sys/', { status_payment_button: usr_active }, 
     function(r, textStatus, xhr) {
         try {
             let rs = jQuery.parseJSON(r);
