@@ -200,8 +200,9 @@ function response_to_prometeo(usr_data){
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
+	console.log("contenido de USR");
 	console.log(usr_data);
-
+	console.log(this_url);
 	$.post(this_url+'sys/', {
 
 		status_payment_button:usr_data,

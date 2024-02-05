@@ -44,8 +44,9 @@ if(isset($_POST['kushki_create_payment_button'])){
 
 
 if(isset($_POST['status_payment_button'])){
+	$data = $_POST['status_payment_button'];
 
-	consolelogdata($_POST['status_payment_button']);
+	consolelogdata($data);
 	// unique_id / client_id / order_id
 	$d=[];
 	$d['client_id']=$_POST['status_payment_button']['client_id'];
