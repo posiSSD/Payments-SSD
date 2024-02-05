@@ -41,16 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
 
             // DAR RESPUSETA AQUI A LA PETICION POST //
-            responsejson($data);
+            //responsejson($data);
             // DAR RESPUSETA AQUI A LA PETICION POST //
 
             // construccion y ordenamiento de la data
             $payphone_array_response = dataconstruccion($data);
 
-            // DAR RESPUSETA AQUI A LA PETICION POST //
-            responsejson($payphone_array_response);
-            // DAR RESPUSETA AQUI A LA PETICION POST //
-            
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
 
 
@@ -62,12 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
                 if(!$status_prometeo_transactions){
 
-                    // DAR RESPUSETA AQUI A LA PETICION POST //
-                    responsejson($payphone_array_response);
-                    // DAR RESPUSETA AQUI A LA PETICION POST //
 
                     /////////////////// SAVE BD //////////////////////////////
-                    prometeo_api_transactions($mysqli, $payphone_array_response);
+                    prometeo_api_transactions($payphone_array_response);
                     /////////////////// LOGS - Guardar JSON //////////////////////////////
                     $payphone_array_response['Status_api_response'] = true;
                     //log_write('json');
@@ -79,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             // obtener client_id, amount,  
                             $data_array_response_details = prometeo_bd_details($payphone_array_response);
-                            consolelogdata($data_array_response_details); 
+                            // DAR RESPUSETA AQUI A LA PETICION POST //
+                            responsejson($data_array_response_details);
+                            // DAR RESPUSETA AQUI A LA PETICION POST //
 
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
@@ -290,14 +285,8 @@ function consolelogdata($data) {
 
 function responsejson($data) {
 
-    // DAR RESPUSETA AQUI A LA PETICION POST //
-    $response = [
-        'http_code' => 200,  // Puedes ajustar el código de respuesta según la lógica de tu aplicación
-        'status' => 'OK',
-        'response' => $data,
-    ];
     // Convertir la respuesta a formato JSON
-    $json_response = json_encode($response);
+    $json_response = json_encode($data);
     // Establecer los encabezados de respuesta
     header('Content-Type: application/json');
     // Imprimir la respuesta

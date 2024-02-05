@@ -53,7 +53,7 @@ function data_to_db($d){
 	}
 	return $ret;
 }*/
-function kushki_get_transaction($trans=false){
+function get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
 
@@ -526,11 +526,11 @@ function dataconstruccion($data) {
     $data_array['intent_id'] = isset($payload['intent_id']) ? $payload['intent_id'] : null;
     $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : consultaintent($data_array['intent_id']);
 
-    $trans = kushki_get_transaction(['unique_id'=>$payphone_array_response['external_id']]);
+    $trans = get_transaction(['unique_id'=>$data_array['external_id']]);
     $data_array['id_usuario'] = $trans['client_id'];
                     
 
-    consolelogdata($data_array);
+    //consolelogdata($data_array);
 
     return $data_array;
     
