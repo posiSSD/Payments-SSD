@@ -59,6 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if(!$status_prometeo_transactions){
 
 
+                    // DAR RESPUSETA AQUI A LA PETICION POST //
+                    responsejson($status_prometeo_transactions);
+                    // DAR RESPUSETA AQUI A LA PETICION POST //
+
                     /////////////////// SAVE BD //////////////////////////////
                     prometeo_api_transactions($payphone_array_response);
                     /////////////////// LOGS - Guardar JSON //////////////////////////////
