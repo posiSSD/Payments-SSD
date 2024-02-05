@@ -37,6 +37,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = [];
             $limit_try = 0;
             
+
+            // DAR RESPUSETA AQUI A LA PETICION POST //
+
+            $response = [
+                'http_code' => 200,  // Puedes ajustar el código de respuesta según la lógica de tu aplicación
+                'status' => 'OK',
+                'response' => 'Tu mensaje de respuesta aquí',
+            ];
+
+            // Convertir la respuesta a formato JSON
+            $json_response = json_encode($response);
+
+            // Establecer los encabezados de respuesta
+            header('Content-Type: application/json');
+
+            // Imprimir la respuesta
+            echo $json_response;
+
+            // Fin de la ejecución del script
+            exit();
+
+
+
+
+
+            // DAR RESPUSETA AQUI A LA PETICION POST //
+
             // construccion y ordenamiento de la data
             $payphone_array_response = dataconstruccion($data);
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
