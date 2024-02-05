@@ -44,14 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // revisa si existe el external_id en la BD
             $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
             if(!$status_prometeo_transactions){
-
+                prometeo_api_transactions($payphone_array_response);
                 //false//
                 /////////////////// LOGS - Guardar JSON //////////////////////////////
                 $data['Status_api_response'] = true;
                 log_write($data); 
 
                 /////////////////// SAVE BD //////////////////////////////
-                prometeo_api_transactions($payphone_array_response);
+                
                  
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
