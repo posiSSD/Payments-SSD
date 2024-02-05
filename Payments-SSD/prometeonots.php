@@ -38,30 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = 'Error';
             $response = [];
             $limit_try = 0;
-            
-
-            // DAR RESPUSETA AQUI A LA PETICION POST //
-            //responsejson($data);
-            // DAR RESPUSETA AQUI A LA PETICION POST //
-
+                      
             // construccion y ordenamiento de la data
             $payphone_array_response = dataconstruccion($data);
 
             if(isset($payphone_array_response) && array_key_exists('external_id', $payphone_array_response) && array_key_exists('id_usuario', $payphone_array_response)) {
 
-
                 // DAR RESPUSETA AQUI A LA PETICION POST //
                 responsejson($payphone_array_response);
-                // DAR RESPUSETA AQUI A LA PETICION POST //
+               
 
                 // revisa si existe el external_id en la BD
                 $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
                 if(!$status_prometeo_transactions){
 
-
                     // DAR RESPUSETA AQUI A LA PETICION POST //
                     responsejson($status_prometeo_transactions);
-                    // DAR RESPUSETA AQUI A LA PETICION POST //
 
                     /////////////////// SAVE BD //////////////////////////////
                     prometeo_api_transactions($payphone_array_response);
