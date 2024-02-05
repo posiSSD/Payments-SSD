@@ -45,28 +45,11 @@ if(isset($_POST['kushki_create_payment_button'])){
 
 if(isset($_POST['status_payment_button'])){
 	$data = $_POST['status_payment_button'];
-	consolelogdata($data);
-
-	// Registra los datos de la solicitud POST y cualquier otro mensaje de error específico
-    $error_message = 'Mensaje de error específico: ' . json_encode($_POST);
-    error_log($error_message, 0);
-    consolelogdata($error_message);
-
-	// unique_id / client_id / order_id
-	/*
-	$d=[];
-	$d['order_id']=$_POST['status_payment_button']['order_id'];
-	$d['unique_id']=$_POST['status_payment_button']['unique_id'];
-	$d['client_id']=$_POST['status_payment_button']['client_id'];
-	*/
-    
-    
-
+	$status_payment = status_transaction($data);
 	$ret_res = [];
-	$status_payment_button = status_transaction($data);
-	consolelogdata($data);
+	
 
-	if(array_key_exists('status', $status_payment_button)){
+	if(array_key_exists('status', $status_payment)){
 
 		// new = waiting order_id 6
 		// paid = money in client wallet 7
@@ -74,6 +57,7 @@ if(isset($_POST['status_payment_button'])){
 		// pending deposit = waiting confirmation from wallet 9
 		// declined payment = order declined by payment method 10
 		// failed deposit = deposit failed by wallet 11
+		$ret_res = $status_payment;
 		echo json_encode($ret_res);
 
 	} else {
@@ -83,13 +67,3 @@ if(isset($_POST['status_payment_button'])){
 	
 }
 
-function consolelogdata($data) {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
-
-    echo '<script>';
-    echo 'console.log("'. $pFunction . '");';
-    echo 'console.log(": ", ' . json_encode($data) . ');';
-    echo '</script>';
-}  
-?> 
