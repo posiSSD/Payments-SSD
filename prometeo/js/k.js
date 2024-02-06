@@ -243,7 +243,7 @@ function response_to_prometeo(usr_active){
             }
 			if ( rs.status == 9 ) {
 				console.log("pending deposit : "+rs.status);
-				showStatusMessage('Recargando: $/' + prueba.kushki_value);
+				//showStatusMessage('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_prometeo(usr_active);
@@ -262,9 +262,12 @@ function response_to_prometeo(usr_active){
                 }, 3000);	
 			} else if ( rs.status ==  7 ){
 				console.log("paid : "+rs.status);
-				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
-                holderbutton.html('Salir');
-				holderbutton[0].style.cursor = 'default';	
+				setTimeout(function () {
+                    showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
+					holderbutton.html('Salir');
+					holderbutton[0].style.cursor = 'default';
+                }, 10000);
+					
 			} else if ( rs.status ==  10 ){
 				console.log("declined payment : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);

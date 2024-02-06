@@ -125,6 +125,9 @@ function create_or_update_transaction($trans=false){
 		if(isset($trans['wallet_id'])){
 			$insert_arr['wallet_id']=$trans['wallet_id'];
 		}
+		if(isset($trans['updated_at'])){
+			$insert_arr['updated_at']=$trans['updated_at'];
+		}
 
 
 	$data_to_db = data_to_db($insert_arr);
@@ -436,7 +439,7 @@ function consultId($externalId, $mysqli) {
 	return $idSel;
 }
 
-function pprometeo_api_transactions($data = false) {
+function prometeo_api_transactions($data = false) {
     global $mysqli;
 
     if ($data !== null) {

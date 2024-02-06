@@ -75,6 +75,7 @@ if (!$status_payphone_transactions){
                         if ($bc_deposit['http_code']==200){
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['client_id']=$data_array_response_details['client_id'];
                             $new_trans['status']=7; // 3=paid
                             $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
                             $new_trans['payment_id']=$payphone_array_response['transactionId'];
@@ -86,6 +87,7 @@ if (!$status_payphone_transactions){
                         } elseif ($bc_deposit['http_code']==400){
                             $new_trans=[];
                             $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                            $new_trans['client_id']=$data_array_response_details['client_id'];
                             $new_trans['status']=10; // 11 failed deposit
                             create_or_update_transaction($new_trans);
                             $ret['http_code']=400;

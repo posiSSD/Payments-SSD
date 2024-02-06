@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if(isset($data)) {
 
+            ////////////////////TIME///////////////////////////////
+            $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
+
             /////////////////// LOGS //////////////////////////////
             $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
             $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
@@ -45,25 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
             if(!$status_prometeo_transactions){
 
-                $data['Status_api_response'] = true;
-                $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
-                $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
-                log_write($data); 
-                log_write('datos');
-                $fecha_hora_actual = new DateTime('now', new DateTimeZone('America/Lima'));
+                prometeo_api_transactions($payphone_array_response);
+
+                $payphone_array_response['response'] = "True";
                 $payphone_array_response['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($payphone_array_response);
-
-                //prometeo_api_transactions($payphone_array_response);
-                
-                 
+              
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
                     case "payment.success":
                         
-                        // obtener client_id, amount,  
-                        //$data_array_response_details = prometeo_bd_details($payphone_array_response);
-        
                         $new_trans=[];
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
@@ -85,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 if ($bc_deposit['http_code']==200){
                                     $new_trans=[];
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
+                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
                                     $new_trans['status']=7; // 3=paid
                                     $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
                                     $new_trans['payment_id']=$payphone_array_response['intent_id'];
@@ -98,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
                                     $new_trans['client_id']=$payphone_array_response['id_usuario'];
                                     $new_trans['status']=10; // 11 failed deposit
+                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
                                     create_or_update_transaction($new_trans);
                                     $ret['http_code']=400;
                                     $ret['status']='denied';
@@ -108,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
                                     $new_trans['client_id']=$payphone_array_response['id_usuario'];
                                     $new_trans['status']=10; // 11 failed deposit
+                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
                                     create_or_update_transaction($new_trans);
                                     $ret['http_code']=408;
                                     $ret['status']='timeout';
@@ -117,18 +114,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $new_trans=[];
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
                                     $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=10; 
+                                    $new_trans['status']=10;
+                                    $new_trans['payment_id']=$payphone_array_response['intent_id']; 
                                     create_or_update_transaction($new_trans);
                                     $ret['http_code']=402;
                                     $ret['status']='Validator fail';
                                     $ret['response']='Order '.$transaccion.' Validator fail';
                                     api_ret($ret);
                                 } else {
-                                    $bc_deposit['http_code'] = 500;
+                                    
                                     $new_trans=[];
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
                                     $new_trans['client_id']=$payphone_array_response['id_usuario'];
                                     $new_trans['status']=11; // 11 failed deposit
+                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
                                     create_or_update_transaction($new_trans);
                                     $ret['http_code']=500;
                                     $ret['status']='Error';
@@ -145,17 +144,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     case "payment.error":
                         
-                        // obtener client_id, amount,  
-                        $data_array_response_details = prometeo_bd_details($payphone_array_response);
-                        consolelogdata($data_array_response_details); 
-
                         $new_trans=[];
                         $new_trans['unique_id']=$data_array_response_details['unique_id'];
                         $new_trans['client_id']=$data_array_response_details['client_id'];
                         $new_trans['status']=9; // 3=pending deposit
                         $new_trans['payment_id']=$status_prometeo_transactions['intent_id'];
                         create_or_update_transaction($new_trans);
-                        sleep(10);
+                        
 
                     break;
 
@@ -193,16 +188,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 }
 
-            }else{
+            } else {
 
-                $data['Status_api_response'] = false;
+                $data['response'] = "False";
+                $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write('json');
                 log_write($data); 
-                $payphone_array_response['Status_api_response'] = true;
-                //log_write('json');
-                log_write($payphone_array_response['Status_api_response']);
-                
-
+               
             }
                                             
         } 
