@@ -23,6 +23,10 @@ function payment_deposit($request){
     ////consolelogdata($payment_curl); 
 
     if ($payment_curl) {
+
+        $payment_curl['response']['account'] = $request['request']['account'];
+        $payment_curl['response']['amount'] = $request['request']['amount'];
+
         if ($payment_curl["response"]["code"] == 0) {
             $insert_db_new = [];
             $$insert_db_new['id'] = $transaction_id['id'];
@@ -30,8 +34,6 @@ function payment_deposit($request){
 
             update_tbl_transactions($insert_db_new );
 
-            $payment_curl['response']['account'] = $request['request']['account'];
-            $payment_curl['response']['amount'] = $request['request']['amount'];
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
             //$payment_curl["response"]["code"]
@@ -39,10 +41,12 @@ function payment_deposit($request){
             return ['http_code' => $payment_curl["response"]["code"], 'status' => 'Error', 'result' => $payment_curl["response"]];
         }
     } else {
-        return ['http_code' => 408, 'status' => 'Error', 'result' => $transaction_id];
+        return ['http_code' => 408, 'status' => 'Error BC', 'result' => $transaction_id];
     }   
 }   
 function payment_curl($url_data){
+
+    // limittry $limittry = 0;
 
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
@@ -60,6 +64,55 @@ function payment_curl($url_data){
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
 
     //consolelogdata($bc_url);
+
+    /*  
+        $responseISE = [ 'response' => [ 'code' => 500, 'message' => 'Internal Server Error', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
+        $responseDTN = [ 'response' => [ 'code' => 12, 'message' => 'Duplicate transaction number', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
+        $responseOT = [ 'response' => [ 'code' => 408, 'message' => 'Time Out', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
+
+        $possibleResponses = [$responseISE, $responseDTN, $responseOT];
+
+        if(limittry $limittry == 2){
+
+            $paymentExecuted = false;
+            if (!$paymentExecuted) {
+                $curl = curl_init($bc_url);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_POST, false);
+                curl_setopt($curl, CURLOPT_TIMEOUT,6);
+                
+                $response = curl_exec($curl);
+                consolelogdata($response);
+
+                // Establecer la bandera como verdadera después de la ejecución
+                $paymentExecuted = true;
+
+                insert_tbl_api_activities($url_data, $bc_url, $response);
+                
+                if($response){
+                    $response_arr = json_decode($response,true);
+                    if(is_array($response_arr)){
+                        if(array_key_exists("txn_id",$url_data)){
+                                $response_arr["response"]["txn_id"]=$url_data["txn_id"];
+                        }
+                        consolelogdata($response_arr); 
+                        return $response_arr;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+
+            }	
+
+        }else{
+
+            $randomResponseIndex = array_rand($possibleResponses);
+            $randomResponseIndex ["response"]["txn_id"]=$url_data["txn_id"];
+            return randomResponseIndex; 
+        }
+    */
 
     // Bandera para evitar ejecutar la función más de una vez
     $paymentExecuted = false;
@@ -105,8 +158,8 @@ function insert_tbl_transactions($insert_db) {
     $client_id = $insert_db['account'] ?? 0;
     $amount = $insert_db['amount'] ?? 0;
     $status = $insert_db['status'] ?? 0;
-    $created_at = date('Y-m-d H:i:s');
-    $updated_at = date('Y-m-d H:i:s');
+    $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
+    $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
     $payment_method = $insert_db['payment_method'];
 
     $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method)
@@ -141,7 +194,7 @@ function update_tbl_transactions($insert_db) {
 
     $transaction_id = $insert_db['id'];
     $status = $insert_db['status'];
-    $updated_at = date('Y-m-d H:i:s'); 
+    $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s'); 
 
     $sql_update = "UPDATE $table SET status = ?, updated_at = ? WHERE id = ?";
     $stmt_update = $mysqli_kushkipayment->prepare($sql_update);

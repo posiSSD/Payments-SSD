@@ -47,15 +47,6 @@ function paymente_bc($request){
     } else if ($response['http_code'] == 400){
 
         $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
-
-        $data_activiy = [
-            'transaction_id' => $transaction['id'],
-            'http_code' 	 => '200',
-            'result'		 =>  $response['result'],
-            'status' 		 => '3',
-            'ip_address'      => $request['ip_address'],
-            'method'         => $request['payment_method']
-        ]; 
         
         $data_activiy = [
             'transaction_id' => $transaction['id'],

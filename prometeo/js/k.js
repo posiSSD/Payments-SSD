@@ -126,11 +126,6 @@ function create_payment_button(){
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
-
-			//console.log("create_payment_button - usr_active:");
-			//console.log(usr_active);
-			//console.log("create_payment_button - rs:");
-			//console.log(rs);
 			
 			if(rs.status==201){
 				
@@ -190,35 +185,6 @@ function onlyEnter(e){
 		e.preventDefault();
 	  }
 }
-
-/*
-function response_to_prometeo(usr_data){
-
-	
-	
-	console.log("contenido de USR");
-	console.log(usr_data);
-	$.post(this_url+'sys/', {
-
-		status_payment_button:usr_data,
-
-	}, 
-	function(r, textStatus, xhr) {
-		try {
-
-			let rs = jQuery.parseJSON(r);
-			console.log(rs);
-		}
-		catch(err) {
-
-			console.log(usr_active);
-			console.log(r);
-			console.log(err);
-
-		}
-	});
-	
-}*/
 
 function response_to_prometeo(usr_active){
 
