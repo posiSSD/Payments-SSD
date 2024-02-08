@@ -192,6 +192,7 @@ function response_to_prometeo(usr_active){
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
+	let iframeBody = document.body;
 
 	//console.log("response_to_prometeo - usr_active:");
 	//console.log(usr_active);
@@ -208,47 +209,62 @@ function response_to_prometeo(usr_active){
                 holderdetails.html(message);
             }
 			if ( rs.status == 9 ) {
-				console.log("pending deposit : "+rs.status);
-				//showStatusMessage('Recargando: $/' + prueba.kushki_value);
-                holderbutton.html('Espere un momento...');
-                setTimeout(function () {
-                    response_to_prometeo(usr_active);
-                }, 3000);	
-			} else if ( rs.status ==  6 ){ 
-				console.log("new  : "+rs.status);
+				console.log("pending BC : "+rs.status);
+				holderdetails.html('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_prometeo(usr_active);
                 }, 3000);	
 			} else if ( rs.status ==  8 ){
 				console.log("pending payment : "+rs.status);
+				holderdetails.html('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_prometeo(usr_active);
                 }, 3000);	
-			} else if ( rs.status ==  7 ){
+			} 
+			
+			////////////////////////////////////////////////////////
+				else if ( rs.status ==  7 ){
 				console.log("paid : "+rs.status);
 				setTimeout(function () {
                     showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
 					holderbutton.html('Salir');
-					holderbutton[0].style.cursor = 'default';
+					iframeBody.style.background
+					//holderbutton[0].style.cursor = 'default';
+					iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
+					iframeBody.style.backgroundSize = "100% auto";
+					iframeBody.style.backgroundRepeat = "no-repeat";
+					iframeBody.style.backgroundPosition = "center";
                 }, 10000);
 					
 			} else if ( rs.status ==  10 ){
 				console.log("declined payment : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
-				holderbutton[0].style.cursor = 'default';
+				//holderbutton[0].style.cursor = 'default';
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
 			} else if ( rs.status ==  11 ){
 				console.log("failed deposit : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
 				holderbutton[0].style.cursor = 'default';
-                holderbutton.html('Salir');	
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
+                //holderbutton.html('Salir');	
 			} else {
 				console.log("Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
+				//holderbutton[0].style.cursor = 'default';
                 holderbutton.html('Contacta con nosotros');
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
 			}	
 
         } catch (err) {
