@@ -231,11 +231,11 @@ function response_to_prometeo(usr_active){
                     showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
 					holderbutton.html('Salir');
 					iframeBody.style.background
-					//holderbutton[0].style.cursor = 'default';
 					iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
 					iframeBody.style.backgroundSize = "100% auto";
 					iframeBody.style.backgroundRepeat = "no-repeat";
 					iframeBody.style.backgroundPosition = "center";
+					holderbutton[0].style.cursor = 'default';
                 }, 10000);
 					
 			} else if ( rs.status ==  10 ){
