@@ -28,13 +28,13 @@ if (authData) {
                 metodo_tb = opcionSeleccionada.trim().toLowerCase();
             }
 
-            console.log('Seleccion: ', metodo_tb);
-
         } catch (error){
             console.error('Error: ', error);
         }
         
     } while (carruselActivo == false);
+
+    console.log('Paso 1: ', metodo_tb);
 
 
     // Seleccionar el elemento del input de cantidad por su ID
@@ -50,10 +50,13 @@ if (authData) {
             // Seleccionar el div del modal por su clase específica
             var modalContentDiv = document.querySelector('.v3-modal-content');
 
-            // Ocultar otras partes del modal
-            modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+            if(!modalContentDiv){
+                // Ocultar otras partes del modal
+                modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
 
-            console.log(modalContentDiv);
+            }else{
+                console.log("Not found .v3-modal-content");
+            }
 
         } catch (error){
             console.error('Error: ', error);
@@ -62,40 +65,52 @@ if (authData) {
 
     } while (modalContentDiv == false);
 
+    console.log('Paso 2: ', modalContentDiv);
 
-    // Establecer las propiedades CSS para el modal y el iframe
-    var modalAndIframeStyles = `
-    width: 100%;
-    height: 100vh;
-    max-width: 450px;
-    max-height: 902px;
-    border: none;
-    overflow: hidden;
-    text-align: center;
-    justify-content: center;
-    `;
+    do{
+        if(!modalContentDiv && !carruselActivo) {
 
-    // Aplicar las propiedades CSS al modal
-    modalContentDiv.style.cssText = modalAndIframeStyles;
+            // Establecer las propiedades CSS para el modal y el iframe
+            var modalAndIframeStyles = `
+            width: 100%;
+            height: 100vh;
+            max-width: 450px;
+            max-height: 902px;
+            border: none;
+            overflow: hidden;
+            text-align: center;
+            justify-content: center;
+            `;
 
-    // Crear la URL de redirección con los parámetros necesarios
-    var array_authData = {
-        auth_token: auth_token,
-        user_id: user_id,
-        metodo: metodo_tb
-    };
+            // Aplicar las propiedades CSS al modal
+            modalContentDiv.style.cssText = modalAndIframeStyles;
 
-    // Crear el iframe
-    var iframe = document.createElement('iframe');
-    iframe.id = 'prometeoframe';
-    iframe.style.cssText = modalAndIframeStyles;
+            // Crear la URL de redirección con los parámetros necesarios
+            var array_authData = {
+                auth_token: auth_token,
+                user_id: user_id,
+                metodo: metodo_tb
+            };
 
-    // Construir la URL de redirección con los parámetros
-    var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
-    iframe.src = redirectUrl;
+            // Crear el iframe
+            var iframe = document.createElement('iframe');
+            iframe.id = 'prometeoframe';
+            iframe.style.cssText = modalAndIframeStyles;
 
-    // Agregar el iframe al contenido del modal
-    modalContentDiv.appendChild(iframe);
+            // Construir la URL de redirección con los parámetros
+            var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+            iframe.src = redirectUrl;
+
+            // Agregar el iframe al contenido del modal
+            modalContentDiv.appendChild(iframe);
+
+        }else{
+            console.log('Paso 3: Not found yet');
+        }
+    } while(!modalContentDiv && !carruselActivo);
+
+
+    
 
 
 }
