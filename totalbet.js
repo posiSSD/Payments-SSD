@@ -40,8 +40,7 @@ if (authData) {
     // Seleccionar el elemento del input de cantidad por su ID
     var inputCantidad = document.getElementById('amount');
             
-    // Convertir el objeto en una cadena JSON y codificarla
-    var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+    
 
     do {
 
@@ -95,6 +94,9 @@ if (authData) {
                     user_id: user_id,
                     metodo: metodo_tb
                 };
+
+                // Convertir el objeto en una cadena JSON y codificarla
+                var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
     
                 // Crear el iframe
                 var iframe = document.createElement('iframe');
