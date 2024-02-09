@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $payphone_array_response['response'] = "True";
                 $payphone_array_response['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write($payphone_array_response);
+                                        
               
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
@@ -145,44 +146,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     case "payment.error":
                         
                         $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['client_id']=$data_array_response_details['client_id'];
-                        $new_trans['status']=9; // 3=pending deposit
-                        $new_trans['payment_id']=$status_prometeo_transactions['intent_id'];
+                        $new_trans['unique_id']=$payphone_array_response['external_id'];
+                        $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                        $new_trans['status']=11; // 3=paid
+                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
-                        
+                        $ret['http_code']=408;
+                        $ret['status']='Error';
+                        $ret['response']='payment.error';
+                        api_ret($ret);
 
                     break;
 
                     case "payment.rejected":
-                        
-                        // obtener client_id, amount,  
-                        $data_array_response_details = prometeo_bd_details($payphone_array_response);
-                        consolelogdata($data_array_response_details); 
 
                         $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['client_id']=$data_array_response_details['client_id'];
-                        $new_trans['status']=9; // 3=pending deposit
-                        $new_trans['payment_id']=$status_prometeo_transactions['intent_id'];
+                        $new_trans['unique_id']=$payphone_array_response['external_id'];
+                        $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                        $new_trans['status']=10; 
+                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
-                        sleep(10);
+                        $ret['http_code']=400;
+                        $ret['status']='rejected';
+                        $ret['response']='payment.rejected';
+                        api_ret($ret);
 
                     break;
 
                     case "payment.cancelled":
                         
-                        // obtener client_id, amount,  
-                        $data_array_response_details = prometeo_bd_details($payphone_array_response);
-                        consolelogdata($data_array_response_details); 
-
                         $new_trans=[];
-                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                        $new_trans['client_id']=$data_array_response_details['client_id'];
-                        $new_trans['status']=9; // 3=pending deposit
-                        $new_trans['payment_id']=$status_prometeo_transactions['intent_id'];
+                        $new_trans['unique_id']=$payphone_array_response['external_id'];
+                        $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                        $new_trans['status']=11; 
+                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
-                        sleep(10);
+                        $ret['http_code']=500;
+                        $ret['status']='cancelled';
+                        $ret['response']='payment.cancelled';
+                        api_ret($ret);
 
                     break;
 
