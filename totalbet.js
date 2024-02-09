@@ -68,45 +68,52 @@ if (authData) {
     console.log('Paso 2: ', modalContentDiv);
 
     do{
-        if(!modalContentDiv && !carruselActivo) {
+        try{
 
-            // Establecer las propiedades CSS para el modal y el iframe
-            var modalAndIframeStyles = `
-            width: 100%;
-            height: 100vh;
-            max-width: 450px;
-            max-height: 902px;
-            border: none;
-            overflow: hidden;
-            text-align: center;
-            justify-content: center;
-            `;
+            if(!modalContentDiv && !carruselActivo) {
 
-            // Aplicar las propiedades CSS al modal
-            modalContentDiv.style.cssText = modalAndIframeStyles;
+                // Establecer las propiedades CSS para el modal y el iframe
+                var modalAndIframeStyles = `
+                width: 100%;
+                height: 100vh;
+                max-width: 450px;
+                max-height: 902px;
+                border: none;
+                overflow: hidden;
+                text-align: center;
+                justify-content: center;
+                `;
+    
+                // Aplicar las propiedades CSS al modal
+                modalContentDiv.style.cssText = modalAndIframeStyles;
+    
+                // Crear la URL de redirección con los parámetros necesarios
+                var array_authData = {
+                    auth_token: auth_token,
+                    user_id: user_id,
+                    metodo: metodo_tb
+                };
+    
+                // Crear el iframe
+                var iframe = document.createElement('iframe');
+                iframe.id = 'prometeoframe';
+                iframe.style.cssText = modalAndIframeStyles;
+    
+                // Construir la URL de redirección con los parámetros
+                var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+                iframe.src = redirectUrl;
+    
+                // Agregar el iframe al contenido del modal
+                modalContentDiv.appendChild(iframe);
+    
+            }else{
+                console.log('Paso 3: Not found yet');
+            }
 
-            // Crear la URL de redirección con los parámetros necesarios
-            var array_authData = {
-                auth_token: auth_token,
-                user_id: user_id,
-                metodo: metodo_tb
-            };
-
-            // Crear el iframe
-            var iframe = document.createElement('iframe');
-            iframe.id = 'prometeoframe';
-            iframe.style.cssText = modalAndIframeStyles;
-
-            // Construir la URL de redirección con los parámetros
-            var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
-            iframe.src = redirectUrl;
-
-            // Agregar el iframe al contenido del modal
-            modalContentDiv.appendChild(iframe);
-
-        }else{
-            console.log('Paso 3: Not found yet');
+        } catch(error){
+            console.error('Error: ', error);
         }
+        
     } while(!modalContentDiv && !carruselActivo);
 
 
