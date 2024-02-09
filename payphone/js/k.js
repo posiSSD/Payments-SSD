@@ -205,7 +205,9 @@ function response_to_payphone(usr_active){
 				console.log("paid : "+rs.status);
 				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
-				iframeBody.style.background
+				
+				holder.hide();	
+
 				iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
@@ -215,6 +217,9 @@ function response_to_payphone(usr_active){
 				console.log("declined payment : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
+
+				holder.hide();
+
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
@@ -224,6 +229,9 @@ function response_to_payphone(usr_active){
 				console.log("failed deposit : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');	
+
+				holder.hide();
+
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
@@ -233,6 +241,9 @@ function response_to_payphone(usr_active){
 				console.log("Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
 				holderbutton.html('Contacta con nosotros');
+
+				holder.hide();
+
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
