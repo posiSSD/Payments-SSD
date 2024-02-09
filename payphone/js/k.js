@@ -246,11 +246,7 @@ function response_to_payphone(usr_active){
 	let prodiv = $("#prometeoembeded");
 	
 
-	$.post(this_url+'sys/', {
-
-		status_payment_button:usr_active,
-
-	}, 
+	$.post(this_url+'sys/', { status_payment_button:usr_active }, 
 	function(r, textStatus, xhr) {
 		try {
 
@@ -263,14 +259,8 @@ function response_to_payphone(usr_active){
                 holderdetails.html(message);
             }
 			if ( rs.status == 9 ) {
-				console.log("pending deposit : "+rs.status);
+				console.log("pending BC : "+rs.status);
 				showStatusMessage('Recargando: $/' + prueba.kushki_value);
-                holderbutton.html('Espere un momento...');
-                setTimeout(function () {
-                    response_to_payphone(usr_active);
-                }, 3000);	
-			} else if ( rs.status ==  6 ){ 
-				console.log("new  : "+rs.status);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_payphone(usr_active);
@@ -281,26 +271,45 @@ function response_to_payphone(usr_active){
                 setTimeout(function () {
                     response_to_payphone(usr_active);
                 }, 3000);	
-			} else if ( rs.status ==  7 ){
+			}
+			////////////////////////////////////////////////////////
+			 	else if ( rs.status ==  7 ){
 				console.log("paid : "+rs.status);
 				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
+				iframeBody.style.background
+				iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';	
 			} else if ( rs.status ==  10 ){
 				console.log("declined payment : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
 			} else if ( rs.status ==  11 ){
 				console.log("failed deposit : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
                 holderbutton.html('Salir');	
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
+				holderbutton[0].style.cursor = 'default';
 			} else {
 				console.log("Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
-                holderbutton.html('Contacta con nosotros');
+				holderbutton.html('Contacta con nosotros');
+				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
+				iframeBody.style.backgroundSize = "100% auto";
+				iframeBody.style.backgroundRepeat = "no-repeat";
+				iframeBody.style.backgroundPosition = "center";
+				holderbutton[0].style.cursor = 'default';    
 			}		
 		}
 		catch(err) {
@@ -310,13 +319,9 @@ function response_to_payphone(usr_active){
 			console.log(err);
 
 		}
-	});
-	
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+        console.log("Error en la solicitud POST:", errorThrown);
+    });
 }
-function generateUniqueId() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		var r = Math.random() * 16 | 0,
-			v = c === 'x' ? r : (r & 0x3 | 0x8);
-		return v.toString(16);
-	});
-}
+

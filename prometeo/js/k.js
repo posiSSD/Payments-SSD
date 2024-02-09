@@ -223,7 +223,6 @@ function response_to_prometeo(usr_active){
                     response_to_prometeo(usr_active);
                 }, 3000);	
 			} 
-			
 			////////////////////////////////////////////////////////
 				else if ( rs.status ==  7 ){
 				console.log("paid : "+rs.status);
@@ -242,29 +241,29 @@ function response_to_prometeo(usr_active){
 				console.log("declined payment : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
-				//holderbutton[0].style.cursor = 'default';
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
+				holderbutton[0].style.cursor = 'default';
 			} else if ( rs.status ==  11 ){
 				console.log("failed deposit : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
-				holderbutton[0].style.cursor = 'default';
+				holderbutton.html('Salir');
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
-                //holderbutton.html('Salir');	
+				holderbutton[0].style.cursor = 'default';	
 			} else {
 				console.log("Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
-				//holderbutton[0].style.cursor = 'default';
                 holderbutton.html('Contacta con nosotros');
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
+				holderbutton[0].style.cursor = 'default';
 			}	
 
         } catch (err) {
