@@ -1,3 +1,5 @@
+    /*
+
 // Obtener los datos del Local Storage
 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
 
@@ -40,8 +42,6 @@ if (authData) {
     // Seleccionar el elemento del input de cantidad por su ID
     var inputCantidad = document.getElementById('amount');
             
-    
-
     do {
 
         try{
@@ -65,6 +65,9 @@ if (authData) {
     } while (modalContentDiv == false);
 
     console.log('Paso 2: ', modalContentDiv);
+
+    */
+
 
     /*
 
@@ -121,13 +124,13 @@ if (authData) {
     } while(!modalContentDiv && !carruselActivo);
 
 
-    */
+    
 
 
 }
 
 
- 
+ */
 
 
 
