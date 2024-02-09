@@ -67,6 +67,8 @@ if (authData) {
 
     console.log('Paso 2: ', modalContentDiv);
 
+    /*
+
     do{
         try{
 
@@ -117,7 +119,7 @@ if (authData) {
     } while(!modalContentDiv && !carruselActivo);
 
 
-    
+    */
 
 
 }
