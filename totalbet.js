@@ -26,7 +26,7 @@ if (authData) {
             metodo_tb = opcionSeleccionada.trim().toLowerCase();
         }
 
-        console.log('Seleccion: ', carruselActivo);
+        console.log('Seleccion: ', metodo_tb);
 
     } while (carruselActivo == false);
 
@@ -35,7 +35,7 @@ if (authData) {
     var inputCantidad = document.getElementById('amount');
             
     // Imprimir la cantidad ingresada en la consola
-    console.log('Cantidad ingresada:', inputCantidad);
+    console.log('Cantidad ingresada:', inputCantidad.value);
 
     // Crear la URL de redirección con los parámetros necesarios
     var array_authData = {
@@ -80,6 +80,8 @@ if (authData) {
 
         // Agregar el iframe al contenido del modal
         modalContentDiv.appendChild(iframe);
+
+        console.log(modalContentDiv);
 
     } while (modalContentDiv == false);
 
