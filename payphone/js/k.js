@@ -85,27 +85,7 @@ function build_form(rs){
 		});
 		// btn.delay(500).click(); //test
 }
-/*
-function create_payment_button() {
-    console.log("create_payment_button");
 
-    usr_active.this_url = this_url;
-    usr_active.kushki_value = prueba.kushki_value;
-    let embeded = $("#prometeoembeded");
-    let proframe = $("#prometeoframe");
-    console.log(usr_active);
-
-	let data = {
-        value: usr_active.kushki_value,
-        unique_id: '1234567890'
-    };
-
-	let iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
-	embeded.show(); // Esto muestra el div con id "prometeoembeded"
-	proframe.attr("src", iframeurl);
-	proframe.show(); // iframe"	
-}
-*/
 function create_payment_button(){
 	console.log("create_payment_button");
 		
@@ -149,59 +129,7 @@ function create_payment_button(){
 		}
 	});
 }
-/*
-function create_payment_button(){
-	console.log("create_payment_button");
-		
-	usr_active.this_url = this_url;
-	//usr_active.this_url = 'https://payments.totalbet.com/payphone/';
-	usr_active.kushki_value = prueba.kushki_value ;
-	//usr_active.kushki_value = 5* 100;
 
-	let prodiv = $("#prometeoembeded");
-	let proframe = $("#prometeoframe");
-
-	console.log(usr_active);
-	//////////////////////////////////////////
-	//let prodiv = $("#prometeoembeded");
-	//////////////////////////////////////////
-	//prodiv.show();
-
-	$.post(this_url+'sys/', 
-	{
-		create_payment_button:usr_active,
-	}, 
-	function(r, textStatus, xhr) {
-
-		try {
-			let rs = jQuery.parseJSON(r);
-        	usr_active.order_id = rs.id;
-			console.log("respuesta de la BD");
-			console.log(rs);
-			
-			if(rs.status==201){
-				
-				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
-				proframe.attr("src", rs.url);
-				proframe.show(); // iframe"			
-				
-				response_to_payphone(usr_active);
-							
-			}else{
-				$('#kushki_payment_form').remove();
-				$('#kushki_payment_holder').html(rs.error);
-			}
-
-		}
-		catch(err) {
-			console.log(usr_active);
-			console.log(r);
-			console.log(err);
-		}
-	});
-
-}
-*/
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');
