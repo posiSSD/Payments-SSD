@@ -3,6 +3,123 @@ var authData = localStorage.getItem("x__ACCOUNT__auth_data");
 
 // Verificar si se encontraron datos en el Local Storage
 if (authData) {
+
+    // Parsear los datos JSON almacenados en el Local Storage
+    var authDataObj = JSON.parse(authData);
+    // Acceder a los valores necesarios (auth_token y user_id)
+    var auth_token = authDataObj.auth_token;
+    var user_id = authDataObj.user_id;
+    //var metodo_tb = 'prometeo';
+    var metodo_tb = '';
+
+    do {
+
+        // Seleccionar el elemento del carrusel activo
+        var carruselActivo = document.querySelector('.payment__item-box-active');
+
+        // Obtener el texto de la opción seleccionada en el carrusel
+        var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
+
+        if(opcionSeleccionada === "ProntoPaga"){
+            metodo_tb = "prometeo";
+        }else{
+            metodo_tb = opcionSeleccionada.trim().toLowerCase();
+        }
+
+        console.log('Seleccion: ', carruselActivo);
+
+    } while (carruselActivo == false);
+
+
+    // Seleccionar el elemento del input de cantidad por su ID
+    var inputCantidad = document.getElementById('amount');
+            
+    // Imprimir la cantidad ingresada en la consola
+    console.log('Cantidad ingresada:', inputCantidad);
+
+    // Crear la URL de redirección con los parámetros necesarios
+    var array_authData = {
+        auth_token: auth_token,
+        user_id: user_id,
+        metodo: metodo_tb
+    };
+
+    // Convertir el objeto en una cadena JSON y codificarla
+    var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+
+    do {
+        // Seleccionar el div del modal por su clase específica
+        var modalContentDiv = document.querySelector('.v3-modal-content');
+
+        // Ocultar otras partes del modal
+        modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+        
+        // Establecer las propiedades CSS para el modal y el iframe
+        var modalAndIframeStyles = `
+        width: 100%;
+        height: 100vh;
+        max-width: 450px;
+        max-height: 902px;
+        border: none;
+        overflow: hidden;
+        text-align: center;
+        justify-content: center;
+        `;
+
+        // Aplicar las propiedades CSS al modal
+        modalContentDiv.style.cssText = modalAndIframeStyles;
+
+        // Crear el iframe
+        var iframe = document.createElement('iframe');
+        iframe.id = 'prometeoframe';
+        iframe.style.cssText = modalAndIframeStyles;
+
+        // Construir la URL de redirección con los parámetros
+        var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+        iframe.src = redirectUrl;
+
+        // Agregar el iframe al contenido del modal
+        modalContentDiv.appendChild(iframe);
+
+    } while (modalContentDiv == false);
+
+}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+// Obtener los datos del Local Storage
+var authData = localStorage.getItem("x__ACCOUNT__auth_data");
+
+// Verificar si se encontraron datos en el Local Storage
+if (authData) {
     // Parsear los datos JSON almacenados en el Local Storage
     var authDataObj = JSON.parse(authData);
 
@@ -106,3 +223,6 @@ if (authData) {
     // Imprimir un mensaje de error en la consola si no se encontraron variables en el Local Storage
     console.log("No se pudieron encontrar las variables en el Local Storage");
 }
+
+*/
+
