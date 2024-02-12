@@ -25,6 +25,7 @@ function set_events(){
 		build_form();		
 	});	
 }
+
 function set_vars(){
 	console.log("set_vars");
 	connecting = false;
@@ -41,6 +42,7 @@ function set_vars(){
 	ws_session = false;
 	usr_active = true;
 }
+
 function build_form(rs){
 	console.log('build_form');
 	let form = $('#kushki_payment_form');
@@ -51,6 +53,37 @@ function build_form(rs){
 		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
+
+		console.log("btn.click");
+		if ($.isNumeric(input.val())) {
+			if (Number(input.val()) > Number(input.data('max'))) {
+				input.addClass('is-invalid');
+				input.attr('title', 'El monto debe ser menor a ' + Number(input.data('max')) + ' PEN');
+				sms.addClass('color');
+				sms.html('El monto debe ser menor a ' + Number(input.data('max')) + ' PEN');
+			} else if (Number(input.val()) < Number(input.data('min'))) {
+				input.addClass('is-invalid');
+				input.attr('title', 'El monto debe ser más de ' + Number(input.data('min')) + ' PEN');
+				sms.addClass('color');
+				sms.html('El monto debe ser más de ' + Number(input.data('min')) + ' PEN');
+			} else {
+				input.attr('disabled', true);
+				input.removeClass('alert');
+				btn.off();
+				btn.removeClass('ready');
+				btn.html('Generando...');
+				form.hide();
+
+				prueba.kushki_value = Number(input.val());
+
+				create_payment_button();
+			}
+		} else {
+			input.addClass('is-invalid');
+			input.attr('title', 'Este campo es requerido');
+		}
+
+		/*
 		btn.click(function(event) {
 			console.log("btn.click");
 			if($.isNumeric(input.val())){
@@ -83,7 +116,7 @@ function build_form(rs){
 				input.attr('title','Este campo es requerido');
 			}
 		});
-		// btn.delay(500).click(); //test
+		*/
 }
 
 function create_payment_button(){
@@ -263,4 +296,6 @@ function response_to_payphone(usr_active){
         console.log("Error en la solicitud POST:", errorThrown);
     });
 }
+
+
 
