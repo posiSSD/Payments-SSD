@@ -1,4 +1,126 @@
-    /*
+// Crea una instancia de MutationObserver
+var observer = new MutationObserver(function(mutationsList, observer) {
+    mutationsList.forEach(function(mutation) {
+        //console.log('Tipo de mutación:', mutation.type);
+        // Verifica si se añadieron nuevos nodos
+        if (mutation.type === 'childList') {
+            //console.log('Nuevos nodos añadidos:', mutation.addedNodes);
+            mutation.addedNodes.forEach(function(node) {
+                // Verifica si el nodo añadido es el modal
+                if ($(node).hasClass('v3-modal-root')) {
+                    // Realiza las modificaciones necesarias en el contenido del modal
+                    console.log('v3-modal-root FOUND.');
+                    //$(node).find('.v3-modal-content').hide();
+                    var modalContentDiv = node.querySelector('.v3-modal-content');
+                    if (modalContentDiv){
+                        // Ocultar el contenido existente del modal
+                        modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+
+                        // Obtener los datos del Local Storage
+                        var authData = localStorage.getItem("x__ACCOUNT__auth_data");
+                        if(authData){
+                            // Parsear los datos JSON almacenados en el Local Storage
+                            var authDataObj = JSON.parse(authData);
+                            // Acceder a los valores necesarios (auth_token y user_id)
+                            var auth_token = authDataObj.auth_token;
+                            var user_id = authDataObj.user_id;
+                            //var metodo_tb = 'prometeo';
+                            var metodo_tb = '';
+
+                        } else {
+                            console.log('Error authData not Found ');
+                        }
+
+                        try{
+                            // Seleccionar el elemento del carrusel activo
+                            var carruselActivo = document.querySelector('.payment__item-box-active');
+                
+                            // Obtener el texto de la opción seleccionada en el carrusel
+                            var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
+                
+                            if(opcionSeleccionada === "ProntoPaga"){
+                                metodo_tb = "prometeo";
+                            }else{
+                                metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                            }
+                
+                        } catch (error){
+                            console.error('Error: ', error);
+                        }
+
+                        // Seleccionar el elemento del input de cantidad por su ID
+                        var inputCantidad = document.getElementById('amount');
+
+                        console.log('inputCantidad value: ', inputCantidad.value);
+
+
+                        var max_width, max_height;
+
+                        if ( metodo_tb === 'payphone' ) {
+                            max_width = '450px';
+                            max_height = '902px';
+                        } else if ( metodo_tb === 'prometeo' ) {
+                            max_width = '399px';
+                            max_height = '650px';
+                        } else {
+                            max_width = '600px';
+                            max_height = '800px';
+                        }
+
+                        // Aplicar estilos al modal y al iframe
+                        var modalAndIframeStyles = `
+                            width: 100%;
+                            height: 100vh;
+                            max-width: ${max_width};
+                            max-height: ${max_height};
+                            border: none;
+                            overflow: hidden;
+                            text-align: center;
+                            justify-content: center;
+                        `;
+                        // Aplicar las propiedades CSS al modal
+                        modalContentDiv.style.cssText = modalAndIframeStyles;
+
+                        // Crear un objeto con los datos de autenticación
+                        var array_authData = {
+                            auth_token: auth_token,
+                            user_id: user_id,
+                            metodo: metodo_tb
+                        };
+
+                        // Convertir el objeto en una cadena JSON y codificarla
+                        var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+
+                        // Crear el iframe
+                        var iframe = document.createElement('iframe');
+                        iframe.id = 'paymentsframe';
+                        iframe.style.cssText = modalAndIframeStyles;
+
+                        // Construir la URL de redirección con los parámetros
+                        var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+                        iframe.src = redirectUrl;
+
+                        // Agregar el iframe al contenido del modal
+                        modalContentDiv.appendChild(iframe);
+
+                    } else {
+                        console.log('modalContentDiv Not Found: ');
+                    }
+                }
+            });
+        }
+    });
+});
+
+// Observa los cambios en el cuerpo del documento y en sus descendientes
+console.log('Observando cambios en el DOM...');
+observer.observe(document.body, { childList: true, subtree: true });
+
+
+
+
+
+/*
 
 // Obtener los datos del Local Storage
 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
@@ -13,7 +135,6 @@ if (authData) {
     var user_id = authDataObj.user_id;
     //var metodo_tb = 'prometeo';
     var metodo_tb = '';
-
 
     do {
 
@@ -36,47 +157,25 @@ if (authData) {
         
     } while (carruselActivo == false);
 
-    console.log('Paso 1: ', metodo_tb);
-
+    console.log('Paso 1 Completo ');
 
     // Seleccionar el elemento del input de cantidad por su ID
     var inputCantidad = document.getElementById('amount');
-            
-    do {
 
-        try{
+    var boton = document.querySelector('button.v3-btn.v3-btn-primary.v3-btn-lg.x-button.x-button--fullWidth[type="submit"]');
 
-            // Seleccionar el div del modal por su clase específica
+    if( boton ){
+
+        console.log('boton seleccionado ');
+
+        boton.addEventListener('click', function() {
             var modalContentDiv = document.querySelector('.v3-modal-content');
+            if(modalContentDiv){
 
-            if(!modalContentDiv){
-                // Ocultar otras partes del modal
                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
 
-            }else{
-                console.log("Not found .v3-modal-content");
-            }
-
-        } catch (error){
-            console.error('Error: ', error);
-        }
-   
-
-    } while (modalContentDiv == false);
-
-    console.log('Paso 2: ', modalContentDiv);
-
-    */
-
-
-    /*
-
-    do{
-        try{
-
-            if(!modalContentDiv && !carruselActivo) {
-
-                // Establecer las propiedades CSS para el modal y el iframe
+                console.log('Paso 2 Completo ');
+                ////////////////////////////////////////////////////
                 var modalAndIframeStyles = `
                 width: 100%;
                 height: 100vh;
@@ -87,11 +186,10 @@ if (authData) {
                 text-align: center;
                 justify-content: center;
                 `;
-    
+
                 // Aplicar las propiedades CSS al modal
                 modalContentDiv.style.cssText = modalAndIframeStyles;
-    
-                // Crear la URL de redirección con los parámetros necesarios
+
                 var array_authData = {
                     auth_token: auth_token,
                     user_id: user_id,
@@ -100,48 +198,35 @@ if (authData) {
 
                 // Convertir el objeto en una cadena JSON y codificarla
                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
-    
+
                 // Crear el iframe
                 var iframe = document.createElement('iframe');
-                iframe.id = 'prometeoframe';
+                iframe.id = 'paymentsframe';
                 iframe.style.cssText = modalAndIframeStyles;
-    
-                // Construir la URL de redirección con los parámetros
+
+                 // Construir la URL de redirección con los parámetros
                 var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
                 iframe.src = redirectUrl;
-    
+
                 // Agregar el iframe al contenido del modal
                 modalContentDiv.appendChild(iframe);
+
+            } else {
+
+                console.log('modalContentDiv not found ');
+
+            }           
+       });
+
+    } else {
+
+        console.log('No se enconntro boton');
+
+    }  
     
-            }else{
-                console.log('Paso 3: Not found yet');
-            }
-
-        } catch(error){
-            console.error('Error: ', error);
-        }
-        
-    } while(!modalContentDiv && !carruselActivo);
-
-
-    
-
-
 }
 
-
- */
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
 
@@ -154,9 +239,6 @@ if (authData) {
 
 
 /*
-
-
-
 
 // Obtener los datos del Local Storage
 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
