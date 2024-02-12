@@ -50,6 +50,16 @@ function build_form(rs){
 	let input = form.find('input');
 	let sms = $('#sms_alert');
 
+	////////////////New - start////////////////////////
+	form.hide();
+	let holder = $('#kushki_payment_holder');
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn');
+	holder.show();
+	holderdetails.html('Espere un momento...');
+	holderbutton.html('Cargando Payphone');
+	////////////////New - End////////////////////////
+
 		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
@@ -126,6 +136,9 @@ function create_payment_button(){
 	usr_active.kushki_value = prueba.kushki_value ;
 	let prodiv = $("#prometeoembeded");
 	let proframe = $("#prometeoframe");
+	////////////////New - start////////////////////////
+	let holder = $('#kushki_payment_holder');
+	////////////////New - End//////////////////////////
 	console.log(usr_active);
 	let iframeurl = "";
 	let data = "";
@@ -145,6 +158,10 @@ function create_payment_button(){
 					value: rs.value,
 					unique_id: rs.unique_id
 				};
+				////////////////New - start////////////////////////
+				holder.hide();
+				////////////////New - End//////////////////////////
+				
 				iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", iframeurl);
