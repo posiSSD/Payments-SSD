@@ -61,7 +61,7 @@ function build_form(rs){
 		btn.html('Generar');
 		btn.addClass('ready');
 
-		console.log("btn.click");
+		//console.log("btn.click");
 		if ($.isNumeric(input.val())) {
 			if (Number(input.val()) > Number(input.data('max'))) {
 				input.addClass('is-invalid');
@@ -138,7 +138,7 @@ function create_payment_button(){
 	let holder = $('#kushki_payment_holder');
 	////////////////New - End//////////////////////////
 
-	console.log(usr_active);
+	//console.log(usr_active);
 	let iframeurl = "";
 	let data = "";
 
@@ -151,7 +151,7 @@ function create_payment_button(){
 		try {
 			console.log('Loading Payphone');
 			let rs = jQuery.parseJSON(r);
-			console.log(rs);
+			//console.log(rs);
         	usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
 				data = {
@@ -237,14 +237,14 @@ function response_to_payphone(usr_active){
                 holderdetails.html(message);
             }
 			if ( rs.status == 9 ) {
-				console.log("pending BC : "+rs.status);
+				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_payphone(usr_active);
                 }, 3000);	
 			} else if ( rs.status ==  8 ){
-				console.log("pending payment : "+rs.status);
+				console.log("response_to_payphone : "+rs.status);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_payphone(usr_active);
@@ -252,7 +252,7 @@ function response_to_payphone(usr_active){
 			}
 			////////////////////////////////////////////////////////
 			 	else if ( rs.status ==  7 ){
-				console.log("paid : "+rs.status);
+				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
 				
@@ -264,7 +264,7 @@ function response_to_payphone(usr_active){
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';	
 			} else if ( rs.status ==  10 ){
-				console.log("declined payment : "+rs.status);
+				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
 
@@ -276,7 +276,7 @@ function response_to_payphone(usr_active){
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
 			} else if ( rs.status ==  11 ){
-				console.log("failed deposit : "+rs.status);
+				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');	
 
@@ -288,7 +288,7 @@ function response_to_payphone(usr_active){
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
 			} else {
-				console.log("Error deposit: "+rs.status);
+				console.log("response_to_payphone: Error deposit "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
 				holderbutton.html('Contacta con nosotros');
 
