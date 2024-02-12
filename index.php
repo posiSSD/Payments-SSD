@@ -117,8 +117,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
                         class="form-control" 
                         id="basic-url" 
                         aria-describedby="basic-addon3"
-                        value="<?php echo htmlspecialchars($amount); ?>"
-                        readonly 
+                        value="<?php echo htmlspecialchars($amount); ?>" 
                         required onkeyup="validar()">
                 </div>
                 <p id="sms_alert"></p>
