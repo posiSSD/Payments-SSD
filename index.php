@@ -21,6 +21,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
         $auth_token = $auth_data["auth_token"]; /////TOKEN
         $user_id = $auth_data["user_id"];
         $metodo = $auth_data["metodo"];
+        $amount = $auth_data["amount"];
         $visit["auth_data"]=$auth_data;
         //consolelogfrontdata($auth_data);
     }
@@ -115,7 +116,9 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
                         data-max="<?php echo $payment_limits[1];?>"
                         class="form-control" 
                         id="basic-url" 
-                        aria-describedby="basic-addon3" required onkeyup="validar()">
+                        aria-describedby="basic-addon3"
+                        value="<?php echo htmlspecialchars($amount); ?>" 
+                        required onkeyup="validar()">
                 </div>
                 <p id="sms_alert"></p>
                 <div>

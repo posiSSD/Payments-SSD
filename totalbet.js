@@ -87,7 +87,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         var array_authData = {
                             auth_token: auth_token,
                             user_id: user_id,
-                            metodo: metodo_tb
+                            metodo: metodo_tb,
+                            amount: inputCantidad.value
                         };
 
                         // Convertir el objeto en una cadena JSON y codificarla
