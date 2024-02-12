@@ -12,6 +12,10 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                 if ($(node).hasClass('v3-modal-root')) {
                     // Realiza las modificaciones necesarias en el contenido del modal
                     console.log('v3-modal-root FOUND.');
+
+                    // Definimos la variable para asegurarnos de que esté disponible en ambos bloques
+                    var metodo_tb; 
+
                     //$(node).find('.v3-modal-content').hide();
                     var modalContentDiv = node.querySelector('.v3-modal-content');
                     if (modalContentDiv){
@@ -29,49 +33,38 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             //var metodo_tb = 'prometeo';
                             var metodo_tb = '';
 
+                            console.log('authData Found');
+
                         } else {
-                            console.log('Error authData not Found ');
+                            console.log('Error authData not Found');
                         }
 
-                        try{
-
-                            // Seleccionar el elemento del carrusel activo
+                        try {
+                            // Seleccionar el elemento del carrusel activo (para la versión web)
                             var carruselActivo = document.querySelector('.payment__item-box-active');
-                            if(carruselActivo){
-
-                                // Obtener el texto de la opción seleccionada en el carrusel
+                            if (carruselActivo) {
                                 var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
-
-                                if(opcionSeleccionada === "ProntoPaga"){
+                                if (opcionSeleccionada === "ProntoPaga") {
                                     metodo_tb = "prometeo";
-                                }else{
+                                } else {
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
                                 }
-                                
                                 console.log('Web:', metodo_tb);
-
                             } else {
-                                // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1
+                                // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1 (para la versión celular)
                                 var paymentMethodElement = $('.style__HeroFallbackText-sc-swzx38-1');
-
-                                // Obtiene el texto dentro del elemento seleccionado
-                                var metodo_tb = paymentMethodElement.text();
-
-                                if(metodo_tb === "ProntoPaga"){
+                                metodo_tb = paymentMethodElement.text();
+                                if (metodo_tb === "ProntoPaga") {
                                     metodo_tb = "prometeo";
-                                }else{
-                                    metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                                } else {
+                                    metodo_tb = metodo_tb.trim().toLowerCase();
                                 }
-
-                                // Muestra el nombre del método de pago en la consola
                                 console.log('Cell:', metodo_tb);
-
                             }
-                
-                
-                        } catch (error){
+                        } catch (error) {
                             console.error('Error: ', error);
                         }
+                        
 
                         // Seleccionar el elemento del input de cantidad por su ID
                         var inputCantidad = document.getElementById('amount');
@@ -139,7 +132,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 });
 
 // Observa los cambios en el cuerpo del documento y en sus descendientes
-console.log('Observando cambios en el DOM...');
+console.log('Watching changes on DOM...');
 observer.observe(document.body, { childList: true, subtree: true });
 
 
