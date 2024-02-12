@@ -168,7 +168,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
      $auth_token = $auth_data["auth_token"]; /////TOKEN
      $user_id = $auth_data["user_id"];
      $metodo = $auth_data["metodo"];
-     $amount = 5;
      $visit["auth_data"]=$auth_data;
      //consolelogfrontdata($auth_data);
  }
@@ -177,6 +176,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
      $auth_token = '9B48307736CD353975C31E2DE6BF5CA5';
      $user_id = '1674627753';
      $metodo = 'payphone';
+     $amount = 5;
      $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
      $visit["auth_data"]=$auth_data;
      //echo "datos ELSE ";
