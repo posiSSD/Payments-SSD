@@ -1,3 +1,5 @@
+console.log('Bienvenido totalbet user....');
+
 // Crea una instancia de MutationObserver
 var observer = new MutationObserver(function(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
