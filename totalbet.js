@@ -13,8 +13,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                     // Realiza las modificaciones necesarias en el contenido del modal
                     console.log('v3-modal-root FOUND.');
 
-                    // Definimos la variable para asegurarnos de que esté disponible en ambos bloques
-                    var metodo_tb; 
+                    
 
                     //$(node).find('.v3-modal-content').hide();
                     var modalContentDiv = node.querySelector('.v3-modal-content');
@@ -53,12 +52,19 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             } else {
                                 // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1 (para la versión celular)
                                 var paymentMethodElement = $('.style__HeroFallbackText-sc-swzx38-1');
-                                metodo_tb = paymentMethodElement.text();
-                                if (metodo_tb === "ProntoPaga") {
-                                    metodo_tb = "prometeo";
+                                var opcionSeleccionada = paymentMethodElement.text();
+                                if(opcionSeleccionada){
+                                    if(opcionSeleccionada === "ProntoPaga"){
+                                        metodo_tb = "prometeo";
+                                    } else if (opcionSeleccionada === "Payphone") {
+                                        metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                                    } else {
+                                        metodo_tb = "vacio";
+                                    }
                                 } else {
-                                    metodo_tb = metodo_tb.trim().toLowerCase();
+                                    console.log('CELL - opcionSeleccionada empty', metodo_tb);
                                 }
+    
                                 console.log('Cell:', metodo_tb);
                             }
                         } catch (error) {
