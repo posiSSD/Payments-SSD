@@ -34,17 +34,40 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         }
 
                         try{
+
                             // Seleccionar el elemento del carrusel activo
                             var carruselActivo = document.querySelector('.payment__item-box-active');
-                
-                            // Obtener el texto de la opción seleccionada en el carrusel
-                            var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
-                
-                            if(opcionSeleccionada === "ProntoPaga"){
-                                metodo_tb = "prometeo";
-                            }else{
-                                metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                            if(carruselActivo){
+
+                                // Obtener el texto de la opción seleccionada en el carrusel
+                                var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
+
+                                if(opcionSeleccionada === "ProntoPaga"){
+                                    metodo_tb = "prometeo";
+                                }else{
+                                    metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                                }
+                                
+                                console.log('Web:', metodo_tb);
+
+                            } else {
+                                // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1
+                                var paymentMethodElement = $('.style__HeroFallbackText-sc-swzx38-1');
+
+                                // Obtiene el texto dentro del elemento seleccionado
+                                var metodo_tb = paymentMethodElement.text();
+
+                                if(metodo_tb === "ProntoPaga"){
+                                    metodo_tb = "prometeo";
+                                }else{
+                                    metodo_tb = opcionSeleccionada.trim().toLowerCase();
+                                }
+
+                                // Muestra el nombre del método de pago en la consola
+                                console.log('Cell:', metodo_tb);
+
                             }
+                
                 
                         } catch (error){
                             console.error('Error: ', error);
