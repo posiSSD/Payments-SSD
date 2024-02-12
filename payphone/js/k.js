@@ -223,6 +223,7 @@ function response_to_payphone(usr_active){
 	let holderdetails = $('#kushki_details');
 	let holderbutton = $('#kushki_btn');
 	let prodiv = $("#prometeoembeded");
+	let iframeBody = document.body;
 	
 
 	$.post(this_url+'sys/', { status_payment_button:usr_active }, 

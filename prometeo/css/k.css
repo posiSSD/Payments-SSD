@@ -34,7 +34,6 @@ html,body{
 	margin-top: -15px;
 	margin-left: -160px;
 }
-
 form#kushki_payment_form{
 
 	margin: auto;
@@ -42,18 +41,8 @@ form#kushki_payment_form{
     height: 150px;
 	text-align: center;
 	overflow: hidden;
+	display: none;
 }
-
-/*
-form#kushki_payment_form{
-
-	margin: auto;
-	width: 95%;
-    height: 150px;
-	text-align: center;
-	overflow: hidden;
-}
-*/
 form#kushki_payment_form span{
 	text-align: left;
 }
@@ -94,7 +83,8 @@ form#kushki_payment_form button.ready{
 	width: 95%;
 	/* width: 300px; */
 	text-align: center;
-	display: none;
+	display: block;
+	/* display: none; */
 }
 #kushki_payment_holder #kushki_btn{
 	background-color: #6b47af;

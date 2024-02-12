@@ -11,13 +11,14 @@ $(document).ready(function() {
 function set_events(){
 	$(document).on('sw_login_error', function(e,data) {
 		$('#kushki_payment_form').remove();
+		$('#prometeoembeded').remove(); 
 		$('#kushki_payment_holder').show();
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 		
 	});
 	$(document).on('ws_onclose', function(e,data) {
 		$('#kushki_payment_form').remove();
-		//$('#kushki_payment_holder').remove();
+		$('#prometeoembeded').remove();
 		$('#kushki_payment_holder').show();
 		$('#kushki_payment_holder').html('Ocurrio un error, refresca la pagina y vuelve a intentar.');
 	});
@@ -51,10 +52,47 @@ function build_form(rs){
 	let input = form.find('input');
 	let sms = $('#sms_alert');
 
-	console.log(input);
+	////////////////New - start////////////////////////
+	let holderdetails = $('#kushki_details');
+	let holderbutton = $('#kushki_btn');
+	holderdetails.html('Espere un momento...');
+	holderbutton.html('Cargando Prometeo');
+	////////////////New - End////////////////////////
+
 		// btn.addClass('ready');
 		btn.html('Generar');
 		btn.addClass('ready');
+
+		//console.log("btn.click");
+		if ($.isNumeric(input.val())) {
+			if (Number(input.val()) > Number(input.data('max'))) {
+				input.addClass('is-invalid');
+				input.attr('title', 'El monto debe ser menor a ' + Number(input.data('max')) + ' PEN');
+				sms.addClass('color');
+				sms.html('El monto debe ser menor a ' + Number(input.data('max')) + ' PEN');
+			} else if (Number(input.val()) < Number(input.data('min'))) {
+				input.addClass('is-invalid');
+				input.attr('title', 'El monto debe ser más de ' + Number(input.data('min')) + ' PEN');
+				sms.addClass('color');
+				sms.html('El monto debe ser más de ' + Number(input.data('min')) + ' PEN');
+			} else {
+				input.attr('disabled', true);
+				input.removeClass('alert');
+				btn.off();
+				btn.removeClass('ready');
+				btn.html('Generando...');
+				form.hide();
+
+				prueba.kushki_value = Number(input.val());
+
+				create_payment_button();
+			}
+		} else {
+			input.addClass('is-invalid');
+			input.attr('title', 'Este campo es requerido');
+		}
+
+		/*
 		btn.click(function(event) {
 			console.log("btn.click");
 			if($.isNumeric(input.val())){
@@ -88,7 +126,8 @@ function build_form(rs){
 				input.attr('title','Este campo es requerido');
 			}
 		});
-		// btn.delay(500).click(); //test
+		*/
+		
 }
 function create_payment_button(){
 	console.log("create_payment_button");
@@ -113,8 +152,7 @@ function create_payment_button(){
 	let texto = $("#texto");
 	//////////////////////////////////////////
 
-	holder.show();
-	holderdetails.html('Cargando Prometeo');
+	
 
 	$.post(this_url+'sys/', 
 	{
@@ -123,6 +161,7 @@ function create_payment_button(){
 	function(r, textStatus, xhr) {
 		
 		try {
+			console.log('Loading Prometeo');
 			let rs = jQuery.parseJSON(r);
 			usr_active.order_id = rs.id;
 			usr_active.unique_id = rs.unique_id;
