@@ -223,8 +223,8 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
     $txn_id  = (array_key_exists("txn_id",$url_data)?$url_data["txn_id"]:null);
     $url = $bc_url;
     $response  = $response?$response:null;
-    $created_at = date('Y-m-d H:i:s');
-    $updated_at = date('Y-m-d H:i:s');
+    $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
+    $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
 
     $sql_details = "INSERT INTO $table (command, account, txn_id, url, response, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt_details = $mysqli_kushkipayment->prepare($sql_details);

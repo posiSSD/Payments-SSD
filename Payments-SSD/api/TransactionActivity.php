@@ -17,8 +17,8 @@ function save_transaction_activity($data_activiy){
     $result = json_encode($data_activiy['result']);
     $status = $data_activiy['status'] ?? 0;
     $token = $data_activiy['token'] ?? 0;
-    $created_at = date('Y-m-d H:i:s');
-    $updated_at = date('Y-m-d H:i:s');
+    $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
+    $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
   
     // Consulta SQL para insertar los datos en la tabla activity_transactions
     $sql_details = "INSERT INTO $table (transaction_id, user_id, ip, url, method, request, http_code, result, status, token, created_at, updated_at)

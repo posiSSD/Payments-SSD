@@ -22,8 +22,8 @@ function save_transaction($request, $txt_id, $type, $status){
     $cashdesk_id  = "0";
     $user_id  = $request['account']??0;
     $status  = $status;
-    $created_at = date('Y-m-d H:i:s');
-    $updated_at = date('Y-m-d H:i:s');
+    $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
+    $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
 
     // Consulta SQL para insertar los datos en la tabla transactions
     $sql_details = "INSERT INTO $table (type_transaction_id, txt_id, amount, 
