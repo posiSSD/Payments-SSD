@@ -18,8 +18,13 @@ function paymente_bc($request){
 
     $response = payment_deposit($myRequest);
 
-    //consolelogdata($response);
-    
+    //'0', 'Pendiente'
+    //'1', 'Enviado BC'
+    //'2', 'BC Fallo (API no Responde)''
+    //'3', 'BC Ok', 
+    //'4', 'BC Error', 
+    //'5', 'Pendiente Anular', 
+    //'6', 'Anulado', 
 
     if($response['http_code'] == 200){
             
@@ -46,8 +51,7 @@ function paymente_bc($request){
         
     } else if ($response['http_code'] == 400){
 
-        $transaction = save_transaction($request,$response['result']['txn_id'], $type=3,$status=4);
-        
+        $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=4);
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '400',
@@ -58,36 +62,39 @@ function paymente_bc($request){
         ];
 
         save_transaction_activity($data_activiy);
-        return ['http_code' => 400, 'status' => 'Error', 'result' => 'recharge denied'];
+        return ['http_code' => 408, 'status' => 'Error', 'result' => 'Recharge Denied'];
 
     } else if ($response['http_code'] == 408){
 
-        $transaction = save_transaction($request,$response['result'],$type=3,$status=5);
+        $transaction = save_transaction($request,$response['result'],$type=3,$status=2);
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '408',
             'result'		 =>  $response['result'],
-            'status' 		 => '5',
+            'status' 		 => '2',
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
         ];
 
         save_transaction_activity($data_activiy);
-        return ['http_code' => 408, 'status' => 'Error', 'result' => 'API timeout'];
-    } else {
+        return ['http_code' => 408, 'status' => 'Error', 'result' => 'API Timeout'];
+    }
+    /*
+    else {
 
-        $transaction = save_transaction($request,$response['result'],$type=3,$status=6);
+        $transaction = save_transaction($request,$response['result'],$type=3,$status=0);
         $data_activiy = [
             'transaction_id' => $transaction['id'],
-            'http_code' 	 => $response['result']['code'],
+            'http_code' 	 => '408',
             'result'		 =>  $response['result'],
-            'status' 		 => '6',
+            'status' 		 => '0',
             'ip_address'      => $request['ip_address'],
             'method'         => $request['payment_method']
-        ]; 
+        ];
 
         save_transaction_activity($data_activiy);
-        return ['http_code' => $response['result']['code'], 'status' => 'Error', 'result' => $response['result']['message']];
+        return ['http_code' => $response['result']['code'], 'status' => 'pendiente', 'result' => $response['result']['message']];
     }
+    */
 }
 ?>

@@ -9,6 +9,14 @@ function payment_deposit($request){
     $insert_db['payment_method'] = $request['payment_method']; 
     
     $transaction_id = insert_tbl_transactions($insert_db);
+    /////////////////////////////////////////////////
+    /*
+    if($transaction_id){
+
+    }else{
+
+    }*/
+    /////////////////////////////////////////
 
     $url_data = [];
     $url_data["command"] = "pay";
@@ -36,12 +44,10 @@ function payment_deposit($request){
 
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
-            //$payment_curl["response"]["code"]
-            //return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
-            return ['http_code' => $payment_curl["response"]["code"], 'status' => 'Error', 'result' => $payment_curl["response"]];
+            return ['http_code' => 400, 'status' => 'Error', 'result' => $payment_curl["response"]];
         }
     } else {
-        return ['http_code' => 408, 'status' => 'Error BC', 'result' => $transaction_id];
+        return ['http_code' => 408, 'status' => 'Error', 'result' => $transaction_id];
     }   
 }   
 function payment_curl($url_data){

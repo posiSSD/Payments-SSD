@@ -87,50 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     create_or_update_transaction($new_trans);
                                     $ret['http_code']=200;
                                     $ret['status']='Ok';
-                                    $ret['response']='Order '.$transaccion.' paid';
+                                    $ret['response']='Order '.$payphone_array_response['external_id'].' paid';
                                     api_ret($ret);
-                                } elseif ($bc_deposit['http_code']==400){
-                                    $new_trans=[];
-                                    $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=10; // 11 failed deposit
-                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
-                                    create_or_update_transaction($new_trans);
-                                    $ret['http_code']=400;
-                                    $ret['status']='denied';
-                                    $ret['response']='Order '.$transaccion.' denied';
-                                    api_ret($ret);
-                                } elseif ($bc_deposit['http_code']==408){
-                                    $new_trans=[];
-                                    $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=10; // 11 failed deposit
-                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
-                                    create_or_update_transaction($new_trans);
-                                    $ret['http_code']=408;
-                                    $ret['status']='timeout';
-                                    $ret['response']='Order '.$transaccion.' timeout';
-                                    api_ret($ret);
-                                } elseif ($bc_deposit['http_code']==402){
-                                    $new_trans=[];
-                                    $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=10;
-                                    $new_trans['payment_id']=$payphone_array_response['intent_id']; 
-                                    create_or_update_transaction($new_trans);
-                                    $ret['http_code']=402;
-                                    $ret['status']='Validator fail';
-                                    $ret['response']='Order '.$transaccion.' Validator fail';
-                                    api_ret($ret);
-                                } else {
-                                    
+                                }  else {                                   
                                     $new_trans=[];
                                     $new_trans['unique_id']=$payphone_array_response['external_id'];
                                     $new_trans['client_id']=$payphone_array_response['id_usuario'];
                                     $new_trans['status']=11; // 11 failed deposit
                                     $new_trans['payment_id']=$payphone_array_response['intent_id'];
                                     create_or_update_transaction($new_trans);
-                                    $ret['http_code']=500;
+                                    $ret['http_code']=$bc_deposit['http_code'];
                                     $ret['status']='Error';
                                     $ret['response']='Something went wrong, check logs';
                                     api_ret($ret);
@@ -138,9 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             }
                             $limit_try++;
                             sleep(5);
-                        } while ($bc_deposit['http_code'] !== 200 || $bc_deposit['http_code'] !== 400 || $bc_deposit['http_code'] !== 500 || ($limit_try <= 5));    
-                        
-                                
+                        } while ($bc_deposit['http_code'] !== 200 || ($limit_try <= 3));
+                                   
                     break;
 
                     case "payment.error":
@@ -149,11 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
                         $new_trans['status']=11; // 3=paid
-                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=408;
                         $ret['status']='Error';
-                        $ret['response']='payment.error';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.error';
                         api_ret($ret);
 
                     break;
@@ -163,12 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans=[];
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                        $new_trans['status']=10; 
-                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
+                        $new_trans['status']=10; // 10 = 4=declined by payment
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=400;
                         $ret['status']='rejected';
-                        $ret['response']='payment.rejected';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.rejected';
                         api_ret($ret);
 
                     break;
@@ -179,11 +142,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
                         $new_trans['status']=11; 
-                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=500;
                         $ret['status']='cancelled';
-                        $ret['response']='payment.cancelled';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.cancelled';
                         api_ret($ret);
 
                     break;
