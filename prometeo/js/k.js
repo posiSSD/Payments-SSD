@@ -248,14 +248,14 @@ function response_to_prometeo(usr_active){
                 holderdetails.html(message);
             }
 			if ( rs.status == 9 ) {
-				console.log("pending BC : "+rs.status);
+				console.log("response_to_prometeo : "+rs.status);
 				holderdetails.html('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
                     response_to_prometeo(usr_active);
                 }, 3000);	
 			} else if ( rs.status ==  8 ){
-				console.log("pending payment : "+rs.status);
+				console.log("response_to_prometeo : "+rs.status);
 				holderdetails.html('Recargando: $/' + prueba.kushki_value);
                 holderbutton.html('Espere un momento...');
                 setTimeout(function () {
@@ -264,7 +264,7 @@ function response_to_prometeo(usr_active){
 			} 
 			////////////////////////////////////////////////////////
 				else if ( rs.status ==  7 ){
-				console.log("paid : "+rs.status);
+				console.log("response_to_prometeo : "+rs.status);
 				setTimeout(function () {
                     showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
 					holderbutton.html('Salir');
@@ -280,7 +280,7 @@ function response_to_prometeo(usr_active){
                 }, 10000);
 					
 			} else if ( rs.status ==  10 ){
-				console.log("declined payment : "+rs.status);
+				console.log("response_to_prometeo : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
 
@@ -292,7 +292,7 @@ function response_to_prometeo(usr_active){
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
 			} else if ( rs.status ==  11 ){
-				console.log("failed deposit : "+rs.status);
+				console.log("response_to_prometeo : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
 				holderbutton.html('Salir');
 
@@ -304,7 +304,7 @@ function response_to_prometeo(usr_active){
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';	
 			} else {
-				console.log("Error deposit: "+rs.status);
+				console.log("response_to_prometeo: Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
                 holderbutton.html('Contacta con nosotros');
 

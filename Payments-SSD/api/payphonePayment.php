@@ -5,8 +5,8 @@ function payment_deposit($request){
     $insert_db = [];
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
-    $insert_db['status'] = 0; 
-    
+    $insert_db['status'] = 0;
+    $insert_db['payment_method'] = $request['payment_method']; 
     
     $transaction_id = insert_tbl_transactions($insert_db);
 
@@ -28,10 +28,11 @@ function payment_deposit($request){
 
         if ($payment_curl["response"]["code"] == 0) {
             $insert_db_new = [];
-            $$insert_db_new['id'] = $transaction_id['id'];
+            $insert_db_new['id'] = $transaction_id['id'];
             $insert_db_new['status'] = 1; 
+            consolelogdata($insert_db_new);
 
-            update_tbl_transactions($insert_db_new );
+            update_tbl_transactions($insert_db_new);
 
             return ['http_code' => 200, 'status' => 'Ok', 'result' => $payment_curl["response"]];
         } else {
@@ -159,7 +160,7 @@ function insert_tbl_transactions($insert_db) {
     $status = $insert_db['status'] ?? 0;
     $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
     $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
-    $payment_method = $insert_db['payment_method'];
+    $payment_method = $insert_db['payment_method']; 
 
     $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method)
     VALUES (?, ?, ?, ?, ?, ?)";
