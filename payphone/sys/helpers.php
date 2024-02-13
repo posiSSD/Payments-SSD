@@ -412,13 +412,6 @@ function payphone_bd_details($trans=false){
 		echo $get_command;
 		echo "\n";
 
-		/*
-		consolelogdata(array(
-			'error' => $mysqli->error,
-			'get_command' => $get_command,
-		));
-		*/
-
 		exit();
 	}
 	$ret = $query->fetch_assoc();

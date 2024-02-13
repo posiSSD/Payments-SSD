@@ -19,8 +19,7 @@ function payment_deposit($request){
     //consulta 
     consolelogdata($request);
     $payment_curl = payment_curl($url_data);
-    consolelogdata($payment_curl);
-    ////consolelogdata($payment_curl); 
+    consolelogdata($payment_curl); 
 
     if ($payment_curl) {
 
@@ -82,7 +81,7 @@ function payment_curl($url_data){
                 curl_setopt($curl, CURLOPT_TIMEOUT,6);
                 
                 $response = curl_exec($curl);
-                consolelogdata($response);
+                //consolelogdata($response);
 
                 // Establecer la bandera como verdadera después de la ejecución
                 $paymentExecuted = true;
@@ -95,7 +94,7 @@ function payment_curl($url_data){
                         if(array_key_exists("txn_id",$url_data)){
                                 $response_arr["response"]["txn_id"]=$url_data["txn_id"];
                         }
-                        consolelogdata($response_arr); 
+                        //consolelogdata($response_arr); 
                         return $response_arr;
                     }else{
                         return false;

@@ -1,6 +1,5 @@
 <?php
 $hola = $_SERVER['SERVER_ADDR'];
-//consolelogdata($hola);
 include '../../env.php';
 include '../../db.php';
 ?>

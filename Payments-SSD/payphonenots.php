@@ -19,7 +19,7 @@ $status_payphone_transactions = payphone_status_transaction($data_array);
 if (!$status_payphone_transactions){
 
     $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
-    consolelogdata($payphone_array_response);
+    //consolelogdata($payphone_array_response);
 
     $payment_limits=explode(',', env('DEPOSIT_LIMITS'));
     $log_dir = str_replace(strrchr($_SERVER['SCRIPT_FILENAME'], "/"), "", $_SERVER['SCRIPT_FILENAME'])."/log/";
@@ -49,7 +49,7 @@ if (!$status_payphone_transactions){
 
         // obtener client_id, amount,  
         $data_array_response_details = payphone_bd_details($payphone_array_response);
-        consolelogdata($data_array_response_details); 
+        //consolelogdata($data_array_response_details); 
 
         switch ($payphone_array_response['transactionStatus']){
 
@@ -68,11 +68,11 @@ if (!$status_payphone_transactions){
                 $d['amount']=$data_array_response_details['amount'];
                 $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
-                consolelogdata($d);
+                //consolelogdata($d);
 
                 do{
                     $bc_deposit = bc_deposit($d);
-                    consolelogdata($bc_deposit);
+                    //consolelogdata($bc_deposit);
                     if(array_key_exists('http_code', $bc_deposit)){
                         if ($bc_deposit['http_code']==200){
                             $new_trans=[];

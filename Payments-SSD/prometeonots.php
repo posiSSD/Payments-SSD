@@ -71,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $d['amount']=$payphone_array_response['amount'];
                         $d['order_id']=$payphone_array_response['order_id'];
                         $d['payment_method']='prometeo'; // 3 = prometeo
-                        consolelogdata($d);
+                        //consolelogdata($d);
 
                         do{
                             $bc_deposit = bc_deposit($d);
-                            consolelogdata($bc_deposit);
+                            //consolelogdata($bc_deposit);
                             if(array_key_exists('http_code', $bc_deposit)){
                                 if ($bc_deposit['http_code']==200){
                                     $new_trans=[];

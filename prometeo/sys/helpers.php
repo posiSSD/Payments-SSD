@@ -399,13 +399,6 @@ function prometeo_bd_details($trans=false){
 		echo $get_command;
 		echo "\n";
 
-		/*
-		consolelogdata(array(
-			'error' => $mysqli->error,
-			'get_command' => $get_command,
-		));
-		*/
-
 		exit();
 	}
 	$ret = $query->fetch_assoc();
@@ -561,7 +554,6 @@ function consultaintent($intent_id) {
 		$response_arr = ['curl_error'=>curl_error($curl)];
 	}else{
 		$response_arr = json_decode($result, true);
-        consolelogdata($response_arr);
 	}
 	curl_close($curl);
 
