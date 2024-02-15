@@ -113,6 +113,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 amount: inputCantidad.value
                             };
 
+                            console.log('iauthData: ', inputCantidad.value);
                             // Convertir el objeto en una cadena JSON y codificarla
                             var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
