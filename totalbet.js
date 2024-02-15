@@ -22,6 +22,22 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             // Ocultar el contenido existente del modal
                             modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
 
+                            var authData = localStorage.getItem("x__ACCOUNT__auth_data");
+                            if(authData){
+                                // Parsear los datos JSON almacenados en el Local Storage
+                                var authDataObj = JSON.parse(authData);
+                                // Acceder a los valores necesarios (auth_token y user_id)
+                                var auth_token = authDataObj.auth_token;
+                                var user_id = authDataObj.user_id;
+                                //var metodo_tb = 'prometeo';
+                                var metodo_tb = '';
+
+                                console.log('authData Found');
+
+                            } else {
+                                console.log('authData not Found');
+                            }
+
                             try {
                                 // Seleccionar el elemento del carrusel activo (para la versión web)
                                 var carruselActivo = document.querySelector('.payment__item-box-active');
@@ -90,21 +106,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
 
                             // Obtener los datos del Local Storage
-                            var authData = localStorage.getItem("x__ACCOUNT__auth_data");
-                            if(authData){
-                                // Parsear los datos JSON almacenados en el Local Storage
-                                var authDataObj = JSON.parse(authData);
-                                // Acceder a los valores necesarios (auth_token y user_id)
-                                var auth_token = authDataObj.auth_token;
-                                var user_id = authDataObj.user_id;
-                                //var metodo_tb = 'prometeo';
-                                var metodo_tb = '';
-
-                                console.log('authData Found');
-
-                            } else {
-                                console.log('authData not Found');
-                            }
+                            
 
                             // Crear un objeto con los datos de autenticación
                             var array_authData = {
