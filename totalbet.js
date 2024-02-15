@@ -1,5 +1,6 @@
 console.log('Payments loaded.....');
 
+/*
 
 var observer = new MutationObserver(function(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
@@ -149,8 +150,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 console.log('Watching changes on DOM...');
 observer.observe(document.body, { childList: true, subtree: true });
 
-
-
+*/
 
 
 /*
