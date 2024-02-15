@@ -1,4 +1,6 @@
 console.log('Payments loaded.....');
+
+/*
 var observer = new MutationObserver(function(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
         //console.log('Tipo de mutación:', mutation.type);
@@ -11,10 +13,9 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                     // Realiza las modificaciones necesarias en el contenido del modal
                     console.log('v3-modal-root FOUND.');
 
-                    if(window.location.href === 'https://www.totalbet.com/?accounts=%2A&wallet=%2A&deposit=%2A' ||
-                        window.location.href === 'https://www.totalbet.com/?accounts=%2A&wallet=%2A&deposit-methods=%2A'){
+                    if((window.location.pathname === '/' && window.location.search === '?accounts=%2A&wallet=%2A&deposit=%2A') ||
+                        (window.location.pathname === '/' && window.location.search === '?accounts=%2A&wallet=%2A&deposit-methods=%2A')){
                         console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
-
 
                         //$(node).find('.v3-modal-content').hide();
                         var modalContentDiv = node.querySelector('.v3-modal-content');
@@ -58,9 +59,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                         if(opcionSeleccionada === "ProntoPaga"){
                                             metodo_tb = "prometeo";
                                         } else if (opcionSeleccionada === "Payphone") {
-                                            metodo_tb = opcionSeleccionada.trim().toLowerCase();
-                                        } else {
-                                            metodo_tb = "vacio";
+                                            metodo_tb = opcionSeleccionada.trim().toLowerCase();window.location.search
                                         }
                                     } else {
                                         console.log('CELL - opcionSeleccionada empty', metodo_tb);
@@ -145,7 +144,10 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 // Observa los cambios en el cuerpo del documento y en sus descendientes
 console.log('Watching changes on DOM...');
 observer.observe(document.body, { childList: true, subtree: true });
-    
+*/
+
+
+
 
 /*
 // Crea una instancia de MutationObserver
