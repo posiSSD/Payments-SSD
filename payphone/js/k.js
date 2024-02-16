@@ -258,13 +258,20 @@ function response_to_payphone(usr_active){
 				showStatusMessage('Recarga Realizada: $/' + prueba.kushki_value);
                 holderbutton.html('Salir');
 				
-				holder.hide();	
+				holder.hide();
+				
+				// Creamos la variable
+				var estadoPago = rs.status; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*'); 
 
+				/*
 				iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
-				holderbutton[0].style.cursor = 'default';	
+				holderbutton[0].style.cursor = 'default';
+				*/	
 			} else if ( rs.status ==  10 ){
 				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recarga Declinada: $/' + prueba.kushki_value);
@@ -272,11 +279,18 @@ function response_to_payphone(usr_active){
 
 				holder.hide();
 
+				// Creamos la variable
+				var estadoPago = rs.status; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*');
+
+				/*
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
+				*/
 			} else if ( rs.status ==  11 ){
 				console.log("response_to_payphone : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
@@ -284,11 +298,18 @@ function response_to_payphone(usr_active){
 
 				holder.hide();
 
+				// Creamos la variable
+				var estadoPago = rs.status; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*');
+
+				/*
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
 				holderbutton[0].style.cursor = 'default';
+				*/
 			} else {
 				console.log("response_to_payphone: Error deposit "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
@@ -296,11 +317,18 @@ function response_to_payphone(usr_active){
 
 				holder.hide();
 
+				// Creamos la variable
+				var estadoPago = ""; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*');
+
+				/*
 				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
 				iframeBody.style.backgroundSize = "100% auto";
 				iframeBody.style.backgroundRepeat = "no-repeat";
 				iframeBody.style.backgroundPosition = "center";
-				holderbutton[0].style.cursor = 'default';    
+				holderbutton[0].style.cursor = 'default';
+				*/    
 			}		
 		}
 		catch(err) {
