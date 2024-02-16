@@ -20,8 +20,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         if (modalContentDiv){
                             
                             // poner margin 0 !important
-                            modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
-                            modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
+                            //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
+                            //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
                             // Ocultar el contenido existente del modal
                             modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
 
