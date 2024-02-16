@@ -21,10 +21,11 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             //$(node).find('.v3-modal-content').hide();
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
-                                
+                                console.log('.v3-modal-content FOUND');
+
                                 // poner margin 0 !important
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
-                                modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
+                                //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
                                 // Ocultar el contenido existente del modal
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
                                 
@@ -134,7 +135,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 ///////////////////////////////////////////////////////////////////////////
 
                             } else {
-                                console.log('modalContentDiv Not Found: ');
+                                console.log('.v3-modal-content Found: ');
                             }
 
                         } else {
