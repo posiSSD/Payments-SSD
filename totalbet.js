@@ -26,7 +26,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 // poner margin 0 !important
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
-                                modalContentDiv.find('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').css('margin', '0 !important');
+                                //modalContentDiv.find('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').css('margin', '0 !important');
                                 // Ocultar el contenido existente del modal
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
                                 
@@ -69,9 +69,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     console.log('inputCantidad value: Not found');
                                 }
 
-                                
-
-
+                            
                                 var max_width, max_height;
 
                                 if ( metodo_tb === 'payphone' ) {
