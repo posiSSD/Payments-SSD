@@ -100,7 +100,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 justify-content: center;
                             `;
                             // Aplicar las propiedades CSS al modal
-                            modalContentDiv.style.cssText = modalAndIframeStyles;
+                            //modalContentDiv.style.cssText = modalAndIframeStyles;
 
                             // Crear un objeto con los datos de autenticación
                             var array_authData = {
