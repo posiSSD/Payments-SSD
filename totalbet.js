@@ -23,11 +23,13 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             if (modalContentDiv){
                                 console.log('.v3-modal-content FOUND');
 
-                                // poner margin 0 !important
+                                //poner margin 0 !important
+
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
                                 //modalContentDiv.find('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').css('margin', '0 !important');
                                 // Ocultar el contenido existente del modal
+                                modalContentDiv.querySelector('.v3-modal').style.margin = '0';
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
                                 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
@@ -37,11 +39,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     // Acceder a los valores necesarios (auth_token y user_id)
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
-                                    //var metodo_tb = 'prometeo';
                                     var metodo_tb = '';
-
                                     console.log('authData Found');
-
                                 } else {
                                     console.log('authData not Found');
                                 }
@@ -60,21 +59,23 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     console.log('Cell:', metodo_tb);
                                 }
                                 
-
+                                 // Ocultar el contenido existente del modal
+                                 modalContentDiv.querySelector('.v3-modal').style.margin = '0';
+                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+                                 
                                 // Seleccionar el elemento del input de cantidad por su ID
                                 var inputCantidad = document.getElementById('amount');
-                                if (carruselActivo){
-                                    console.log('inputCantidad value: ', inputCantidad.value);
-                                } else {
-                                    console.log('inputCantidad value: Not found');
-                                }
-
-                            
+                                console.log('inputCantidad value: ', inputCantidad.value);
+                                                            
                                 var max_width, max_height;
 
                                 if ( metodo_tb === 'payphone' ) {
+                                    max_width = '447px';
+                                    max_height = '846px';
+                                    /*
                                     max_width = '450px';
                                     max_height = '902px';
+                                    */
                                 } else if ( metodo_tb === 'prometeo' ) {
                                     max_width = '399px';
                                     max_height = '650px';
