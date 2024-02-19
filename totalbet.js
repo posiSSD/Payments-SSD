@@ -23,12 +23,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             if (modalContentDiv){
                                 console.log('.v3-modal-content FOUND');
 
-                                //poner margin 0 !important
-
-                                //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
-                                //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
-                                //modalContentDiv.find('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').css('margin', '0 !important');
-                                // Ocultar el contenido existente del modal
+                                modalContentDiv.style.borderRadius = '0px'
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
 
                                 try{
@@ -38,6 +33,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     var modalElement = document.querySelector('.v3-modal');
                                     if(modalElement){
                                         modalElement.style.margin = '0';
+                                        modal.style.width = 'auto';
+                                        //width: auto;
                                         console.log('modalElement v3-modal FOUND');
                                     }else{
                                         console.log('modalElement v3-modal NOT FOUND');
@@ -96,7 +93,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 // Aplicar estilos al modal y al iframe
                                 var modalAndIframeStyles = `
                                     width: 100%;
-                                    height: 100vh;
+                                    height: 96vh;
                                     max-width: ${max_width};
                                     max-height: ${max_height};
                                     border: none;
