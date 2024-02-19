@@ -29,9 +29,21 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 //modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.setProperty('margin', '0', 'important');
                                 //modalContentDiv.find('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').css('margin', '0 !important');
                                 // Ocultar el contenido existente del modal
-                                modalContentDiv.querySelector('.v3-modal').style.margin = '0';
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
-                                
+
+                                try{
+                                    modalContentDiv.querySelector('.v3-modal.style__ModalWrapper-sc-xfnom2-0.fxHqfr').style.margin = '0';
+                                } catch (error){
+                                    console.error('Error: ', error);
+                                    var modalElement = document.querySelector('.v3-modal');
+                                    if(modalElement){
+                                        modalElement.style.margin = '0';
+                                        console.log('modalElement v3-modal FOUND');
+                                    }else{
+                                        console.log('modalElement v3-modal NOT FOUND');
+                                    }
+                                }
+
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
                                     // Parsear los datos JSON almacenados en el Local Storage
@@ -59,9 +71,6 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     console.log('Cell:', metodo_tb);
                                 }
                                 
-                                 // Ocultar el contenido existente del modal
-                                 modalContentDiv.querySelector('.v3-modal').style.margin = '0';
-                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
                                  
                                 // Seleccionar el elemento del input de cantidad por su ID
                                 var inputCantidad = document.getElementById('amount');
