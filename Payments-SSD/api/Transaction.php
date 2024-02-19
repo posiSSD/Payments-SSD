@@ -21,7 +21,7 @@ function save_transaction($request, $txt_id, $type, $status){
     $shop_id = "0";
     $cashdesk_id  = "0";
     $user_id  = $request['account']??0;
-    $status  = $status;
+    $rstatus  = $status;
     $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
     $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
 
@@ -31,7 +31,7 @@ function save_transaction($request, $txt_id, $type, $status){
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_details = $mysqli_kushki->prepare($sql_details);
     $stmt_details->bind_param("sssssssss", $type_transaction_id, $txt_id, $amount, $shop_id,
-                                    $cashdesk_id, $user_id, $status, $created_at, $updated_at);
+                                    $cashdesk_id, $user_id, $rstatus, $created_at, $updated_at);
     // Ejecutar la consulta
     if ( $stmt_details->execute() === TRUE) {
 
@@ -44,8 +44,8 @@ function save_transaction($request, $txt_id, $type, $status){
         $rq['amount'] = $amount;
         $rq['shop_id '] = $shop_id;
         $rq['cashdesk_id'] = $cashdesk_id;
-        $rq['cashdesk_id '] = $user_id;
-        $rq['user_id '] = $status;
+        $rq['user_id'] = $user_id;
+        $rq['status'] = $rstatus;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
         consolelogdata($rq); 

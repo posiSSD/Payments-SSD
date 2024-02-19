@@ -136,6 +136,26 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                         var estadoPago = event.data;
                                         // Realiza acciones basadas en el estado del pago recibido
                                         console.log('Estado del pago recibido:', estadoPago);
+                                        if( estadoPago == 7) {
+
+                                            iframe.remove();
+                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
+                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            // Verificar si se encontró el elemento
+                                            if (successMessageSpan) {
+                                                // Modificar el texto del span
+                                                successMessageSpan.textContent = 'Tu petición $/'+inputCantidad.value+' se ha enviado con éxito'; // Nuevo texto aquí
+                                            } else {
+                                                console.log('Elemento span no encontrado');
+                                            }
+                                        } else if( estadoPago == 10 ){
+
+                                        } else if( estadoPago == 11 ){
+
+                                        } else {
+
+                                        }
                                     }
                                 });
                                 ///////////////////////////////////////////////////////////////////////////

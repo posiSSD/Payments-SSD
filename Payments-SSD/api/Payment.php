@@ -6,6 +6,8 @@ include ROOT_PATH.'/Payments-SSD/api/payphonePayment.php'; //cambiarlo
 
 function paymente_bc($request){
 
+    consolelogdata($request);
+
     $myRequest = [];
     $myRequest['setMethod'] = 'POST';
     $myRequest['request'] = [
