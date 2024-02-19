@@ -20,16 +20,13 @@ function bc_deposit($request){
             'REMOTE_ADDR' 	 => $request['ip_address'],
             'method ' 		 => $request['payment_method']
         ]; 
-        //consolelogdata($data_activiy);
         save_transaction_activity($data_activiy);
         return ['http_code' => 422, 'status' => 'Error', 'result' => $validator];
     }
     
     $response = paymente_bc($request);
-    //consolelogdata($response);
-
 	return $response;
-
+    
 }
 
 function validateRequest($request) {

@@ -145,13 +145,148 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu petición $/'+inputCantidad.value+' se ha enviado con éxito'; // Nuevo texto aquí
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
+
+                                            //////////////////////////////////////
+                                            setTimeout(function() {
+                                                
+                                                //////////
+                                                var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
+                                                if (modalElement){
+                                                    modalElement.querySelector('.v3-icon').style.display = 'none';
+
+                                                    // Crear un elemento SVG
+                                                    var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                                                    // Establecer el tamaño del SVG
+                                                    svgElement.setAttribute('width', '72');
+                                                    svgElement.setAttribute('height', '72');
+                                                    // Crear el círculo rojo
+                                                    var circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                                                    circleElement.setAttribute('cx', '36');
+                                                    circleElement.setAttribute('cy', '36');
+                                                    circleElement.setAttribute('r', '30'); // Radio del círculo
+                                                    circleElement.setAttribute('fill', 'red');
+                                                    // Crear la X blanca
+                                                    var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                    line1.setAttribute('x1', '20');
+                                                    line1.setAttribute('y1', '20');
+                                                    line1.setAttribute('x2', '52');
+                                                    line1.setAttribute('y2', '52');
+                                                    line1.setAttribute('stroke', 'white');
+                                                    line1.setAttribute('stroke-width', '5');
+                                                    var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                    line2.setAttribute('x1', '52');
+                                                    line2.setAttribute('y1', '20');
+                                                    line2.setAttribute('x2', '20');
+                                                    line2.setAttribute('y2', '52');
+                                                    line2.setAttribute('stroke', 'white');
+                                                    line2.setAttribute('stroke-width', '5');
+                                                    // Agregar los elementos al SVG
+                                                    svgElement.appendChild(circleElement);
+                                                    svgElement.appendChild(line1);
+                                                    svgElement.appendChild(line2);
+                                                    // Agregar el SVG al elemento modal
+                                                    modalElement.appendChild(svgElement);
+
+                                                } else {
+
+                                                }
+
+                                                var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                                // Verificar si se encontró el elemento
+                                                if (titleElement) {
+                                                    // Cambiar el texto del elemento
+                                                    titleElement.textContent = '¡Declinado!';
+                                                } else {
+                                                    console.error('No se encontró el elemento con la clase especificada.');
+                                                }
+
+
+
+                                            }, 5000); 
+                                            ////////////////////////////////////////////
+
+
                                         } else if( estadoPago == 10 ){
 
+                                            iframe.remove();
+                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
+                                            var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
+                                            if (modalElement){
+                                                modalElement.querySelector('.v3-icon').style.display = 'none';
+
+                                                // Crear un elemento SVG
+                                                var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                                                // Establecer el tamaño del SVG
+                                                svgElement.setAttribute('width', '72');
+                                                svgElement.setAttribute('height', '72');
+                                                // Crear el círculo rojo
+                                                var circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                                                circleElement.setAttribute('cx', '36');
+                                                circleElement.setAttribute('cy', '36');
+                                                circleElement.setAttribute('r', '30'); // Radio del círculo
+                                                circleElement.setAttribute('fill', 'red');
+                                                // Crear la X blanca
+                                                var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                line1.setAttribute('x1', '20');
+                                                line1.setAttribute('y1', '20');
+                                                line1.setAttribute('x2', '52');
+                                                line1.setAttribute('y2', '52');
+                                                line1.setAttribute('stroke', 'white');
+                                                line1.setAttribute('stroke-width', '5');
+                                                var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                line2.setAttribute('x1', '52');
+                                                line2.setAttribute('y1', '20');
+                                                line2.setAttribute('x2', '20');
+                                                line2.setAttribute('y2', '52');
+                                                line2.setAttribute('stroke', 'white');
+                                                line2.setAttribute('stroke-width', '5');
+                                                // Agregar los elementos al SVG
+                                                svgElement.appendChild(circleElement);
+                                                svgElement.appendChild(line1);
+                                                svgElement.appendChild(line2);
+                                                // Agregar el SVG al elemento modal
+                                                modalElement.appendChild(svgElement);
+
+                                            } else {
+
+                                            }
+
+                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            // Verificar si se encontró el elemento
+                                            if (titleElement) {
+                                                // Cambiar el texto del elemento
+                                                titleElement.textContent = '¡Declinado!';
+                                            } else {
+                                                console.error('No se encontró el elemento con la clase especificada.');
+                                            }
+
+                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            // Verificar si se encontró el elemento
+                                            if (successMessageSpan) {
+                                                // Modificar el texto del span
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha declinado'; 
+                                            } else {
+                                                console.log('Elemento span no encontrado');
+                                            }
+
                                         } else if( estadoPago == 11 ){
+
+                                            iframe.remove();
+                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
+                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            // Verificar si se encontró el elemento
+                                            if (successMessageSpan) {
+                                                // Modificar el texto del span
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' fallida'; 
+                                            } else {
+                                                console.log('Elemento span no encontrado');
+                                            }
 
                                         } else {
 

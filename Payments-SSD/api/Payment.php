@@ -6,8 +6,7 @@ include ROOT_PATH.'/Payments-SSD/api/payphonePayment.php'; //cambiarlo
 
 function paymente_bc($request){
 
-    consolelogdata($request);
-
+    //consolelogdata($request);
     $myRequest = [];
     $myRequest['setMethod'] = 'POST';
     $myRequest['request'] = [
@@ -15,9 +14,6 @@ function paymente_bc($request){
         "amount" => $request['amount']
     ];
     $myRequest['payment_method'] = $request['payment_method'];
-
-    //consolelogdata($request);
-
     $response = payment_deposit($myRequest);
 
     //'0', 'Pendiente'
@@ -64,7 +60,7 @@ function paymente_bc($request){
         ];
 
         save_transaction_activity($data_activiy);
-        return ['http_code' => 408, 'status' => 'Error', 'result' => 'Recharge Denied'];
+        return ['http_code' => 400, 'status' => 'Error', 'result' => 'Recharge Denied'];
 
     } else if ($response['http_code'] == 408){
 
