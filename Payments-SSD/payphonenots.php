@@ -99,13 +99,14 @@ if (!$status_payphone_transactions){
                             create_or_update_transaction($new_trans);
                             $ret['http_code']=$bc_deposit['http_code'];
                             $ret['status']='Error';
-                            $ret['response']='Something went wrong, check logs';
+                            $ret['response']='Order '.$transaccion.'wrong, check logs';
                             api_ret($ret);
                         }
                     }
                     $limit_try++;
                     sleep(5);
-                } while ($bc_deposit['http_code'] !== 200 || ($limit_try <= 3));    
+                } while ($bc_deposit['http_code'] !== 200 || ($limit_try <= 3));
+                exit();   
             break;
 
             case "Canceled": 
@@ -119,7 +120,7 @@ if (!$status_payphone_transactions){
                 $ret['status']='Canceled';
                 $ret['response']='Order '.$transaccion.' Canceled';
                 api_ret($ret);
-
+                exit();   
             break;    
         }
 
@@ -137,7 +138,6 @@ if (!$status_payphone_transactions){
 function api_ret($r){
 	api_activities($r);
 	log_write($r);
-	exit();
 }
 
 // registrar la actividad 
