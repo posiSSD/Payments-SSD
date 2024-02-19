@@ -92,7 +92,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
                                 // Aplicar estilos al modal y al iframe
                                 var modalAndIframeStyles = `
-                                    width: 100%;
+                                    width: 99%;
                                     height: 96vh;
                                     max-width: ${max_width};
                                     max-height: ${max_height};
