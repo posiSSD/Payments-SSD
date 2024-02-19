@@ -110,7 +110,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     amount: inputCantidad.value
                                 };
 
-                                console.log('authData: ', array_authData);
+                                //console.log('authData: ', array_authData);
                                 // Convertir el objeto en una cadena JSON y codificarla
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
@@ -205,7 +205,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/' + inputCantidad.value + ' ' + mensaje.toLowerCase();
+                                                successMessageSpan.textContent = 'Tu Recarga $/' + inputCantidad.value + ' ha ' + mensaje.toLowerCase();
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
