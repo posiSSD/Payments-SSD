@@ -35,7 +35,7 @@ $limit_try = 0;
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
 // declarar el request para la actividad
-$a['request']=$status_payphone_transactions;
+$a['request'] = $status_payphone_transactions;
 
 if (!$status_payphone_transactions){
 
