@@ -41,10 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = 'Error';
             $response = [];
             $limit_try = 0;
+            
 
             // construccion y ordenamiento de la data
-            $payphone_array_response = dataconstruccion($data);
             // revisa si existe el external_id en la BD
+            $payphone_array_response = dataconstruccion($data);
+            // declarar el request para la actividad
+            $a['request'] = $payphone_array_response;
+            
             $status_prometeo_transactions = prometeo_status_transaction($payphone_array_response);
             if(!$status_prometeo_transactions){
 
@@ -66,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans['status']=9; // 3=pending deposit
                         $new_trans['payment_id']=$payphone_array_response['intent_id'];
                         create_or_update_transaction($new_trans);
-                        sleep(10);
+                        sleep(5);
                         $d=[];
                         $d['account']=$payphone_array_response['id_usuario'];
                         $d['amount']=$payphone_array_response['amount'];
@@ -190,7 +194,7 @@ function api_activities($a){
 	$insert_command.= '(';
 	$insert_command.= "'".(array_key_exists('REMOTE_ADDR',$_SERVER)?$_SERVER['REMOTE_ADDR']:'NULL')."'";
 	$insert_command.= ',';
-	$insert_command.= "'".(array_key_exists('REQUEST_METHOD',$_SERVER)?$_SERVER['REQUEST_METHOD']:'NULL')."'";
+	$insert_command .= "'" . (array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] . ' / Prometeo' : 'NULL') . "', ";
 	$insert_command.= ',';
 	// $insert_command.= "'".$a['json']."'";
 	$insert_command.= (array_key_exists('request', $a)?"'".json_encode($a['request'])."'":'NULL');
