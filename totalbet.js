@@ -59,14 +59,14 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 if (carruselActivo) {
                                     var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
-                                    metodo_tb = 'prometeo';   //// probando con prometeo
+                                    //metodo_tb = 'prometeo';   //// probando con prometeo
                                     console.log('Web:', metodo_tb);
                                 } else {
                                     // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1 (para la versión celular)
                                     var paymentMethodElement = $('.style__HeroFallbackText-sc-swzx38-1');
                                     var opcionSeleccionada = paymentMethodElement.text();
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
-                                    metodo_tb = 'prometeo';   //// probando con prometeo
+                                    //metodo_tb = 'prometeo';   //// probando con prometeo
                                     console.log('Cell:', metodo_tb);
                                 }
                                 
