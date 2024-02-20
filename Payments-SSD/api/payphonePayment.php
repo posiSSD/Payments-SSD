@@ -9,14 +9,6 @@ function payment_deposit($request){
     $insert_db['payment_method'] = $request['payment_method']; 
     
     $transaction_id = insert_tbl_transactions($insert_db);
-    /////////////////////////////////////////////////
-    /*
-    if($transaction_id){
-
-    }else{
-
-    }*/
-    /////////////////////////////////////////
 
     $url_data = [];
     $url_data["command"] = "pay";
