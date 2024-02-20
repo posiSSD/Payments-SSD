@@ -194,8 +194,7 @@ function api_activities($a){
 	$insert_command.= '(';
 	$insert_command.= "'".(array_key_exists('REMOTE_ADDR',$_SERVER)?$_SERVER['REMOTE_ADDR']:'NULL')."'";
 	$insert_command.= ',';
-	$insert_command .= "'" . (array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] . ' / Prometeo' : 'NULL') . "', ";
-	$insert_command.= ',';
+	$insert_command.= "'".(array_key_exists('REQUEST_METHOD',$_SERVER)?$_SERVER['REQUEST_METHOD'].' / Prometeo':'NULL')."'";
 	// $insert_command.= "'".$a['json']."'";
 	$insert_command.= (array_key_exists('request', $a)?"'".json_encode($a['request'])."'":'NULL');
 	$insert_command.= ',';
