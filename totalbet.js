@@ -128,7 +128,6 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
                                 ///////////////////////////////////////////////////////////////////////////
                                 var iframe_element = document.getElementById('paymentsframe'); 
-                                // Configura un event listener para escuchar mensajes del iframe
                                 window.addEventListener('message', function(event) {
                                     // Verifica si el mensaje proviene del iframe esperado
                                     if (event.source === iframe_element.contentWindow) {
@@ -136,28 +135,29 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                         var estadoPago = event.data;
                                         // Realiza acciones basadas en el estado del pago recibido
                                         console.log('Estado del pago recibido:', estadoPago);
-                                
-                                        // Función para mostrar el mensaje de éxito
-                                        function mostrarMensajeExito() {
+                                        if( estadoPago == 7) {
+
                                             iframe.remove();
                                             modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
                                             var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/' + inputCantidad.value + ' se ha realizado con éxito';
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
-                                        }
-                                
-                                        // Función para mostrar el mensaje de error
-                                        function mostrarMensajeError(mensaje) {
+
+                                        } else if( estadoPago == 10 ){
+
                                             iframe.remove();
                                             modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
                                             var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
-                                            if (modalElement) {
+                                            if (modalElement){
                                                 modalElement.querySelector('.v3-icon').style.display = 'none';
+
                                                 // Crear un elemento SVG
                                                 var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                                                 // Establecer el tamaño del SVG
@@ -190,41 +190,95 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                                 svgElement.appendChild(line2);
                                                 // Agregar el SVG al elemento modal
                                                 modalElement.appendChild(svgElement);
+
                                             } else {
                                                 console.log('Icon no encontrado');
                                             }
+
                                             var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
-                                                titleElement.textContent = mensaje;
+                                                titleElement.textContent = '¡Declinado!';
                                             } else {
                                                 console.error('Titulo no encontrado');
                                             }
+
                                             var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/' + inputCantidad.value + ' ha ' + mensaje.toLowerCase();
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha declinado'; 
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
-                                        }
-                                
-                                        // Realizar acciones basadas en el estado del pago recibido
-                                        switch (estadoPago) {
-                                            case 7:
-                                                mostrarMensajeExito();
-                                                break;
-                                            case 10:
-                                                mostrarMensajeError('¡Declinado!');
-                                                break;
-                                            case 11:
-                                                mostrarMensajeError('¡Fallida!');
-                                                break;
-                                            default:
-                                                // Otros casos
-                                                break;
+
+                                        } else if( estadoPago == 11 ){
+
+                                            iframe.remove();
+                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+
+                                            var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
+                                            if (modalElement){
+                                                modalElement.querySelector('.v3-icon').style.display = 'none';
+
+                                                // Crear un elemento SVG
+                                                var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                                                // Establecer el tamaño del SVG
+                                                svgElement.setAttribute('width', '72');
+                                                svgElement.setAttribute('height', '72');
+                                                // Crear el círculo rojo
+                                                var circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                                                circleElement.setAttribute('cx', '36');
+                                                circleElement.setAttribute('cy', '36');
+                                                circleElement.setAttribute('r', '30'); // Radio del círculo
+                                                circleElement.setAttribute('fill', 'red');
+                                                // Crear la X blanca
+                                                var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                line1.setAttribute('x1', '20');
+                                                line1.setAttribute('y1', '20');
+                                                line1.setAttribute('x2', '52');
+                                                line1.setAttribute('y2', '52');
+                                                line1.setAttribute('stroke', 'white');
+                                                line1.setAttribute('stroke-width', '5');
+                                                var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                                                line2.setAttribute('x1', '52');
+                                                line2.setAttribute('y1', '20');
+                                                line2.setAttribute('x2', '20');
+                                                line2.setAttribute('y2', '52');
+                                                line2.setAttribute('stroke', 'white');
+                                                line2.setAttribute('stroke-width', '5');
+                                                // Agregar los elementos al SVG
+                                                svgElement.appendChild(circleElement);
+                                                svgElement.appendChild(line1);
+                                                svgElement.appendChild(line2);
+                                                // Agregar el SVG al elemento modal
+                                                modalElement.appendChild(svgElement);
+
+                                            } else {
+                                                console.log('Icon no encontrado');
+                                            }
+
+                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            // Verificar si se encontró el elemento
+                                            if (titleElement) {
+                                                // Cambiar el texto del elemento
+                                                titleElement.textContent = 'Fallida!';
+                                            } else {
+                                                console.error('Titulo no encontrado');
+                                            }
+
+                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            // Verificar si se encontró el elemento
+                                            if (successMessageSpan) {
+                                                // Modificar el texto del span
+                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' fallida'; 
+                                            } else {
+                                                console.log('Elemento span no encontrado');
+                                            }
+
+                                        } else {
+
                                         }
                                     }
                                 });
@@ -687,162 +741,5 @@ document.addEventListener("DOMContentLoaded", function() {
     observer.observe(document.body, { childList: true, subtree: true });
 });
 
-
-*/
-/*
-window.addEventListener('message', function(event) {
-                                    // Verifica si el mensaje proviene del iframe esperado
-                                    if (event.source === iframe_element.contentWindow) {
-                                        // Maneja el mensaje recibido
-                                        var estadoPago = event.data;
-                                        // Realiza acciones basadas en el estado del pago recibido
-                                        console.log('Estado del pago recibido:', estadoPago);
-                                        if( estadoPago == 7) {
-
-                                            iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
-                                            } else {
-                                                console.log('Elemento span no encontrado');
-                                            }
-
-                                        } else if( estadoPago == 10 ){
-
-                                            iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
-                                            if (modalElement){
-                                                modalElement.querySelector('.v3-icon').style.display = 'none';
-
-                                                // Crear un elemento SVG
-                                                var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                                                // Establecer el tamaño del SVG
-                                                svgElement.setAttribute('width', '72');
-                                                svgElement.setAttribute('height', '72');
-                                                // Crear el círculo rojo
-                                                var circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                                                circleElement.setAttribute('cx', '36');
-                                                circleElement.setAttribute('cy', '36');
-                                                circleElement.setAttribute('r', '30'); // Radio del círculo
-                                                circleElement.setAttribute('fill', 'red');
-                                                // Crear la X blanca
-                                                var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                                                line1.setAttribute('x1', '20');
-                                                line1.setAttribute('y1', '20');
-                                                line1.setAttribute('x2', '52');
-                                                line1.setAttribute('y2', '52');
-                                                line1.setAttribute('stroke', 'white');
-                                                line1.setAttribute('stroke-width', '5');
-                                                var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                                                line2.setAttribute('x1', '52');
-                                                line2.setAttribute('y1', '20');
-                                                line2.setAttribute('x2', '20');
-                                                line2.setAttribute('y2', '52');
-                                                line2.setAttribute('stroke', 'white');
-                                                line2.setAttribute('stroke-width', '5');
-                                                // Agregar los elementos al SVG
-                                                svgElement.appendChild(circleElement);
-                                                svgElement.appendChild(line1);
-                                                svgElement.appendChild(line2);
-                                                // Agregar el SVG al elemento modal
-                                                modalElement.appendChild(svgElement);
-
-                                            } else {
-                                                console.log('Icon no encontrado');
-                                            }
-
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
-                                            // Verificar si se encontró el elemento
-                                            if (titleElement) {
-                                                // Cambiar el texto del elemento
-                                                titleElement.textContent = '¡Declinado!';
-                                            } else {
-                                                console.error('Titulo no encontrado');
-                                            }
-
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha declinado'; 
-                                            } else {
-                                                console.log('Elemento span no encontrado');
-                                            }
-
-                                        } else if( estadoPago == 11 ){
-
-                                            iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
-                                            if (modalElement){
-                                                modalElement.querySelector('.v3-icon').style.display = 'none';
-
-                                                // Crear un elemento SVG
-                                                var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                                                // Establecer el tamaño del SVG
-                                                svgElement.setAttribute('width', '72');
-                                                svgElement.setAttribute('height', '72');
-                                                // Crear el círculo rojo
-                                                var circleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                                                circleElement.setAttribute('cx', '36');
-                                                circleElement.setAttribute('cy', '36');
-                                                circleElement.setAttribute('r', '30'); // Radio del círculo
-                                                circleElement.setAttribute('fill', 'red');
-                                                // Crear la X blanca
-                                                var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                                                line1.setAttribute('x1', '20');
-                                                line1.setAttribute('y1', '20');
-                                                line1.setAttribute('x2', '52');
-                                                line1.setAttribute('y2', '52');
-                                                line1.setAttribute('stroke', 'white');
-                                                line1.setAttribute('stroke-width', '5');
-                                                var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                                                line2.setAttribute('x1', '52');
-                                                line2.setAttribute('y1', '20');
-                                                line2.setAttribute('x2', '20');
-                                                line2.setAttribute('y2', '52');
-                                                line2.setAttribute('stroke', 'white');
-                                                line2.setAttribute('stroke-width', '5');
-                                                // Agregar los elementos al SVG
-                                                svgElement.appendChild(circleElement);
-                                                svgElement.appendChild(line1);
-                                                svgElement.appendChild(line2);
-                                                // Agregar el SVG al elemento modal
-                                                modalElement.appendChild(svgElement);
-
-                                            } else {
-                                                console.log('Icon no encontrado');
-                                            }
-
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
-                                            // Verificar si se encontró el elemento
-                                            if (titleElement) {
-                                                // Cambiar el texto del elemento
-                                                titleElement.textContent = 'Fallida!';
-                                            } else {
-                                                console.error('Titulo no encontrado');
-                                            }
-
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' fallida'; 
-                                            } else {
-                                                console.log('Elemento span no encontrado');
-                                            }
-
-                                        } else {
-
-                                        }
-                                    }
-                                });
 
 */
