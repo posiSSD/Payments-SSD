@@ -87,7 +87,7 @@ if (!$status_payphone_transactions){
                             $ret['response']='Order '.$transaccion.' paid';
                             api_ret($ret);
                         } else {
-                            if($limit_try <= 5){
+                            if( $limit_try <= 5 ){
                                 $new_trans=[];
                                 $new_trans['unique_id']=$data_array_response_details['unique_id'];
                                 $new_trans['client_id']=$data_array_response_details['client_id'];

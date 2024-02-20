@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               
                 //switch aprobacion transaccion
                 switch ($payphone_array_response['event_type']) {
+
                     case "payment.success":
                         
                         $new_trans=[];
@@ -89,22 +90,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $ret['status']='Ok';
                                     $ret['response']='Order '.$payphone_array_response['external_id'].' paid';
                                     api_ret($ret);
-                                }  else {                                   
-                                    $new_trans=[];
-                                    $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=11; // 11 failed deposit
-                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
-                                    create_or_update_transaction($new_trans);
-                                    $ret['http_code']=$bc_deposit['http_code'];
-                                    $ret['status']='Error';
-                                    $ret['response']='Something went wrong, check logs';
-                                    api_ret($ret);
+                                }  else {  
+                                    if( $limit_try <= 5 ){
+                                        $new_trans=[];
+                                        $new_trans['unique_id']=$payphone_array_response['external_id'];
+                                        $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                                        $new_trans['status']=11; // 11 failed deposit
+                                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
+                                        create_or_update_transaction($new_trans);
+                                        $ret['http_code']=$bc_deposit['http_code'];
+                                        $ret['status']='Error';
+                                        $ret['response']='Order '.$payphone_array_response['external_id'].' wrong / Try '.$limit_try.' / check logs';
+                                        api_ret($ret);
+                                    } else {
+                                        $ret['http_code']=$bc_deposit['http_code'];
+                                        $ret['status']='Error';
+                                        $ret['response']='Order '.$payphone_array_response['external_id'].' wrong / Try '.$limit_try.' / check logs';
+                                        api_ret($ret);
+                                    }                                 
                                 }
                             }
                             $limit_try++;
                             sleep(5);
-                        } while ($bc_deposit['http_code'] !== 200 || ($limit_try <= 3));
+                        } while ($bc_deposit['http_code'] !== 200 || $limit_try <= 5);
                                    
                     break;
 
@@ -113,11 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans=[];
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                        $new_trans['status']=11; // 3=paid
+                        $new_trans['status']=10; // 10 = 4=declined by payment
                         create_or_update_transaction($new_trans);
-                        $ret['http_code']=408;
+                        $ret['http_code']=400;
                         $ret['status']='Error';
-                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.error';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' error';
                         api_ret($ret);
 
                     break;
@@ -131,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=400;
                         $ret['status']='rejected';
-                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.rejected';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' rejected';
                         api_ret($ret);
 
                     break;
@@ -141,24 +149,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $new_trans=[];
                         $new_trans['unique_id']=$payphone_array_response['external_id'];
                         $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                        $new_trans['status']=11; 
+                        $new_trans['status']=10;  // 10 = 4=declined by payment
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=500;
                         $ret['status']='cancelled';
-                        $ret['response']='Order '.$payphone_array_response['external_id'].' payment.cancelled';
+                        $ret['response']='Order '.$payphone_array_response['external_id'].' cancelled';
                         api_ret($ret);
 
                     break;
 
                 }
+                exit();
 
             } else {
 
                 $data['response'] = "False";
                 $data['Time'] = $fecha_hora_actual->format('Y-m-d H:i:s');
                 log_write('json');
-                log_write($data); 
-               
+                log_write($data);
+                exit();               
             }
                                             
         } 
@@ -168,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function api_ret($r){
 	api_activities($r);
 	log_write($r);
-	exit();
 }
 
 // registrar la actividad 

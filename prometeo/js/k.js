@@ -271,12 +271,19 @@ function response_to_prometeo(usr_active){
 
 					holder.hide();
 
+					// Creamos la variable
+					var estadoPago = rs.status; //
+					// Enviar el estado del pago al documento principal
+					window.parent.postMessage(estadoPago, '*'); 
+
+					/*
 					iframeBody.style.background
 					iframeBody.style.backgroundImage = "url('/imagenes/exito1.png')";
 					iframeBody.style.backgroundSize = "100% auto";
 					iframeBody.style.backgroundRepeat = "no-repeat";
 					iframeBody.style.backgroundPosition = "center";
 					holderbutton[0].style.cursor = 'default';
+					*/
                 }, 10000);
 					
 			} else if ( rs.status ==  10 ){
@@ -286,11 +293,11 @@ function response_to_prometeo(usr_active){
 
 				holder.hide();
 
-				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
-				iframeBody.style.backgroundSize = "100% auto";
-				iframeBody.style.backgroundRepeat = "no-repeat";
-				iframeBody.style.backgroundPosition = "center";
-				holderbutton[0].style.cursor = 'default';
+				// Creamos la variable
+				var estadoPago = rs.status; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*');
+
 			} else if ( rs.status ==  11 ){
 				console.log("response_to_prometeo : "+rs.status);
 				showStatusMessage('Recarga Fallida: $/' + prueba.kushki_value);
@@ -298,11 +305,11 @@ function response_to_prometeo(usr_active){
 
 				holder.hide();
 
-				iframeBody.style.backgroundImage = "url('/imagenes/problema1.png')";
-				iframeBody.style.backgroundSize = "100% auto";
-				iframeBody.style.backgroundRepeat = "no-repeat";
-				iframeBody.style.backgroundPosition = "center";
-				holderbutton[0].style.cursor = 'default';	
+				// Creamos la variable
+				var estadoPago = rs.status; //
+				// Enviar el estado del pago al documento principal
+				window.parent.postMessage(estadoPago, '*');
+
 			} else {
 				console.log("response_to_prometeo: Error deposit: "+rs.status);
 				showStatusMessage('Algo salio mal: $/' + prueba.kushki_value);
