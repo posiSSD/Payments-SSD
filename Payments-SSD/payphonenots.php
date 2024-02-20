@@ -31,7 +31,7 @@ $http_code = 500;
 $status = 'Error';
 $response = [];
 $limit_try = 0;
-
+$try_limit = 5;
 //comprobacion si la tranx existe:
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
@@ -76,7 +76,7 @@ if (!$status_payphone_transactions){
 
                 do{
                     $bc_deposit = bc_deposit($d);
-                    //consolelogdata($bc_deposit);
+                    consolelogdata($bc_deposit);
                     if(array_key_exists('http_code', $bc_deposit)){
                         if ($bc_deposit['http_code']==200){
                             $new_trans=[];
@@ -91,21 +91,28 @@ if (!$status_payphone_transactions){
                             $ret['response']='Order '.$transaccion.' paid';
                             api_ret($ret);
                         } else {
-                            $new_trans=[];
-                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                            $new_trans['client_id']=$data_array_response_details['client_id'];
-                            $new_trans['status']=11; // 11 = 5 = failed deposit
-                            $new_trans['payment_id']=$payphone_array_response['transactionId'];
-                            create_or_update_transaction($new_trans);
-                            $ret['http_code']=$bc_deposit['http_code'];
-                            $ret['status']='Error';
-                            $ret['response']='Order '.$transaccion.'wrong, check logs';
-                            api_ret($ret);
+                            if($limit_try == $try_limit){
+                                $new_trans=[];
+                                $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                                $new_trans['client_id']=$data_array_response_details['client_id'];
+                                $new_trans['status']=11; // 11 = 5 = failed deposit
+                                $new_trans['payment_id']=$payphone_array_response['transactionId'];
+                                create_or_update_transaction($new_trans);
+                                $ret['http_code']=$bc_deposit['http_code'];
+                                $ret['status']='Error';
+                                $ret['response']='Order '.$transaccion.' wrong / Try '.$limit_try.' / check logs';
+                                api_ret($ret);
+                            } else {
+                                $ret['http_code']=$bc_deposit['http_code'];
+                                $ret['status']='Error';
+                                $ret['response']='Order '.$transaccion.' wrong / Try '.$limit_try.' / check logs';
+                                api_ret($ret);
+                            }
                         }
                     }
                     $limit_try++;
                     sleep(5);
-                } while ($bc_deposit['http_code'] !== 200 || ($limit_try <= 3));
+                } while ($bc_deposit['http_code'] !== 200 || ($limit_try == $try_limit));
                 exit();   
             break;
 
@@ -143,7 +150,7 @@ function api_ret($r){
 // registrar la actividad 
 function api_activities($a){
 	global $mysqli;
-
+    consolelogdata($a);
 	$insert_command = '';
 	$insert_command.= 'INSERT INTO api_activities';
 	$insert_command.= ' (ip,method,request,response,http_code,status)';
