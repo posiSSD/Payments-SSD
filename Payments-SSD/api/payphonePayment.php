@@ -19,7 +19,7 @@ function payment_deposit($request){
     //consulta 
     //consolelogdata($request);
     $payment_curl = payment_curl($url_data);
-    //consolelogdata($payment_curl); 
+    consolelogdata($payment_curl); 
 
     if ($payment_curl) {
 
@@ -85,7 +85,6 @@ function payment_curl($url_data){
                 if(array_key_exists("txn_id",$url_data)){
                         $response_arr["response"]["txn_id"]=$url_data["txn_id"];
                 }
-                consolelogdata($response_arr); 
                 return $response_arr;
             }else{
                 return false;
