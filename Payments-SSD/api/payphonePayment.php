@@ -25,9 +25,9 @@ function payment_deposit($request){
     $url_data["amount"] = $request['request']['amount']; 
 
     //consulta 
-    consolelogdata($request);
+    //consolelogdata($request);
     $payment_curl = payment_curl($url_data);
-    consolelogdata($payment_curl); 
+    //consolelogdata($payment_curl); 
 
     if ($payment_curl) {
 
@@ -38,7 +38,7 @@ function payment_deposit($request){
             $insert_db_new = [];
             $insert_db_new['id'] = $transaction_id['id'];
             $insert_db_new['status'] = 1; 
-            consolelogdata($insert_db_new);
+            //consolelogdata($insert_db_new);
 
             update_tbl_transactions($insert_db_new);
 
@@ -71,55 +71,6 @@ function payment_curl($url_data){
 
     //consolelogdata($bc_url);
 
-    /*  
-        $responseISE = [ 'response' => [ 'code' => 500, 'message' => 'Internal Server Error', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
-        $responseDTN = [ 'response' => [ 'code' => 12, 'message' => 'Duplicate transaction number', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
-        $responseOT = [ 'response' => [ 'code' => 408, 'message' => 'Time Out', 'FirstName' => 'Posi', 'LastName' => 'Vargas' ] ];
-
-        $possibleResponses = [$responseISE, $responseDTN, $responseOT];
-
-        if(limittry $limittry == 2){
-
-            $paymentExecuted = false;
-            if (!$paymentExecuted) {
-                $curl = curl_init($bc_url);
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($curl, CURLOPT_POST, false);
-                curl_setopt($curl, CURLOPT_TIMEOUT,6);
-                
-                $response = curl_exec($curl);
-                //consolelogdata($response);
-
-                // Establecer la bandera como verdadera después de la ejecución
-                $paymentExecuted = true;
-
-                insert_tbl_api_activities($url_data, $bc_url, $response);
-                
-                if($response){
-                    $response_arr = json_decode($response,true);
-                    if(is_array($response_arr)){
-                        if(array_key_exists("txn_id",$url_data)){
-                                $response_arr["response"]["txn_id"]=$url_data["txn_id"];
-                        }
-                        //consolelogdata($response_arr); 
-                        return $response_arr;
-                    }else{
-                        return false;
-                    }
-                }else{
-                    return false;
-                }
-
-            }	
-
-        }else{
-
-            $randomResponseIndex = array_rand($possibleResponses);
-            $randomResponseIndex ["response"]["txn_id"]=$url_data["txn_id"];
-            return randomResponseIndex; 
-        }
-    */
-
     // Bandera para evitar ejecutar la función más de una vez
     $paymentExecuted = false;
     if (!$paymentExecuted) {
@@ -129,7 +80,7 @@ function payment_curl($url_data){
         curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
         $response = curl_exec($curl);
-        consolelogdata($response);
+        //consolelogdata($response);
 
         // Establecer la bandera como verdadera después de la ejecución
         $paymentExecuted = true;
@@ -182,11 +133,11 @@ function insert_tbl_transactions($insert_db) {
         $rq['status'] = $status;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
-        consolelogdata($rq); 
+        //consolelogdata($rq); 
         return $rq;  
     } else {
         $errordb = $sql_insert->error;
-        consolelogdata($errordb);
+        //consolelogdata($errordb);
         return false; 
     }        
 }
@@ -209,11 +160,11 @@ function update_tbl_transactions($insert_db) {
         $rq['id'] = $transaction_id;
         $rq['status'] = $status;
         $rq['updated_at'] = $updated_at;
-        consolelogdata($rq); 
+        //consolelogdata($rq); 
         return $rq;
     } else {
         $errordb = $stmt_update->error;
-        consolelogdata($errordb);
+        //consolelogdata($errordb);
         return false; 
     }
 }
@@ -247,12 +198,12 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['response'] = $response;
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;   
-        consolelogdata($rq); 
+        //consolelogdata($rq); 
         return $rq;  
     }
     else {
         $errordb = $stmt_details->error;
-        consolelogdata($errordb);
+        //consolelogdata($errordb);
         return false; 
     } 
 }

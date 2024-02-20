@@ -31,7 +31,6 @@ $http_code = 500;
 $status = 'Error';
 $response = [];
 $limit_try = 0;
-$try_limit = 5;
 //comprobacion si la tranx existe:
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
@@ -41,7 +40,6 @@ $a['request']=$status_payphone_transactions;
 if (!$status_payphone_transactions){
 
     $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
-    //consolelogdata($payphone_array_response);
 
     if($payphone_array_response){
 
@@ -52,7 +50,6 @@ if (!$status_payphone_transactions){
 
         // obtener client_id, amount,  
         $data_array_response_details = payphone_bd_details($payphone_array_response);
-        //consolelogdata($data_array_response_details); 
 
         switch ($payphone_array_response['transactionStatus']){
 
@@ -65,14 +62,13 @@ if (!$status_payphone_transactions){
                 $new_trans['order_id']=$payphone_array_response['transactionId'];
                 $new_trans['payment_id']=$payphone_array_response['transactionId'];
                 create_or_update_transaction($new_trans);
-                sleep(10);
+                sleep(5);
                 // llamar BC
                 $d=[];
                 $d['account']=$data_array_response_details['client_id'];
                 $d['amount']=$data_array_response_details['amount'];
                 $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
-                //consolelogdata($d);
 
                 do{
                     $bc_deposit = bc_deposit($d);
@@ -91,7 +87,7 @@ if (!$status_payphone_transactions){
                             $ret['response']='Order '.$transaccion.' paid';
                             api_ret($ret);
                         } else {
-                            if($limit_try == $try_limit){
+                            if($limit_try <= 5){
                                 $new_trans=[];
                                 $new_trans['unique_id']=$data_array_response_details['unique_id'];
                                 $new_trans['client_id']=$data_array_response_details['client_id'];
@@ -112,8 +108,8 @@ if (!$status_payphone_transactions){
                     }
                     $limit_try++;
                     sleep(5);
-                } while ($bc_deposit['http_code'] !== 200 || ($limit_try == $try_limit));
-                exit();   
+                } while ($bc_deposit['http_code'] !== 200 || $limit_try <= 5);
+                  
             break;
 
             case "Canceled": 
@@ -136,15 +132,17 @@ if (!$status_payphone_transactions){
         $data_array['Response'] = "False";
         log_write('json');
         log_write($data_array);
+        exit();
     }
    
 } else {
     exit();
 }
-
+exit();
 function api_ret($r){
 	api_activities($r);
 	log_write($r);
+    exit(); 
 }
 
 // registrar la actividad 
