@@ -1,3 +1,5 @@
+/*
+
 console.log('Payments Logos loaded.....');
 
 var observer = new MutationObserver(function(mutationsList, observer) {
@@ -29,23 +31,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         }
                         
 
-                        /*
-                        var paymentMethods = node.querySelector('.paymentMethods__listLayout');
-                        if (paymentMethods){
-                            console.log('querySelector paymentMethods__listLayout Found');
-                        } else {
-                            console.log('querySelector paymentMethods__listLayout Not Found');
-                        }
-
-                        if ($(node).hasClass('paymentMethods__listLayout')){
-                            console.log('hasClass paymentMethods__listLayout: Found');
-                        } else {
-                            console.log('hasClass paymentMethods__listLayout: Not Found');
-                        }
-
-
-                        // style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open
-                        */
+                        
 
 
 
@@ -70,3 +56,5 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
 // Observa los cambios en el cuerpo del documento y en sus descendientes
 observer.observe(document.body, { childList: true, subtree: true });
+
+*/
