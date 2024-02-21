@@ -3,7 +3,7 @@ console.log('Payments Logos loaded.....');
 if (document.body.classList.contains("mobile")) {
     console.log("móvil.");
 
-    // Función que se ejecuta cuando se detecta el cambio en las clases del div deseado
+    // Función que se ejecuta cuando se detecta un cambio en las clases del div deseado
     function onClassChange(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
             // Verificar si se modificaron los atributos del div deseado
@@ -21,14 +21,12 @@ if (document.body.classList.contains("mobile")) {
         });
     }
 
-    // Obtener el elemento div deseado
-    var targetNode = document.querySelector('.style__Container-sc-g7ftgu-1.account-popup');
-
-    // Crear una instancia de MutationObserver
+    // Crear una instancia de MutationObserver para observar cambios en el DOM
     var observer = new MutationObserver(onClassChange);
 
-    // Observar cambios en los atributos del elemento div deseado
-    observer.observe(targetNode, { attributes: true });
+    // Observar cambios en el DOM, incluidos los descendientes del body
+    observer.observe(document.body, { attributes: true, subtree: true });
+
 
 
 
