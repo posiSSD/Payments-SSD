@@ -13,13 +13,20 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                     var decodedURL = decodeURIComponent(window.location.search);
                     if (decodedURL.includes('?accounts=*&wallet=*&deposit=*') || decodedURL.includes('?accounts=*&wallet=*&deposit-methods=*')){
 
-                        console.log('Payments - Logos ?accounts=%2A&wallet=%2A&deposit=%2A Loaded.');
+                        console.log('Logos ?accounts=%2A&wallet=%2A&deposit=%2A Loaded.');
                         
 
-                        if ($(node).hasClass('paymentMethods__listLayout') && $(node).attr('data-testid') === 'payment-methods-list') {
-                            console.log('Se encontró el elemento payment-methods-list con la clase paymentMethods__listLayout.');
+                        var paymentMethods = node.querySelector('.paymentMethods__listLayout');
+                        if (paymentMethods){
+                            console.log('querySelector paymentMethods__listLayout Found');
                         } else {
-                            console.log('No se encontró el elemento payment-methods-list con la clase paymentMethods__listLayout.');
+                            console.log('querySelector paymentMethods__listLayout Not Found');
+                        }
+
+                        if ($(node).hasClass('paymentMethods__listLayout')){
+                            console.log('hasClass paymentMethods__listLayout: Found');
+                        } else {
+                            console.log('hasClass paymentMethods__listLayout: Not Found');
                         }
 
 
@@ -31,14 +38,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
 
 
-
-
-
-
-
-
                     } else {
-                        console.log('Payments - Logos ?accounts=%2A&wallet=%2A&deposit=%2A Not Loaded.');
+                        console.log('Logos ?accounts=%2A&wallet=%2A&deposit=%2A Not Loaded.');
                     }
                 
                 } catch (error) {
