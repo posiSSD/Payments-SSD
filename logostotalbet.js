@@ -14,6 +14,19 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                     if (decodedURL.includes('?accounts=*&wallet=*&deposit=*') || decodedURL.includes('?accounts=*&wallet=*&deposit-methods=*')){
 
                         console.log('Logos ?accounts=%2A&wallet=%2A&deposit=%2A Loaded.');
+
+                        if ($(node).hasClass('style__Container-sc-g7ftgu-1') &&
+                            $(node).hasClass('kYpkWH') &&
+                            $(node).hasClass('account-popup') &&
+                            $(node).hasClass('account-popup-open')) {
+
+                            console.log('El nodo tiene todas las clases requeridas.');
+
+                        } else {
+
+                            console.log('El nodo no tiene todas las clases requeridas.');
+
+                        }
                         
 
                         /*
@@ -31,6 +44,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         }
 
 
+                        // style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open
                         */
 
 
