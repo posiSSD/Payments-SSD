@@ -10,6 +10,14 @@ function onMutations(mutationsList, observer) {
                     node.classList.contains('accountModal--desktop')) {
 
                     console.log('Se detectó la aparición del div deseado:', node);
+                    var decodedURL = decodeURIComponent(window.location.search);
+                    if (decodedURL.includes('?accounts=*&wallet=*&deposit=*') ||
+                        decodedURL.includes('?accounts=*&wallet=*&deposit-methods=*')) {
+                        console.log("?accounts=*&wallet=*&deposit=* Loading ");
+                        
+                    } else {
+                        console.log("?accounts=*&wallet=*&deposit=* Not Loading ");
+                    }
                     // Agrega aquí tu código para cargar el script o realizar otras acciones necesarias.
                 }
             });
@@ -22,6 +30,15 @@ function onMutations(mutationsList, observer) {
                 targetNode.classList.contains('account-popup-open')) {
 
                 console.log('Se detectó el cambio de clases en el div deseado:', targetNode);
+
+                var decodedURL = decodeURIComponent(window.location.search);
+                if (decodedURL.includes('?accounts=*&wallet=*&deposit=*') ||
+                    decodedURL.includes('?accounts=*&wallet=*&deposit-methods=*')) {
+                    console.log("?accounts=*&wallet=*&deposit=* Loading ");
+
+                } else {
+                     console.log("?accounts=*&wallet=*&deposit=* Not Loading ");
+                }
                 // Agrega aquí tu código para cargar el script o realizar otras acciones necesarias.
             }
         } else {
