@@ -26,10 +26,7 @@ if (document.body.classList.contains("mobile")) {
 
     // Observar cambios en el DOM, incluidos los descendientes del body
     observer.observe(document.body, { attributes: true, subtree: true });
-
-
-
-
+    
 } 
 // Verificar si el body tiene la clase "desktop"
 else if (document.body.classList.contains("desktop")) {
