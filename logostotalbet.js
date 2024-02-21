@@ -16,17 +16,20 @@ if (document.body.classList.contains("mobile")) {
                     targetNode.classList.contains('account-popup-open')) {
                     console.log('Se detectó el cambio de clases en el div deseado:', targetNode);
                     // Agrega aquí tu código para cargar el script o realizar otras acciones necesarias.
-                    // Obtener el elemento div deseado
-                    var targetNode = document.querySelector('.style__Container-sc-g7ftgu-1.account-popup');
                 }
             }
         });
     }
 
+    // Obtener el elemento div deseado
+    var targetNode = document.querySelector('.style__Container-sc-g7ftgu-1.account-popup');
+
     // Crear una instancia de MutationObserver
     var observer = new MutationObserver(onClassChange);
+
     // Observar cambios en los atributos del elemento div deseado
     observer.observe(targetNode, { attributes: true });
+
 
 
 } 
