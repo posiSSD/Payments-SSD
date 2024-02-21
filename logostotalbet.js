@@ -16,6 +16,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         console.log('Logos ?accounts=%2A&wallet=%2A&deposit=%2A Loaded.');
                         
 
+                        /*
                         var paymentMethods = node.querySelector('.paymentMethods__listLayout');
                         if (paymentMethods){
                             console.log('querySelector paymentMethods__listLayout Found');
@@ -29,6 +30,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                             console.log('hasClass paymentMethods__listLayout: Not Found');
                         }
 
+
+                        */
 
 
 
