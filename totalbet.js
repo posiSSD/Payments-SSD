@@ -15,6 +15,9 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         // Realiza las modificaciones necesarias en el contenido del modal
                         console.log('v3-modal-root FOUND.');
 
+                        //if (window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit=[*%2A]/) || window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit-methods=[*%2A]/))                         //
+                        //
+
                         if (window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A')){
                             console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
 
