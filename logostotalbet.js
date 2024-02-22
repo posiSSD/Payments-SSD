@@ -58,11 +58,13 @@ else if (document.body.classList.contains("desktop")) {
                                 console.log('Se encontró el div payment__item:', paymentItem);
                                 
                                 var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
-                                var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
+                                var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2');
+                                var src = imagen.attr('src');
+                                console.log('SRC de la imagen:', src);
+                                
                                 var text = style_hero.find('.payment__item-box-text')
 
-                                imagen.attr('src','https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587')
-
+                               
                                 
                             });
                         } else {
