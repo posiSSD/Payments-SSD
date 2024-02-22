@@ -41,6 +41,8 @@ else if (document.body.classList.contains("desktop")) {
                 mutation.addedNodes.forEach(function(node) {
                     if (node.classList && node.classList.contains('accountModal') && node.classList.contains('accountModal--desktop')) {
                         console.log('Se detectó la aparición del div deseado:', node);
+
+
                         
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
@@ -53,15 +55,17 @@ else if (document.body.classList.contains("desktop")) {
                                     if(style_hero){
                                         console.log('Se encontró el div style_hero:', style_hero);
                                         var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
-                                        if(imagen){
+                                        var text = style_hero.find('.payment__item-box-text')
+                                        if(imagen && text){
                                             console.log('Se encontró imagen:', imagen);
+                                            console.log('Se encontró payment__item:', text);
 
                                         }else{
 
                                         }
                                     } else {
 
-                                        
+
                                     }
                                 }else{
 
