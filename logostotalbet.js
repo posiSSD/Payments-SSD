@@ -61,15 +61,9 @@ else if (document.body.classList.contains("desktop")) {
                                 var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
                                 var text = style_hero.find('.payment__item-box-text')
 
-                                if (imagen && text) {
-                                    console.log('Se encontró imagen:', imagen);
-                                    console.log('Se encontró texto:', text.text().trim());
-                                    // Cambiar el src de la imagen por la URL correspondiente del array
-                                    imagen.attr('src', urls[index % urls.length]);
+                                imagen.attr('src','https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587')
 
-                                } else {
-                                    console.log('No se encontró imagen o texto dentro de style_hero.');
-                                }
+                                
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
