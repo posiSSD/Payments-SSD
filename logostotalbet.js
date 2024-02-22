@@ -43,7 +43,31 @@ else if (document.body.classList.contains("desktop")) {
                         console.log('Se detectó la aparición del div deseado:', node);
 
 
-                        
+                        var carouselWrapper = $(node).find('.carousel__wrapper');
+                        if (carouselWrapper.length > 0) {
+                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
+                            carouselWrapper.find('.payment__item-box').each(function() {
+                                var paymentItem = $(this);
+                                console.log('Se encontró el div payment__item:', paymentItem);
+                                
+                                var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
+                                var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2');
+                                var text = style_hero.find('.payment__item-box-text');
+
+                                if (imagen.length > 0 && text.length > 0) {
+                                    console.log('Se encontró imagen:', imagen);
+                                    console.log('Se encontró texto:', text.text().trim());
+                                } else {
+                                    console.log('No se encontró imagen o texto dentro de style_hero.');
+                                }
+                            });
+                        } else {
+                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
+                        }
+
+
+
+                        /*
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
@@ -58,7 +82,7 @@ else if (document.body.classList.contains("desktop")) {
                                         var text = style_hero.find('.payment__item-box-text')
                                         if(imagen && text){
                                             console.log('Se encontró imagen:', imagen);
-                                            console.log('Se encontró payment__item:', text);
+                                            console.log('Se encontró text:', text);
 
                                         }else{
 
@@ -74,7 +98,7 @@ else if (document.body.classList.contains("desktop")) {
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
                         }
-
+                        */
 
                         /*
                         var carouselWrapper = $(node).find('.carousel__wrapper');
