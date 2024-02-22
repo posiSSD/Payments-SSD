@@ -51,10 +51,10 @@ else if (document.body.classList.contains("desktop")) {
                                 console.log('Se encontró el div payment__item:', paymentItem);
                                 
                                 var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
-                                var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2');
-                                var text = style_hero.find('.payment__item-box-text');
+                                var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
+                                var text = style_hero.find('.payment__item-box-text')
 
-                                if (imagen.length > 0 && text.length > 0) {
+                                if (imagen && text) {
                                     console.log('Se encontró imagen:', imagen);
                                     console.log('Se encontró texto:', text.text().trim());
                                 } else {
