@@ -32,13 +32,40 @@ if (document.body.classList.contains("mobile")) {
 else if (document.body.classList.contains("desktop")) {
     console.log("desktop.");
 
-    var urls = [
-        'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587',
-        'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708631340258',
-        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
-        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
-        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg'
-    ];
+    // Función que se ejecuta cuando se detecta la aparición del div deseado
+    function onDivAppear(mutationsList, observer) {
+        mutationsList.forEach(function(mutation) {
+            // Verificar si se añadió un nuevo nodo al DOM
+            if (mutation.type === 'childList') {
+                // Verificar si el nuevo nodo es el div deseado
+                mutation.addedNodes.forEach(function(node) {
+                    // Buscar hacia arriba en el árbol DOM hasta encontrar el div "payment__carousel-wrapper"
+                    var carouselWrapper = $(node).closest('.payment__carousel-wrapper');
+                    if (carouselWrapper.length > 0) {
+                        console.log('Se encontró el div payment__carousel-wrapper:', carouselWrapper);
+                        // A partir de aquí, puedes continuar con tu lógica para acceder a los elementos dentro de este contenedor
+                        // Por ejemplo:
+                        var paymentItemBoxes = carouselWrapper.find('.payment__item-box');
+                        paymentItemBoxes.each(function() {
+                            var paymentItem = $(this);
+                            // Acceder a los elementos dentro de cada paymentItem y realizar las operaciones necesarias
+                        });
+                    } else {
+                        console.log('No se encontró el div payment__carousel-wrapper.');
+                    }
+                });
+            }
+        });
+    }
+
+    // Crear una instancia de MutationObserver
+    var observer = new MutationObserver(onDivAppear);
+    // Observar cambios en el DOM, incluidos los descendientes del body
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    
+    
+    /*
 
     // Función que se ejecuta cuando se detecta la aparición del div deseado
     function onDivAppear(mutationsList, observer) {
@@ -70,15 +97,7 @@ else if (document.body.classList.contains("desktop")) {
                                     }
                                 } else{
 
-                                }
-                                /*
-                                var src = imagen.attr('src');
-                                console.log('SRC de la imagen:', src);
-*/
-                               
-
-                               
-                                
+                                }                                                  
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
@@ -93,7 +112,8 @@ else if (document.body.classList.contains("desktop")) {
     var observer = new MutationObserver(onDivAppear);
     // Observar cambios en el DOM, incluidos los descendientes del body
     observer.observe(document.body, { childList: true, subtree: true });
-        
+      
+    */
 
 } 
 // En caso de que no tenga ninguna de las clases especificadas
