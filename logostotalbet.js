@@ -47,27 +47,23 @@ else if (document.body.classList.contains("desktop")) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
 
                             carouselWrapper.find('.payment__item-box').each(function() {
-                                var payment__item = $(this);
-                                if(payment__item){
-                                    //console.log('Se encontró el div payment__item:', payment__item);
-                                    var text = payment__item.find('payment__item-box-text');
-                                    console.log('Texto encontrado:', text);
+                                var paymentItem = $(this);
+                                if (paymentItem.hasClass('style__HeroFallbackText-sc-swzx38-1') &&
+                                    paymentItem.hasClass('erQcHc') &&
+                                    paymentItem.hasClass('payment__item-box-text')) {
+
+                                   
+
+                                    console.log('Texto encontrado:');
+
                                 } else {
-
                                     console.log('No se encontró el div payment__item');
-
                                 }
-
-                               
-
-                                /*
-                                var text = $(this).find('.style__HeroFallbackText-sc-swzx38-1').text().trim();
-                                console.log('Texto encontrado:', text);
-                                */
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
                         }
+
 
                         /*
                         var carouselWrapper = $(node).find('.carousel__wrapper');
