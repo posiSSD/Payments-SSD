@@ -50,7 +50,7 @@ else if (document.body.classList.contains("desktop")) {
                                 var payment__item = $(this);
                                 if(payment__item){
                                     //console.log('Se encontró el div payment__item:', payment__item);
-                                    var text = payment__item.find('payment__item-box-text').text().trim();
+                                    var text = payment__item.find('payment__item-box-text');
                                     console.log('Texto encontrado:', text);
                                 } else {
 
