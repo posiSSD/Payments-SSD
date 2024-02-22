@@ -47,8 +47,23 @@ else if (document.body.classList.contains("desktop")) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
 
                             carouselWrapper.find('.payment__item-box').each(function() {
+                                var payment__item = $(this);
+                                if(payment__item){
+
+                                    console.log('Se encontró el div payment__item:', payment__item);
+
+                                } else {
+
+                                    console.log('No se encontró el div payment__item');
+
+                                }
+
+                               
+
+                                /*
                                 var text = $(this).find('.style__HeroFallbackText-sc-swzx38-1').text().trim();
                                 console.log('Texto encontrado:', text);
+                                */
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
