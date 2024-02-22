@@ -48,17 +48,8 @@ else if (document.body.classList.contains("desktop")) {
 
                             carouselWrapper.find('.payment__item-box').each(function() {
                                 var paymentItem = $(this);
-                                if (paymentItem.hasClass('style__HeroFallbackText-sc-swzx38-1') &&
-                                    paymentItem.hasClass('erQcHc') &&
-                                    paymentItem.hasClass('payment__item-box-text')) {
-
-                                   
-
-                                    console.log('Texto encontrado:');
-
-                                } else {
-                                    console.log('No se encontró el div payment__item');
-                                }
+                                console.log('Se encontró el div payment__item:', paymentItem);
+                                
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
