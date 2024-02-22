@@ -43,6 +43,15 @@ else if (document.body.classList.contains("desktop")) {
                         console.log('Se detectó la aparición del div deseado:', node);
 
 
+                        var urls = [
+                            'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587',
+                            'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708631340258',
+                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
+                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
+                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg'
+                        ];
+
+
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
@@ -57,6 +66,10 @@ else if (document.body.classList.contains("desktop")) {
                                 if (imagen && text) {
                                     console.log('Se encontró imagen:', imagen);
                                     console.log('Se encontró texto:', text.text().trim());
+                                    // Cambiar el src de la imagen por la URL correspondiente del array
+                                    imagen.attr('src', urls[index % urls.length]);
+
+
                                 } else {
                                     console.log('No se encontró imagen o texto dentro de style_hero.');
                                 }
@@ -64,91 +77,6 @@ else if (document.body.classList.contains("desktop")) {
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
                         }
-
-
-
-                        /*
-                        var carouselWrapper = $(node).find('.carousel__wrapper');
-                        if (carouselWrapper.length > 0) {
-                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
-                            carouselWrapper.find('.payment__item-box').each(function() {
-                                var paymentItem = $(this);
-                                if (paymentItem) {
-                                    console.log('Se encontró el div payment__item:', paymentItem);
-                                    var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
-                                    if(style_hero){
-                                        console.log('Se encontró el div style_hero:', style_hero);
-                                        var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
-                                        var text = style_hero.find('.payment__item-box-text')
-                                        if(imagen && text){
-                                            console.log('Se encontró imagen:', imagen);
-                                            console.log('Se encontró text:', text);
-
-                                        }else{
-
-                                        }
-                                    } else {
-
-
-                                    }
-                                }else{
-
-                                }   
-                            });
-                        } else {
-                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
-                        }
-                        */
-
-                        /*
-                        var carouselWrapper = $(node).find('.carousel__wrapper');
-                        if (carouselWrapper.length > 0) {
-                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
-
-                            carouselWrapper.find('img').each(function() {
-                                var text = $(this).closest('.payment__item-box').find('.style__HeroFallbackText-sc-swzx38-1').text().trim();
-                                if (text === 'Payphone') {
-                                    $(this).attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708615132531');
-                                } else if (text === 'Prometeo') {
-                                    $(this).attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708616303275');
-                                } else {
-                                    console.log('Not Found Imagen for', text);
-                                }
-                            });
-                        } else {
-                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
-                        }
-                        */
-
-
-                        /*
-                        // Acceder al div con la clase 'carousel__wrapper' dentro del div 'accountModal'
-                        var carouselWrapper = node.querySelector('.carousel__wrapper');
-                        if (carouselWrapper) {
-                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
-                            
-                            // Modificar las imágenes dentro del div carousel__wrapper
-                            var images = carouselWrapper.querySelectorAll('img');
-                            images.forEach(function(image) {
-                                // Modificar la imagen según sea necesario
-                                var text = image.nextElementSibling.textContent.trim();
-                                if (text === 'Payphone') {
-                                    image.src = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708615132531';
-                                } else {
-                                    console.log('Not Found Imagen Payphone');
-                                }
-
-                                if (text === 'Prometeo') {
-                                    image.src = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708616303275';
-                                } else {
-                                    console.log('Not Found Imagen Prometeo');
-                                }
-                            });
-                        } else {
-                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
-                        }
-                        */
-
                     }
                 });
             }
