@@ -1,4 +1,26 @@
 console.log('Payments Logos loaded.....');
+// Función que se ejecuta cuando se detecta un cambio en el cuerpo del documento
+function onBodyClassChange(mutationsList, observer) {
+    mutationsList.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            // Acceder a la nueva lista de clases del body
+            var newClassList = mutation.target.classList;
+            console.log('Se detectó un cambio en las clases del body:', newClassList);
+            // Aquí puedes realizar las acciones necesarias en función de las clases agregadas o eliminadas
+        }
+    });
+}
+
+// Crear una instancia de MutationObserver
+var bodyObserver = new MutationObserver(onBodyClassChange);
+
+// Observar cambios en los atributos del body, específicamente en el atributo class
+bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+
+
+/*
+
 // Verificar si el body tiene la clase "mobile"
 if (document.body.classList.contains("mobile")) {
     console.log("móvil.");
@@ -40,26 +62,40 @@ else if (document.body.classList.contains("desktop")) {
                 // Verificar si el nuevo nodo es el div deseado
                 mutation.addedNodes.forEach(function(node) {
                     // Buscar hacia arriba en el árbol DOM hasta encontrar el div "payment__carousel-wrapper"
-                    var carouselWrapper = $(node).closest('.carousel__wrapper');
-                    if (carouselWrapper.length > 0) {
-                        console.log('Se encontró el div carousel__wrapperr:', carouselWrapper);
-                        // A partir de aquí, puedes continuar con tu lógica para acceder a los elementos dentro de este contenedor
-                        // Por ejemplo:
-                        var paymentItemBoxes = carouselWrapper.find('.payment__item-box');
-                        paymentItemBoxes.each(function() {
-                            var paymentItem = $(this);
-                            console.log('Se encontró el div paymentItem:', paymentItem);
-                            var image = paymentItem.find('img');
-                            if (image.length > 0) {
-                                console.log('Se encontró la etiqueta <img>:', image);
-                                // Realizar las operaciones necesarias con la imagen
-                            } else {
-                                console.log('No se encontró la etiqueta <img> dentro del paymentItem.');
-                            }
-                        });
+
+                    var decodedURL = decodeURIComponent(window.location.search);
+                    if (decodedURL.includes('?accounts=*&wallet=*&deposit=*') ||
+                        decodedURL.includes('?accounts=*&wallet=*&deposit-methods=*')) {   
+
+                        console.log('?accounts=*&wallet=*&deposit-methods=* Go');
+
+                        var carouselWrapper = $(node).closest('.carousel__wrapper');
+                        if (carouselWrapper.length > 0) {
+                            console.log('Se encontró el div carousel__wrapperr:', carouselWrapper);
+                            
+                            var paymentItemBoxes = carouselWrapper.find('.payment__item-box');
+                            paymentItemBoxes.each(function() {
+                                var paymentItem = $(this);
+                                console.log('Se encontró el div paymentItem:', paymentItem);
+                                var image = paymentItem.find('img');
+                                if (image.length > 0) {
+                                    console.log('Se encontró la etiqueta <img>:', image);
+                                    // Realizar las operaciones necesarias con la imagen
+                                } else {
+                                    console.log('No se encontró la etiqueta <img> dentro del paymentItem.');
+                                }
+                            });
+                        } else {
+                            console.log('No se encontró el div payment__carousel-wrapper.');
+                        }
+
                     } else {
-                        console.log('No se encontró el div payment__carousel-wrapper.');
+                        console.log('?accounts=*&wallet=*&deposit-methods=* No go');
                     }
+
+
+
+                   
                 });
             }
         });
@@ -70,7 +106,7 @@ else if (document.body.classList.contains("desktop")) {
     // Observar cambios en el DOM, incluidos los descendientes del body
     observer.observe(document.body, { childList: true, subtree: true });
 
-    
+*/    
     
     /*
 
@@ -120,7 +156,7 @@ else if (document.body.classList.contains("desktop")) {
     // Observar cambios en el DOM, incluidos los descendientes del body
     observer.observe(document.body, { childList: true, subtree: true });
       
-    */
+    
 
 } 
 // En caso de que no tenga ninguna de las clases especificadas
@@ -128,8 +164,7 @@ else {
     console.log("none.");
 }
 
-
-
+*/
 
 
 
