@@ -42,7 +42,19 @@ else if (document.body.classList.contains("desktop")) {
                     if (node.classList && node.classList.contains('accountModal') && node.classList.contains('accountModal--desktop')) {
                         console.log('Se detectó la aparición del div deseado:', node);
                         
+                        var carouselWrapper = $(node).find('.carousel__wrapper');
+                        if (carouselWrapper.length > 0) {
+                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
 
+                            carouselWrapper.find('.payment__item-box').each(function() {
+                                var text = $(this).find('.style__HeroFallbackText-sc-swzx38-1').text().trim();
+                                console.log('Texto encontrado:', text);
+                            });
+                        } else {
+                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
+                        }
+
+                        /*
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
@@ -60,6 +72,8 @@ else if (document.body.classList.contains("desktop")) {
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
                         }
+                        */
+
 
                         /*
                         // Acceder al div con la clase 'carousel__wrapper' dentro del div 'accountModal'
