@@ -48,6 +48,7 @@ else if (document.body.classList.contains("desktop")) {
                         var paymentItemBoxes = carouselWrapper.find('.payment__item-box');
                         paymentItemBoxes.each(function() {
                             var paymentItem = $(this);
+                            console.log('Se encontró el div paymentItem:', paymentItem);
                             // Acceder a los elementos dentro de cada paymentItem y realizar las operaciones necesarias
                         });
                     } else {
