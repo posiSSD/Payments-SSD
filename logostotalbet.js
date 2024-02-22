@@ -48,7 +48,21 @@ else if (document.body.classList.contains("desktop")) {
 
                             carouselWrapper.find('.payment__item-box').each(function() {
                                 var paymentItem = $(this);
-                                console.log('Se encontró el div payment__item:', paymentItem);
+                                if (paymentItem) {
+                                    console.log('Se encontró el div payment__item:', paymentItem);
+                                    var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
+                                    if(style_hero){
+                                        console.log('Se encontró el div style_hero:', style_hero);
+
+
+                                        
+                                    } else {
+
+                                    }
+
+                                }else{
+
+                                }
                                 
                             });
                         } else {
