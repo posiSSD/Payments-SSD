@@ -40,16 +40,22 @@ else if (document.body.classList.contains("desktop")) {
                 // Verificar si el nuevo nodo es el div deseado
                 mutation.addedNodes.forEach(function(node) {
                     // Buscar hacia arriba en el árbol DOM hasta encontrar el div "payment__carousel-wrapper"
-                    var carouselWrapper = $(node).closest('.payment__carousel-wrapper');
+                    var carouselWrapper = $(node).closest('.carousel__wrapper');
                     if (carouselWrapper.length > 0) {
-                        console.log('Se encontró el div payment__carousel-wrapper:', carouselWrapper);
+                        console.log('Se encontró el div carousel__wrapperr:', carouselWrapper);
                         // A partir de aquí, puedes continuar con tu lógica para acceder a los elementos dentro de este contenedor
                         // Por ejemplo:
                         var paymentItemBoxes = carouselWrapper.find('.payment__item-box');
                         paymentItemBoxes.each(function() {
                             var paymentItem = $(this);
                             console.log('Se encontró el div paymentItem:', paymentItem);
-                            // Acceder a los elementos dentro de cada paymentItem y realizar las operaciones necesarias
+                            var image = paymentItem.find('img');
+                            if (image.length > 0) {
+                                console.log('Se encontró la etiqueta <img>:', image);
+                                // Realizar las operaciones necesarias con la imagen
+                            } else {
+                                console.log('No se encontró la etiqueta <img> dentro del paymentItem.');
+                            }
                         });
                     } else {
                         console.log('No se encontró el div payment__carousel-wrapper.');
