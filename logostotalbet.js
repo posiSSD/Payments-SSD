@@ -45,7 +45,6 @@ else if (document.body.classList.contains("desktop")) {
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
-
                             carouselWrapper.find('.payment__item-box').each(function() {
                                 var paymentItem = $(this);
                                 if (paymentItem) {
@@ -53,17 +52,20 @@ else if (document.body.classList.contains("desktop")) {
                                     var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
                                     if(style_hero){
                                         console.log('Se encontró el div style_hero:', style_hero);
+                                        var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2')
+                                        if(imagen){
+                                            console.log('Se encontró imagen:', imagen);
 
+                                        }else{
 
-                                        
+                                        }
                                     } else {
 
+                                        
                                     }
-
                                 }else{
 
-                                }
-                                
+                                }   
                             });
                         } else {
                             console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
