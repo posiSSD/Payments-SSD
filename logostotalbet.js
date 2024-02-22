@@ -49,9 +49,9 @@ else if (document.body.classList.contains("desktop")) {
                             carouselWrapper.find('.payment__item-box').each(function() {
                                 var payment__item = $(this);
                                 if(payment__item){
-
-                                    console.log('Se encontró el div payment__item:', payment__item);
-
+                                    //console.log('Se encontró el div payment__item:', payment__item);
+                                    var text = payment__item.find('payment__item-box-text').text().trim();
+                                    console.log('Texto encontrado:', text);
                                 } else {
 
                                     console.log('No se encontró el div payment__item');
