@@ -59,10 +59,12 @@ else if (document.body.classList.contains("desktop")) {
                                 
                                 var style_hero = paymentItem.find('.style__HeroFallbackContainer-sc-swzx38-5');
                                 if(style_hero){
+                                    console.log('Se encontró el div style__HeroF:', style_hero);
+
                                     var imagen = style_hero.find('.style__HeroFallbackImg-sc-swzx38-2');
                                     var text = style_hero.find('.payment__item-box-text')
                                     if(imagen){
-                                        console.log('SRC de la imagen:', imagen);
+                                        console.log('Elemento <img>:', imagen[0]);
                                     } else  {
 
                                     }
