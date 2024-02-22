@@ -32,6 +32,14 @@ if (document.body.classList.contains("mobile")) {
 else if (document.body.classList.contains("desktop")) {
     console.log("desktop.");
 
+    var urls = [
+        'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587',
+        'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708631340258',
+        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
+        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
+        'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg'
+    ];
+
     // Función que se ejecuta cuando se detecta la aparición del div deseado
     function onDivAppear(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -42,20 +50,10 @@ else if (document.body.classList.contains("desktop")) {
                     if (node.classList && node.classList.contains('accountModal') && node.classList.contains('accountModal--desktop')) {
                         console.log('Se detectó la aparición del div deseado:', node);
 
-
-                        var urls = [
-                            'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708631320587',
-                            'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708631340258',
-                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
-                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg',
-                            'https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg'
-                        ];
-
-
                         var carouselWrapper = $(node).find('.carousel__wrapper');
                         if (carouselWrapper.length > 0) {
                             console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
-                            carouselWrapper.find('.payment__item-box').each(function() {
+                            carouselWrapper.find('.payment__item-box').each(function(index) {
                                 var paymentItem = $(this);
                                 console.log('Se encontró el div payment__item:', paymentItem);
                                 
@@ -68,7 +66,6 @@ else if (document.body.classList.contains("desktop")) {
                                     console.log('Se encontró texto:', text.text().trim());
                                     // Cambiar el src de la imagen por la URL correspondiente del array
                                     imagen.attr('src', urls[index % urls.length]);
-
 
                                 } else {
                                     console.log('No se encontró imagen o texto dentro de style_hero.');
