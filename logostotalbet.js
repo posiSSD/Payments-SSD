@@ -41,7 +41,46 @@ else if (document.body.classList.contains("desktop")) {
                 mutation.addedNodes.forEach(function(node) {
                     if (node.classList && node.classList.contains('accountModal') && node.classList.contains('accountModal--desktop')) {
                         console.log('Se detectó la aparición del div deseado:', node);
-                        // Agrega aquí tu código para cargar el script o realizar otras acciones necesarias.
+                        
+                        // Acceder al div con la clase 'carousel__wrapper' dentro del div 'accountModal'
+                        var carouselWrapper = node.querySelector('.carousel__wrapper');
+                        if (carouselWrapper) {
+                            console.log('Se encontró el div carousel__wrapper:', carouselWrapper);
+                            
+                            // Modificar las imágenes dentro del div carousel__wrapper
+                            var images = carouselWrapper.querySelectorAll('img');
+                            images.forEach(function(image) {
+                                // Modificar la imagen según sea necesario
+                                var text = image.nextElementSibling.textContent.trim();
+                                if (text === 'Payphone') {
+                                    image.src = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708615132531';
+                                } else {
+                                    console.log('Not Found Imagen Payphone');
+                                }
+
+                                if (text === 'Prometeo') {
+                                    image.src = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708616303275';
+                                } else {
+                                    console.log('Not Found Imagen Prometeo');
+                                }
+                            });
+                        } else {
+                            console.log('No se encontró el div carousel__wrapper dentro de accountModal.');
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     }
                 });
             }
