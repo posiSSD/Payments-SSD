@@ -1,5 +1,7 @@
 console.log('Payments loaded.....');
 
+/*
+
 var observer = new MutationObserver(function(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
         //console.log('Tipo de mutación:', mutation.type);
@@ -15,8 +17,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                         // Realiza las modificaciones necesarias en el contenido del modal
                         console.log('v3-modal-root FOUND.');
 
-                        //if (window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit=[*%2A]/) || window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit-methods=[*%2A]/))                         //
-                        //
+                        //if (window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit=[*%2A]/) || window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit-methods=[*%2A]/))                        
 
                         if (window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A')){
                             console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
@@ -83,10 +84,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 if ( metodo_tb === 'payphone' ) {
                                     max_width = '447px';
                                     max_height = '846px';
-                                    /*
-                                    max_width = '450px';
-                                    max_height = '902px';
-                                    */
+                                    //  max_width = '450px'; max_height = '902px';
+                                    
                                 } else if ( metodo_tb === 'prometeo' ) {
                                     max_width = '399px';
                                     max_height = '650px';
@@ -310,3 +309,5 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
 // Observa los cambios en el cuerpo del documento y en sus descendientes
 observer.observe(document.body, { childList: true, subtree: true });
+
+*/
