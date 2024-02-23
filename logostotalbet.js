@@ -15,15 +15,18 @@ function handleBodyChanges(mutationsList, observer) {
                     if (carouselWrapper.length > 0){
                         console.log('div carousel__wrapper: True', carouselWrapper);
     
+                        /*
                         var payphoneImage = carouselWrapper.find('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                         payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
+                        */
 
-                        // Cambiar la imagen de Payphone en el segundo div.payment__item-box
-                        var Imagepayphone = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                        Imagepayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
+                        var imagenPayphone = carouselWrapper.find('div.payment__item-box').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                        imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
 
-                        var Imagepayphone3 = carouselWrapper.find('div.payment__item-box').eq(2).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                        Imagepayphone3.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
+                        var imagenPrometeo = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                        imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
+
+                        
     
                     } else {
                         console.log('div carousel__wrapper: False');
