@@ -1,4 +1,20 @@
 console.log('Payments Logos loaded.....');
+
+
+// Función para manejar el evento popstate
+function handlePopState(event) {
+    console.log('Se ha producido un cambio en el historial de navegación:', event.state);
+    // Obtener la URL actual
+    var currentUrl = window.location.href;
+    console.log('URL actual:', currentUrl);
+}
+
+// Agregar un listener para el evento popstate
+window.addEventListener('popstate', handlePopState);
+
+
+
+/*
 // Función que se ejecuta cuando se detecta un cambio en el cuerpo del documento
 function onBodyClassChange(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
@@ -16,7 +32,7 @@ var bodyObserver = new MutationObserver(onBodyClassChange);
 
 // Observar cambios en los atributos del body, específicamente en el atributo class
 bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
+*/
 
 
 /*
@@ -297,3 +313,11 @@ observer.observe(targetNode, { attributes: true });
 <body class="mobile txlive" style="background: rgb(255, 255, 255); overflow: visible;">
 
 */
+/*
+<html class="mobile v3-embedded uc-scrollbar mouse" prefix="og: http://ogp.me/ns#" lang="es" data-theme="v3-light" dir="ltr" itemscope="" itemtype="http://schema.org/WebSite" data-page-type="pageBlank" data-device-type="mobile" style="overflow: visible;">
+<html class="mobile v3-embedded uc-scrollbar mouse accountModal--html--overflow--hidden" prefix="og: http://ogp.me/ns#" lang="es" data-theme="v3-light" dir="ltr" itemscope="" itemtype="http://schema.org/WebSite" data-page-type="pageBlank" data-device-type="mobile" style="overflow: visible;">
+<html class="desktop v3-embedded uc-scrollbar mouse" prefix="og: http://ogp.me/ns#" lang="es" data-theme="v3-light" dir="ltr" itemscope="" itemtype="http://schema.org/WebSite" data-page-type="pageBlank" data-device-type="desktop" style=""><head><meta http-equiv="origin-trial" content="A89JPrWYXvEpNQ/xE+PjjlGJiBu/L2GfQcplC/QkDJOS1fBoX5Q4/HLfT1dXpD1td7C2peXE3bSCJiYdwoFcNgQAAACSeyJvcmlnaW4iOiJodHRwczovL3JlY2FwdGNoYS5uZXQ6NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=">
+<html class="desktop v3-embedded uc-scrollbar mouse" prefix="og: http://ogp.me/ns#" lang="es" data-theme="v3-light" dir="ltr" itemscope="" itemtype="http://schema.org/WebSite" data-page-type="pageBlank" data-device-type="desktop" style="overflow: hidden;"><head><meta http-equiv="origin-trial" content="A89JPrWYXvEpNQ/xE+PjjlGJiBu/L2GfQcplC/QkDJOS1fBoX5Q4/HLfT1dXpD1td7C2peXE3bSCJiYdwoFcNgQAAACSeyJvcmlnaW4iOiJodHRwczovL3JlY2FwdGNoYS5uZXQ6NDQzIiwiZmVhdHVyZSI6IkRpc2FibGVUaGlyZFBhcnR5U3RvcmFnZVBhcnRpdGlvbmluZyIsImV4cGlyeSI6MTcyNTQwNzk5OSwiaXNTdWJkb21haW4iOnRydWUsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=">
+
+*/
+
