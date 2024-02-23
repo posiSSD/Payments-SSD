@@ -7,15 +7,38 @@ function handleBodyChanges(mutationsList, observer) {
         if (mutation.type === 'childList') {
             // Verificar si se añadió el div accountModal accountModal--desktop
             if ($('div.accountModal.accountModal--desktop').length > 0) {
-                console.log('El div accountModal accountModal--desktop se ha mostrado.');
+                console.log('div accountModal accountModal--desktop: True');
+
+                var accountModal = $('div.accountModal.accountModal--desktop');
+                if (accountModal.length > 0){
+                    console.log('div accountModal accountModal--desktop: True', accountModal); 
+                } else {
+                    console.log('div accountModal accountModal--desktop: False ');
+                }
+                
                 // Realizar acciones necesarias cuando el div se muestra
             } else {
                 console.log('El div accountModal accountModal--desktop se ha ocultado.');
                 // Realizar acciones necesarias cuando el div se oculta
             }
+            
+            // Verificar si se añadió el div carousel__wrapper
+            if ($('div.carousel__wrapper').length > 0){
+                console.log('div carousel__wrapper: True');
+
+                var carouselWrapper = $('div.carousel__wrapper');
+                if (carouselWrapper.length > 0){
+                    console.log('div carousel__wrapper: True', carouselWrapper);
+                } else {
+                    console.log('div carousel__wrapper: False');
+                }
+            } else {
+                console.log('div carousel__wrapper: False');
+            }
         }
     });
 }
+
 
 // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
 var bodyObserver = new MutationObserver(handleBodyChanges);
@@ -23,14 +46,6 @@ var bodyObserver = new MutationObserver(handleBodyChanges);
 // Observar cambios en el cuerpo del documento, incluidos los descendientes
 bodyObserver.observe(document.body, { childList: true, subtree: true });
 
-// Función para manejar el evento popstate
-function handlePopState(event) {
-    console.log('Se ha producido un cambio en el historial de navegación:', event.state);
-    // Realizar acciones necesarias cuando cambia el estado del historial
-}
-
-// Agregar un listener para el evento popstate
-window.addEventListener('popstate', handlePopState);
 
 
 
