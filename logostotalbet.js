@@ -6,32 +6,31 @@ function handleBodyChanges(mutationsList, observer) {
         // Verificar si se añadieron o eliminaron nodos
         if (mutation.type === 'childList') {
             // Verificar si se añadió el div accountModal accountModal--desktop
-            if ($('div.accountModal.accountModal--desktop').length > 0) {
-                console.log('div accountModal accountModal--desktop: True');
-
-                var accountModal = $('div.accountModal.accountModal--desktop');
-                var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
-                if (carouselWrapper.length > 0){
-                    console.log('div carousel__wrapper: True', carouselWrapper);
-
-
-                    // Cambiar la imagen de Payphone solo en el primer div.payment__item-box
-                    var payphoneImage = carouselWrapper.$('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                    payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
-
-
-
-
-
+            try{
+                if ($('div.accountModal.accountModal--desktop').length > 0) {
+                    console.log('div accountModal accountModal--desktop: True');
+    
+                    var accountModal = $('div.accountModal.accountModal--desktop');
+                    var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
+                    if (carouselWrapper.length > 0){
+                        console.log('div carousel__wrapper: True', carouselWrapper);
+    
+                        var payphoneImage = carouselWrapper.find('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                        payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
+    
+                    } else {
+                        console.log('div carousel__wrapper: False');
+                    }
+                    
                 } else {
-                    console.log('div carousel__wrapper: False');
+                    console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                    // Realizar acciones necesarias cuando el div se oculta
                 }
-                
-            } else {
-                console.log('El div accountModal accountModal--desktop se ha ocultado.');
-                // Realizar acciones necesarias cuando el div se oculta
+
+            } catch (error) {
+                console.error('Error: ', error);
             }
-            
+     
         }
     });
 }
