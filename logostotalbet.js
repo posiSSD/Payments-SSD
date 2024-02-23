@@ -1,55 +1,72 @@
 console.log('Payments Logos loaded.....');
 
-// Función para manejar la detección de cambios en el cuerpo del documento
-function handleBodyChanges(mutationsList, observer) {
-    mutationsList.forEach(function(mutation) {
-        // Verificar si se añadieron o eliminaron nodos
-        if (mutation.type === 'childList') {
-            // Verificar si se añadió el div accountModal accountModal--desktop
-            try{
-                if ($('div.accountModal.accountModal--desktop').length > 0) {
-                    console.log('div accountModal accountModal--desktop: True');
-    
-                    var accountModal = $('div.accountModal.accountModal--desktop');
-                    var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
-                    if (carouselWrapper.length > 0){
-                        console.log('div carousel__wrapper: True', carouselWrapper);
-    
-                        /*
-                        var payphoneImage = carouselWrapper.find('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                        payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
-                        */
+if (document.body.classList.contains("mobile")) {
+    console.log("móvil.");
 
-                        var imagenPayphone = carouselWrapper.find('div.payment__item-box').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                        imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
 
-                        var imagenPrometeo = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                        imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
 
+} else if (document.body.classList.contains("desktop")) {
+
+    console.log("Desktop.");
+
+    // Función para manejar la detección de cambios en el cuerpo del documento
+    function handleBodyChanges(mutationsList, observer) {
+        mutationsList.forEach(function(mutation) {
+            // Verificar si se añadieron o eliminaron nodos
+            if (mutation.type === 'childList') {
+                // Verificar si se añadió el div accountModal accountModal--desktop
+                try{
+                    if ($('div.accountModal.accountModal--desktop').length > 0) {
+                        console.log('div accountModal accountModal--desktop: True');
+        
+                        var accountModal = $('div.accountModal.accountModal--desktop');
+                        var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
+                        if (carouselWrapper.length > 0){
+                            console.log('div carousel__wrapper: True', carouselWrapper);
+        
+                            /*
+                            var payphoneImage = carouselWrapper.find('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
+                            */
+
+                            var imagenPayphone = carouselWrapper.find('div.payment__item-box').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
+
+                            var imagenPrometeo = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
+
+                            
+        
+                        } else {
+                            console.log('div carousel__wrapper: False');
+                        }
                         
-    
                     } else {
-                        console.log('div carousel__wrapper: False');
+                        console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                        // Realizar acciones necesarias cuando el div se oculta
                     }
-                    
-                } else {
-                    console.log('El div accountModal accountModal--desktop se ha ocultado.');
-                    // Realizar acciones necesarias cuando el div se oculta
-                }
 
-            } catch (error) {
-                console.error('Error: ', error);
+                } catch (error) {
+                    console.error('Error: ', error);
+                }
+        
             }
-     
-        }
-    });
+        });
+    }
+
+    // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
+    var bodyObserver = new MutationObserver(handleBodyChanges);
+
+    // Observar cambios en el cuerpo del documento, incluidos los descendientes
+    bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+} else {
+
+    console.log("Pi pi pi pi pi.");
+
 }
 
-// Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
-var bodyObserver = new MutationObserver(handleBodyChanges);
 
-// Observar cambios en el cuerpo del documento, incluidos los descendientes
-bodyObserver.observe(document.body, { childList: true, subtree: true });
 
 
 /*
