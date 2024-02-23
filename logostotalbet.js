@@ -1,6 +1,40 @@
 console.log('Payments Logos loaded.....');
 
+// Función para manejar la detección de cambios en el cuerpo del documento
+function handleBodyChanges(mutationsList, observer) {
+    mutationsList.forEach(function(mutation) {
+        // Verificar si se añadieron o eliminaron nodos
+        if (mutation.type === 'childList') {
+            // Verificar si se añadió el div accountModal accountModal--desktop
+            if ($('div.accountModal.accountModal--desktop').length > 0) {
+                console.log('El div accountModal accountModal--desktop se ha mostrado.');
+                // Realizar acciones necesarias cuando el div se muestra
+            } else {
+                console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                // Realizar acciones necesarias cuando el div se oculta
+            }
+        }
+    });
+}
 
+// Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
+var bodyObserver = new MutationObserver(handleBodyChanges);
+
+// Observar cambios en el cuerpo del documento, incluidos los descendientes
+bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+// Función para manejar el evento popstate
+function handlePopState(event) {
+    console.log('Se ha producido un cambio en el historial de navegación:', event.state);
+    // Realizar acciones necesarias cuando cambia el estado del historial
+}
+
+// Agregar un listener para el evento popstate
+window.addEventListener('popstate', handlePopState);
+
+
+
+/*
 var observer = new MutationObserver(function(mutationsList, observer) {
     for(var mutation of mutationsList) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'href') {
@@ -13,7 +47,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 // Observar cambios en el atributo href de todos los elementos <a>
 observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['href'] });
 
-
+*/
 
 
 /*
