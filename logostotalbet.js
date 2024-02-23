@@ -10,41 +10,28 @@ function handleBodyChanges(mutationsList, observer) {
                 console.log('div accountModal accountModal--desktop: True');
 
                 var accountModal = $('div.accountModal.accountModal--desktop');
-                if (accountModal.length > 0){
-                    console.log('div accountModal accountModal--desktop: True', accountModal); 
-                } else {
-                    console.log('div accountModal accountModal--desktop: False ');
-                }
-                
-                // Realizar acciones necesarias cuando el div se muestra
-            } else {
-                console.log('El div accountModal accountModal--desktop se ha ocultado.');
-                // Realizar acciones necesarias cuando el div se oculta
-            }
-            
-            // Verificar si se añadió el div carousel__wrapper
-            if ($('div.carousel__wrapper').length > 0){
-                console.log('div carousel__wrapper: True');
-
-                var carouselWrapper = $('div.carousel__wrapper');
+                var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
                 if (carouselWrapper.length > 0){
                     console.log('div carousel__wrapper: True', carouselWrapper);
                 } else {
                     console.log('div carousel__wrapper: False');
                 }
+                
             } else {
-                console.log('div carousel__wrapper: False');
+                console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                // Realizar acciones necesarias cuando el div se oculta
             }
+            
         }
     });
 }
-
 
 // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
 var bodyObserver = new MutationObserver(handleBodyChanges);
 
 // Observar cambios en el cuerpo del documento, incluidos los descendientes
 bodyObserver.observe(document.body, { childList: true, subtree: true });
+
 
 
 
