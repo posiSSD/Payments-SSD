@@ -1,16 +1,18 @@
 console.log('Payments Logos loaded.....');
 
 
-// Función para manejar el evento popstate
-function handlePopState(event) {
-    console.log('Se ha producido un cambio en el historial de navegación:', event.state);
-    // Obtener la URL actual
-    var currentUrl = window.location.href;
-    console.log('URL actual:', currentUrl);
-}
+var observer = new MutationObserver(function(mutationsList, observer) {
+    for(var mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'href') {
+            console.log('La URL ha cambiado:', window.location.href);
+            // Realizar acciones necesarias cuando cambia la URL
+        }
+    }
+});
 
-// Agregar un listener para el evento popstate
-window.addEventListener('popstate', handlePopState);
+// Observar cambios en el atributo href de todos los elementos <a>
+observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['href'] });
+
 
 
 
