@@ -4,7 +4,6 @@ if (document.body.classList.contains("mobile")) {
 
     console.log("móvil.");
 
-    /*
     
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -25,18 +24,27 @@ if (document.body.classList.contains("mobile")) {
                         
                     }
 
-                    if ($('div. ').length > 0) {
+                    if ($('div[data-testid="payment-methods-list"]').length > 0) {
 
-                        console.log('div accountModal accountModal--desktop: True');
-        
-                        var accountModal = $('div.accountModal.accountModal--desktop');
-                        
+                        console.log('El div con el atributo data-testid="payment-methods-list" se ha mostrado.');
                         
                     } else {
 
-                        console.log('El div accountModal accountModal--desktop se ha ocultado.');
-        
+                        console.log('El div con el atributo data-testid="payment-methods-list" se ha ocultado.');
+                        
                     }
+                    
+                    if ($('div.paymentMethods__listLayout').length > 0) {
+
+                        console.log('El div con la clase paymentMethods__listLayout se ha mostrado.');
+                        
+                    } else {
+                        
+                        console.log('El div con la clase paymentMethods__listLayout se ha ocultado.');
+                    
+                    }
+                    
+    
 
                 } catch (error) {
                     console.error('Error: ', error);
@@ -50,7 +58,7 @@ if (document.body.classList.contains("mobile")) {
 
     bodyObserver.observe(document.body, { childList: true, subtree: true });
 
-    */
+    
 
 } else if (document.body.classList.contains("desktop")) {
 
