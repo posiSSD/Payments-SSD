@@ -2,7 +2,50 @@ console.log('Payments Logos loaded.....');
 
 if (document.body.classList.contains("mobile")) {
     console.log("móvil.");
+    // Función para manejar la detección de cambios en el cuerpo del documento
+    function handleBodyChanges(mutationsList, observer) {
+        mutationsList.forEach(function(mutation) {
+            // Verificar si se añadieron o eliminaron nodos
+            if (mutation.type === 'childList') {
+                // Verificar si se añadió el div accountModal accountModal--desktop
+                try{
 
+                    if ($('div.style__Container-sc-g7ftgu-1.kYpkWH.account-popup.account-popup-open').length > 0) {
+
+                        console.log('El div style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open se ha mostrado.');
+                        //var accountPopup = $('div.style__Container-sc-g7ftgu-1.kYpkWH.account-popup.account-popup-open');
+                        
+                    } else {
+
+                        console.log('El div style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open se ha ocultado.');
+                        
+                    }
+
+                    if ($('div. ').length > 0) {
+
+                        console.log('div accountModal accountModal--desktop: True');
+        
+                        var accountModal = $('div.accountModal.accountModal--desktop');
+                        
+                        
+                    } else {
+                        console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                        // Realizar acciones necesarias cuando el div se oculta
+                    }
+
+                } catch (error) {
+                    console.error('Error: ', error);
+                }
+        
+            }
+        });
+    }
+
+    // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
+    var bodyObserver = new MutationObserver(handleBodyChanges);
+
+    // Observar cambios en el cuerpo del documento, incluidos los descendientes
+    bodyObserver.observe(document.body, { childList: true, subtree: true });
 
 
 } else if (document.body.classList.contains("desktop")) {
