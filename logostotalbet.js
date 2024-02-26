@@ -51,20 +51,15 @@ if (document.body.classList.contains("mobile")) {
                         </div>
                         style__HeroBoxContainer-sc-swzx38-3 iUYPsD
                     */
-
-                        if ($('div.style__HeroBoxContainer-sc-swzx38-3.iUYPsD').length > 0) {
-                            var style__HeroBox = $('div.style__HeroBoxContainer-sc-swzx38-3.iUYPsD');
-                            console.log('div style__HeroBoxContainer-sc-swzx38-3.iUYPsD: ', style__HeroBox);
-                        } else {
-                            console.log('div style__HeroBoxContainer-sc-swzx38-3.iUYPsD: ocultado.');
-                        }
                         
                         if ($('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk').length > 0) {
                             var style__HeroFall = $('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
-                            console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ', style__HeroFall);
+                            var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
+                            console.log('Texto del div style__HeroFallbackText-sc-swzx38-1: ', text);
                         } else {
                             console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
                         }
+                        
                         
 
                 } catch (error) {
