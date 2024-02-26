@@ -22,15 +22,13 @@ if (document.body.classList.contains("mobile")) {
                             imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165 - payphone
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956 - prometeo
-
+                            
                             var imagenPrometeo = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
 
                         }
                         
-                    } else {
-                        console.log('div data-testid: ocultado.');   
-                    }
+                    } 
                     
                     /*
                     if ($('div.paymentMethods__listLayout').length > 0) {
@@ -42,6 +40,40 @@ if (document.body.classList.contains("mobile")) {
                         console.log('div paymentMethods: ocultado.');
                     }
                     */
+                    /*
+                        <div class="style__HeroBoxContainer-sc-swzx38-3 iUYPsD">
+                            <div class="style__HeroBox-sc-swzx38-4 hNRfBY payment__item-box-hero">
+                                <div class="style__HeroFallbackContainer-sc-swzx38-5 ldbuIk">
+                                    <img src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg" loading="lazy" class="style__HeroFallbackImg-sc-swzx38-2 FxEuk">
+                                    <div class="style__HeroFallbackText-sc-swzx38-1 erQcHc payment__item-box-text">Payphone</div>
+                                </div>
+                            </div>
+                        </div>
+                        style__HeroBoxContainer-sc-swzx38-3 iUYPsD
+                    */
+
+                    if ($('div.style__HeroBoxContainer-sc-swzx38-3').length > 0) {
+
+                        var style__HeroBox = $('div.style__HeroBoxContainer-sc-swzx38-3"]');
+                        console.log('div style__HeroBoxContainer-sc-swzx38-3: ', style__HeroBox);
+                        
+                    } else {
+
+                        console.log('div style__HeroBoxContainer-sc-swzx38-3: ocultado.');
+
+                    }
+
+                    if ($('div.style__HeroFallbackContainer-sc-swzx38-5').length > 0) {
+
+                        var style__HeroFall= $('div.style__HeroFallbackContainer-sc-swzx38-5"]');
+                        console.log('div style__HeroFallbackContainer-sc-swzx38-5: ', style__HeroFall);
+                        
+                    } else {
+
+                        console.log('div style__HeroFallbackContainer-sc-swzx38-5: ocultado.'); 
+
+                    }
+
                 } catch (error) {
                     console.error('Error: ', error);
                 }
