@@ -16,12 +16,9 @@ if (document.body.classList.contains("mobile")) {
 
                         var accountPopup1 = $('div.account-popup-open');
                         console.log('div account-popup-open: ', accountPopup1);
-                        //<div class="style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open"></div>
                         
                     } else {
-
-                        console.log('El div style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open se ha ocultado.');
-                        
+                        console.log('div account-popup-open: ocultado.');  
                     }
 
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
@@ -30,9 +27,7 @@ if (document.body.classList.contains("mobile")) {
                         console.log('div data-testid: ', accountPopup2);
                         
                     } else {
-
-                        console.log('El div con el atributo data-testid="payment-methods-list" se ha ocultado.');
-                        
+                        console.log('div data-testid: ocultado.');   
                     }
                     
                     if ($('div.paymentMethods__listLayout').length > 0) {
@@ -41,13 +36,9 @@ if (document.body.classList.contains("mobile")) {
                         console.log('div paymentMethods: ', accountPopup3);
                         
                     } else {
-
-                        console.log('El div con la clase paymentMethods__listLayout se ha ocultado.');
-                    
+                        console.log('div paymentMethods: ocultado.');
                     }
                     
-    
-
                 } catch (error) {
                     console.error('Error: ', error);
                 }
