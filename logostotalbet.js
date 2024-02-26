@@ -52,27 +52,20 @@ if (document.body.classList.contains("mobile")) {
                         style__HeroBoxContainer-sc-swzx38-3 iUYPsD
                     */
 
-                    if ($('div.style__HeroBoxContainer-sc-swzx38-3').length > 0) {
-
-                        var style__HeroBox = $('div.style__HeroBoxContainer-sc-swzx38-3"]');
-                        console.log('div style__HeroBoxContainer-sc-swzx38-3: ', style__HeroBox);
+                        if ($('div.style__HeroBoxContainer-sc-swzx38-3.iUYPsD').length > 0) {
+                            var style__HeroBox = $('div.style__HeroBoxContainer-sc-swzx38-3.iUYPsD');
+                            console.log('div style__HeroBoxContainer-sc-swzx38-3.iUYPsD: ', style__HeroBox);
+                        } else {
+                            console.log('div style__HeroBoxContainer-sc-swzx38-3.iUYPsD: ocultado.');
+                        }
                         
-                    } else {
-
-                        console.log('div style__HeroBoxContainer-sc-swzx38-3: ocultado.');
-
-                    }
-
-                    if ($('div.style__HeroFallbackContainer-sc-swzx38-5').length > 0) {
-
-                        var style__HeroFall= $('div.style__HeroFallbackContainer-sc-swzx38-5"]');
-                        console.log('div style__HeroFallbackContainer-sc-swzx38-5: ', style__HeroFall);
+                        if ($('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk').length > 0) {
+                            var style__HeroFall = $('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
+                            console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ', style__HeroFall);
+                        } else {
+                            console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
+                        }
                         
-                    } else {
-
-                        console.log('div style__HeroFallbackContainer-sc-swzx38-5: ocultado.'); 
-
-                    }
 
                 } catch (error) {
                     console.error('Error: ', error);
