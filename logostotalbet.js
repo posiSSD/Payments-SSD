@@ -12,6 +12,38 @@ if (document.body.classList.contains("mobile")) {
                 
                 try{
 
+                    if ($('div.accountModal.accountModal--mobile').length > 0) {
+
+                        var data_testid = $('div.accountModal.accountModal--mobile');
+
+                        var style__HeroFall = data_testid.find('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
+                        if (style__HeroFall.length > 0){
+                            var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
+                            if(text == 'Payphone'){
+
+                                var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                                imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
+                                console.log('Payphone: ');
+
+                            } 
+                            if(text == 'Prometeo') {
+
+                                var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                                imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
+                                console.log('Prometeo: ');
+
+                            } 
+
+                        } else {
+
+                        }
+
+                    } else {
+
+                    }
+
+                    /*
+
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
 
                         var data_testid = $('div[data-testid="payment-methods-list"]');
@@ -29,17 +61,32 @@ if (document.body.classList.contains("mobile")) {
                         }
                         
                     } 
-                    
-                    /*
-                    if ($('div.paymentMethods__listLayout').length > 0) {
-
-                        var accountPopup3 = $('div.paymentMethods__listLayout');
-                        console.log('div paymentMethods: ', accountPopup3);
-                        
-                    } else {
-                        console.log('div paymentMethods: ocultado.');
-                    }
                     */
+
+                    /*
+                    if ($('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk').length > 0) {
+                        var style__HeroFall = $('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
+                        var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
+                        console.log('Texto del div style__HeroFallbackText-sc-swzx38-1: ', text,' ');
+                        if(text == 'Payphone'){
+
+                            var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
+                            console.log('Payphone: ', imagenPayphone);
+
+                        } 
+                        if(text == 'Prometeo') {
+
+                            var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
+                            console.log('Prometeo: ', imagenPayphone);
+
+                        } 
+                    } else {
+                        console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
+                    }    
+                    */
+
                     /*
                         <div class="style__HeroBoxContainer-sc-swzx38-3 iUYPsD">
                             <div class="style__HeroBox-sc-swzx38-4 hNRfBY payment__item-box-hero">
@@ -52,27 +99,7 @@ if (document.body.classList.contains("mobile")) {
                         style__HeroBoxContainer-sc-swzx38-3 iUYPsD
                     */
                         
-                        if ($('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk').length > 0) {
-                            var style__HeroFall = $('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
-                            var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
-                            console.log('Texto del div style__HeroFallbackText-sc-swzx38-1: ', text,' ');
-                            if(text == 'Payphone'){
-
-                                var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                                imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
-                                console.log('Payphone: ', imagenPayphone);
-
-                            } 
-                            if(text == 'Prometeo') {
-
-                                var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                                imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
-                                console.log('Prometeo: ', imagenPayphone);
-
-                            } 
-                        } else {
-                            console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
-                        }
+                        
                         
                         
 
