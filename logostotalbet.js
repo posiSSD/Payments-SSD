@@ -12,6 +12,8 @@ if (document.body.classList.contains("mobile")) {
                 
                 try{
 
+                    /*
+
                     if ($('div.accountModal.accountModal--mobile').length > 0) {
                         console.log('Se encontró el div con la clase "accountModal accountModal--mobile".');
 
@@ -20,7 +22,9 @@ if (document.body.classList.contains("mobile")) {
                         var style__HeroFall = data_testid.find('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
 
                         if (style__HeroFall.length > 0){
+
                             var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
+
                             if(text == 'Payphone'){
 
                                 var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
@@ -45,12 +49,12 @@ if (document.body.classList.contains("mobile")) {
                         console.log('No se encontró el div con la clase "accountModal accountModal--mobile".');
                     }
 
-                    /*
+                    */
 
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
 
                         var data_testid = $('div[data-testid="payment-methods-list"]');
-                        console.log('div data-testid: ', data_testid);
+                        console.log('div[data-testid="payment-methods-list"]: True.');
                         if (data_testid.length > 0){
 
                             var imagenPayphone = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
@@ -63,33 +67,33 @@ if (document.body.classList.contains("mobile")) {
 
                         }
                         
-                    } 
-                    */
-
-                    /*
+                    } else {
+                        console.log('div[data-testid="payment-methods-list"]: False.'); 
+                    }  
+                    
                     if ($('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk').length > 0) {
                         var style__HeroFall = $('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
                         var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
-                        console.log('Texto del div style__HeroFallbackText-sc-swzx38-1: ', text,' ');
+                        console.log('Text div style__HeroFallbackText-sc-swzx38-1: ', text,' ');
+
                         if(text == 'Payphone'){
 
                             var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
-                            console.log('Payphone: ', imagenPayphone);
+                            console.log('Payphone');
 
                         } 
                         if(text == 'Prometeo') {
 
                             var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
-                            console.log('Prometeo: ', imagenPayphone);
+                            console.log('Prometeo');
 
                         } 
                     } else {
                         console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
                     }    
-                    */
-
+                    
                     /*
                         <div class="style__HeroBoxContainer-sc-swzx38-3 iUYPsD">
                             <div class="style__HeroBox-sc-swzx38-4 hNRfBY payment__item-box-hero">
