@@ -10,10 +10,11 @@ if (document.body.classList.contains("mobile")) {
                 // Verificar si se añadió el div accountModal accountModal--desktop
                 try{
 
-                    if ($('div.style__Container-sc-g7ftgu-1.kYpkWH.account-popup.account-popup-open').length > 0) {
+                    if ($('div.account-popup-open').length > 0) {
 
                         console.log('El div style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open se ha mostrado.');
                         //var accountPopup = $('div.style__Container-sc-g7ftgu-1.kYpkWH.account-popup.account-popup-open');
+                        //<div class="style__Container-sc-g7ftgu-1 kYpkWH account-popup account-popup-open"></div>
                         
                     } else {
 
