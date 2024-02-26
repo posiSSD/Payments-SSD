@@ -13,7 +13,6 @@ if (document.body.classList.contains("mobile")) {
                 try{
 
                     /*
-
                     if ($('div.accountModal.accountModal--mobile').length > 0) {
                         console.log('Se encontró el div con la clase "accountModal accountModal--mobile".');
 
@@ -48,7 +47,6 @@ if (document.body.classList.contains("mobile")) {
                     } else {
                         console.log('No se encontró el div con la clase "accountModal accountModal--mobile".');
                     }
-
                     */
 
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
@@ -106,8 +104,6 @@ if (document.body.classList.contains("mobile")) {
 
     bodyObserver.observe(document.body, { childList: true, subtree: true });
 
-    
-
 } else if (document.body.classList.contains("desktop")) {
 
     console.log("Desktop.");
@@ -126,11 +122,6 @@ if (document.body.classList.contains("mobile")) {
                         var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
                         if (carouselWrapper.length > 0){
                             //console.log('div carousel__wrapper: True', carouselWrapper);
-        
-                            /*
-                            var payphoneImage = carouselWrapper.find('div.payment__item-box:first').find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            payphoneImage.first().attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
-                            */
 
                             var imagenPayphone = carouselWrapper.find('div.payment__item-box').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
@@ -138,8 +129,6 @@ if (document.body.classList.contains("mobile")) {
                             var imagenPrometeo = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
 
-                            
-        
                         } else {
                             //console.log('div carousel__wrapper: False');
                         }
