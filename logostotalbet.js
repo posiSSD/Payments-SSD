@@ -12,24 +12,27 @@ if (document.body.classList.contains("mobile")) {
                 
                 try{
 
-                    if ($('div.account-popup-open').length > 0) {
-
-                        var accountPopup1 = $('div.account-popup-open');
-                        console.log('div account-popup-open: ', accountPopup1);
-                        
-                    } else {
-                        console.log('div account-popup-open: ocultado.');  
-                    }
-
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
 
-                        var accountPopup2 = $('div[data-testid="payment-methods-list"]');
-                        console.log('div data-testid: ', accountPopup2);
+                        var data_testid = $('div[data-testid="payment-methods-list"]');
+                        console.log('div data-testid: ', data_testid);
+                        if (data_testid.length > 0){
+
+                            var imagenPayphone = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
+                            // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165 - payphone
+                            // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956 - prometeo
+
+                            var imagenPrometeo = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
+
+                        }
                         
                     } else {
                         console.log('div data-testid: ocultado.');   
                     }
                     
+                    /*
                     if ($('div.paymentMethods__listLayout').length > 0) {
 
                         var accountPopup3 = $('div.paymentMethods__listLayout');
@@ -38,7 +41,7 @@ if (document.body.classList.contains("mobile")) {
                     } else {
                         console.log('div paymentMethods: ocultado.');
                     }
-                    
+                    */
                 } catch (error) {
                     console.error('Error: ', error);
                 }
