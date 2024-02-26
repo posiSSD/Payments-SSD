@@ -13,10 +13,12 @@ if (document.body.classList.contains("mobile")) {
                 try{
 
                     if ($('div.accountModal.accountModal--mobile').length > 0) {
+                        console.log('Se encontró el div con la clase "accountModal accountModal--mobile".');
 
                         var data_testid = $('div.accountModal.accountModal--mobile');
 
                         var style__HeroFall = data_testid.find('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
+
                         if (style__HeroFall.length > 0){
                             var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
                             if(text == 'Payphone'){
@@ -35,11 +37,12 @@ if (document.body.classList.contains("mobile")) {
                             } 
 
                         } else {
-
+                            console.log('Se encontró el div con la clase "style__HeroFall".');
                         }
 
+                        
                     } else {
-
+                        console.log('No se encontró el div con la clase "accountModal accountModal--mobile".');
                     }
 
                     /*
