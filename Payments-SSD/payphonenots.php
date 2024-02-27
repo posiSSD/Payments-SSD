@@ -135,6 +135,9 @@ if (!$status_payphone_transactions){
     }
    
 } else {
+    log_write('json');
+    $data_array['Response'] = "Duplicity";
+    log_write($data_array);
     exit();
 }
 exit();
