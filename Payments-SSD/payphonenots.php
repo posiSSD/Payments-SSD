@@ -141,7 +141,10 @@ if (!$status_payphone_transactions){
 exit();
 function api_ret($r){
     log_write($r);
+    consolelogdata($r);
     $r['request'] = $a['request'];
+    consolelogdata($a['request']);
+    consolelogdata($r);
 	api_activities($r);
 	
     exit(); 
