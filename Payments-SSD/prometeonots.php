@@ -222,7 +222,7 @@ function api_activities($a){
 	}
 	$mysqli->close();
 }
-
+/*
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
@@ -243,5 +243,5 @@ function responsejson($data) {
     echo $json_response;
     // DAR RESPUSETA AQUI A LA PETICION POST //
 }
-
+*/
 ?>

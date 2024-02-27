@@ -113,7 +113,6 @@ if (!$status_payphone_transactions){
             break;
 
             case "Canceled": 
-
                 $new_trans=[];
                 $new_trans['unique_id']=$data_array_response_details['unique_id'];
                 $new_trans['client_id']=$data_array_response_details['client_id'];
