@@ -1,7 +1,5 @@
 console.log('Payments loaded.....');
 
-/*
-
 var observer = new MutationObserver(function(mutationsList, observer) {
     mutationsList.forEach(function(mutation) {
         //console.log('Tipo de mutación:', mutation.type);
@@ -14,18 +12,18 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
                     // Verifica si el nodo añadido es el modal
                     if ($(node).hasClass('v3-modal-root')) {
-                        // Realiza las modificaciones necesarias en el contenido del modal
-                        console.log('v3-modal-root FOUND.');
+                        
+                        //console.log('v3-modal-root FOUND.');
 
                         //if (window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit=[*%2A]/) || window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit-methods=[*%2A]/))                        
 
                         if (window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A')){
-                            console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
+                            //console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
 
                             //$(node).find('.v3-modal-content').hide();
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
-                                console.log('.v3-modal-content FOUND');
+                                //console.log('.v3-modal-content FOUND');
 
                                 modalContentDiv.style.borderRadius = '0px'
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
@@ -53,9 +51,9 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
-                                    console.log('authData Found');
+                                    //console.log('authData Found');
                                 } else {
-                                    console.log('authData not Found');
+                                    //console.log('authData not Found');
                                 }
 
                                 // Seleccionar el elemento del carrusel activo (para la versión web)
@@ -77,7 +75,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                  
                                 // Seleccionar el elemento del input de cantidad por su ID
                                 var inputCantidad = document.getElementById('amount');
-                                console.log('inputCantidad value: ', inputCantidad.value);
+                                //console.log('inputCantidad value: ', inputCantidad.value);
                                                             
                                 var max_width, max_height;
 
@@ -310,4 +308,3 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 // Observa los cambios en el cuerpo del documento y en sus descendientes
 observer.observe(document.body, { childList: true, subtree: true });
 
-*/

@@ -179,8 +179,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 function api_ret($r){
-	api_activities($r);
-	log_write($r);
+    log_write($r);
+    $r['request'] = $a['request'];
+    api_activities($r);
+	
 }
 
 // registrar la actividad 
