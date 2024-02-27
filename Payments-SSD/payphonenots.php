@@ -82,9 +82,9 @@ if (!$status_payphone_transactions){
                             $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
                             $new_trans['payment_id']=$payphone_array_response['transactionId'];
                             create_or_update_transaction($new_trans);
-                            $ret['http_code']=200;
-                            $ret['status']='Ok';
-                            $ret['response']='Order '.$transaccion.' paid';
+                            $ret['http_code'] = 200;
+                            $ret['status'] = 'Ok';
+                            $ret['response'] = 'Order '.$transaccion.' paid';
                             api_ret($ret);
                         } else {
                             if( $limit_try <= 5 ){
@@ -140,8 +140,10 @@ if (!$status_payphone_transactions){
 }
 exit();
 function api_ret($r){
+    log_write($r);
+    $r['request'] = $a['request'];
 	api_activities($r);
-	log_write($r);
+	
     exit(); 
 }
 
