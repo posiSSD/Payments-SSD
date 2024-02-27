@@ -139,9 +139,9 @@ if (!$status_payphone_transactions){
 }
 exit();
 function api_ret($r){
-    global $a;
+    //global $a;
     log_write($r);
-    $r['request'] = $a['request'];
+    //$r['request'] = $a['request'];
 	api_activities($r);
     //exit(); 
 }
@@ -180,7 +180,7 @@ function api_activities($a){
 		log_write($mysqli->error);
 		log_write($insert_command);
 		// echo $mysqli->error; 
-		// print_r($insert_command); exit();
+		// print_r($insert_command);
 	}
 	$mysqli->close();
 }
