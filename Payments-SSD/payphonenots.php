@@ -34,9 +34,6 @@ $limit_try = 0;
 //comprobacion si la tranx existe:
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
-// declarar el request para la actividad
-$a['request'] = $status_payphone_transactions;
-
 if (!$status_payphone_transactions){
 
     $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
@@ -109,7 +106,9 @@ if (!$status_payphone_transactions){
                     $limit_try++;
                     sleep(5);
                 } while ($bc_deposit['http_code'] !== 200 || $limit_try <= 5);
-                  
+                
+
+                exit();
             break;
 
             case "Canceled": 
@@ -125,22 +124,25 @@ if (!$status_payphone_transactions){
                 exit();   
             break;    
         }
-
     }else{
         
         $data_array['Response'] = "False";
         log_write('json');
         log_write($data_array);
         exit();
-    }
-   
+
+    }  
 } else {
+
     log_write('json');
     $data_array['Response'] = "Duplicity";
     log_write($data_array);
     exit();
+
 }
+
 exit();
+
 function api_ret($r){
     //global $a;
     log_write($r);
