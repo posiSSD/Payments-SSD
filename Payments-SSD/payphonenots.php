@@ -30,7 +30,7 @@ $ret=[];
 $http_code = 500;
 $status = 'Error';
 $response = [];
-$limit_try = 0;
+//$limit_try = 0;
 //comprobacion si la tranx existe:
 $status_payphone_transactions = payphone_status_transaction($data_array);
 
@@ -67,39 +67,35 @@ if (!$status_payphone_transactions){
                 $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
 
-                do{
-                    $bc_deposit = bc_deposit($d);
-                    consolelogdata($bc_deposit);
-                    if(array_key_exists('http_code', $bc_deposit)){
-                        if ($bc_deposit['http_code']==200){
-                            $new_trans=[];
-                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                            $new_trans['client_id']=$data_array_response_details['client_id'];
-                            $new_trans['status']=7; // 3=paid
-                            $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
-                            $new_trans['payment_id']=$payphone_array_response['transactionId'];
-                            create_or_update_transaction($new_trans);
-                            $ret['http_code'] = 200;
-                            $ret['status'] = 'Ok';
-                            $ret['response'] = 'Order '.$transaccion.' paid';
-                            api_ret($ret);
-                        } else {
-                            $new_trans=[];
-                            $new_trans['unique_id']=$data_array_response_details['unique_id'];
-                            $new_trans['client_id']=$data_array_response_details['client_id'];
-                            $new_trans['status']=11; // 11 = 5 = failed deposit
-                            $new_trans['payment_id']=$payphone_array_response['transactionId'];
-                            create_or_update_transaction($new_trans);
-                            $ret['http_code']=$bc_deposit['http_code'];
-                            $ret['status']='Error';
-                            $ret['response']='Order '.$transaccion.' wrong / check logs';
-                            $ret['try'] = 'Try :'.$limit_try;
-                            api_ret($ret);
-                        }
+                $bc_deposit = bc_deposit($d);
+                consolelogdata($bc_deposit);
+                if(array_key_exists('http_code', $bc_deposit)){
+                    if ($bc_deposit['http_code']==200){
+                        $new_trans=[];
+                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                        $new_trans['client_id']=$data_array_response_details['client_id'];
+                        $new_trans['status']=7; // 3=paid
+                        $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                        $new_trans['payment_id']=$payphone_array_response['transactionId'];
+                        create_or_update_transaction($new_trans);
+                        $ret['http_code'] = 200;
+                        $ret['status'] = 'Ok';
+                        $ret['response'] = 'Order '.$transaccion.' paid';
+                        api_ret($ret);
+                    } else {
+                        $new_trans=[];
+                        $new_trans['unique_id']=$data_array_response_details['unique_id'];
+                        $new_trans['client_id']=$data_array_response_details['client_id'];
+                        $new_trans['status']=11; // 11 = 5 = failed deposit
+                        $new_trans['payment_id']=$payphone_array_response['transactionId'];
+                        create_or_update_transaction($new_trans);
+                        $ret['http_code']=$bc_deposit['http_code'];
+                        $ret['status']='Error';
+                        $ret['response']='Order '.$transaccion.' wrong / check logs';
+                        //$ret['try'] = 'Try :'.$limit_try;
+                        api_ret($ret);
                     }
-                    $limit_try++;
-                    sleep(5);
-                } while ( ($bc_deposit['http_code'] !== 200) || ($limit_try <= 5) );
+                }
  
 
                 exit();
