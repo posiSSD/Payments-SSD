@@ -77,46 +77,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $d['order_id']=$payphone_array_response['order_id'];
                         $d['payment_method']='prometeo'; // 3 = prometeo
                         //consolelogdata($d);
-
-                        do{
-                            $bc_deposit = bc_deposit($d);
-                            //consolelogdata($bc_deposit);
-                            if(array_key_exists('http_code', $bc_deposit)){
-                                if ($bc_deposit['http_code']==200){
-                                    $new_trans=[];
-                                    $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                    $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                    $new_trans['status']=7; // 3=paid
-                                    $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
-                                    $new_trans['payment_id']=$payphone_array_response['intent_id'];
-                                    create_or_update_transaction($new_trans);
-                                    $ret['http_code']=200;
-                                    $ret['status']='Ok';
-                                    $ret['response']='Order '.$payphone_array_response['external_id'].' paid';
-                                    api_ret($ret);
-                                }  else {  
-                                    if( $limit_try <= 5 ){
-                                        $new_trans=[];
-                                        $new_trans['unique_id']=$payphone_array_response['external_id'];
-                                        $new_trans['client_id']=$payphone_array_response['id_usuario'];
-                                        $new_trans['status']=11; // 11 failed deposit
-                                        $new_trans['payment_id']=$payphone_array_response['intent_id'];
-                                        create_or_update_transaction($new_trans);
-                                        $ret['http_code']=$bc_deposit['http_code'];
-                                        $ret['status']='Error';
-                                        $ret['response']='Order '.$payphone_array_response['external_id'].' wrong / Try '.$limit_try.' / check logs';
-                                        api_ret($ret);
-                                    } else {
-                                        $ret['http_code']=$bc_deposit['http_code'];
-                                        $ret['status']='Error';
-                                        $ret['response']='Order '.$payphone_array_response['external_id'].' wrong / Try '.$limit_try.' / check logs';
-                                        api_ret($ret);
-                                    }                                 
-                                }
+                        $bc_deposit = bc_deposit($d);
+                        if(array_key_exists('http_code', $bc_deposit)){
+                            if ($bc_deposit['http_code']==200){
+                                $new_trans=[];
+                                $new_trans['unique_id']=$payphone_array_response['external_id'];
+                                $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                                $new_trans['status']=7; // 3=paid
+                                $new_trans['wallet_id']=$bc_deposit['result']['trx_id'];
+                                $new_trans['payment_id']=$payphone_array_response['intent_id'];
+                                create_or_update_transaction($new_trans);
+                                $ret['http_code']=200;
+                                $ret['status']='Ok';
+                                $ret['response']='Order '.$payphone_array_response['external_id'].' paid';
+                                api_ret($ret);
+                            }  else {  
+                                $new_trans=[];
+                                $new_trans['unique_id']=$payphone_array_response['external_id'];
+                                $new_trans['client_id']=$payphone_array_response['id_usuario'];
+                                $new_trans['status']=11; // 11 failed deposit
+                                $new_trans['payment_id']=$payphone_array_response['intent_id'];
+                                create_or_update_transaction($new_trans);
+                                $ret['http_code']=$bc_deposit['http_code'];
+                                $ret['status']='Error';
+                                $ret['response']='Order '.$payphone_array_response['external_id'].' wrong / check logs';
+                                api_ret($ret);                           
                             }
-                            $limit_try++;
-                            sleep(5);
-                        } while ($bc_deposit['http_code'] !== 200 || $limit_try <= 5);
+                        }
                                    
                     break;
 
@@ -180,7 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function api_ret($r){
     log_write($r);
-    $r['request'] = $a['request'];
     api_activities($r);
 	
 }
@@ -189,38 +175,42 @@ function api_ret($r){
 function api_activities($a){
 	global $mysqli;
 
-	$insert_command = '';
-	$insert_command.= 'INSERT INTO api_activities';
-	$insert_command.= ' (ip,method,request,response,http_code,status)';
-	$insert_command.= ' VALUES';
-	$insert_command.= '(';
-	$insert_command.= "'".(array_key_exists('REMOTE_ADDR',$_SERVER)?$_SERVER['REMOTE_ADDR']:'NULL')."'";
-	$insert_command.= ',';
-	$insert_command.= "'".(array_key_exists('REQUEST_METHOD',$_SERVER)?$_SERVER['REQUEST_METHOD'].' / Prometeo':'NULL')."'";
-	// $insert_command.= "'".$a['json']."'";
-	$insert_command.= (array_key_exists('request', $a)?"'".json_encode($a['request'])."'":'NULL');
-	$insert_command.= ',';
-	$insert_command.= (array_key_exists('response', $a)?"'".json_encode($a['response'])."'":'NULL');
-	$insert_command.= ',';
-	$insert_command.= (array_key_exists('http_code', $a)?"'".$a['http_code']."'":'NULL');
-	// $insert_command.= $a['http_code'];
-	$insert_command.= ',';
-	$insert_command.= (array_key_exists('status', $a)?"'".$a['status']."'":'NULL');
-	// $insert_command.= $a['status'];
-	$insert_command.= '';
-	$insert_command.= '';
-	$insert_command.= ')';
-	$insert_command.= '';
+	global $mysqli;
+    $bd = 'at_payments_prueba';
+    $table = 'api_activities';
+    $rq = []; 
+    $ip = ( array_key_exists('REMOTE_ADDR',$_SERVER) ? $_SERVER['REMOTE_ADDR'] : NULL );
+    $method = ( array_key_exists('REQUEST_METHOD',$_SERVER) ? $_SERVER['REQUEST_METHOD'] : NULL );
+    $request = ( array_key_exists('request', $a) ? json_encode($a['request']) : NULL );
+    $response = ( array_key_exists('response', $a) ? json_encode($a['response']) : NULL );
+    $http_code = ( array_key_exists('http_code', $a) ? $a['http_code'] : NULL );
+    $status = ( array_key_exists('status', $a) ? $a['status'] : NULL );
+    $created_at = ( new DateTime('now', new DateTimeZone('America/Lima')) )->format('Y-m-d H:i:s');
+    $updated_at = ( new DateTime('now', new DateTimeZone('America/Lima')) )->format('Y-m-d H:i:s');
 
-	$mysqli->query($insert_command);
-	if($mysqli->error){
-		log_write('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> mysqli->error <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-----------------------------');
-		log_write($mysqli->error);
-		log_write($insert_command);
-		// echo $mysqli->error; 
-		// print_r($insert_command); exit();
-	}
-	$mysqli->close();
+
+    $sql_insert = "INSERT INTO $table (ip,method,request,response,http_code,status,created_at,updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_insert = $mysqli->prepare($sql_insert);
+    $sql_insert->bind_param("ssssssss", $ip, $method, $request, $response, $http_code, $status, $created_at, $updated_at);
+    // Ejecutar la consulta
+    if ($sql_insert->execute() === TRUE) {
+        $id = $mysqli->insert_id;
+        $rq['id'] = $id;
+        $rq['ip'] = $ip;
+        $rq['method'] = $method;
+        $rq['request'] = $request;
+        $rq['response'] = $response;
+        $rq['http_code'] = $http_code;
+        $rq['status'] = $status;
+        $rq['created_at'] = $created_at;
+        $rq['updated_at'] = $updated_at;
+        return $rq;  
+    } else {
+        $errordb = $sql_insert->error;
+        //consolelogdata($errordb);
+        return false; 
+    }     
 }
 
 function consolelogdata($data) {

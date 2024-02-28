@@ -139,8 +139,7 @@ function api_ret($r){
 
 // registrar la actividad 
 function api_activities($a){
-
-	global $mysqli;
+    global $mysqli;
     $bd = 'at_payments_prueba';
     $table = 'api_activities';
     $rq = []; 
@@ -153,13 +152,16 @@ function api_activities($a){
     $created_at = ( new DateTime('now', new DateTimeZone('America/Lima')) )->format('Y-m-d H:i:s');
     $updated_at = ( new DateTime('now', new DateTimeZone('America/Lima')) )->format('Y-m-d H:i:s');
 
-
     $sql_insert = "INSERT INTO $table (ip,method,request,response,http_code,status,created_at,updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $sql_insert = $mysqli->prepare($sql_insert);
     $sql_insert->bind_param("ssssssss", $ip, $method, $request, $response, $http_code, $status, $created_at, $updated_at);
     // Ejecutar la consulta
-    if ($sql_insert->execute() === TRUE) {
+    $result = $sql_insert->execute();
+    // Cerrar la conexión
+    $mysqli->close();
+
+    if ($result === TRUE) {
         $id = $mysqli->insert_id;
         $rq['id'] = $id;
         $rq['ip'] = $ip;
@@ -177,6 +179,7 @@ function api_activities($a){
         return false; 
     }     
 }
+
 
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
