@@ -7,12 +7,7 @@ include '../../db.php';
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $value = $data['value']*100;
-    $uniqueid = null;
-    if($data['unique_id'] == '1234567890'){
-        $uniqueid = md5(microtime().rand(0,1000));
-    }else{
-        $uniqueid = $data['unique_id'];
-    }
+    $uniqueid = $data['unique_id'];
 }
 $key_payphone = env('TOKEN_PAYPHONE');
 ?>
@@ -53,6 +48,7 @@ $key_payphone = env('TOKEN_PAYPHONE');
 </html>
 
 <?php
+/*
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
@@ -62,5 +58,5 @@ function consolelogdata($data) {
     echo 'console.log(": ", ' . json_encode($data) . ');';
     echo '</script>';
 }   
-
+*/
 ?>

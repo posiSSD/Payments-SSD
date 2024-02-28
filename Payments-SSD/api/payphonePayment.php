@@ -45,7 +45,7 @@ function payment_deposit($request){
 function payment_curl($url_data){
 
     // limittry $limittry = 0;
-    consolelogdata($url_data);
+    //consolelogdata($url_data);
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";
@@ -63,7 +63,7 @@ function payment_curl($url_data){
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
 
     
-    consolelogdata($bc_url);
+    //consolelogdata($bc_url);
 
     // Bandera para evitar ejecutar la función más de una vez
     $paymentExecuted = false;
