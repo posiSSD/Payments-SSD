@@ -58,9 +58,11 @@ if (document.body.classList.contains("mobile")) {
                             imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone-nobg-1708980953671.png?1708980996486');
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165 - payphone
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956 - prometeo
+                            // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-house-nobg-170915368925.png?1709153842929
                             
                             var imagenPrometeo = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-nobg-17089809376928.png?1708980969567');
+                            //imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-nobg-17089809376928.png?1708980969567');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-house-nobg-170915368925.png?1709153842929');
 
                         }
                         
@@ -83,7 +85,7 @@ if (document.body.classList.contains("mobile")) {
                         if(text == 'Prometeo') {
 
                             var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-nobg-17089809376928.png?1708980969567');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-house-nobg-170915368925.png?1709153842929');
                             //console.log('Prometeo');
 
                         } 
