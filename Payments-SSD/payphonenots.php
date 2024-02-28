@@ -115,18 +115,19 @@ if (!$status_payphone_transactions){
                 exit();   
             break;    
         }
-    }else{
+    } else {
         
-        $data_array['Response'] = "False";
+        $data_array['Response'] = "Datos Nulos";
+        $data_array['Time'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
         log_write('json');
         log_write($data_array);
         exit();
 
     }  
 } else {
-
-    log_write('json');
     $data_array['Response'] = "Duplicity";
+    $data_array['Time'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
+    log_write('json');
     log_write($data_array);
     exit();
 
