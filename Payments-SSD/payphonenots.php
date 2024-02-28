@@ -99,7 +99,8 @@ if (!$status_payphone_transactions){
                     }
                     $limit_try++;
                     sleep(5);
-                } while ( ($bc_deposit['http_code'] !== 200) || ($limit_try !== 5) ); 
+                } while ( ($bc_deposit['http_code'] !== 200) || ($limit_try <= 5) );
+ 
 
                 exit();
 
@@ -136,11 +137,8 @@ if (!$status_payphone_transactions){
 }
 
 function api_ret($r){
-    //global $a;
     log_write($r);
-    //$r['request'] = $a['request'];
 	api_activities($r);
-    //exit(); 
 }
 
 // registrar la actividad 
