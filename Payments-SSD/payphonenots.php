@@ -24,6 +24,7 @@ log_write('_GET');
 log_write($_GET);
 log_write('_SERVER');
 log_write($_SERVER);
+log_write('json');
 
 $a=[];
 $ret=[];
@@ -41,8 +42,9 @@ if (!$status_payphone_transactions){
     if($payphone_array_response){
 
         payphone_api_transactions($payphone_array_response);
+
         $payphone_array_response['Response'] = "True";
-        log_write('json');
+        $payphone_array_response['Time'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
         log_write($payphone_array_response);
 
         // obtener client_id, amount,  
