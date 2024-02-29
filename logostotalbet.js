@@ -126,10 +126,12 @@ if (document.body.classList.contains("mobile")) {
                             //console.log('div carousel__wrapper: True', carouselWrapper);
 
                             var imagenPayphone = carouselWrapper.find('div.payment__item-box').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphonenobg-17086151185001.png?1708705781603');
+                            imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-payphone-200x26-17092174679023.png?1709217477178');
+                            /// https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-payphone-200x26-17092174679023.png?1709217477178
 
                             var imagenPrometeo = carouselWrapper.find('div.payment__item-box').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeonobg-17086149510158.png?1708707330596');
+                            imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1709217671152');
+                            /// https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1709217671152
 
                         } else {
                             //console.log('div carousel__wrapper: False');
