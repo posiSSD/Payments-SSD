@@ -45,12 +45,14 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                 }
 
                                 ///////////////////////////////////////////////////////////////
+                                /*
                                 var v3_modal = modalContentDiv.find('div.v3-modal');
                                 if (v3_modal){
                                     v3_modal.css('width', '460px');
                                 } else {
                                     console.log('div.v3-modal not found');
                                 }
+                                */
                                 ///////////////////////////////////////////////////////////////
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
