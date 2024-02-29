@@ -36,6 +36,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     var modalElement = document.querySelector('.v3-modal');
                                     if(modalElement){
                                         modalElement.style.margin = '0';
+                                        modalElement.style.width = '460px';
                                         //modal.style.width = 'auto';
                                         //width: auto;
                                         console.log('modalElement v3-modal FOUND');
