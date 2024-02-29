@@ -17,7 +17,8 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
                         //if (window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit=[*%2A]/) || window.location.search.match(/\?accounts=[*%2A]&wallet=[*%2A]&deposit-methods=[*%2A]/))                        
 
-                        if (window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A')){
+                        if (window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A') ||
+                            window.location.search.includes('?accounts=*&wallet=*&deposit=*') || window.location.search.includes('?accounts=*&wallet=*&deposit-methods=*')){
                             //console.log('Payments ?accounts=%2A&wallet=%2A&deposit=%2A loaded.');
 
                             //$(node).find('.v3-modal-content').hide();
@@ -307,4 +308,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 
 // Observa los cambios en el cuerpo del documento y en sus descendientes
 observer.observe(document.body, { childList: true, subtree: true });
+
+
+
 
