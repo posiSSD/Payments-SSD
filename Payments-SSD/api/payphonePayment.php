@@ -52,8 +52,8 @@ function payment_curl($url_data){
 	$bc_param["secretkey"]=env('BC_PAYPHONE_SECRET_KEY');
 	$bc_param["sid"]="18751709";
 	$bc_param["currency"]="USD";
-    //payphone  - 366 -- 15134 //FUNCIONA  - 51 // 15134 prometeo  //NewPrometeo (14207) //NewPayphone (14177)
-	$bs_param["paymentID"]="14207";
+    //payphone  - 366 -- 15134 //FUNCIONA  - 51 // 15134 prometeo  //NewPrometeo (14207) //NewPayphone (14177) // 3803
+	$bs_param["paymentID"]="3803";
 
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
