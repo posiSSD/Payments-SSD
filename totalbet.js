@@ -45,18 +45,18 @@ if (document.body.classList.contains("mobile")) {
                          window.location.search.includes('?accounts=*&wallet=*&deposit=*'))) {
 
                         var modalElement = modal_root.find('.v3-modal');
-                        if(modalElement){
+                        if(modalElement > 0){
                             modalElement.css('margin','0');
                             modalElement.css('width','460px');
                             console.log('v3-modal FOUND');
 
                             var modalContentDiv = modalElement.find('.v3-modal-content')
-                            if (modalContentDiv) {
+                            if (modalContentDiv > 0) {
                                 modalContentDiv.css('border-radius','0px');
                                 console.log('v3-modal-content v3-modal FOUND');
 
                                 var modal_body = modalContentDiv.find('.v3-modal-body');
-                                if ( modal_body ) {
+                                if ( modal_body > 0) {
                                     modal_body.css('display','none');
                                     console.log('v3-modal-body FOUND');
 
@@ -127,8 +127,20 @@ if (document.body.classList.contains("mobile")) {
                                     metodo: metodo_tb,
                                     amount: valorInput
                                 };
-                                console.log('array_authData : ', array_authData); // Se corrigió el log, se agregó la coma que faltaba
 
+                                var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+
+                                // Crear el iframe
+                                var iframe = document.createElement('iframe');
+                                iframe.id = 'paymentsframe';
+                                iframe.style.cssText = modalAndIframeStyles;
+
+                                // Construir la URL de redirección con los parámetros
+                                var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+                                iframe.src = redirectUrl;
+                                modalContentDiv.appendChild(iframe);
+
+                                /*
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
                                 // Crear el iframe usando jQuery
@@ -140,7 +152,7 @@ if (document.body.classList.contains("mobile")) {
 
                                 // Agregar el iframe al contenido del modal usando jQuery
                                 $('#modalContentDiv').append(iframe);
-
+                                */
                                 
 
 
