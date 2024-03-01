@@ -21,7 +21,7 @@ if (document.body.classList.contains("mobile")) {
                             //$(node).find('.v3-modal-content').hide();
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
-                                //console.log('.v3-modal-content FOUND');
+                                console.log('.v3-modal-content FOUND');
 
                                 modalContentDiv.style.borderRadius = '0px'
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
@@ -30,9 +30,8 @@ if (document.body.classList.contains("mobile")) {
                                 if(modalElement){
                                     modalElement.style.margin = '0';
                                     modalElement.style.width = '460px';
-                                    //modal.style.width = 'auto';
-                                    //width: auto;
-                                    //console.log('modalElement v3-modal FOUND');
+                                    
+                                    console.log('modalElement v3-modal FOUND');
                                 }else{
                                     console.log('modalElement v3-modal NOT FOUND');
                                 }
@@ -45,7 +44,7 @@ if (document.body.classList.contains("mobile")) {
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
-                                    //console.log('authData Found');
+                                    console.log('authData Found');
                                 } else {
                                     console.log('authData not Found');
                                 }
@@ -55,8 +54,7 @@ if (document.body.classList.contains("mobile")) {
                                 if (carruselActivo) {
                                     var opcionSeleccionada = carruselActivo.text();
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
-                                    //metodo_tb = 'prometeo';   //// probando con prometeo
-                                    //console.log('Web:', metodo_tb);
+                                    console.log('Movil : ', metodo_tb);
                                 } else {
                                     console.log('Desktop: style__HeroFallbackText-sc-swzx38-1');
                                 }
@@ -100,7 +98,7 @@ if (document.body.classList.contains("mobile")) {
                                     amount: inputCantidad.value
                                 };
 
-                                //console.log('authData: ', array_authData);
+                                console.log('authData: ', array_authData);
                                 // Convertir el objeto en una cadena JSON y codificarla
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
