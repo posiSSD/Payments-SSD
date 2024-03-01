@@ -88,11 +88,12 @@ if (document.body.classList.contains("mobile")) {
 
 
                                 var valorInput = $('#amount').val();
-                                if(valorInput){
-                                    console.log('#amount Found : '. valorInput);
+                                if (valorInput) {
+                                    console.log('#amount Found: ', valorInput);
                                 } else {
                                     console.log('#amount Not Found');
                                 }
+                                
 
 
                             } else {
