@@ -11,43 +11,6 @@ if (document.body.classList.contains("mobile")) {
                 
                 try{
 
-                    /*
-                    if ($('div.accountModal.accountModal--mobile').length > 0) {
-                        console.log('Se encontró el div con la clase "accountModal accountModal--mobile".');
-
-                        var data_testid = $('div.accountModal.accountModal--mobile');
-
-                        var style__HeroFall = data_testid.find('div.style__HeroFallbackContainer-sc-swzx38-5.ldbuIk');
-
-                        if (style__HeroFall.length > 0){
-
-                            var text = style__HeroFall.find('.style__HeroFallbackText-sc-swzx38-1').text();
-
-                            if(text == 'Payphone'){
-
-                                var imagenPayphone = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                                imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165');
-                                console.log('Payphone: ');
-
-                            } 
-                            if(text == 'Prometeo') {
-
-                                var imagenPrometeo = style__HeroFall.find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                                imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956');
-                                console.log('Prometeo: ');
-
-                            } 
-
-                        } else {
-                            console.log('Se encontró el div con la clase "style__HeroFall".');
-                        }
-
-                        
-                    } else {
-                        console.log('No se encontró el div con la clase "accountModal accountModal--mobile".');
-                    }
-                    */
-
                     if ($('div[data-testid="payment-methods-list"]').length > 0) {
 
                         var data_testid = $('div[data-testid="payment-methods-list"]');
@@ -56,13 +19,13 @@ if (document.body.classList.contains("mobile")) {
 
                             var imagenPayphone = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(0).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
                             imagenPayphone.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone-house-nobg-17091548133654.png?1709154819859');
+                            
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphoneremovebg-preview-17060223265677.png?1708961570165 - payphone
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-e1610717447192-16971452504121.png?1708961642956 - prometeo 
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-house-nobg-170915368925.png?1709153842929 prometeo - house 
                             // https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone-house-nobg-17091548133654.png?1709154819859 payphone - house
                             
                             var imagenPrometeo = data_testid.find('div[data-testid="payment-methods-list-item"]').eq(1).find('img[src="https://static.springbuilder.site/widgets-x/images/payment-default-icon.svg"]');
-                            //imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-nobg-17089809376928.png?1708980969567');
                             imagenPrometeo.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/prometeo-house-nobg-170915368925.png?1709153842929');
 
                         }

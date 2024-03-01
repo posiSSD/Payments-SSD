@@ -39,22 +39,11 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                         modalElement.style.width = '460px';
                                         //modal.style.width = 'auto';
                                         //width: auto;
-                                        console.log('modalElement v3-modal FOUND');
+                                        //console.log('modalElement v3-modal FOUND');
                                     }else{
-                                        console.log('modalElement v3-modal NOT FOUND');
+                                        //console.log('modalElement v3-modal NOT FOUND');
                                     }
                                 }
-
-                                ///////////////////////////////////////////////////////////////
-                                /*
-                                var v3_modal = modalContentDiv.find('div.v3-modal');
-                                if (v3_modal){
-                                    v3_modal.css('width', '460px');
-                                } else {
-                                    console.log('div.v3-modal not found');
-                                }
-                                */
-                                ///////////////////////////////////////////////////////////////
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
@@ -75,14 +64,14 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                     var opcionSeleccionada = carruselActivo.querySelector('.payment__item-box-text').textContent;
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
                                     //metodo_tb = 'prometeo';   //// probando con prometeo
-                                    console.log('Web:', metodo_tb);
+                                    //console.log('Web:', metodo_tb);
                                 } else {
                                     // Selecciona el elemento con la clase style__HeroFallbackText-sc-swzx38-1 (para la versión celular)
                                     var paymentMethodElement = $('.style__HeroFallbackText-sc-swzx38-1');
                                     var opcionSeleccionada = paymentMethodElement.text();
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
                                     //metodo_tb = 'prometeo';   //// probando con prometeo
-                                    console.log('Cell:', metodo_tb);
+                                    //console.log('Cell:', metodo_tb);
                                 }
                                 
                                  
@@ -149,7 +138,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                         // Maneja el mensaje recibido
                                         var estadoPago = event.data;
                                         // Realiza acciones basadas en el estado del pago recibido
-                                        console.log('Estado del pago recibido:', estadoPago);
+                                        //console.log('Estado del pago recibido:', estadoPago);
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
@@ -161,7 +150,7 @@ var observer = new MutationObserver(function(mutationsList, observer) {
                                                 // Modificar el texto del span
                                                 successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
                                             } else {
-                                                console.log('Elemento span no encontrado');
+                                                //console.log('Elemento span no encontrado');
                                             }
 
                                         } else if( estadoPago == 10 ){

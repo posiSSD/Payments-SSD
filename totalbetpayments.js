@@ -2,8 +2,9 @@ console.log('Payments loaded.....');
 
 if (document.body.classList.contains("mobile")) {
 
-    console.log("móvil.");
+    console.log("Movil Payments");
 
+    /*
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
             
@@ -24,10 +25,10 @@ if (document.body.classList.contains("mobile")) {
     var bodyObserver = new MutationObserver(handleBodyChanges);
 
     bodyObserver.observe(document.body, { childList: true, subtree: true });
-
+    */
 } else if (document.body.classList.contains("desktop")) {
 
-    console.log("Desktop.");
+    console.log("Desktop Payments");
 
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
@@ -41,50 +42,62 @@ if (document.body.classList.contains("mobile")) {
                         window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A') ||
                         window.location.search.includes('?accounts=*&wallet=*&deposit=*') ||
                         window.location.search.includes('?accounts=*&wallet=*&deposit-methods=*')){
-                            if ($('div.v3-modal-root').length > 0) {
+                        if ($('div.v3-modal-root').length > 0) {
 
-                                var modalContentDiv = $('div.v3-modal-root');
-                                // modalContentDiv.style.borderRadius = '0px'
-                                // modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
-                                modalContentDiv.css('border-radius', '0px');
-                                modalContentDiv.find('.v3-modal-body').css('display', 'none');
+                            var modalContentDiv = $('div.v3-modal-root');
+                            //modalContentDiv.css('border-radius', '0px');
+                            //modalContentDiv.find('.v3-modal-body').css('display', 'none');
 
-                                var modalElement =modalContentDiv.find('.v3-modal');
-                                if(modalElement){
-                                    modalElement.style.margin = '0';
-                                    //modal.style.width = 'auto';
-                                    //width: auto;
-                                    console.log('modalElement v3-modal FOUND');
-                                }else{
-                                    console.log('modalElement v3-modal NOT FOUND');
-                                }
-
-                                var authData = localStorage.getItem("x__ACCOUNT__auth_data");
-                                if(authData){
-                                    // Parsear los datos JSON almacenados en el Local Storage
-                                    var authDataObj = JSON.parse(authData);
-                                    // Acceder a los valores necesarios (auth_token y user_id)
-                                    var auth_token = authDataObj.auth_token;
-                                    var user_id = authDataObj.user_id;
-                                    var metodo_tb = '';
-                                    //console.log('authData Found');
-                                } else {
-                                    //console.log('authData not Found');
-                                }
-
-
-                            } else {
-
+                            var modalElement = modalContentDiv.find('.v3-modal');
+                            if(modalElement){
+                                //modalElement.css('margin','0');
+                                //modalElement.css('width','460px');
+                                console.log('modalElement v3-modal FOUND');
+                            }else{
+                                console.log('modalElement v3-modal NOT FOUND');
                             }
 
+                            var authData = localStorage.getItem("x__ACCOUNT__auth_data");
+                            if(authData){
+                                // Parsear los datos JSON almacenados en el Local Storage
+                                var authDataObj = JSON.parse(authData);
+                                // Acceder a los valores necesarios (auth_token y user_id)
+                                var auth_token = authDataObj.auth_token;
+                                var user_id = authDataObj.user_id;
+                                var metodo_tb = '';
+                                console.log('authData Found');
+                            } else {
+                                console.log('authData not Found');
+                            }
+
+                            var carruselActivo = $('.payment__item-box-active');
+                            if (carruselActivo.length > 0) {
+                                var opcionSeleccionada = carruselActivo.find('.payment__item-box-text').text().trim().toLowerCase();
+                                var metodo_tb = opcionSeleccionada;
+                                console.log('payment__item-box-active Found');
+                            } else {
+                                console.log('payment__item-box-active Not Found');
+                            }
+
+                            var valorInput = $('#amount').val();
+                            if(valorInput){
+                                console.log('#amount Found : '. valorInput);
+                            } else {
+                                console.log('#amount Not Found');
+                            }
+
+
+
+
+                        } else {
+                            console.log('div.v3-modal-root Not Found');
+                        }
                     } else {
                         console.log('No accounts-wallet-deposit: ', error);
                     }
-
                 } catch (error) {
                     console.error('Error: ', error);
                 }
-        
             }
         });
     }
