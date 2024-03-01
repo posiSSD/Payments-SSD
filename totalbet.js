@@ -53,7 +53,7 @@ if (document.body.classList.contains("mobile")) {
                                 // Seleccionar el elemento del carrusel activo (para la versión web)
                                 var carruselActivo = document.querySelector('.style__HeroFallbackText-sc-swzx38-1');
                                 if (carruselActivo) {
-                                    var opcionSeleccionada = paymentMethodElement.text();
+                                    var opcionSeleccionada = carruselActivo.text();
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
                                     //metodo_tb = 'prometeo';   //// probando con prometeo
                                     //console.log('Web:', metodo_tb);
