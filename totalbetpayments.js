@@ -42,13 +42,11 @@ if (document.body.classList.contains("mobile")) {
                         window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A') ||
                         window.location.search.includes('?accounts=*&wallet=*&deposit=*') ||
                         window.location.search.includes('?accounts=*&wallet=*&deposit-methods=*')){
-                        if ($('div.v3-modal-root').length > 0) {
+                        
+                        var modal_root = $('body > div > div.v3-modal-root');
+                        if ( modal_root) {
 
-                            var modalContentDiv = $('div.v3-modal-root');
-                            //modalContentDiv.css('border-radius', '0px');
-                            //modalContentDiv.find('.v3-modal-body').css('display', 'none');
-
-                            var modalElement = modalContentDiv.find('.v3-modal');
+                            var modalElement = modal_root.find('.v3-modal');
                             if(modalElement){
                                 //modalElement.css('margin','0');
                                 //modalElement.css('width','460px');
@@ -86,12 +84,11 @@ if (document.body.classList.contains("mobile")) {
                                 console.log('#amount Not Found');
                             }
 
-
-
-
                         } else {
-                            console.log('div.v3-modal-root Not Found');
+                            console.log('v3-modal-root Not Found');
                         }
+
+                        
                     } else {
                         console.log('No accounts-wallet-deposit: ', error);
                     }
