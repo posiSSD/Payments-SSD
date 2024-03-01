@@ -29,7 +29,7 @@ if (document.body.classList.contains("mobile")) {
                                 var modalElement = document.querySelector('.v3-modal');
                                 if(modalElement){
                                     modalElement.style.margin = '0';
-                                    modalElement.style.width = '460px';
+                                    modalElement.style.width = '420px';
                                     
                                     console.log('modalElement v3-modal FOUND');
                                 }else{
