@@ -45,18 +45,18 @@ if (document.body.classList.contains("mobile")) {
                          window.location.search.includes('?accounts=*&wallet=*&deposit=*'))) {
 
                         var modalElement = modal_root.find('.v3-modal');
-                        if(modalElement > 0){
+                        if(modalElement){
                             modalElement.css('margin','0');
                             modalElement.css('width','460px');
                             console.log('v3-modal FOUND');
 
                             var modalContentDiv = modalElement.find('.v3-modal-content')
-                            if (modalContentDiv > 0) {
+                            if (modalContentDiv) {
                                 modalContentDiv.css('border-radius','0px');
                                 console.log('v3-modal-content v3-modal FOUND');
 
                                 var modal_body = modalContentDiv.find('.v3-modal-body');
-                                if ( modal_body > 0) {
+                                if ( modal_body) {
                                     modal_body.css('display','none');
                                     console.log('v3-modal-body FOUND');
 
