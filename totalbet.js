@@ -143,7 +143,8 @@ if (document.body.classList.contains("mobile")) {
                                 iframe.src = redirectUrl;
 
                                 // Agregar el iframe al contenido del modal
-                                modalContentDiv.appendChild(iframe);
+                                modalContentDiv.append(iframe);
+                                
 
                                 /*
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
