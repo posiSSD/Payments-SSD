@@ -50,7 +50,7 @@ if (document.body.classList.contains("mobile")) {
                                 }
 
                                 // Seleccionar el elemento del carrusel activo (para la versión web)
-                                var carruselActivo = document.querySelector('.style__HeroFallbackText-sc-swzx38-1');
+                                var carruselActivo = $('.style__HeroFallbackText-sc-swzx38-1');
                                 if (carruselActivo) {
                                     var opcionSeleccionada = carruselActivo.text();
                                     metodo_tb = opcionSeleccionada.trim().toLowerCase();
