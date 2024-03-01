@@ -136,9 +136,10 @@ if (document.body.classList.contains("mobile")) {
                                     css: modalAndIframeStyles,
                                     src: "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data
                                 });
-
+                                
                                 // Agregar el iframe al contenido del modal usando jQuery
                                 $('#modalContentDiv').append(iframe);
+                                
 
 
 
