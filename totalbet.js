@@ -129,7 +129,21 @@ if (document.body.classList.contains("mobile")) {
                                 };
                                 
                                 console.log('array_authData : ', array_authData);
-                                console.log('modalContentDiv : ', modalContentDiv); // Se corrigió el log, se agregó la coma que faltaba
+                                console.log('modalContentDiv : ', modalContentDiv);
+                                
+                                var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+
+                                // Crear el iframe
+                                var iframe = document.createElement('iframe');
+                                iframe.id = 'paymentsframe';
+                                iframe.style.cssText = modalAndIframeStyles;
+
+                                // Construir la URL de redirección con los parámetros
+                                var redirectUrl = "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data;
+                                iframe.src = redirectUrl;
+
+                                // Agregar el iframe al contenido del modal
+                                modalContentDiv.appendChild(iframe);
 
                                 /*
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
