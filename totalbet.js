@@ -64,7 +64,6 @@ if (document.body.classList.contains("mobile")) {
                                     console.log('v3-modal-body Not Found');
                                 }
 
-
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
                                     // Parsear los datos JSON almacenados en el Local Storage
@@ -82,10 +81,11 @@ if (document.body.classList.contains("mobile")) {
                                 if (carruselActivo.length > 0) {
                                     var opcionSeleccionada = carruselActivo.find('.payment__item-box-text').text().trim().toLowerCase();
                                     var metodo_tb = opcionSeleccionada;
-                                    console.log('payment__item-box-active Found '.metodo_tb);
+                                    console.log('payment__item-box-active Found ', metodo_tb);
                                 } else {
                                     console.log('payment__item-box-active Not Found');
                                 }
+
 
                                 var valorInput = $('#amount').val();
                                 if(valorInput){
