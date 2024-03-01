@@ -81,7 +81,7 @@ if (document.body.classList.contains("mobile")) {
                                 // Aplicar estilos al modal y al iframe
                                 var modalAndIframeStyles = `
                                     width: 99%;
-                                    height: 96vh;
+                                    height: 94vh;
                                     max-width: ${max_width};
                                     max-height: ${max_height};
                                     border: none;
