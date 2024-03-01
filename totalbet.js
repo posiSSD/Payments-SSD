@@ -94,10 +94,54 @@ if (document.body.classList.contains("mobile")) {
                                     console.log('#amount Not Found');
                                 }
                                 
+                                var max_width, max_height;
+                                if ( metodo_tb === 'payphone' ) {
+                                    max_width = '447px';
+                                    max_height = '846px';
+                                       
+                                } else if ( metodo_tb === 'prometeo' ) {
+                                    max_width = '399px';
+                                    max_height = '650px';
+
+                                } else {
+                                    max_width = '600px';
+                                    max_height = '800px';
+
+                                }
+
+                                var modalAndIframeStyles = `
+                                    width: 99%;
+                                    height: 96vh;
+                                    max-width: ${max_width};
+                                    max-height: ${max_height};
+                                    border: none;
+                                    overflow: hidden;
+                                    text-align: center;
+                                    justify-content: center;
+                                `;
+
+                                // Crear un objeto con los datos de autenticación
+                                var array_authData = {
+                                    auth_token: auth_token,
+                                    user_id: user_id,
+                                    metodo: metodo_tb,
+                                    amount: valorInput
+                                };
+
+                                var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
+
+                                // Crear el iframe usando jQuery
+                                var iframe = $('<iframe>', {
+                                    id: 'paymentsframe',
+                                    css: modalAndIframeStyles,
+                                    src: "https://payments.totalbet.com/index.php?auth_data=" + encoded_auth_data
+                                });
+
+                                // Agregar el iframe al contenido del modal usando jQuery
+                                $('#modalContentDiv').append(iframe);
 
 
 
-                                
                             } else {
                                 console.log('v3-modal-content v3-modal NOT FOUND');
                             }
