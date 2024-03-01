@@ -95,7 +95,7 @@ if (document.body.classList.contains("mobile")) {
 
                                 if ( metodo_tb === 'payphone' ) {
                                     max_width = '447px';
-                                    max_height = '846px';
+                                    max_height = '886px';
                                     //  max_width = '450px'; max_height = '902px';
                                     
                                 } else if ( metodo_tb === 'prometeo' ) {
