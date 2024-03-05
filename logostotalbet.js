@@ -55,7 +55,9 @@ if (document.body.classList.contains("mobile")) {
                         } 
                     } else {
                         //console.log('div style__HeroFallbackContainer-sc-swzx38-5.ldbuIk: ocultado.'); 
-                    }    
+                    }
+                    
+                    //observer.disconnect();
                                    
                 } catch (error) {
                     console.error('Error: ', error);
@@ -99,6 +101,8 @@ if (document.body.classList.contains("mobile")) {
                         } else {
                             //console.log('div carousel__wrapper: False');
                         }
+
+                        //observer.disconnect();
                         
                     } else {
                         //console.log('El div accountModal accountModal--desktop se ha ocultado.');
