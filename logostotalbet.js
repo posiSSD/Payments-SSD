@@ -1,8 +1,6 @@
-console.log('Payments Logos loaded.....');
-
 if (document.body.classList.contains("mobile")) {
 
-    console.log("móvil.");
+    console.log("móvil Payments Logos");
 
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -60,7 +58,7 @@ if (document.body.classList.contains("mobile")) {
                     //observer.disconnect();
                                    
                 } catch (error) {
-                    console.error('Error: ', error);
+                    //console.error('Error: ', error);
                 }
         
             }
@@ -73,7 +71,7 @@ if (document.body.classList.contains("mobile")) {
 
 } else if (document.body.classList.contains("desktop")) {
 
-    console.log("Desktop.");
+    console.log("Desktop Payments Logos");
 
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
@@ -110,7 +108,7 @@ if (document.body.classList.contains("mobile")) {
                     }
 
                 } catch (error) {
-                    console.error('Error: ', error);
+                    //console.error('Error: ', error);
                 }
         
             }
