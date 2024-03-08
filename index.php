@@ -173,7 +173,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = '9A7E097DF3C05819068E1F3E560B8D5C';
+     $auth_token = 'E3BB1A133D46C921F9C0435990667913';
      $user_id = '1674627753';
      $metodo = 'prometeo';
      $amount = 5;
