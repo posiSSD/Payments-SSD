@@ -20,7 +20,7 @@ function payment_deposit($request){
     //consulta 
     //consolelogdata($request);
     $payment_curl = payment_curl($url_data);
-    consolelogdata($payment_curl); 
+    //consolelogdata($payment_curl); 
 
     if ($payment_curl) {
 
@@ -45,17 +45,6 @@ function payment_deposit($request){
 }   
 function payment_curl($url_data){
 
-    /*
-    $url_data = [];
-    $url_data["command"] = "pay";
-    $url_data["txn_id"] = $transaction_id['id'];
-    $url_data["account"] = $request['request']['account'];
-    $url_data["amount"] = $request['request']['amount']; 
-    $url_data['payment_method'] = $request['payment_method']; 
-    */
-
-    // limittry $limittry = 0;
-    consolelogdata($url_data);
 	$bc_param = [];
 	$bc_param["host"]="https://payments1.betconstruct.com/";
 	$bc_param["resource"]="TerminalCallbackPG";
@@ -71,7 +60,7 @@ function payment_curl($url_data){
         $bs_param["paymentID"]="3803";
     }
     unset($url_data["payment_method"]);
-    consolelogdata($url_data);
+    //consolelogdata($url_data);
 	//$bs_param["paymentID"]="14177";
 
     $url_data["currency"]=$bc_param["currency"];
@@ -81,40 +70,36 @@ function payment_curl($url_data){
 
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
 
-    
     //consolelogdata($bc_url);
 
-    // Bandera para evitar ejecutar la función más de una vez
-    $paymentExecuted = false;
-    if (!$paymentExecuted) {
-        $curl = curl_init($bc_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, false);
-        curl_setopt($curl, CURLOPT_TIMEOUT,6);
+    $curl = curl_init($bc_url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, false);
+    curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
-        $response = curl_exec($curl);
-        consolelogdata($response);
+    $response = curl_exec($curl);
+    consolelogdata($response);
 
-        // Establecer la bandera como verdadera después de la ejecución
-        $paymentExecuted = true;
+    // Establecer la bandera como verdadera después de la ejecución
+    $paymentExecuted = true;
 
-        insert_tbl_api_activities($url_data, $bc_url, $response);
+    insert_tbl_api_activities($url_data, $bc_url, $response);
         
-        if($response){
-            $response_arr = json_decode($response,true);
-            if(is_array($response_arr)){
-                if(array_key_exists("txn_id",$url_data)){
-                        $response_arr["response"]["txn_id"]=$url_data["txn_id"];
-                }
-                return $response_arr;
-            }else{
-                return false;
+    if ($response) {
+        $response_arr = json_decode($response, true);
+        if (is_array($response_arr)) {
+            // Verificar si "txn_id" existe en $url_data y asignarlo a $response_arr si es así
+            if (array_key_exists("txn_id", $url_data)) {
+                $response_arr["response"]["txn_id"] = $url_data["txn_id"];
             }
-        }else{
+            return $response_arr;
+        } else {
             return false;
         }
-
-    }	
+    } else {
+        return false;
+    }
+    
 }
 
 function insert_tbl_transactions($insert_db) {

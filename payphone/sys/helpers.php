@@ -66,7 +66,7 @@ function create_or_update_transaction($trans=false){
 	$table = 'transactions';
 
 	$insert_arr = [];
-		$insert_arr['payment_method_id']=4; //1=kushki / 2=prometeo / 3=payphone
+		$insert_arr['payment_method_id']=4; //1=kushki / 2=prometeo / 4=payphone
 		$insert_arr['type_id']=3; //2=web_deposit
 
 		if(isset($trans['unique_id'])){

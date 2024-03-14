@@ -56,7 +56,8 @@ function paymente_bc($request){
             'result'		 =>  $response['result'],
             'status' 		 => '4',
             'ip_address'      => $request['ip_address'],
-            'method'         => $request['payment_method']
+            'method'         => $request['payment_method'],
+            'account'         => $request['request']['account']
         ];
 
         save_transaction_activity($data_activiy);
@@ -71,7 +72,8 @@ function paymente_bc($request){
             'result'		 =>  $response['result'],
             'status' 		 => '2',
             'ip_address'      => $request['ip_address'],
-            'method'         => $request['payment_method']
+            'method'         => $request['payment_method'],
+            'account'         => $request['request']['account']
         ];
 
         save_transaction_activity($data_activiy);
