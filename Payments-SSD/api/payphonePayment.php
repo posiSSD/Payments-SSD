@@ -15,6 +15,7 @@ function payment_deposit($request){
     $url_data["txn_id"] = $transaction_id['id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
+    $url_data['payment_method'] = $request['payment_method']; 
 
     //consulta 
     //consolelogdata($request);
@@ -44,6 +45,15 @@ function payment_deposit($request){
 }   
 function payment_curl($url_data){
 
+    /*
+    $url_data = [];
+    $url_data["command"] = "pay";
+    $url_data["txn_id"] = $transaction_id['id'];
+    $url_data["account"] = $request['request']['account'];
+    $url_data["amount"] = $request['request']['amount']; 
+    $url_data['payment_method'] = $request['payment_method']; 
+    */
+
     // limittry $limittry = 0;
     consolelogdata($url_data);
 	$bc_param = [];
@@ -53,7 +63,16 @@ function payment_curl($url_data){
 	$bc_param["sid"]="18751709";
 	$bc_param["currency"]="USD";
     //payphone  - 366 -- 15134 //FUNCIONA  - 51 // 15134 prometeo  //NewPrometeo (14207) //NewPayphone (14177) // 3803
-	$bs_param["paymentID"]="14177";
+    if($url_data['payment_method'] == 'payphone'){
+        $bs_param["paymentID"]="14177";
+    } else if ($url_data['payment_method'] == 'prometeo'){
+        $bs_param["paymentID"]="14207";
+    } else {
+        $bs_param["paymentID"]="3803";
+    }
+    unset($url_data["payment_method"]);
+    consolelogdata($url_data);
+	//$bs_param["paymentID"]="14177";
 
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
@@ -74,7 +93,7 @@ function payment_curl($url_data){
         curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
         $response = curl_exec($curl);
-        //consolelogdata($response);
+        consolelogdata($response);
 
         // Establecer la bandera como verdadera después de la ejecución
         $paymentExecuted = true;
