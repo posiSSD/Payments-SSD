@@ -12,7 +12,7 @@ function payment_deposit($request){
     //////
 
      ///prueba
-    consolelogdata($request);
+    consolelogdata($insert_db);
     $transaction_id = insert_tbl_transactions($insert_db);
 
     $url_data = [];
@@ -119,7 +119,9 @@ function insert_tbl_transactions($insert_db) {
     $payment_method = $insert_db['payment_method'];
     ////////////////////////////////////////////////////
     $order_id = $insert_db['order_id'];
-    ////////////////////////////////////////////////////// 
+    //////////////////////////////////////////////////////
+    consolelogdata($insert_db);
+   
 
     $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method, order_id)
     VALUES (?, ?, ?, ?, ?, ?, ?)";
