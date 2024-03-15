@@ -17,6 +17,10 @@ function paymente_bc($request){
     //////
     $myRequest['order_id'] = $request['order_id'];
     //////
+
+    ///prueba
+    consolelogdata($request);
+    
     $response = payment_deposit($myRequest);
 
     //'0', 'Pendiente'

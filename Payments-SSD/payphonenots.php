@@ -69,6 +69,9 @@ if (!$status_payphone_transactions){
                 $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
 
+                ///prueba
+                consolelogdata($d);
+                
                 $bc_deposit = bc_deposit($d);
                 consolelogdata($bc_deposit);
                 if(array_key_exists('http_code', $bc_deposit)){
