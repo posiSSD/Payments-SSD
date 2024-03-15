@@ -9,8 +9,10 @@ function payment_deposit($request){
     $insert_db['payment_method'] = $request['payment_method'];
     //////
     $insert_db['order_id'] = $request['order_id'];
-    ////// 
-    
+    //////
+
+     ///prueba
+    consolelogdata($request);
     $transaction_id = insert_tbl_transactions($insert_db);
 
     $url_data = [];
@@ -135,11 +137,11 @@ function insert_tbl_transactions($insert_db) {
         $rq['updated_at'] = $updated_at;
         $rq['payment_method'] = $payment_method;
         $rq['order_id'] = $order_id;
-        //consolelogdata($rq); 
+        consolelogdata($rq); 
         return $rq;  
     } else {
         $errordb = $sql_insert->error;
-        //consolelogdata($errordb);
+        consolelogdata($errordb);
         return false; 
     }        
 }
@@ -162,11 +164,11 @@ function update_tbl_transactions($insert_db) {
         $rq['id'] = $transaction_id;
         $rq['status'] = $status;
         $rq['updated_at'] = $updated_at;
-        //consolelogdata($rq); 
+        consolelogdata($rq); 
         return $rq;
     } else {
         $errordb = $stmt_update->error;
-        //consolelogdata($errordb);
+        consolelogdata($errordb);
         return false; 
     }
 }
@@ -200,12 +202,12 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
         $rq['response'] = $response;
         $rq['created_at '] = $created_at;
         $rq['updated_at '] = $updated_at;   
-        //consolelogdata($rq); 
+        consolelogdata($rq); 
         return $rq;  
     }
     else {
         $errordb = $stmt_details->error;
-        //consolelogdata($errordb);
+        consolelogdata($errordb);
         return false; 
     } 
 }
