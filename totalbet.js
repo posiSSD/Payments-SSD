@@ -128,7 +128,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -153,7 +153,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha declinado'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha declinado'; 
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
@@ -178,7 +178,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' fallida'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -341,7 +341,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha realizado con éxito'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -366,7 +366,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' se ha declinado'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha declinado'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -391,7 +391,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga $/'+inputCantidad.value+' fallida'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
