@@ -19,8 +19,8 @@ function paymente_bc($request){
     //////
 
     ///prueba
-    consolelogdata($request);
-    
+    //consolelogdata($request);
+
     $response = payment_deposit($myRequest);
 
     //'0', 'Pendiente'
@@ -51,7 +51,7 @@ function paymente_bc($request){
             'amount' 	 => $response['result']['amount']
         ];
 
-        ////consolelogdata($response);
+        //consolelogdata($response);
         return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
         
     } else if ($response['http_code'] == 400){

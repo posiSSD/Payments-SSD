@@ -69,11 +69,8 @@ if (!$status_payphone_transactions){
                 $d['order_id']=$payphone_array_response['transactionId'];
                 $d['payment_method']='payphone'; // 4 = payphone
 
-                ///prueba
-                consolelogdata($d);
-                
                 $bc_deposit = bc_deposit($d);
-                consolelogdata($bc_deposit);
+                //consolelogdata($bc_deposit);
                 if(array_key_exists('http_code', $bc_deposit)){
                     if ($bc_deposit['http_code']==200){
                         $new_trans=[];
@@ -85,7 +82,8 @@ if (!$status_payphone_transactions){
                         create_or_update_transaction($new_trans);
                         $ret['http_code'] = 200;
                         $ret['status'] = 'Ok';
-                        $ret['response'] = 'Order '.$transaccion.' paid';
+                        $ret['response'] = 'Order '.$id.' paid';
+                        // $id = order_id
                         api_ret($ret);
                     } else {
                         $new_trans=[];
@@ -96,7 +94,8 @@ if (!$status_payphone_transactions){
                         create_or_update_transaction($new_trans);
                         $ret['http_code']=$bc_deposit['http_code'];
                         $ret['status']='Error';
-                        $ret['response']='Order '.$transaccion.' wrong / check logs';
+                        $ret['response']='Order '.$id.' wrong / check logs';
+                        // $id = order_id
                         //$ret['try'] = 'Try :'.$limit_try;
                         api_ret($ret);
                     }
@@ -115,7 +114,8 @@ if (!$status_payphone_transactions){
                 create_or_update_transaction($new_trans);
                 $ret['http_code']=400;
                 $ret['status']='Canceled';
-                $ret['response']='Order '.$transaccion.' Canceled';
+                $ret['response']='Order '.$id.' Canceled';
+                // $id = order_id
                 api_ret($ret);
                 exit();   
             break;    
