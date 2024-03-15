@@ -6,19 +6,21 @@ function payment_deposit($request){
     $insert_db['account'] = $request['request']['account'];
     $insert_db['amount'] = $request['request']['amount'];
     $insert_db['status'] = 0;
-    $insert_db['payment_method'] = $request['payment_method']; 
+    $insert_db['payment_method'] = $request['payment_method'];
+    //////
+    $insert_db['order_id'] = $request['order_id'];
+    ////// 
     
     $transaction_id = insert_tbl_transactions($insert_db);
 
     $url_data = [];
     $url_data["command"] = "pay";
-    $url_data["txn_id"] = $transaction_id['id'];
+    //$url_data["txn_id"] = $transaction_id['id'];
+    $url_data["txn_id"] = $transaction_id['order_id'];
     $url_data["account"] = $request['request']['account'];
     $url_data["amount"] = $request['request']['amount']; 
     $url_data['payment_method'] = $request['payment_method']; 
 
-    //consulta 
-    //consolelogdata($request);
     $payment_curl = payment_curl($url_data);
     //consolelogdata($payment_curl); 
 
@@ -60,9 +62,7 @@ function payment_curl($url_data){
         $bs_param["paymentID"]="3803";
     }
     unset($url_data["payment_method"]);
-    //consolelogdata($url_data);
-	//$bs_param["paymentID"]="14177";
-
+    
     $url_data["currency"]=$bc_param["currency"];
 	$url_data["sid"]=$bc_param["sid"];
 	$url_data["hashcode"]=md5(implode($url_data).$bc_param["secretkey"]);
@@ -114,12 +114,15 @@ function insert_tbl_transactions($insert_db) {
     $status = $insert_db['status'] ?? 0;
     $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
     $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
-    $payment_method = $insert_db['payment_method']; 
+    $payment_method = $insert_db['payment_method'];
+    ////////////////////////////////////////////////////
+    $order_id = $insert_db['order_id'];
+    ////////////////////////////////////////////////////// 
 
-    $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method)
-    VALUES (?, ?, ?, ?, ?, ?)";
+    $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method, order_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?)";
     $sql_insert = $mysqli_kushkipayment->prepare($sql_insert);
-    $sql_insert->bind_param("ssssss", $client_id, $amount, $status, $created_at, $updated_at, $payment_method);
+    $sql_insert->bind_param("ssssss", $client_id, $amount, $status, $created_at, $updated_at, $payment_method, $order_id);
         
     // Ejecutar la consulta
     if ($sql_insert->execute() === TRUE) {
@@ -130,6 +133,8 @@ function insert_tbl_transactions($insert_db) {
         $rq['status'] = $status;
         $rq['created_at'] = $created_at;
         $rq['updated_at'] = $updated_at;
+        $rq['payment_method'] = $payment_method;
+        $rq['order_id'] = $order_id;
         //consolelogdata($rq); 
         return $rq;  
     } else {

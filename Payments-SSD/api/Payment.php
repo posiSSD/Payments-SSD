@@ -14,6 +14,9 @@ function paymente_bc($request){
         "amount" => $request['amount']
     ];
     $myRequest['payment_method'] = $request['payment_method'];
+    //////
+    $myRequest['order_id'] = $request['order_id'];
+    //////
     $response = payment_deposit($myRequest);
 
     //'0', 'Pendiente'
@@ -65,7 +68,7 @@ function paymente_bc($request){
 
     } else if ($response['http_code'] == 408){
 
-        $transaction = save_transaction($request,$response['result'],$type=3,$status=2);
+        $transaction = save_transaction($request,$myRequest['order_id'],$type=3,$status=2);
         $data_activiy = [
             'transaction_id' => $transaction['id'],
             'http_code' 	 => '408',
