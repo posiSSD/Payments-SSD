@@ -126,7 +126,7 @@ function insert_tbl_transactions($insert_db) {
     $sql_insert = "INSERT INTO $table (client_id, amount, status, created_at, updated_at, payment_method, order_id)
     VALUES (?, ?, ?, ?, ?, ?, ?)";
     $sql_insert = $mysqli_kushkipayment->prepare($sql_insert);
-    $sql_insert->bind_param("ssssss", $client_id, $amount, $status, $created_at, $updated_at, $payment_method, $order_id);
+    $sql_insert->bind_param("sssssss", $client_id, $amount, $status, $created_at, $updated_at, $payment_method, $order_id);
         
     // Ejecutar la consulta
     if ($sql_insert->execute() === TRUE) {
