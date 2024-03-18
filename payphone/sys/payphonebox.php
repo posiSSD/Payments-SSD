@@ -34,6 +34,7 @@ $key_payphone = env('TOKEN_PAYPHONE');
                 token: "<?php echo $key_payphone; ?>",
                 amount: <?php echo $value; ?>,
                 amountWithoutTax: <?php echo $value; ?>,
+                lang: "es",
                 amountWithTax: 0,
                 tax: 0,
                 service: 0,
