@@ -39,7 +39,6 @@ $key_payphone = env('TOKEN_PAYPHONE');
                 service: 0,
                 tip: 0,
                 reference: "Pagos Payphone",
-                lang: "es",
                 clientTransactionId: "<?php echo $uniqueid; ?>",
             }).render('pp-button');
         });
