@@ -32,23 +32,28 @@ $http_code = 500;
 $status = 'Error';
 $response = [];
 //$limit_try = 0;
-//comprobacion si la tranx existe:
-$status_payphone_transactions = payphone_status_transaction($data_array);
 
+//$payphone_array_response = payphone_api_confirm ($data_array);
+
+//comprobacion si la tranx existe para evitar duplicados 
+$status_payphone_transactions = payphone_status_transaction($data_array); 
 if (!$status_payphone_transactions){
 
-    $payphone_array_response = payphone_api_confirm ($data_array);// obtener detalles de la tx en la api de payphone
+    // obtener detalles de la tx en la api de payphone
+    $payphone_array_response = payphone_api_confirm ($data_array);
 
     if($payphone_array_response){
 
-        payphone_api_transactions($payphone_array_response); // guardar en la BD
+        // guardar en la BD
+        payphone_api_transactions($payphone_array_response);
 
+        // obtener client_id, unique_id, amount,  
+        $data_array_response_details = payphone_bd_details($payphone_array_response);
+
+        $payphone_array_response['client_id'] = $data_array_response_details['client_id'];
         $payphone_array_response['Response'] = "True";
         $payphone_array_response['Time'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
         log_write($payphone_array_response);
-
-        // obtener client_id, amount,  
-        $data_array_response_details = payphone_bd_details($payphone_array_response);
 
         switch ($payphone_array_response['transactionStatus']){
 

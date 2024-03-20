@@ -43,9 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // construccion y ordenamiento de la data
             // revisa si existe el external_id en la BD
             $prometeo_array_response = dataconstruccion($data);
-            // declarar el request para la actividad
-            //$a['request'] = $prometeo_array_response;
-            
+
+            //comprobacion si la tranx existe para evitar duplicados            
             $status_prometeo_transactions = prometeo_status_transaction($prometeo_array_response);
             if(!$status_prometeo_transactions){
 
