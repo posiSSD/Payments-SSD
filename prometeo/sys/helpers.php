@@ -461,6 +461,9 @@ function prometeo_api_transactions($data = false) {
         $insert_arr['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $insert_arr['intent_id'] = isset($data['intent_id']) ? $data['intent_id'] : null;
         $insert_arr['external_id'] = isset($data['external_id']) ? $data['external_id'] : null;
+		////////////////////////////////////////////////
+		$insert_arr['operation_id'] = isset($data['operation_id']) ? $data['operation_id'] : null;
+		////////////////////////////////////////////////
         $insert_arr['created_at'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
 
 
@@ -517,8 +520,10 @@ function dataconstruccion($data) {
     $data_array['mobile_os'] = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
     $data_array['request_id'] = isset($payload['request_id']) ? $payload['request_id'] : null;
     $data_array['intent_id'] = isset($payload['intent_id']) ? $payload['intent_id'] : null;
-    $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : consultaintent($data_array['intent_id']);
-
+	
+	$request_prometeo = consult_request_prometeo($data_array['request_id']);
+    $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : $request_prometeo['external_id'];
+	$data_array['operation_id'] = $request_prometeo['operation_id'];
     $trans = get_transaction(['unique_id'=>$data_array['external_id']]);
     $data_array['id_usuario'] = $trans['client_id'];
 
@@ -526,9 +531,10 @@ function dataconstruccion($data) {
     
 }
 
-function consultaintent($intent_id) {
+function consult_request_prometeo($request_id) {
 
-    $url = 'https://payment.prometeoapi.net/api/v1/payment-intent/'.$intent_id;
+    //$url = 'https://payment.prometeoapi.net/api/v1/payment-intent/'.$request_id;
+	$url = 'https://banking.prometeoapi.net/transfer/logs/'.$request_id;
     $rq = [];
     $rq['url']=$url;
     $rq['method']="GET";
@@ -557,12 +563,13 @@ function consultaintent($intent_id) {
 	}
 	curl_close($curl);
 
-    // Verificar si 'external_id' existe en la respuesta antes de acceder a él
+    /*
     if (isset($response_arr['external_id'])) {
         $external_id = $response_arr['external_id'];
     }
     return $external_id;
-  
+	*/
+	return $response_arr;
 }
 function status_transaction($trans=false){
 	
