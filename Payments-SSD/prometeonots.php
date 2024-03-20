@@ -71,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $d=[];
                         $d['account']=$prometeo_array_response['id_usuario'];
                         $d['amount']=$prometeo_array_response['amount'];
-                        $d['order_id']=$prometeo_array_response['order_id'];
+                        //$d['order_id']=$prometeo_array_response['order_id'];
+                        $d['order_id']=45454545;
                         $d['payment_method']='prometeo'; // 3 = prometeo
                         //consolelogdata($d);
                         $bc_deposit = bc_deposit($d);
