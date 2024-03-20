@@ -1,9 +1,7 @@
 <?php
-$hola = $_SERVER['SERVER_ADDR'];
 include '../../env.php';
 include '../../db.php';
-?>
-<?php
+
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $value = $data['value']*100;
@@ -47,16 +45,4 @@ $key_payphone = env('TOKEN_PAYPHONE');
 </body>
 </html>
 
-<?php
-/*
-function consolelogdata($data) {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
 
-    echo '<script>';
-    echo 'console.log("'. $pFunction . '");';
-    echo 'console.log(": ", ' . json_encode($data) . ');';
-    echo '</script>';
-}   
-*/
-?>

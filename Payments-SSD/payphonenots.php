@@ -41,7 +41,7 @@ if (!$status_payphone_transactions){
 
     if($payphone_array_response){
 
-        payphone_api_transactions($payphone_array_response);
+        payphone_api_transactions($payphone_array_response); // guardar en la BD
 
         $payphone_array_response['Response'] = "True";
         $payphone_array_response['Time'] = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
