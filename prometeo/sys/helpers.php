@@ -520,10 +520,10 @@ function dataconstruccion($data) {
     $data_array['mobile_os'] = isset($payload['mobile_os']) ? $payload['mobile_os'] : null;
     $data_array['request_id'] = isset($payload['request_id']) ? $payload['request_id'] : null;
     $data_array['intent_id'] = isset($payload['intent_id']) ? $payload['intent_id'] : null;
-	
+
 	$request_prometeo = consult_request_prometeo($data_array['request_id']);
     $data_array['external_id'] = isset($payload['external_id']) ? $payload['external_id'] : $request_prometeo['external_id'];
-	$data_array['operation_id'] = $request_prometeo['operation_id'];
+	$data_array['operation_id'] = isset($request_prometeo['transfer']['operation_id']) ? $request_prometeo['transfer']['operation_id'] : null;
     $trans = get_transaction(['unique_id'=>$data_array['external_id']]);
     $data_array['id_usuario'] = $trans['client_id'];
 
@@ -534,6 +534,7 @@ function dataconstruccion($data) {
 function consult_request_prometeo($request_id) {
 
     //$url = 'https://payment.prometeoapi.net/api/v1/payment-intent/'.$request_id;
+	
 	$url = 'https://banking.prometeoapi.net/transfer/logs/'.$request_id;
     $rq = [];
     $rq['url']=$url;
@@ -562,13 +563,6 @@ function consult_request_prometeo($request_id) {
 		$response_arr = json_decode($result, true);
 	}
 	curl_close($curl);
-
-    /*
-    if (isset($response_arr['external_id'])) {
-        $external_id = $response_arr['external_id'];
-    }
-    return $external_id;
-	*/
 	return $response_arr;
 }
 function status_transaction($trans=false){

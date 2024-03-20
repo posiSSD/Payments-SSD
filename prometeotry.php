@@ -2,7 +2,7 @@
 include 'env.php';
 include 'db.php';
 
-    $url = 'https://banking.prometeoapi.net/transfer/logs/'.'892a9c29163a4a3e8948270e0ecb287e';
+    $url = 'https://banking.prometeoapi.net/transfer/logs/'.'b17f45f5f1134164b683551991d5e9e4';
     $rq = [];
     $rq['url']=$url;
     $rq['method']="GET";
@@ -35,10 +35,8 @@ include 'db.php';
 
 
     /*
-    curl --request GET \
-     --url https://banking.prometeoapi.net/transfer/logs/892a9c29163a4a3e8948270e0ecb287e \
-     --header 'X-API-Key: SKEyYnMt1OGIoMX0gpAy0xPJLrgh2e5p8jp3vGrZyjqO1wbuIJDKPuSHKxpIFynA' \
-     --header 'accept: application/json'
+    b17f45f5f1134164b683551991d5e9e4
+    b17f45f5f1134164b683551991d5e9e4
     */
 
 ?>
