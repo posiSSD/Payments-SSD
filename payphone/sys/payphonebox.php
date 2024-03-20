@@ -1,5 +1,4 @@
 <?php
-$hola = $_SERVER['SERVER_ADDR'];
 include '../../env.php';
 include '../../db.php';
 

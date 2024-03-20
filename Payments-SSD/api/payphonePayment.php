@@ -80,7 +80,7 @@ function payment_curl($url_data){
     curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
     $response = curl_exec($curl);
-    consolelogdata($response);
+    //consolelogdata($response);
 
     // Establecer la bandera como verdadera después de la ejecución
     $paymentExecuted = true;
