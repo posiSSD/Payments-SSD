@@ -2,8 +2,7 @@
 $hola = $_SERVER['SERVER_ADDR'];
 include '../../env.php';
 include '../../db.php';
-?>
-<?php
+
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $value = $data['value']*100;
@@ -47,5 +46,4 @@ $key_payphone = env('TOKEN_PAYPHONE');
 </body>
 </html>
 
-<?php
-?>
+
