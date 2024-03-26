@@ -6,6 +6,9 @@ $data_array = array(
 );
 $payphone_array_response = payphone_api_confirm ($data_array);
 
+echo "Response payphone_array_response :\n";
+print_r($payphone_array_response);
+
 function payphone_api_confirm ($data_array){
 $ret = false;
 $rq = [];
