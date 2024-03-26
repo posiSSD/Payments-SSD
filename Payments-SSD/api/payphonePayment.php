@@ -68,7 +68,8 @@ function payment_curl($url_data){
     if($url_data['payment_method'] == 'payphone'){
         $bs_param["paymentID"]="3624";
     } else if ($url_data['payment_method'] == 'prometeo'){
-        $bs_param["paymentID"]="3944";
+        //$bs_param["paymentID"]="3944";
+        $bs_param["paymentID"]="14207";
     } else {
         $bs_param["paymentID"]="3803";
     }
@@ -90,9 +91,6 @@ function payment_curl($url_data){
         
     $response = curl_exec($curl);
     //consolelogdata($response);
-
-    // Establecer la bandera como verdadera después de la ejecución
-    $paymentExecuted = true;
 
     insert_tbl_api_activities($url_data, $bc_url, $response);
         
@@ -194,7 +192,7 @@ function insert_tbl_api_activities($url_data, $bc_url, $response){
     $account = (array_key_exists("account",$url_data)?$url_data["account"]:null);
     $txn_id  = (array_key_exists("txn_id",$url_data)?$url_data["txn_id"]:null);
     $url = $bc_url;
-    $response  = $response?$response:null;
+    $response = $response ? $response : null;
     $created_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
     $updated_at = (new DateTime('now', new DateTimeZone('America/Lima')))->format('Y-m-d H:i:s');
 
