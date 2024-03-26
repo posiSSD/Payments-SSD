@@ -35,6 +35,7 @@
 
     echo "Enviando bc_url :\n";
     print_r($bc_url);
+    echo "\n";
     //consolelogdata($bc_url);
 
     $curl = curl_init($bc_url);
