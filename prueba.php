@@ -33,9 +33,9 @@
 
     $bc_url = $bc_param["host"] . "Bets/PaymentsCallback/" . $bc_param["resource"] . "/?" . http_build_query($url_data);
 
-    echo "Enviando bc_url :\n";
-    print_r($bc_url);
-    echo "\n";
+    echo "Sending bc_url :\n";
+    print_r($bc_url. "\n");
+    
     //consolelogdata($bc_url);
 
     $curl = curl_init($bc_url);
@@ -44,7 +44,7 @@
     curl_setopt($curl, CURLOPT_TIMEOUT,6);
         
     $response = curl_exec($curl);
-    echo "Respuesta JSON recibida:\n";
+    echo "Response BC:\n";
     print_r($response);
 
         
