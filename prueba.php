@@ -1,6 +1,6 @@
 <?php
-include 'env.php';
-include 'db.php';
+//include 'env.php';
+//include 'db.php';
 
 
     //
@@ -10,7 +10,7 @@ include 'db.php';
     $url_data["txn_id"] = '123456789';
     $url_data["account"] = '1674627753';
     $url_data["amount"] = '5';
-    $url_data['payment_method'] = 'prometeo'; 
+    $url_data['payment_method'] = 'payphone'; 
     //
 
 
