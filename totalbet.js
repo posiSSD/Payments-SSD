@@ -128,7 +128,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -153,7 +153,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha declinado'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+'ha sido declinada.';
                                             } else {
                                                 console.log('Elemento span no encontrado');
                                             }
@@ -169,7 +169,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
-                                                titleElement.textContent = 'Fallida!';
+                                                titleElement.textContent = 'Error!';
                                             } else {
                                                 console.error('Titulo no encontrado');
                                             }
@@ -178,7 +178,8 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida'; 
+                                                //successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida';
+                                                successMessageSpan.innerHTML = 'Tu Recarga no se completó.<br>Revise su estado de cuenta.';  
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -341,7 +342,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -366,7 +367,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha declinado'; 
+                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+'ha sido declinada.'; 
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
@@ -382,7 +383,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
-                                                titleElement.textContent = 'Fallida!';
+                                                titleElement.textContent = 'Error!';
                                             } else {
                                                 console.error('Titulo no encontrado');
                                             }
@@ -391,7 +392,7 @@ if (document.body.classList.contains("mobile")) {
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida'; 
+                                                successMessageSpan.innerHTML = 'Tu Recarga no se completó.<br>Revise su estado de cuenta.';
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
