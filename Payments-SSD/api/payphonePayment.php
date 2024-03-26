@@ -56,10 +56,19 @@ function payment_curl($url_data){
 	$bc_param["sid"]="18751709";
 	$bc_param["currency"]="USD";
     //payphone  - 366 -- 15134 //FUNCIONA  - 51 // 15134 prometeo  //NewPrometeo (14207) //NewPayphone (14177) // 3803
+    /*
     if($url_data['payment_method'] == 'payphone'){
         $bs_param["paymentID"]="14177";
     } else if ($url_data['payment_method'] == 'prometeo'){
         $bs_param["paymentID"]="14207";
+    } else {
+        $bs_param["paymentID"]="3803";
+    }
+    */
+    if($url_data['payment_method'] == 'payphone'){
+        $bs_param["paymentID"]="3624";
+    } else if ($url_data['payment_method'] == 'prometeo'){
+        $bs_param["paymentID"]="3944";
     } else {
         $bs_param["paymentID"]="3803";
     }
