@@ -1,9 +1,7 @@
 <?php
-$hola = $_SERVER['SERVER_ADDR'];
 include '../../env.php';
 include '../../db.php';
-?>
-<?php
+
 if(isset($_GET['data'])){
     $data = json_decode($_GET["data"], true);
     $value = $data['value']*100;
@@ -18,19 +16,18 @@ $key_payphone = env('TOKEN_PAYPHONE');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Título</title>
-
-    <!-- Añade el script principal -->
-    <script type=’module’ src=’https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js’></script>
-
     <!-- Añade los enlaces CSS -->
-    <link rel=’stylesheet’ href=’https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css’>
-       
+    <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
+    
+    <!-- Añade el script principal -->
+    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
 </head>
 <body>
     <div id="pp-button"></div>
 
     <script>
-        window.addEventListener("DOMContentLoaded", () => {
+        
+        document.addEventListener("DOMContentLoaded", () => {
             ppb = new PPaymentButtonBox({
                 token: "<?php echo $key_payphone; ?>",
                 amount: <?php echo $value; ?>,
@@ -43,6 +40,9 @@ $key_payphone = env('TOKEN_PAYPHONE');
                 clientTransactionId: "<?php echo $uniqueid; ?>",
             }).render('pp-button');
         });
+
     </script>
 </body>
 </html>
+
+
