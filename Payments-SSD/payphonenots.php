@@ -33,7 +33,7 @@ $status = 'Error';
 $response = [];
 //$limit_try = 0;
 
-//$payphone_array_response = payphone_api_confirm ($data_array);
+//$payphone_array_response = dataconstruccion ($data_array);
 
 //comprobacion si la tranx existe para evitar duplicados 
 $status_payphone_transactions = payphone_status_transaction($data_array); 
