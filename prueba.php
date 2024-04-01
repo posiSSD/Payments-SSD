@@ -6,7 +6,7 @@
     $url_data["txn_id"] = '12312456789';
     $url_data["account"] = '1674627753';
     $url_data["amount"] = '5';
-    $url_data['payment_method'] = 'payphone'; 
+    $url_data['payment_method'] = 'prometeo'; 
     //
 
 
