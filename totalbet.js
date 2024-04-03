@@ -12,7 +12,10 @@ if (document.body.classList.contains("mobile")) {
 
                     try {
 
-                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('?accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('?accounts=*&wallet=*&deposit-methods=*') ) ) {
+                        var currentUrl = window.location.href;
+                        console.log(currentUrl);
+
+                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
                             
                             //console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
@@ -225,7 +228,7 @@ if (document.body.classList.contains("mobile")) {
 
                     try {
 
-                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('?accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('?accounts=*&wallet=*&deposit=*') ) ) {
+                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
                             
                             //console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
