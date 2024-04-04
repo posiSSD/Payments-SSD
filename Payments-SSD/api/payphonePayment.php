@@ -66,7 +66,7 @@ function payment_curl($url_data){
     }
     */
     if($url_data['payment_method'] == 'payphone'){
-        $bs_param["paymentID"]="3803"; ///antiguo 3624
+        $bs_param["paymentID"]="3624"; ///antiguo 3624  ///new 3803
     } else if ($url_data['payment_method'] == 'prometeo'){
         $bs_param["paymentID"]="4016"; ///antiguo 3944
     } else {
