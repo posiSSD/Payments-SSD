@@ -4,7 +4,7 @@
     $url_data["command"] = "pay";
     //$url_data["txn_id"] = $transaction_id['id'];
     $url_data["txn_id"] = '12312456789';
-    $url_data["account"] = '16712324627750';
+    $url_data["account"] = '1671240';
     $url_data["amount"] = '5';
     $url_data['payment_method'] = 'prometeo'; 
     //
