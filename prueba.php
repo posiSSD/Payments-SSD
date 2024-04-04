@@ -3,10 +3,10 @@
     $url_data = [];
     $url_data["command"] = "pay";
     //$url_data["txn_id"] = $transaction_id['id'];
-    $url_data["txn_id"] = '12312456012300';
+    $url_data["txn_id"] = '12312456012301';
     $url_data["account"] = '1834796770';
-    $url_data["amount"] = '5';
-    $url_data['payment_method'] = 'prometeo'; 
+    $url_data["amount"] = '10';
+    $url_data['payment_method'] = 'payphone'; 
     //
 
 
