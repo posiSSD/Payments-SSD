@@ -3,8 +3,8 @@
     $url_data = [];
     $url_data["command"] = "pay";
     //$url_data["txn_id"] = $transaction_id['id'];
-    $url_data["txn_id"] = '12312456789';
-    $url_data["account"] = '1671240';
+    $url_data["txn_id"] = '12312456012300';
+    $url_data["account"] = '1834796770';
     $url_data["amount"] = '5';
     $url_data['payment_method'] = 'prometeo'; 
     //
@@ -18,7 +18,7 @@
 	$bc_param["currency"]="USD";
     
     if($url_data['payment_method'] == 'payphone'){
-        $bs_param["paymentID"]="3803";
+        $bs_param["paymentID"]="3624";
     } else if ($url_data['payment_method'] == 'prometeo'){
         $bs_param["paymentID"]="4016";
     } else {
