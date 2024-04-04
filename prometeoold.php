@@ -3,7 +3,7 @@
     $url_data = [];
     $url_data["command"] = "pay";
     //$url_data["txn_id"] = $transaction_id['id'];
-    $url_data["txn_id"] = md5(microtime().rand(0,1000));
+    $url_data["txn_id"] = substr(str_shuffle('0123456789'), 0, 11);
     $url_data["account"] = '1834796770';
     $url_data["amount"] = '10';
     $url_data['payment_method'] = 'prometeo'; 
