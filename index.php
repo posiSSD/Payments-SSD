@@ -173,9 +173,9 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = 'E3BB1A133D46C921F9C0435990667913';
+     $auth_token = 'CB3425B354B08C8F42679A5C9F516242';
      $user_id = '1674627753';
-     $metodo = 'prometeo';
+     $metodo = 'prontopaga';
      $amount = 5;
      $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
      $visit["auth_data"]=$auth_data;
@@ -299,15 +299,5 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     
 }
 ?>
-   
-<?php
-/*
-function consolelogfrontdata($auth_data) {
-   
-    echo '<script>';
-    echo 'console.log("IF:", ' . json_encode($auth_data ) . ');';
-    echo '</script>';
-}
-*/
-?>
+ 
  

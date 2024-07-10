@@ -37,6 +37,11 @@ DEFINE('WIDGET_PROMTEO','aa2b08c8-b9e1-4fb2-a971-c3ec850c5692');
 DEFINE('TOKEN_PAYPHONE','3e_lfs3syayUBEpyx1FD09A4K66scfjmDLvBBuirB0iGsNvndfcaAxbX3O0bSfoXl86aH87G6hKQ2nMJhB9dP7k1tqAnA5LDymAmBmE0fgQr8dwr7DNXa_vVN6LJH1US4i7yxia08TA_wUPYSPwn3mecajkX5abz6w-k9-Yo5SAnBlP6AInSOSo_maCuv88q_G68JjLhEJKhBrp_7aeVdgwLalLbGfY81NbIepdTEMOkP_iNjHaJNT2bQABfktMzZ007Orin5CqaD3CVJcJpe9SAucxQswwrTGIEenH11mKHDX15jWe5tH_GEl0M4yga6X9JAQ');						 
 DEFINE('RESPONSEURL_PAYPHONE', 'https://payments.totalbet.com/Payments-SSD/payphonenots.php');
 
+//Prontopaga
+DEFINE('TOKEN_PRONTOPAGA','835081294cce75ca0050e57736a4b535488f4e33459d6f833d2afc70f121ebb4');	 
+DEFINE('RESPONSEURL_PRONTOPAGA', 'https://payments.totalbet.com/Payments-SSD/prontopaganots.php');
+DEFINE('SECRETKEY_PRONTOPAGA', '01J2C7RGXETGVF67C07HS94VC7');
+
 ///limite de pago 
 DEFINE('DEPOSIT_LIMITS', '1,500');
 /// Direccion del proyecto
