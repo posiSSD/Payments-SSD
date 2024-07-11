@@ -63,6 +63,7 @@ function get_transaction($trans=false){
 
 	return $ret;
 }
+
 function create_or_update_transaction($trans=false){
 	global $unique_id;
 	global $mysqli;
@@ -129,7 +130,70 @@ function create_or_update_transaction($trans=false){
 	}
 	return $trans;
 }
+// Dentro del archivo helpers.php
 
+function create_payment_button($client=false){
+    try {
+        $ret = false;
+        $rq = [];
+        $rq['url'] = 'https://sandbox.insospa.com/api/payment/new';
+        $rq['method'] = "POST";
+
+        // Define los datos de la solicitud para Prometeo
+        $rq['rq'] = [
+            "currency" => "USD",
+            "country" => "EC",
+            "amount" => $client['kushki_value'],
+            "clientName" => $client['client_id'],
+            "clientEmail" => $client['email'],
+            "clientPhone" => "999999999",
+            "clientDocument" => "999999999",
+            "paymentMethod" => "prometeo_payment",
+            'urlConfirmation' => env('RESPONSEURL_PRONTOPAGA'),
+            'urlFinal' => env('RESPONSEURL_PRONTOPAGA'),
+            'urlRejected' => env('RESPONSEURL_PRONTOPAGA'),
+            "order" => $client['unique_id'],
+            "isIframePay" => false
+        ];
+
+        // Generar la firma
+        $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
+        $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
+
+        // Define el header de la solicitud para Prometeo
+        $rq['h'] = [
+            "Content-Type: application/json",
+            "X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
+        ];
+
+        // Imprimir el contenido de $RQ en la consola
+        echo '<script>';
+        echo 'console.log("Request Object in create_payment_button: ", ' . json_encode($rq['rq']) . ');';
+        echo '</script>';
+
+        $rq['rq'] = json_encode($rq['rq'], JSON_NUMERIC_CHECK);
+        $prontopaga_curl = prontopaga_curl($rq);
+
+        if (array_key_exists("curl_error", $prontopaga_curl)) {
+            $ret['curl_error'] = $prontopaga_curl;
+        } elseif (array_key_exists("code", $prontopaga_curl)) {
+            $ret['curl'] = $prontopaga_curl;
+            $ret['rq'] = $rq;
+            exit();
+        } else {
+            $ret = $prontopaga_curl;
+        }
+
+        return $ret;
+    } catch (Exception $e) {
+        echo '<script>';
+        echo 'console.log("Error in create_payment_button: ' . $e->getMessage() . '");';
+        echo '</script>';
+        return false; // Manejar el error adecuadamente según tu lógica de aplicación
+    }
+}
+
+/*
 function create_payment_button($client=false){
 
 	// Imprimir el contenido de $rq['rq'] en la consola del navegador
@@ -188,7 +252,7 @@ function create_payment_button($client=false){
     return $ret;
 
 }
-
+*/
 function generate_signature($parameters, $secret_key) {
 
 
