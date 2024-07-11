@@ -146,6 +146,7 @@ function create_payment_button(){
 	});
 }
 
+
 function validar(){
 	let form = $('#kushki_payment_form');
 	let input = form.find('input');

@@ -12,17 +12,11 @@ if(isset($_POST['create_payment_button'])){
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
 	$_POST['create_payment_button']['status'] = 6;
 
-
-	// Imprimir el contenido de $_POST['create_payment_button'] en la consola del navegador
-    echo '<script>';
-    echo 'console.log("Request Object: ", ' . json_encode($_POST['create_payment_button']) . ');';
-    echo '</script>';
-
 	create_or_update_transaction($_POST['create_payment_button']);
 	
 	$kushki_create_payment_button = create_payment_button($_POST['create_payment_button']);
 
-	
+
 	/*
 	if(array_key_exists("url", $kushki_create_payment_button)){
 		$ret["status"] = 201;
