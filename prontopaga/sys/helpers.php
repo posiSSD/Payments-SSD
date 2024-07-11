@@ -130,6 +130,8 @@ function create_or_update_transaction($trans=false){
 	return $trans;
 }
 function create_payment_button($client=false){
+
+	consolelogdata($client);
 	
 	$ret = false;
 	$rq = [];
