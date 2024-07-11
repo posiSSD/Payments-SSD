@@ -15,12 +15,8 @@ if(isset($_POST['create_payment_button'])){
 	create_or_update_transaction($_POST['create_payment_button']);
 	$kushki_create_payment_button = create_payment_button($_POST['create_payment_button']);
 
-	/*
-	//Guardando datos en table prometeo_details y prometeo_transactions
-	bd_save_prometeo($kushki_create_payment_button);
-	$update_kushi = details_payment_link($kushki_create_payment_button);
-	bd_update_prometeo($update_kushi);
 	
+	/*
 	if(array_key_exists("url", $kushki_create_payment_button)){
 		$ret["status"] = 201;
 		$ret["return"] = "Ok";
@@ -39,7 +35,8 @@ if(isset($_POST['create_payment_button'])){
 		$ret["_POST"]=$_POST['create_payment_button'];
 	}	
 	*/
-	echo json_encode($ret);
+	//echo json_encode($ret);
+	echo json_encode($kushki_create_payment_button);
 }
 
 if(isset($_POST['status_payment_button'])){
