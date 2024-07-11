@@ -152,9 +152,13 @@ function create_payment_button($client=false){
         "isIframePay" => false
     ];
 
+	consolelogdata($rq); // Verifica el contenido final de $rq antes de enviarlo
+
 	// Generar la firma
     $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
     $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
+
+	consolelogdata($rq); // Verifica el contenido final de $rq antes de enviarlo
 
 	// Define el header de la solicitud para Prometeo	
 	$rq['h']=[
@@ -175,10 +179,14 @@ function create_payment_button($client=false){
     } else {
         $ret = $prontopaga_curl;
     }	
+
+	consolelogdata($ret); // Verifica el contenido final de $rq antes de enviarlo
+
     return $ret;
-	
+
 }
 function generate_signature($parameters, $secret_key) {
+
 
     // Ordenar los parámetros alfabéticamente por sus claves
     $keys = array_keys($parameters);
@@ -192,6 +200,8 @@ function generate_signature($parameters, $secret_key) {
 
     // Generar la firma utilizando HMAC con SHA256
     $signature = hash_hmac('sha256', $toSign, $secret_key);
+
+	consolelogdata($signature); // Verifica el contenido final de $rq antes de enviarlo
 
     return $signature;
 
@@ -216,11 +226,17 @@ function prontopaga_curl($rq = false) {
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
+
+	consolelogdata($result); // Verifica el contenido final de $rq antes de enviarlo
+
     if (curl_errno($curl)) {
         $response_arr = ['curl_error' => curl_error($curl)];
     } else {
         $response_arr = json_decode($result, true);
     }
+
+	consolelogdata($response_arr); // Verifica el contenido final de $rq antes de enviarlo
+
     curl_close($curl);
     return $response_arr;
 
@@ -635,5 +651,14 @@ function generateexpires_at() {
     return $expiresAtISO8601;
 }
 
+function consolelogdata($data) {
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+
+    echo '<script>';
+    echo 'console.log("'. $pFunction . '");';
+    echo 'console.log(": ", ' . json_encode($data) . ');';
+    echo '</script>';
+}
 
 ?> 
