@@ -129,9 +129,13 @@ function create_or_update_transaction($trans=false){
 	}
 	return $trans;
 }
+
 function create_payment_button($client=false){
 
-	consolelogdata($client);
+	// Imprimir el contenido de $rq['rq'] en la consola del navegador
+	echo '<script>';
+	echo 'console.log("Request Object: ", ' . json_encode($client) . ');';
+	echo '</script>';
 	
 	$ret = false;
 	$rq = [];
@@ -154,13 +158,12 @@ function create_payment_button($client=false){
         "isIframePay" => false
     ];
 
-	consolelogdata($rq); // Verifica el contenido final de $rq antes de enviarlo
-
 	// Generar la firma
     $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
     $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
 
-	consolelogdata($rq); // Verifica el contenido final de $rq antes de enviarlo
+
+
 
 	// Define el header de la solicitud para Prometeo	
 	$rq['h']=[
@@ -182,11 +185,10 @@ function create_payment_button($client=false){
         $ret = $prontopaga_curl;
     }	
 
-	consolelogdata($ret); // Verifica el contenido final de $rq antes de enviarlo
-
     return $ret;
 
 }
+
 function generate_signature($parameters, $secret_key) {
 
 
