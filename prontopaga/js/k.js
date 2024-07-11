@@ -94,8 +94,6 @@ function build_form(rs){
 
 function create_payment_button(){
 	console.log("create_payment_button");
-
-	debugger;
 		
 	usr_active.this_url = this_url;
 	usr_active.kushki_value = prueba.kushki_value ;
