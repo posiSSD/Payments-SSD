@@ -108,6 +108,8 @@ function create_payment_button(){
 	let iframeurl = "";
 	let data = "";
 
+	debugger;
+
 	$.post(this_url+'sys/', 
 	{
 		create_payment_button: usr_active,
