@@ -121,19 +121,7 @@ function create_payment_button(){
 			console.log(rs);
         	usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
-				data = {
-					value: rs.value,
-					unique_id: rs.unique_id
-				};
-				////////////////New - start////////////////////////
-				holder.hide();
-				////////////////New - End//////////////////////////
-				
-				iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
-				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
-				proframe.attr("src", iframeurl);
-				proframe.show(); // iframe"				
-				response_to_payphone(usr_active);				
+							
 			} else {
 				$('#kushki_payment_form').remove();
 				$('#kushki_payment_holder').html(rs.error);
