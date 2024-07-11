@@ -13,7 +13,7 @@ if(isset($_POST['create_payment_button'])){
 	$_POST['create_payment_button']['status'] = 6;
 
 	create_or_update_transaction($_POST['create_payment_button']);
-	$kushki_create_payment_button = kushki_create_payment_button($_POST['create_payment_button']);
+	$kushki_create_payment_button = create_payment_button($_POST['create_payment_button']);
 
 	/*
 	//Guardando datos en table prometeo_details y prometeo_transactions

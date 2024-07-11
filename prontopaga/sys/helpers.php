@@ -129,46 +129,74 @@ function create_or_update_transaction($trans=false){
 	}
 	return $trans;
 }
-function kushki_create_payment_button($client=false){
+function create_payment_button($client=false){
 	
-	$expires_at = generateexpires_at();
 	$ret = false;
 	$rq = [];
-	$rq['url']='https://payment.prometeoapi.net/api/v1/payment-link/';
+	$rq['url']='https://sandbox.insospa.com/api/payment/new';
 	$rq['method']="POST";
 	// Define los datos de la solicitud para Prometeo
     $rq['rq'] = [
-        "product_id" => env('WIDGET_PROMTEO'),
-        "external_id" => $client['unique_id'],
-        "concept" => "Recarga Prometeo",
-        "currency" => "USD",
-        "amount" => $client['kushki_value'], // Utiliza el balance de usr_active
-        "expires_at" => $expires_at,
-        "email" => $client['email'], // Utiliza el email de usr_active
-        "reusable" => false
-    ];	
+		"currency" => "USD",
+		"country" => "EC",
+		"amount" => $client['kushki_value'],
+		"clientName" => $client['client_id'],
+		"clientEmail" => $client['email'],
+		"clientPhone" => "999999999",
+        "clientDocument" => "999999999",
+		"paymentMethod" => "prometeo_payment",
+		'urlConfirmation' => env('RESPONSEURL_PRONTOPAGA'),
+        'urlFinal' => env('RESPONSEURL_PRONTOPAGA'),
+        'urlRejected' => env('RESPONSEURL_PRONTOPAGA'),
+		"order" => $client['unique_id'],
+        "isIframePay" => false
+    ];
+
+	// Generar la firma
+    $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
+    $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
+
 	// Define el header de la solicitud para Prometeo	
 	$rq['h']=[
 		"Content-Type: application/json",
-		"X-API-Key: " . env('API_KEY_PROMETEO') // Ajusta la clave de API correcta
+		"X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
 	// Imprimir el contenido de $RQ en la consola
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
-	$kushki_curl = kushki_curl($rq);
+	$prontopaga_curl = prontopaga_curl($rq);
 	
-	if (array_key_exists("curl_error", $kushki_curl)) {
-        $ret['curl_error'] = $kushki_curl;
-    } elseif (array_key_exists("code", $kushki_curl)) {
-        $ret['curl'] = $kushki_curl;
+	if (array_key_exists("curl_error", $prontopaga_curl)) {
+        $ret['curl_error'] = $prontopaga_curl;
+    } elseif (array_key_exists("code", $prontopaga_curl)) {
+        $ret['curl'] = $prontopaga_curl;
         $ret['rq'] = $rq;
         //print_r($rq['rq']);
         exit();
     } else {
-        $ret = $kushki_curl;
+        $ret = $prontopaga_curl;
     }	
     return $ret;
+	
 }
-function kushki_curl($rq = false) {
+function generate_signature($parameters, $secret_key) {
+
+    // Ordenar los parámetros alfabéticamente por sus claves
+    $keys = array_keys($parameters);
+    sort($keys);
+    
+    // Construir la cadena de parámetros
+    $toSign = '';
+    foreach ($keys as $key) {
+        $toSign .= $key . $parameters[$key];
+    }
+
+    // Generar la firma utilizando HMAC con SHA256
+    $signature = hash_hmac('sha256', $toSign, $secret_key);
+
+    return $signature;
+
+}
+function prontopaga_curl($rq = false) {
 	
     $curl = curl_init();
     $curl_options = [
@@ -181,16 +209,10 @@ function kushki_curl($rq = false) {
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_HTTPHEADER => $rq['h'],
     ];
-
     // Inicio Verificar si contiene un body o si es una peticion POST O GET
     if (!empty($rq['rq'])) {
         $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
     }
-	if ($rq['method']  == "POST") {  //linea 2010
-        $curl_options[CURLOPT_CUSTOMREQUEST] = "POST";
-    }else{
-		$curl_options[CURLOPT_CUSTOMREQUEST] = "GET";
-	}
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
@@ -201,6 +223,7 @@ function kushki_curl($rq = false) {
     }
     curl_close($curl);
     return $response_arr;
+
 }
 
 
