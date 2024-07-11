@@ -132,6 +132,8 @@ function create_or_update_transaction($trans=false){
 }
 
 function create_payment_button($client=false){
+
+	consolelogdata($client); 
 	
 	$ret = false;
 	$rq = [];
@@ -645,6 +647,16 @@ function generateexpires_at() {
     $expiresAtTimestamp = $currentTimestamp + 300;
     $expiresAtISO8601 = date('Y-m-d\TH:i:s.v\Z', $expiresAtTimestamp);
     return $expiresAtISO8601;
+}
+
+function consolelogdata($data) {
+    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
+
+    echo '<script>';
+    echo 'console.log("'. $pFunction . '");';
+    echo 'console.log(": ", ' . json_encode($data) . ');';
+    echo '</script>';
 }
 
 ?> 
