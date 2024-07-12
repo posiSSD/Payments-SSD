@@ -167,7 +167,7 @@ function create_payment_button($client=false){
 		"X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
 	consolelogdata($rq);
-	// Imprimir el contenido de $RQ en la consola
+	
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 	$prontopaga_curl = prontopaga_curl($rq);
 	
@@ -185,6 +185,7 @@ function create_payment_button($client=false){
     return $ret;
 
 }
+
 function generate_signature($parameters, $secret_key) {
 
 
