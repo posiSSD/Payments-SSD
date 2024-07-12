@@ -169,8 +169,7 @@ function create_payment_button($client=false){
 		"Content-Type: application/json",
 		"Authorization: Bearer " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
-	consolelogdata($rq);
-	
+		
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 	$prontopaga_curl = prontopaga_curl($rq);
 	
@@ -191,18 +190,12 @@ function create_payment_button($client=false){
 
 function generate_signature($parameters, $secret_key) {
 
-
-    // Ordenar los parámetros alfabéticamente por sus claves
     $keys = array_keys($parameters);
     sort($keys);
-    
-    // Construir la cadena de parámetros
     $toSign = '';
     foreach ($keys as $key) {
         $toSign .= $key . $parameters[$key];
     }
-
-    // Generar la firma utilizando HMAC con SHA256
     $signature = hash_hmac('sha256', $toSign, $secret_key);
 
     return $signature;
@@ -226,13 +219,8 @@ function prontopaga_curl($rq = false) {
         $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
     }
 
-	consolelogdata($rq); 
-
-	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
-
-	consolelogdata($result); // Verifica el contenido final de $rq antes de enviarlo
 
     if (curl_errno($curl)) {
         $response_arr = ['curl_error' => curl_error($curl)];
@@ -240,13 +228,12 @@ function prontopaga_curl($rq = false) {
         $response_arr = json_decode($result, true);
     }
 
-	consolelogdata($response_arr); // Verifica el contenido final de $rq antes de enviarlo
+	consolelogdata($response_arr);
 
     curl_close($curl);
     return $response_arr;
 
 }
-
 
 function details_payment_link($kushki_curl) {
 
