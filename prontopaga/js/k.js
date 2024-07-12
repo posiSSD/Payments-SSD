@@ -113,7 +113,6 @@ function create_payment_button(){
 		create_payment_button: usr_active,
 	}, 
 	function(r, textStatus, xhr) {
-		debugger;
 		try {
 			console.log('Loading Payphone');
 			let rs = jQuery.parseJSON(r);
