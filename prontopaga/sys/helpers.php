@@ -228,7 +228,7 @@ function prontopaga_curl($rq = false) {
         $response_arr = json_decode($result, true);
     }
 
-	consolelogdata($response_arr);
+	//consolelogdata($response_arr);
 
     curl_close($curl);
     return $response_arr;
@@ -643,6 +643,7 @@ function generateexpires_at() {
     return $expiresAtISO8601;
 }
 
+/*
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
@@ -652,5 +653,5 @@ function consolelogdata($data) {
     echo 'console.log(": ", ' . json_encode($data) . ');';
     echo '</script>';
 }
-
+*/
 ?> 
