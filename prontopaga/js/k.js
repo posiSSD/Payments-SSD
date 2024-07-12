@@ -107,13 +107,13 @@ function create_payment_button(){
 	//console.log(usr_active);
 	let iframeurl = "";
 	let data = "";
-	debugger;
+	
 	$.post(this_url+'sys/', 
 	{
 		create_payment_button: usr_active,
 	}, 
 	function(r, textStatus, xhr) {
-
+		debugger;
 		try {
 			console.log('Loading Payphone');
 			let rs = jQuery.parseJSON(r);
