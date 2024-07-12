@@ -35,7 +35,7 @@ $rq['h']=[
 	"Content-Type: application/json",
 	"Authorization: Bearer " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
-
+    
 echo $rq;
 
 $rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
