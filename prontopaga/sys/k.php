@@ -14,30 +14,30 @@ if(isset($_POST['create_payment_button'])){
 
 	create_or_update_transaction($_POST['create_payment_button']);
 	
-	$kushki_create_payment_button = create_payment_button($_POST['create_payment_button']);
+	$create_payment_button = create_payment_button($_POST['create_payment_button']);
 
-
-	/*
-	if(array_key_exists("url", $kushki_create_payment_button)){
+	if(array_key_exists("url", create_payment_button)){
 		$ret["status"] = 201;
 		$ret["return"] = "Ok";
-		$ret["url"]=$kushki_create_payment_button["url"];
-		$ret["id"]=$kushki_create_payment_button["id"];
-		$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
+		$ret["url"]=$create_payment_button["urlPay"];
+		//$ret["id"]=$create_payment_button["reference"];
+		//$ret["order_id"]=$create_payment_button['uid'];
+		//$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
 		$_POST['create_payment_button']['status'] = 8;
-		$_POST['create_payment_button']['order_id'] = $kushki_create_payment_button['id'];
+		$_POST['create_payment_button']['order_id'] = $create_payment_button['reference'];
+		$_POST['create_payment_button']['payment_id'] = $create_payment_button['uid'];
 		create_or_update_transaction($_POST['create_payment_button']);
-	}elseif(array_key_exists("curl_error", $kushki_create_payment_button)){
+	}elseif(array_key_exists("curl_error", $create_payment_button)){
 		$ret['status']=408;
 		$ret['error']='Ocurrio un error, refresca la pagina y vuelve a intentar.';
 	}else{
 		$ret["status"] = 500;
-		$ret["result"] = $kushki_create_payment_button;
+		$ret["result"] = $reate_payment_button;
 		$ret["_POST"]=$_POST['create_payment_button'];
 	}	
-	*/
-	//echo json_encode($ret);
-	echo json_encode($kushki_create_payment_button);
+
+	echo json_encode($ret);
+	//echo json_encode($create_payment_button);
 }
 
 if(isset($_POST['status_payment_button'])){
