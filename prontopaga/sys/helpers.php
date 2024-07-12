@@ -133,7 +133,6 @@ function create_or_update_transaction($trans=false){
 
 function create_payment_button($client=false){
 
-	consolelogdata($client); 
 	
 	$ret = false;
 	$rq = [];
@@ -160,13 +159,14 @@ function create_payment_button($client=false){
     $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
     $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
 
-	consolelogdata($rq['rq']); 
+	
 
 	// Define el header de la solicitud para Prometeo	
 	$rq['h']=[
 		"Content-Type: application/json",
 		"X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
+	consolelogdata($rq);
 	// Imprimir el contenido de $RQ en la consola
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 	$prontopaga_curl = prontopaga_curl($rq);
@@ -200,8 +200,6 @@ function generate_signature($parameters, $secret_key) {
 
     // Generar la firma utilizando HMAC con SHA256
     $signature = hash_hmac('sha256', $toSign, $secret_key);
-
-	consolelogdata($signature); // Verifica el contenido final de $rq antes de enviarlo
 
     return $signature;
 
