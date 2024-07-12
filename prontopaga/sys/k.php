@@ -16,7 +16,7 @@ if(isset($_POST['create_payment_button'])){
 	
 	$create_payment_button = create_payment_button($_POST['create_payment_button']);
 
-	if(array_key_exists("url", $create_payment_button)){
+	if(array_key_exists("urlPay", $create_payment_button)){
 		$ret["status"] = 201;
 		$ret["return"] = "Ok";
 		$ret["url"]=$create_payment_button["urlPay"];
