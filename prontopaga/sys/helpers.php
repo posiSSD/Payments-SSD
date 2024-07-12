@@ -159,12 +159,15 @@ function create_payment_button($client=false){
     $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
     $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
 
-	
-
-	// Define el header de la solicitud para Prometeo	
+	/*	
 	$rq['h']=[
 		"Content-Type: application/json",
 		"X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
+	];
+	*/
+	$rq['h']=[
+		"Content-Type: application/json",
+		"Authorization: Bearer " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
 	consolelogdata($rq);
 	

@@ -33,7 +33,7 @@ echo $rq['rq'];
 // Define el header de la solicitud para Prometeo	
 $rq['h']=[
 	"Content-Type: application/json",
-	"X-API-Key: " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
+	"Authorization: Bearer " . env('TOKEN_PRONTOPAGA') // Ajusta la clave de API correcta
 	];
 
 echo $rq;
