@@ -160,6 +160,8 @@ function create_payment_button($client=false){
     $secret_key = env('SECRETKEY_PRONTOPAGA'); // Ajusta con tu clave secreta
     $rq['rq']['sign'] = generate_signature($rq['rq'], $secret_key);
 
+	consolelogdata($rq['rq']); 
+
 	// Define el header de la solicitud para Prometeo	
 	$rq['h']=[
 		"Content-Type: application/json",
