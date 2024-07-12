@@ -107,7 +107,7 @@ function create_payment_button(){
 	//console.log(usr_active);
 	let iframeurl = "";
 	let data = "";
-
+	debugger;
 	$.post(this_url+'sys/', 
 	{
 		create_payment_button: usr_active,
@@ -118,7 +118,7 @@ function create_payment_button(){
 			console.log('Loading Payphone');
 			let rs = jQuery.parseJSON(r);
 			console.log(rs);
-        	usr_active.unique_id = rs.unique_id;
+        	//usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
 							
 			} else {
