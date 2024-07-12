@@ -221,6 +221,9 @@ function prontopaga_curl($rq = false) {
     if (!empty($rq['rq'])) {
         $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
     }
+
+	consolelogdata($rq); 
+
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
