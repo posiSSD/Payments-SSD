@@ -119,6 +119,11 @@ function create_payment_button(){
 			console.log(rs);
         	//usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
+
+				holder.hide();
+				prodiv.show(); 
+				proframe.attr("src", rs.url);
+				proframe.show();
 							
 			} else {
 				$('#kushki_payment_form').remove();
