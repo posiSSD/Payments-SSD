@@ -173,7 +173,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = '555B3DFA86D09AF2A41620C7231C0DDE';
+     $auth_token = 'EC489CAE3685881AE34496DE95A2F03C';
      $user_id = '1674627753';
      $metodo = 'prontopaga';
      $amount = rand(5, 50);
@@ -182,7 +182,6 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
      //echo "datos ELSE ";
  }
  
-
  // conustruccion de URL 
  $fv=time();
  $url = 'http';
