@@ -173,7 +173,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = 'EC489CAE3685881AE34496DE95A2F03C';
+     $auth_token = '85503D6FB65FE2384D1849FB13B6AFF3';
      $user_id = '1674627753';
      $metodo = 'prontopaga';
      $amount = rand(5, 50);
