@@ -44,6 +44,9 @@ if (document.body.classList.contains("mobile")) {
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
                                     //console.log('authData Found');
+                                    //console.log('authData Found');
+                                    //console.log('authData Found');
+                                    //console.log('authData Found');
                                 } else {
                                     //console.log('authData not Found');
                                 }
