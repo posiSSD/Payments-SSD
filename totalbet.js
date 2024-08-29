@@ -228,7 +228,7 @@ if (document.body.classList.contains("mobile")) {
             if (mutation.type === 'childList') {
                 //console.log('Nuevos nodos añadidos:', mutation.addedNodes);
                 mutation.addedNodes.forEach(function(node) {
-
+                    console.log('Nodo añadido:', node);
                     try {
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
@@ -420,7 +420,7 @@ if (document.body.classList.contains("mobile")) {
                         }
 
                     } catch (error) {
-                        //console.error('Error: ', error);
+                        console.error('Error detectando el modal:', error);
                     }
 
                 });
