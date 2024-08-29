@@ -173,9 +173,9 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
  }
  
  else{
-     $auth_token = '85503D6FB65FE2384D1849FB13B6AFF3';
+     $auth_token = '52F31C163FC9C8EB86538C1A02EB3958';
      $user_id = '1674627753';
-     $metodo = 'prontopaga';
+     $metodo = 'payphone';
      $amount = rand(5, 50);
      $auth_data = array("auth_token" => $auth_token, "user_id" => $user_id);
      $visit["auth_data"]=$auth_data;
