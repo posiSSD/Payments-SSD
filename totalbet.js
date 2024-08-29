@@ -231,9 +231,10 @@ if (document.body.classList.contains("mobile")) {
 
                     try {
 
-                        if ($(node).hasClass('customModal visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
+                        if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
                             
-                            console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
+                            console.log('Modal capturado:', node);
+                            //console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
