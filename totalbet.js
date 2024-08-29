@@ -226,9 +226,8 @@ if (document.body.classList.contains("mobile")) {
             //console.log('Tipo de mutación:', mutation.type);
             // Verifica si se añadieron nuevos nodos
             if (mutation.type === 'childList') {
-                //console.log('Nuevos nodos añadidos:', mutation.addedNodes);
                 mutation.addedNodes.forEach(function(node) {
-                    console.log('Nodo añadido:', node);
+                    //console.log('Nodo añadido:', node);
                     try {
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
@@ -236,8 +235,11 @@ if (document.body.classList.contains("mobile")) {
                             console.log('Modal capturado:', node);
                             //console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
-                            var modalContentDiv = node.querySelector('.v3-modal-content');
+                            //var modalContentDiv = node.querySelector('.v3-modal-content');  //payment__success--modal
+                            var modalContentDiv = node.querySelector('.payment__success--modal');  //payment__success--modal
                             if (modalContentDiv){
+
+                                console.log('payment__success--moda FOUND');
                                
                                 modalContentDiv.style.borderRadius = '0px'
                                 modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
@@ -260,7 +262,7 @@ if (document.body.classList.contains("mobile")) {
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
-                                    //console.log('authData Found');
+                                    console.log(authData);
                                 } else {
                                     //console.log('authData not Found');
                                 }
