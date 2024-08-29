@@ -17,27 +17,22 @@ if (document.body.classList.contains("mobile")) {
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
                             
-                            console.log('customModalA visible FOUND.');
+                            //console.log('customModalA visible FOUND.');
 
                             //var modalContentDiv = node.querySelector('.v3-modal-content'); //custom__modalContent
                             var modalContentDiv = node.querySelector('.custom__modalContent'); //custom__modalContent
                             if (modalContentDiv){
                                 
                                 modalContentDiv.style.borderRadius = '0px'
-                                modalContentDiv.querySelector('.custom__modalBody').style.display = 'none';
-                                modalContentDiv.querySelector('.custom__modalBody').parentNode.style.display = 'none';
 
-                                /*
-                                var modalElement = document.querySelector('.v3-modal');
-                                if(modalElement){
-                                    modalElement.style.margin = '0';
-                                    modalElement.style.width = '420px';
-                                    
-                                    //console.log('modalElement v3-modal FOUND');
-                                }else{
-                                    //console.log('modalElement v3-modal NOT FOUND');
+                                var modalContentDivParent = node.querySelector('.custom__modalBody').parentNode;
+                                if(modalContentDivParent){
+
+                                    modalContentDivParent.querySelector('.custom__modalBody').style.display = 'none';
+
                                 }
-                                */
+
+                                //modalContentDiv.querySelector('.custom__modalBody').parentNode.style.display = 'none';
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
@@ -47,9 +42,6 @@ if (document.body.classList.contains("mobile")) {
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
-                                    //console.log('authData Found');
-                                    //console.log('authData Found');
-                                    //console.log('authData Found');
                                     //console.log('authData Found');
                                 } else {
                                     //console.log('authData not Found');
@@ -118,7 +110,7 @@ if (document.body.classList.contains("mobile")) {
                                 iframe.src = redirectUrl;
 
                                 // Agregar el iframe al contenido del modal
-                                modalContentDiv.appendChild(iframe);
+                                modalContentDivParent.appendChild(iframe);
 
                                 ///////////////////////////////////////////////////////////////////////////
                                 var iframe_element = document.getElementById('paymentsframe'); 
