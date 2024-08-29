@@ -12,8 +12,8 @@ if (document.body.classList.contains("mobile")) {
 
                     try {
 
-                        var currentUrl = window.location.href;
-                        console.log(currentUrl);
+                        //var currentUrl = window.location.href;
+                        //console.log(currentUrl);
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
                             
@@ -25,7 +25,9 @@ if (document.body.classList.contains("mobile")) {
                                 
                                 modalContentDiv.style.borderRadius = '0px'
                                 modalContentDiv.querySelector('.custom__modalBody').style.display = 'none';
+                                modalContentDiv.querySelector('.custom__modalBody').parentNode.style.display = 'none';
 
+                                /*
                                 var modalElement = document.querySelector('.v3-modal');
                                 if(modalElement){
                                     modalElement.style.margin = '0';
@@ -35,6 +37,7 @@ if (document.body.classList.contains("mobile")) {
                                 }else{
                                     //console.log('modalElement v3-modal NOT FOUND');
                                 }
+                                */
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
