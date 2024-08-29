@@ -416,7 +416,7 @@ if (document.body.classList.contains("mobile")) {
                                 //console.log('.v3-modal-content Found: ');
                             }
                         } else{
-                            console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A NOT FOUND.');
+                           // console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A NOT FOUND.');
                         }
 
                     } catch (error) {
