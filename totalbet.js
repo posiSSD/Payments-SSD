@@ -119,78 +119,71 @@ if (document.body.classList.contains("mobile")) {
 
                                         // Maneja el mensaje recibido
                                         var estadoPago = event.data;
-
+                                        debugger;
                                         // Realiza acciones basadas en el estado del pago recibido
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
-                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
-                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
-                                            } else {
-                                                //console.log('Elemento span no encontrado');
+                                            document.querySelector('.custom__modalBody').parentNode.style.padding = '8px';
+                                            var modalbody = document.querySelector('.custom__modalBody');
+                                            if(modalbody){
+                                                modalbody.style.display = 'block';
+                                                var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
+                                                if(successMessageSpan){
+                                                    successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
+                                                }else{
+                                                    console.log('payment-success-modal-message NOT FOUND');
+                                                }   
+                                            }else{
+                                                console.log('custom__modalBod NOT FOUND');
                                             }
 
                                         } else if( estadoPago == 10 ){
 
                                             iframe.remove();
-                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
-                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            displayErrorMessageIcon();
-
-                                            //var titleElement = document.querySelector('.style__Title-sc-xfnom2-2'); modal-title
-                                            var titleElement = modalContentDivParent.querySelector('.modal-title'); 
-
-                                            // Verificar si se encontró el elemento
-                                            if (titleElement) {
-                                                // Cambiar el texto del elemento
-                                                titleElement.textContent = '¡Declinado!';
-                                            } else {
-                                                console.error('Titulo no encontrado');
-                                            }
-
-                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+'ha sido declinada.';
-                                            } else {
-                                                console.log('Elemento span no encontrado');
+                                            document.querySelector('.custom__modalBody').parentNode.style.padding = '8px';
+                                            var modalbody = document.querySelector('.custom__modalBody');
+                                            if(modalbody){
+                                                displayErrorMessageIcon();
+                                                modalbody.style.display = 'block';
+                                                var titleElement = modalbody.querySelector('modal-title');
+                                                if (titleElement) {
+                                                    titleElement.textContent = '¡Declinado!';
+                                                } else {
+                                                    console.error('Titulo no encontrado');
+                                                }
+                                                var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
+                                                if(successMessageSpan){
+                                                    successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' ha sido declinada.'; 
+                                                }else{
+                                                    console.log('payment-success-modal-message NOT FOUND');
+                                                }   
+                                            }else{
+                                                console.log('custom__modalBod NOT FOUND');
                                             }
 
                                         } else if( estadoPago == 11 ){
 
                                             iframe.remove();
-                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
-                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
-
-                                            displayErrorMessageIcon();
-
-                                            //var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
-                                            var titleElement = modalContentDivParent.querySelector('.modal-title'); 
-
-                                            // Verificar si se encontró el elemento
-                                            if (titleElement) {
-                                                // Cambiar el texto del elemento
-                                                titleElement.textContent = 'Error!';
-                                            } else {
-                                                console.error('Titulo no encontrado');
-                                            }
-
-                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
-                                            // Verificar si se encontró el elemento
-                                            if (successMessageSpan) {
-                                                // Modificar el texto del span
-                                                //successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' fallida';
-                                                successMessageSpan.innerHTML = 'Tu Recarga no se completó.<br>Revise su estado de cuenta.';  
-                                            } else {
-                                                //console.log('Elemento span no encontrado');
+                                            document.querySelector('.custom__modalBody').parentNode.style.padding = '8px';
+                                            var modalbody = document.querySelector('.custom__modalBody');
+                                            if(modalbody){
+                                                displayErrorMessageIcon();
+                                                modalbody.style.display = 'block';
+                                                var titleElement = modalbody.querySelector('modal-title');
+                                                if (titleElement) {
+                                                    titleElement.textContent = 'Error!';
+                                                } else {
+                                                    console.error('Titulo no encontrado');
+                                                }
+                                                var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
+                                                if(successMessageSpan){
+                                                    successMessageSpan.textContent = 'Tu Recarga no se completó.<br>Revise su estado de cuenta.'; 
+                                                }else{
+                                                    console.log('payment-success-modal-message NOT FOUND');
+                                                }   
+                                            }else{
+                                                console.log('custom__modalBod NOT FOUND');
                                             }
 
                                         } else {
@@ -394,7 +387,7 @@ if (document.body.classList.contains("mobile")) {
                                                 }
                                                 var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
                                                 if(successMessageSpan){
-                                                    successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
+                                                    successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' ha sido declinada.'; 
                                                 }else{
                                                     console.log('payment-success-modal-message NOT FOUND');
                                                 }   
@@ -402,7 +395,6 @@ if (document.body.classList.contains("mobile")) {
                                                 console.log('custom__modalBod NOT FOUND');
                                             }
 
-                                
                                         } else if( estadoPago == 11 ){
 
                                             iframe.remove();
