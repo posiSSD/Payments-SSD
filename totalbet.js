@@ -322,7 +322,7 @@ if (document.body.classList.contains("mobile")) {
                                     amount: inputCantidad.value
                                 };
 
-                                console.log('authData: ', array_authData);
+                                //console.log('authData: ', array_authData);
                                 // Convertir el objeto en una cadena JSON y codificarla
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
@@ -345,6 +345,8 @@ if (document.body.classList.contains("mobile")) {
                                     if (event.source === iframe_element.contentWindow) {
                                         // Maneja el mensaje recibido
                                         var estadoPago = event.data;
+
+                                        debugger;
                                         // Realiza acciones basadas en el estado del pago recibido
                                         //console.log('Estado del pago recibido:', estadoPago);
                                         if( estadoPago == 7) {
