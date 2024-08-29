@@ -232,28 +232,32 @@ if (document.body.classList.contains("mobile")) {
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
                             
-                            console.log('Modal capturado:', node);
+                            //console.log('Modal capturado:', node);
                             //console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
                             //var modalContentDiv = node.querySelector('.v3-modal-content');  //payment__success--modal
                             var modalContentDiv = node.querySelector('.payment__success--modal');  //payment__success--modal
                             if (modalContentDiv){
 
-                                console.log('payment__success--moda FOUND');
-                               
+                                //console.log('payment__success--moda FOUND');
+
+                                modalContentDiv.style.padding = '0px';
                                 modalContentDiv.style.borderRadius = '0px'
                                 //modalContentDiv.querySelector('.v3-modal-body').style.display = 'none'; //custom__modalBody
                                 modalContentDiv.querySelector('.custom__modalBody').style.display = 'none'; //custom__modalBody
 
+
+                                /*
                                 var modalElement = document.querySelector('.v3-modal');
                                 if(modalElement){
                                     modalElement.style.margin = '0';
                                     modalElement.style.width = '460px';
-                                    
                                     //console.log('modalElement v3-modal FOUND');
                                 }else{
                                     //console.log('modalElement v3-modal NOT FOUND');
                                 }
+                                */
+
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
@@ -263,7 +267,7 @@ if (document.body.classList.contains("mobile")) {
                                     var auth_token = authDataObj.auth_token;
                                     var user_id = authDataObj.user_id;
                                     var metodo_tb = '';
-                                    console.log(authData);
+                                    //console.log(authData);
                                 } else {
                                     console.log('authData not Found');
                                 }
@@ -318,7 +322,7 @@ if (document.body.classList.contains("mobile")) {
                                     amount: inputCantidad.value
                                 };
 
-                                //console.log('authData: ', array_authData);
+                                console.log('authData: ', array_authData);
                                 // Convertir el objeto en una cadena JSON y codificarla
                                 var encoded_auth_data = encodeURIComponent(JSON.stringify(array_authData));
 
