@@ -15,15 +15,16 @@ if (document.body.classList.contains("mobile")) {
                         var currentUrl = window.location.href;
                         console.log(currentUrl);
 
-                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
+                        if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
                             
-                            console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
+                            console.log('customModalA visible FOUND.');
 
-                            var modalContentDiv = node.querySelector('.v3-modal-content');
+                            //var modalContentDiv = node.querySelector('.v3-modal-content'); //custom__modalContent
+                            var modalContentDiv = node.querySelector('.custom__modalContent'); //custom__modalContent
                             if (modalContentDiv){
                                 
                                 modalContentDiv.style.borderRadius = '0px'
-                                modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+                                modalContentDiv.querySelector('.custom__modalBody').style.display = 'none';
 
                                 var modalElement = document.querySelector('.v3-modal');
                                 if(modalElement){
@@ -232,9 +233,6 @@ if (document.body.classList.contains("mobile")) {
 
                         if ($(node).hasClass('customModal') && $(node).hasClass('visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
                             
-                            //console.log('Modal capturado:', node);
-                            //console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
-
                             //var modalContentDiv = node.querySelector('.v3-modal-content');  //payment__success--modal
                             var modalContentDiv = node.querySelector('.payment__success--modal');  //payment__success--modal
                             if (modalContentDiv){
