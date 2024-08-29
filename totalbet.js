@@ -357,7 +357,7 @@ if (document.body.classList.contains("mobile")) {
                                             if(modalbody){
 
                                                 modalbody.style.display = 'block';
-                                                var successMessageSpan = modalbody.prueba.querySelector('.payment-success-modal-message');
+                                                var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
 
                                                 if(successMessageSpan){
 
