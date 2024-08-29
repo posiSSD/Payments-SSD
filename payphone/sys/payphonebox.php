@@ -17,10 +17,10 @@ $key_payphone = env('TOKEN_PAYPHONE');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Título</title>
     <!-- Añade los enlaces CSS -->
-    <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.css">
+    <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.css">
     
     <!-- Añade el script principal -->
-    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.0/payphone-payment-box.js"></script>
+    <script type="module" src="https://cdn.payphonetodoesposible.com/box/v1.1/payphone-payment-box.js"></script>
 </head>
 <body>
     <div id="pp-button"></div>
