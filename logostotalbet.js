@@ -2,6 +2,8 @@ if (document.body.classList.contains("mobile")) {
 
     console.log("móvil Payments Logos");
 
+    /*
+
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
             
@@ -70,9 +72,13 @@ if (document.body.classList.contains("mobile")) {
 
     bodyObserver.observe(document.body, { childList: true, subtree: true });
 
+   */
+
 } else if (document.body.classList.contains("desktop")) {
 
     console.log("Desktop Payments Logos");
+
+    /*
 
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
@@ -122,6 +128,8 @@ if (document.body.classList.contains("mobile")) {
 
     // Observar cambios en el cuerpo del documento, incluidos los descendientes
     bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+    */
 
 } else {
 
