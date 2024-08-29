@@ -15,9 +15,9 @@ if (document.body.classList.contains("mobile")) {
                         var currentUrl = window.location.href;
                         console.log(currentUrl);
 
-                        if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
+                        if ($(node).hasClass('customModal visible') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit-methods=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit-methods=*') ) ) {
                             
-                            console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
+                            console.log('customModal visible && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
