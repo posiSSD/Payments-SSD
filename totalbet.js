@@ -28,11 +28,10 @@ if (document.body.classList.contains("mobile")) {
                                 var modalContentDivParent = node.querySelector('.custom__modalBody').parentNode;
                                 if(modalContentDivParent){
 
+                                    modalContentDivParent.style.padding = '0px';
                                     modalContentDivParent.querySelector('.custom__modalBody').style.display = 'none';
 
                                 }
-
-                                //modalContentDiv.querySelector('.custom__modalBody').parentNode.style.display = 'none';
 
                                 var authData = localStorage.getItem("x__ACCOUNT__auth_data");
                                 if(authData){
@@ -117,16 +116,18 @@ if (document.body.classList.contains("mobile")) {
                                 window.addEventListener('message', function(event) {
                                     // Verifica si el mensaje proviene del iframe esperado
                                     if (event.source === iframe_element.contentWindow) {
+
                                         // Maneja el mensaje recibido
                                         var estadoPago = event.data;
+
                                         // Realiza acciones basadas en el estado del pago recibido
-                                        //console.log('Estado del pago recibido:', estadoPago);
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -138,11 +139,14 @@ if (document.body.classList.contains("mobile")) {
                                         } else if( estadoPago == 10 ){
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
 
                                             displayErrorMessageIcon();
 
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            //var titleElement = document.querySelector('.style__Title-sc-xfnom2-2'); modal-title
+                                            var titleElement = modalContentDivParent.querySelector('.modal-title'); 
+
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
@@ -151,7 +155,7 @@ if (document.body.classList.contains("mobile")) {
                                                 console.error('Titulo no encontrado');
                                             }
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -163,11 +167,14 @@ if (document.body.classList.contains("mobile")) {
                                         } else if( estadoPago == 11 ){
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
 
                                             displayErrorMessageIcon();
 
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            //var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            var titleElement = modalContentDivParent.querySelector('.modal-title'); 
+
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
@@ -176,7 +183,7 @@ if (document.body.classList.contains("mobile")) {
                                                 console.error('Titulo no encontrado');
                                             }
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -343,9 +350,10 @@ if (document.body.classList.contains("mobile")) {
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -357,11 +365,12 @@ if (document.body.classList.contains("mobile")) {
                                         } else if( estadoPago == 10 ){
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
 
                                             displayErrorMessageIcon();
 
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            var titleElement = modalContentDivParent.querySelector('modal-title');
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
@@ -370,7 +379,7 @@ if (document.body.classList.contains("mobile")) {
                                                 console.error('Titulo no encontrado');
                                             }
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -382,11 +391,12 @@ if (document.body.classList.contains("mobile")) {
                                         } else if( estadoPago == 11 ){
 
                                             iframe.remove();
-                                            modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
+                                            modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
 
                                             displayErrorMessageIcon();
 
-                                            var titleElement = document.querySelector('.style__Title-sc-xfnom2-2');
+                                            var titleElement = modalContentDivParent.querySelector('.modal-title');
                                             // Verificar si se encontró el elemento
                                             if (titleElement) {
                                                 // Cambiar el texto del elemento
@@ -395,7 +405,7 @@ if (document.body.classList.contains("mobile")) {
                                                 console.error('Titulo no encontrado');
                                             }
 
-                                            var successMessageSpan = modalContentDiv.querySelector('.payment-success-modal-message');
+                                            var successMessageSpan = modalContentDivParent.querySelector('.payment-success-modal-message');
                                             // Verificar si se encontró el elemento
                                             if (successMessageSpan) {
                                                 // Modificar el texto del span
@@ -432,13 +442,12 @@ if (document.body.classList.contains("mobile")) {
     observer.observe(document.body, { childList: true, subtree: true });
 
 } else {
-
     console.log("Pi pi pi pi pi.");
-
 }
 
 function displayErrorMessageIcon() {
-    var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1');
+    //var modalElement = document.querySelector('.style__ImageWrapper-sc-xfnom2-1'); modalImageWrapper
+    var modalElement = document.querySelector('.modalImageWrapper'); 
     if (!modalElement) return;
 
     modalElement.querySelector('.v3-icon').style.display = 'none';
