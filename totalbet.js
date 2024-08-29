@@ -352,6 +352,7 @@ if (document.body.classList.contains("mobile")) {
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
+                                            document.querySelector('.payment__success--modal').style.padding = '8px';
                                             var modalbody = document.querySelector('.custom__modalBody');
 
                                             if(modalbody){
