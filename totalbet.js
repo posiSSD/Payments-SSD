@@ -242,7 +242,8 @@ if (document.body.classList.contains("mobile")) {
                                 console.log('payment__success--moda FOUND');
                                
                                 modalContentDiv.style.borderRadius = '0px'
-                                modalContentDiv.querySelector('.v3-modal-body').style.display = 'none';
+                                //modalContentDiv.querySelector('.v3-modal-body').style.display = 'none'; //custom__modalBody
+                                modalContentDiv.querySelector('.custom__modalBody').style.display = 'none'; //custom__modalBody
 
                                 var modalElement = document.querySelector('.v3-modal');
                                 if(modalElement){
@@ -264,7 +265,7 @@ if (document.body.classList.contains("mobile")) {
                                     var metodo_tb = '';
                                     console.log(authData);
                                 } else {
-                                    //console.log('authData not Found');
+                                    console.log('authData not Found');
                                 }
 
                                 // Seleccionar el elemento del carrusel activo (para la versión web)
@@ -422,7 +423,7 @@ if (document.body.classList.contains("mobile")) {
                         }
 
                     } catch (error) {
-                        console.error('Error detectando el modal:', error);
+                        //console.error('Error detectando el modal:', error);
                     }
 
                 });
