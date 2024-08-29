@@ -119,7 +119,7 @@ if (document.body.classList.contains("mobile")) {
 
                                         // Maneja el mensaje recibido
                                         var estadoPago = event.data;
-                                        debugger;
+                                        
                                         // Realiza acciones basadas en el estado del pago recibido
                                         if( estadoPago == 7) {
 
