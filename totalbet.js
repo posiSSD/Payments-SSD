@@ -233,7 +233,7 @@ if (document.body.classList.contains("mobile")) {
 
                         if ($(node).hasClass('v3-modal-root') && ( window.location.search.includes('accounts=%2A&wallet=%2A&deposit=%2A') || window.location.search.includes('accounts=*&wallet=*&deposit=*') ) ) {
                             
-                            //console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
+                            console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A FOUND.');
 
                             var modalContentDiv = node.querySelector('.v3-modal-content');
                             if (modalContentDiv){
@@ -414,6 +414,8 @@ if (document.body.classList.contains("mobile")) {
                             } else {
                                 //console.log('.v3-modal-content Found: ');
                             }
+                        } else{
+                            console.log('v3-modal-root && ?accounts=%2A&wallet=%2A&deposit=%2A NOT FOUND.');
                         }
 
                     } catch (error) {
