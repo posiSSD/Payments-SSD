@@ -352,6 +352,28 @@ if (document.body.classList.contains("mobile")) {
                                         if( estadoPago == 7) {
 
                                             iframe.remove();
+                                            var modalbody = document.querySelector('.custom__modalBody');
+
+                                            if(modalbody){
+
+                                                modalbody.style.display = 'block';
+                                                var successMessageSpan = modalbody.prueba.querySelector('.payment-success-modal-message');
+
+                                                if(successMessageSpan){
+
+                                                    successMessageSpan.textContent = 'Tu Recarga de USD '+inputCantidad.value+' se ha realizado con éxito.'; 
+
+                                                }else{
+
+                                                    console.log('payment-success-modal-message NOT FOUND');
+
+                                                }
+                                                
+                                            }else{
+                                                console.log('custom__modalBod NOT FOUND');
+                                            }
+
+                                            /*
                                             //modalContentDiv.querySelector('.v3-modal-body').style.display = 'block';
                                             modalContentDivParent.querySelector('.custom__modalBody').style.display = 'block';
 
@@ -363,7 +385,7 @@ if (document.body.classList.contains("mobile")) {
                                             } else {
                                                 //console.log('Elemento span no encontrado');
                                             }
-
+                                            */
                                         } else if( estadoPago == 10 ){
 
                                             iframe.remove();
