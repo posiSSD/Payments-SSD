@@ -78,7 +78,7 @@ if (document.body.classList.contains("mobile")) {
 
     console.log("Desktop Payments Logos");
 
-    /*
+    
 
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
@@ -86,11 +86,31 @@ if (document.body.classList.contains("mobile")) {
             // Verificar si se añadieron o eliminaron nodos
             if (mutation.type === 'childList') {
                 // Verificar si se añadió el div accountModal accountModal--desktop
-                try{
+                try{         //accountModal accountModal--desktop
                     if ($('div.accountModal.accountModal--desktop').length > 0) {
                         //console.log('div accountModal accountModal--desktop: True');
         
                         var accountModal = $('div.accountModal.accountModal--desktop');
+
+                        if (accountModal){
+                            // Seleccionar el contenedor de Prometeo y cambiar la imagen
+                            var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
+                            var prometeoImage = prometeoContainer.find('img');
+                            prometeoImage.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1709217671152');
+
+                            // Seleccionar el contenedor de Payphone y cambiar la imagen
+                            var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
+                            var payphoneImage = payphoneContainer.find('img');
+                            payphoneImage.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1710521407681');
+
+                        }else{
+                            console.log('div accountModal accountModal--desktop: False');
+                        }
+
+                        
+
+
+                        /*
                         var carouselWrapper = accountModal.find('div.carousel__wrapper'); // Aquí es donde debes usar .find() en lugar de .$()
                         if (carouselWrapper.length > 0){
                             //console.log('div carousel__wrapper: True', carouselWrapper);
@@ -107,7 +127,7 @@ if (document.body.classList.contains("mobile")) {
                         } else {
                             //console.log('div carousel__wrapper: False');
                         }
-
+                        */
                         //observer.disconnect();
                         
                     } else {
@@ -129,7 +149,7 @@ if (document.body.classList.contains("mobile")) {
     // Observar cambios en el cuerpo del documento, incluidos los descendientes
     bodyObserver.observe(document.body, { childList: true, subtree: true });
 
-    */
+    
 
 } else {
 
