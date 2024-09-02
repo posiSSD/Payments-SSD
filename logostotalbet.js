@@ -102,36 +102,24 @@ if (document.body.classList.contains("mobile")) {
                             
                             // Seleccionar el contenedor de Prometeo y cambiar la imagen
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            if(prometeoContainer){
-
+                            if (prometeoContainer) {
                                 var prometeoImage = prometeoContainer.find('img');
-                                prometeoImage.attr('src', prometeodesktopImagen);
-
-                                changeImageAttemptsPrometeo++;
-                                console.log(`Prometeo TRUE #${changeImageAttemptsPrometeo}`);
-
-                            }else{
-
-                                changeImageAttemptsPrometeo++;
-                                console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
-
+                                if (prometeoImage.attr('src') !== prometeodesktopImagen) {
+                                    prometeoImage.attr('src', prometeodesktopImagen);
+                                    changeImageAttemptsPrometeo++;
+                                    console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
+                                }
                             }
 
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            if(payphoneContainer){
-
+                            if (payphoneContainer) {
                                 var payphoneImage = payphoneContainer.find('img');
-                                payphoneImage.attr('src', payphonedesktopImagen);
-
-                                changeImageAttemptsPayphone++;
-                                console.log(`Payphone TRUE #${changeImageAttemptsPayphone}`);
-
-                            }else{
-
-                                changeImageAttemptsPayphone++;
-                                console.log(`Payphone #${changeImageAttemptsPayphone}`);
-
-                            }                        
+                                if (payphoneImage.attr('src') !== payphonedesktopImagen) {
+                                    payphoneImage.attr('src', payphonedesktopImagen);
+                                    changeImageAttemptsPayphone++;
+                                    console.log(`Payphone #${changeImageAttemptsPayphone}`);
+                                }
+                            }                 
                             
 
                         }else{
