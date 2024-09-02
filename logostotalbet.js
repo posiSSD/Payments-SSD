@@ -1,7 +1,7 @@
 //direccion de las imagenes
 var prometeodesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1725292290290';
 var payphonedesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1725292726790';
-
+                            
 
 
 
@@ -105,7 +105,11 @@ if (document.body.classList.contains("mobile")) {
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             if (prometeoContainer) {
                                 var prometeoImage = prometeoContainer.find('img');
+
+                                console.log('URL :', prometeoImage.attr('src'));
+                                
                                 if (prometeoImage.attr('src') !== prometeodesktopImagen) {
+
                                     prometeoImage.attr('src', prometeodesktopImagen);
                                     imagesChangedPrometeo = true;
                                 }
@@ -114,6 +118,9 @@ if (document.body.classList.contains("mobile")) {
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             if (payphoneContainer) {
                                 var payphoneImage = payphoneContainer.find('img');
+
+                                console.log('URL :', payphoneImage.attr('src'));
+
                                 if (payphoneImage.attr('src') !== payphonedesktopImagen) {
                                     payphoneImage.attr('src', payphonedesktopImagen);
                                     imagesChangedPayphone = true;                                  
