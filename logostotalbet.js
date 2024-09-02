@@ -98,6 +98,7 @@ if (document.body.classList.contains("mobile")) {
                         var accountModal = $('div.accountModal.accountModal--desktop');
 
                         if (accountModal){
+                            debugger;
                             // Seleccionar el contenedor de Prometeo y cambiar la imagen
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             var prometeoImage = prometeoContainer.find('img');
