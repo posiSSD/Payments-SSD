@@ -35,7 +35,8 @@ if (document.body.classList.contains("mobile")) {
                             */
                                                                                                              //style__HeroFallbackContainer-sc-swzx38-5
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            if (payphoneContainer) {
+                            //if (payphoneContainer) {
+                            if (payphoneContainer && payphoneContainer.length > 0) {
                                 var payphoneImage = payphoneContainer.find('img');
                                 payphoneImage.on('load', function() {
                                     if (payphoneImage.attr('src') !== payphonemobilImagen) {
@@ -83,7 +84,8 @@ if (document.body.classList.contains("mobile")) {
                             
                             // Seleccionar el contenedor de Prometeo y cambiar la imagen                      
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            if (prometeoContainer) {
+                            //if (prometeoContainer) {
+                            if (prometeoContainer && prometeoContainer.length > 0) {
                                 var prometeoImage = prometeoContainer.find('img');
                                 prometeoImage.on('load', function() {
                                     if (prometeoImage.attr('src') !== prometeodesktopImagen) {
@@ -95,7 +97,8 @@ if (document.body.classList.contains("mobile")) {
                             }
 
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            if (payphoneContainer) {
+                            //if (payphoneContainer) {
+                            if (payphoneContainer && payphoneContainer.length > 0) {
                                 var payphoneImage = payphoneContainer.find('img');
                                 payphoneImage.on('load', function() {
                                     if (payphoneImage.attr('src') !== payphonedesktopImagen) {
