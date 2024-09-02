@@ -84,8 +84,9 @@ if (document.body.classList.contains("mobile")) {
 } else if (document.body.classList.contains("desktop")) {
 
     console.log("Desktop Payments Logos");
-    var changeImageAttemptsPrometeo = 0;
-    var changeImageAttemptsPayphone = 0;
+    var imagesChangedPrometeo = false;
+    var imagesChangedPayphone = false;
+        
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -106,8 +107,7 @@ if (document.body.classList.contains("mobile")) {
                                 var prometeoImage = prometeoContainer.find('img');
                                 if (prometeoImage.attr('src') !== prometeodesktopImagen) {
                                     prometeoImage.attr('src', prometeodesktopImagen);
-                                    changeImageAttemptsPrometeo++;
-                                    console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
+                                    imagesChangedPrometeo = true;
                                 }
                             }
 
@@ -116,12 +116,14 @@ if (document.body.classList.contains("mobile")) {
                                 var payphoneImage = payphoneContainer.find('img');
                                 if (payphoneImage.attr('src') !== payphonedesktopImagen) {
                                     payphoneImage.attr('src', payphonedesktopImagen);
-                                    changeImageAttemptsPayphone++;
-                                    console.log(`Payphone #${changeImageAttemptsPayphone}`);
+                                    imagesChangedPayphone = true;                                  
                                 }
-                            }                 
+                            } 
+                            if (imagesChangedPrometeo && imagesChangedPayphone) {
+                                observer.disconnect(); // Detener la observación
+                                console.log("Desktop Payments Logos Observer STOP");
+                            }             
                             
-
                         }else{
                             console.log('div accountModal accountModal--desktop: False');
                         }
