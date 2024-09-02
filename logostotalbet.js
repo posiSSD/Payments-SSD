@@ -105,26 +105,45 @@ if (document.body.classList.contains("mobile")) {
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             if (prometeoContainer) {
                                 var prometeoImage = prometeoContainer.find('img');
+                                prometeoImage.on('load', function() {
+                                    if (prometeoImage.attr('src') !== prometeodesktopImagen) {
+                                        prometeoImage.attr('src', prometeodesktopImagen);
+                                        imagesChangedPrometeo = true;
+                                        console.log('URL Prometeo:', prometeoImage.attr('src'));
+                                    }
+                                });
 
+
+                                /*
                                 console.log('URL :', prometeoImage.attr('src'));
-                                
+
                                 if (prometeoImage.attr('src') !== prometeodesktopImagen) {
 
                                     prometeoImage.attr('src', prometeodesktopImagen);
                                     imagesChangedPrometeo = true;
                                 }
+                                */
                             }
 
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             if (payphoneContainer) {
                                 var payphoneImage = payphoneContainer.find('img');
+                                payphoneImage.on('load', function() {
+                                    if (payphoneImage.attr('src') !== payphonedesktopImagen) {
+                                        payphoneImage.attr('src', payphonedesktopImagen);
+                                        imagesChangedPayphone = true;
+                                        console.log('URL Payphone:', payphoneImage.attr('src'));
+                                    }
+                                });
 
+                                /*
                                 console.log('URL :', payphoneImage.attr('src'));
 
                                 if (payphoneImage.attr('src') !== payphonedesktopImagen) {
                                     payphoneImage.attr('src', payphonedesktopImagen);
                                     imagesChangedPayphone = true;                                  
                                 }
+                                */
                             } 
                             if (imagesChangedPrometeo && imagesChangedPayphone) {
                                 observer.disconnect(); // Detener la observación
