@@ -108,7 +108,7 @@ if (document.body.classList.contains("mobile")) {
                                 prometeoImage.attr('src', prometeodesktopImagen);
 
                                 changeImageAttemptsPrometeo++;
-                                console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
+                                console.log(`Prometeo TRUE #${changeImageAttemptsPrometeo}`);
 
                             }else{
 
@@ -124,7 +124,7 @@ if (document.body.classList.contains("mobile")) {
                                 payphoneImage.attr('src', payphonedesktopImagen);
 
                                 changeImageAttemptsPayphone++;
-                                console.log(`Payphone #${changeImageAttemptsPayphone}`);
+                                console.log(`Payphone TRUE #${changeImageAttemptsPayphone}`);
 
                             }else{
 
