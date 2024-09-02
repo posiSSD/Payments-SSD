@@ -109,20 +109,9 @@ if (document.body.classList.contains("mobile")) {
                                     if (prometeoImage.attr('src') !== prometeodesktopImagen) {
                                         prometeoImage.attr('src', prometeodesktopImagen);
                                         imagesChangedPrometeo = true;
-                                        console.log('URL Prometeo:', prometeoImage.attr('src'));
+                                        //console.log('URL Prometeo:', prometeoImage.attr('src'));
                                     }
                                 });
-
-
-                                /*
-                                console.log('URL :', prometeoImage.attr('src'));
-
-                                if (prometeoImage.attr('src') !== prometeodesktopImagen) {
-
-                                    prometeoImage.attr('src', prometeodesktopImagen);
-                                    imagesChangedPrometeo = true;
-                                }
-                                */
                             }
 
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
@@ -132,22 +121,13 @@ if (document.body.classList.contains("mobile")) {
                                     if (payphoneImage.attr('src') !== payphonedesktopImagen) {
                                         payphoneImage.attr('src', payphonedesktopImagen);
                                         imagesChangedPayphone = true;
-                                        console.log('URL Payphone:', payphoneImage.attr('src'));
+                                        //console.log('URL Payphone:', payphoneImage.attr('src'));
                                     }
                                 });
-
-                                /*
-                                console.log('URL :', payphoneImage.attr('src'));
-
-                                if (payphoneImage.attr('src') !== payphonedesktopImagen) {
-                                    payphoneImage.attr('src', payphonedesktopImagen);
-                                    imagesChangedPayphone = true;                                  
-                                }
-                                */
                             } 
                             if (imagesChangedPrometeo && imagesChangedPayphone) {
                                 observer.disconnect(); // Detener la observación
-                                console.log("Desktop Payments Logos Observer STOP");
+                                console.log("Desktop Payments Logos Observer BYE BYE");
                             }             
                             
                         }else{
