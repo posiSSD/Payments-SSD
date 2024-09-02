@@ -84,7 +84,8 @@ if (document.body.classList.contains("mobile")) {
 } else if (document.body.classList.contains("desktop")) {
 
     console.log("Desktop Payments Logos");
-
+    var changeImageAttemptsPrometeo = 0;
+    var changeImageAttemptsPayphone = 0;
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -98,16 +99,40 @@ if (document.body.classList.contains("mobile")) {
                         var accountModal = $('div.accountModal.accountModal--desktop');
 
                         if (accountModal){
-                            debugger;
+                            
                             // Seleccionar el contenedor de Prometeo y cambiar la imagen
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            var prometeoImage = prometeoContainer.find('img');
-                            prometeoImage.attr('src', prometeodesktopImagen);
-                                                    
-                            // Seleccionar el contenedor de Payphone y cambiar la imagen
+                            if(prometeoContainer){
+
+                                var prometeoImage = prometeoContainer.find('img');
+                                prometeoImage.attr('src', prometeodesktopImagen);
+
+                                changeImageAttemptsPrometeo++;
+                                console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
+
+                            }else{
+
+                                changeImageAttemptsPrometeo++;
+                                console.log(`Prometeo #${changeImageAttemptsPrometeo}`);
+
+                            }
+
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
-                            var payphoneImage = payphoneContainer.find('img');
-                            payphoneImage.attr('src', payphonedesktopImagen);
+                            if(payphoneContainer){
+
+                                var payphoneImage = payphoneContainer.find('img');
+                                payphoneImage.attr('src', payphonedesktopImagen);
+
+                                changeImageAttemptsPayphone++;
+                                console.log(`Payphone #${changeImageAttemptsPayphone}`);
+
+                            }else{
+
+                                changeImageAttemptsPayphone++;
+                                console.log(`Payphone #${changeImageAttemptsPayphone}`);
+
+                            }                        
+                            
 
                         }else{
                             console.log('div accountModal accountModal--desktop: False');
