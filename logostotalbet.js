@@ -1,3 +1,10 @@
+//direccion de las imagenes
+var prometeodesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1725292290290';
+var payphonedesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1725292726790';
+
+
+
+
 if (document.body.classList.contains("mobile")) {
 
     console.log("móvil Payments Logos");
@@ -78,8 +85,6 @@ if (document.body.classList.contains("mobile")) {
 
     console.log("Desktop Payments Logos");
 
-    
-
     // Función para manejar la detección de cambios en el cuerpo del documento
     function handleBodyChanges(mutationsList, observer) {
         mutationsList.forEach(function(mutation) {
@@ -96,18 +101,39 @@ if (document.body.classList.contains("mobile")) {
                             // Seleccionar el contenedor de Prometeo y cambiar la imagen
                             var prometeoContainer = accountModal.find('div:contains("Prometeo")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             var prometeoImage = prometeoContainer.find('img');
-                            prometeoImage.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1709217671152');
-
+                            prometeoImage.attr('src', prometeodesktopImagen);
+                                                    
                             // Seleccionar el contenedor de Payphone y cambiar la imagen
                             var payphoneContainer = accountModal.find('div:contains("Payphone")').closest('div.style__HeroFallbackContainer-sc-swzx38-5');
                             var payphoneImage = payphoneContainer.find('img');
-                            payphoneImage.attr('src', 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1710521407681');
+                            payphoneImage.attr('src', payphonedesktopImagen);
 
                         }else{
                             console.log('div accountModal accountModal--desktop: False');
                         }
-
                         
+                    } else {
+                        //console.log('El div accountModal accountModal--desktop se ha ocultado.');
+                        // Realizar acciones necesarias cuando el div se oculta
+                    }
+
+                } catch (error) {
+                    //console.error('Error: ', error);
+                }
+        
+            }
+        });
+    }
+
+    // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
+    var bodyObserver = new MutationObserver(handleBodyChanges);
+
+    // Observar cambios en el cuerpo del documento, incluidos los descendientes
+    bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+} else {
+
+    console.log("Pi pi pi pi pi.");
 
 
                         /*
@@ -129,31 +155,6 @@ if (document.body.classList.contains("mobile")) {
                         }
                         */
                         //observer.disconnect();
-                        
-                    } else {
-                        //console.log('El div accountModal accountModal--desktop se ha ocultado.');
-                        // Realizar acciones necesarias cuando el div se oculta
-                    }
-
-                } catch (error) {
-                    //console.error('Error: ', error);
-                }
-        
-            }
-        });
-    }
-
-    // Crear una instancia de MutationObserver para observar cambios en el cuerpo del documento
-    var bodyObserver = new MutationObserver(handleBodyChanges);
-
-    // Observar cambios en el cuerpo del documento, incluidos los descendientes
-    bodyObserver.observe(document.body, { childList: true, subtree: true });
-
-    
-
-} else {
-
-    console.log("Pi pi pi pi pi.");
 
 }
 
