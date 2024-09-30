@@ -198,7 +198,7 @@ function payphone_api_confirm ($data_array){
     }
 
 	consolelogdata($ret);	
-	
+
     return $ret;
 }
 function kushki_curl($rq = false) {
@@ -227,6 +227,9 @@ function kushki_curl($rq = false) {
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
+
+	consolelogdata($result);	
+
     if (curl_errno($curl)) {
         $response_arr = ['curl_error' => curl_error($curl)];
     } else {
