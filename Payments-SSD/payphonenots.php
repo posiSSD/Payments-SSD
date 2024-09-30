@@ -30,7 +30,8 @@ try {
     
     //$payphone_array_response = dataconstruccion ($data_array);
     //comprobacion si la tranx existe para evitar duplicados 
-    $status_payphone_transactions = payphone_status_transaction($data_array); 
+    $status_payphone_transactions = payphone_status_transaction($data_array);
+    consolelogdata($status_payphone_transactions); 
     
     if (!$status_payphone_transactions){
 

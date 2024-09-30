@@ -423,11 +423,6 @@ function status_transaction($trans=false){
 function payphone_status_transaction($trans = false) {
     global $mysqli;
 
-	//$data_array = array(
-	//	"id" => (int)$transaccion,
-	//	"clientTxId" => $client
-	//);
-
     $trans_ret = false;
     $db = 'tb_payment';
     $table = 'payphone_transactions';
