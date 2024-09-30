@@ -31,7 +31,7 @@ function kushki_get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
 
-	$db = env('DB_HOST');
+	$db = 'tb_payment';
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('unique_id', $trans)){
@@ -62,7 +62,7 @@ function kushki_get_transaction($trans=false){
 function create_or_update_transaction($trans=false){
 	global $unique_id;
 	global $mysqli;
-	$db = env('DB_HOST');
+	$db = 'tb_payment';
 	$table = 'transactions';
 
 	$insert_arr = [];
@@ -232,7 +232,7 @@ function create_or_update_bd_api_details($data=false){
 	//$data = json_decode($json_data, true);
     // Verificar que los datos se decodificaron correctamente
     if ($data !== null) {
-        $db = env('DB_HOST');
+        $db = 'tb_payment';
 		$table = 'payphone_details';
 
 		$insert_arr = [];
@@ -287,7 +287,7 @@ function payphone_api_transactions($data=false){
 	global $mysqli;
 
 	if ($data !== null) {
-		$db = env('DB_HOST');
+		$db = 'tb_payment';
 		$table = 'payphone_transactions';
 
 		$insert_arr = [];
@@ -348,7 +348,7 @@ function payphone_bd_details($trans=false){
 	$ret = false;
 	global $mysqli;
 
-	$db = env('DB_HOST');
+	$db = 'tb_payment';
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('clientTransactionId', $trans)){
@@ -388,7 +388,7 @@ function status_transaction($trans=false){
 	
 	//error_log("status_transaction - \$trans: " . print_r($trans, true));
 
-	$db = env('DB_HOST');
+	$db = 'tb_payment';
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('unique_id', $trans)){
@@ -429,7 +429,7 @@ function payphone_status_transaction($trans = false) {
 	//);
 
     $trans_ret = false;
-    $db = env('DB_HOST');
+    $db = 'tb_payment';
     $table = 'payphone_transactions';
     $where = ' 1=1 '; // Cambiado para que siempre sea verdadero
 	
