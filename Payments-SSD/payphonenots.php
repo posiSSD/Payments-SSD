@@ -151,7 +151,7 @@ function api_ret($r){
 // registrar la actividad 
 function api_activities($a){
     global $mysqli;
-    $bd = 'at_payments_prueba';
+    $bd = env('DB_HOST');
     $table = 'api_activities';
     $rq = []; 
     $ip = ( array_key_exists('REMOTE_ADDR',$_SERVER) ? $_SERVER['REMOTE_ADDR'] : NULL );

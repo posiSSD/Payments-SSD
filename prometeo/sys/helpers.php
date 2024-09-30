@@ -57,7 +57,7 @@ function get_transaction($trans=false){
 	$ret = false;
 	global $mysqli;
 
-	$db = 'at_payments_prueba';
+	$db = env('DB_HOST');
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	
@@ -93,7 +93,7 @@ function create_or_update_transaction($trans=false){
 	global $unique_id;
 	global $mysqli;
 
-	$db = 'at_payments_prueba';
+	$db = env('DB_HOST');
 	$table = 'transactions';
 
 	$insert_arr = [];
@@ -373,7 +373,7 @@ function prometeo_bd_details($trans=false){
 	$ret = false;
 	global $mysqli;
 
-	$db = 'at_payments_prueba';
+	$db = env('DB_HOST');
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('external_id', $trans)){
@@ -436,7 +436,7 @@ function prometeo_api_transactions($data = false) {
     global $mysqli;
 
     if ($data !== null) {
-        $db = 'at_payments_prueba';
+        $db = env('DB_HOST');
         $table = 'prometeo_transactions';
 
         $insert_arr = [];
@@ -572,7 +572,7 @@ function status_transaction($trans=false){
 	
 	
 
-	$db = 'at_payments_prueba';
+	$db = env('DB_HOST');
 	$table = 'transactions';
 	$where = ' id > 0 ';
 	if(array_key_exists('unique_id', $trans)){
@@ -605,7 +605,7 @@ function prometeo_status_transaction($trans = false){
     global $mysqli;
 
     $trans_ret = false;
-    $db = 'at_payments_prueba';
+    $db = env('DB_HOST');
     $table = 'prometeo_transactions';
     $where = ' 1=1 '; // Cambiado para que siempre sea verdadero
 	
