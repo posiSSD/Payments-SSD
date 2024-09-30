@@ -152,7 +152,7 @@ function create_payment_button(){
 		try {
 			console.log('Loading Payphone');
 			let rs = jQuery.parseJSON(r);
-			//console.log(rs);
+			console.log(rs);
         	usr_active.unique_id = rs.unique_id;
 			if (rs.status == 201) {
 				data = {
