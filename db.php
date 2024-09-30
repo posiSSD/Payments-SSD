@@ -21,9 +21,9 @@ $mysqli = conectarBaseDeDatos($databaseConfig);
 // Configuración de la base de datos de at_kushki
 $kushkiConfig = [
     'host' => env('DB_HOST'),
-    'user' => env('DB_USERNAME_KUSHKI'),
-    'password' => env('DB_PASSWORD_KUSHKI'),
-    'database' => env('DB_DATABASE_KUSHKI'),
+    'user' => env('DB_USERNAME_BC_PAYMENT'),
+    'password' => env('DB_PASSWORD_BC_PAYMENT'),
+    'database' => env('DB_DATABASE_BC_PAYMENT'),
     'port' => env('DB_PORT'),
 ];
 $mysqli_kushki = conectarBaseDeDatos($kushkiConfig);
@@ -31,9 +31,9 @@ $mysqli_kushki = conectarBaseDeDatos($kushkiConfig);
 // Configuración de la base de datos de bc_kushkipayment
 $kushkiPaymentConfig = [
     'host' => env('DB_HOST'),
-    'user' => env('DB_USERNAME_KUSHKIPAYMENT'),
-    'password' => env('DB_PASSWORD_KUSHKIPAYMENT'),
-    'database' => env('DB_DATABASE_KUSHKIPAYMENT'),
+    'user' => env('DB_USERNAME_TB_PAYMENT_TRANSFER'),
+    'password' => env('DB_PASSWORD_TB_PAYMENT_TRANSFER'),
+    'database' => env('DB_DATABASE_TB_PAYMENT_TRANSFER'),
     'port' => env('DB_PORT'),
 ];
 $mysqli_kushkipayment = conectarBaseDeDatos($kushkiPaymentConfig);

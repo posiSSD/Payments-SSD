@@ -2,7 +2,7 @@
 
 include ROOT_PATH.'/Payments-SSD/api/Transaction.php';
 include ROOT_PATH.'/Payments-SSD/api/TransactionActivity.php';
-include ROOT_PATH.'/Payments-SSD/api/payphonePayment.php'; //cambiarlo
+include ROOT_PATH.'/Payments-SSD/api/PaymentBC.php'; //cambiarlo
 
 function paymente_bc($request){
 

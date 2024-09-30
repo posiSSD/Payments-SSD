@@ -113,7 +113,7 @@ function payment_curl($url_data){
 function insert_tbl_transactions($insert_db) {
 
     global $mysqli_kushkipayment;
-    $bd = 'bc_kushkipayment';
+    $bd = 'tb_payment_transfer';
 	$table = 'tbl_transactions';
     
     $rq = [];
@@ -156,7 +156,7 @@ function insert_tbl_transactions($insert_db) {
 function update_tbl_transactions($insert_db) {
 
     global $mysqli_kushkipayment;
-    $bd = 'bc_kushkipayment';
+    $bd = 'tb_payment_transfer';
 	$table = 'tbl_transactions';
     
     $rq = [];
@@ -182,7 +182,7 @@ function update_tbl_transactions($insert_db) {
 }
 function insert_tbl_api_activities($url_data, $bc_url, $response){
     global $mysqli_kushkipayment;
-	$bd = 'bc_kushkipayment';
+	$bd = 'tb_payment_transfer';
 	$table = 'tbl_api_activities';
 
 	$rq = [];
