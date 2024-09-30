@@ -179,6 +179,9 @@ function payphone_api_confirm ($data_array){
 	];
 	// Imprimir el contenido de $RQ en la consola
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
+
+	consolelogdata($rq);	
+
 	$peticion_curl = kushki_curl($rq);
 
 	consolelogdata($peticion_curl);
@@ -193,7 +196,9 @@ function payphone_api_confirm ($data_array){
     } else {
         $ret = $peticion_curl;
     }
+
 	consolelogdata($ret);	
+	
     return $ret;
 }
 function kushki_curl($rq = false) {
