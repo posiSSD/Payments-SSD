@@ -202,6 +202,8 @@ function payphone_api_confirm ($data_array){
     return $ret;
 }
 function kushki_curl($rq = false) {
+
+	consolelogdata($rq);
 	
     $curl = curl_init();
     $curl_options = [
@@ -216,7 +218,7 @@ function kushki_curl($rq = false) {
     ];
 
 	consolelogdata($curl_options);
-		
+
     // Inicio Verificar si contiene un body o si es una peticion POST O GET
     if (!empty($rq['rq'])) {
         $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
