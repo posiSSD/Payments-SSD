@@ -165,20 +165,15 @@ function payphone_api_confirm ($data_array){
 	$ret = false;
 	$rq = [];
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/V2/Confirm';
-	
 	$rq['method']="POST";
-
 	$rq['rq'] = [
         "id" => $data_array['id'],
 		"clientTxId" => $data_array['clientTxId']
-    ];
-
-	// Define el header de la solicitud para Prometeo	
+    ];	
 	$rq['h']=[
 		"Content-Type: application/json",
 		'Authorization: Bearer '. env('TOKEN_PAYPHONE') 
 	];
-	// Imprimir el contenido de $RQ en la consola
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 
 	$peticion_curl = kushki_curl($rq);
@@ -203,10 +198,10 @@ function payphone_api_confirm ($data_array){
 function kushki_curl($rq = false) {
 
 	consolelogdata($rq);
-
-    $curl = curl_init();
-
-	consolelogdata($curl);
+	error_reporting(E_ALL);
+    //$curl = curl_init();
+	$curl = curl_init() or die('Error al inicializar cURL');
+	var_dump($curl);
 
     $curl_options = [
         CURLOPT_URL => $rq['url'],
