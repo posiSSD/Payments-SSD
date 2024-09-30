@@ -215,6 +215,8 @@ function kushki_curl($rq = false) {
         CURLOPT_HTTPHEADER => $rq['h'],
     ];
 
+	consolelogdata($curl_options);
+		
     // Inicio Verificar si contiene un body o si es una peticion POST O GET
     if (!empty($rq['rq'])) {
         $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
