@@ -31,12 +31,12 @@ try {
     //$payphone_array_response = dataconstruccion ($data_array);
     //comprobacion si la tranx existe para evitar duplicados 
     $status_payphone_transactions = payphone_status_transaction($data_array);
-    consolelogdata($status_payphone_transactions); 
-    
+       
     if (!$status_payphone_transactions){
 
         // obtener detalles de la tx en la api de payphone
         $payphone_array_response = payphone_api_confirm ($data_array);
+        consolelogdata($payphone_array_response);
         
         if($payphone_array_response){
 
