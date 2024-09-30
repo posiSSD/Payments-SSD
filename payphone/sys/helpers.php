@@ -165,6 +165,7 @@ function payphone_api_confirm ($data_array){
 	$ret = false;
 	$rq = [];
 	$rq['url']='https://pay.payphonetodoesposible.com/api/button/V2/Confirm';
+	
 	$rq['method']="POST";
 
 	$rq['rq'] = [
@@ -179,8 +180,6 @@ function payphone_api_confirm ($data_array){
 	];
 	// Imprimir el contenido de $RQ en la consola
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
-
-	consolelogdata($rq);	
 
 	$peticion_curl = kushki_curl($rq);
 
@@ -204,8 +203,11 @@ function payphone_api_confirm ($data_array){
 function kushki_curl($rq = false) {
 
 	consolelogdata($rq);
-	
+
     $curl = curl_init();
+
+	consolelogdata($curl);
+
     $curl_options = [
         CURLOPT_URL => $rq['url'],
         CURLOPT_RETURNTRANSFER => true,
@@ -213,21 +215,13 @@ function kushki_curl($rq = false) {
         CURLOPT_MAXREDIRS => 10,
         CURLOPT_TIMEOUT => (array_key_exists('timeout', $rq) ? $rq['timeout'] : 30),
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_HTTPHEADER => $rq['h'],
+        CURLOPT_CUSTOMREQUEST => $rq['method'],
+        CURLOPT_POSTFIELDS => $rq['rq'],
+		CURLOPT_HTTPHEADER => $rq['h'],
     ];
 
 	consolelogdata($curl_options);
 
-    // Inicio Verificar si contiene un body o si es una peticion POST O GET
-    if (!empty($rq['rq'])) {
-        $curl_options[CURLOPT_POSTFIELDS] = $rq['rq'];
-    }
-	if ($rq['method']  == "POST") {  //linea 2010
-        $curl_options[CURLOPT_CUSTOMREQUEST] = "POST";
-    }else{
-		$curl_options[CURLOPT_CUSTOMREQUEST] = "GET";
-	}
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
     $result = curl_exec($curl);
