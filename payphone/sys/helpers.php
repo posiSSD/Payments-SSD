@@ -447,7 +447,8 @@ function payphone_status_transaction($trans = false) {
 			$trans_ret = true;
 		}
     }
-
+	
+	consolelogdata($trans_ret); 
     return $trans_ret;
 }
 
