@@ -181,6 +181,8 @@ function payphone_api_confirm ($data_array){
 	$rq['rq']=json_encode($rq['rq'],JSON_NUMERIC_CHECK);
 	$peticion_curl = kushki_curl($rq);
 
+	consolelogdata($peticion_curl);
+
 	if (array_key_exists("curl_error", $peticion_curl)) {
         $ret['curl_error'] = $peticion_curl;
     } elseif (array_key_exists("code", $peticion_curl)) {
@@ -190,7 +192,8 @@ function payphone_api_confirm ($data_array){
         exit();
     } else {
         $ret = $peticion_curl;
-    }	
+    }
+	consolelogdata($ret);	
     return $ret;
 }
 function kushki_curl($rq = false) {

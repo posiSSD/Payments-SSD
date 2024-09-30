@@ -37,7 +37,7 @@ try {
 
         // obtener detalles de la tx en la api de payphone
         $payphone_array_response = payphone_api_confirm ($data_array);
-        consolelogdata($payphone_array_response);
+        //consolelogdata($payphone_array_response);
 
         if($payphone_array_response){
 
