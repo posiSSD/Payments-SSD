@@ -31,12 +31,12 @@ try {
     //$payphone_array_response = dataconstruccion ($data_array);
     //comprobacion si la tranx existe para evitar duplicados 
     $status_payphone_transactions = payphone_status_transaction($data_array); 
-    var_dump($status_payphone_transactions);
+    
     if (!$status_payphone_transactions){
 
         // obtener detalles de la tx en la api de payphone
         $payphone_array_response = payphone_api_confirm ($data_array);
-        var_dump($payphone_array_response);
+        consolelogdata($payphone_array_response);
 
         if($payphone_array_response){
 
@@ -45,7 +45,7 @@ try {
 
             // obtener client_id, unique_id, amount,  
             $data_array_response_details = payphone_bd_details($payphone_array_response);
-            var_dump($data_array_response_details);
+           
 
             $payphone_array_response['client_id'] = $data_array_response_details['client_id'];
             $payphone_array_response['Response'] = "True";
@@ -194,7 +194,7 @@ function api_activities($a){
     }     
 }
 
-/*
+
 function consolelogdata($data) {
     $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
     $pFunction = isset($backtrace[1]['function']) ? $backtrace[1]['function'] : 'Unknown Function';
@@ -204,5 +204,5 @@ function consolelogdata($data) {
     echo 'console.log(": ", ' . json_encode($data) . ');';
     echo '</script>';
 }
-*/
+
 ?>
