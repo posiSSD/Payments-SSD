@@ -198,7 +198,7 @@ function payphone_api_confirm ($data_array){
 function kushki_curl($rq = false) {
 
 	consolelogdata($rq);
-	error_reporting(E_ALL);
+	//error_reporting(E_ALL);
     //$curl = curl_init();
 	$curl = curl_init() or die('Error al inicializar cURL');
 	var_dump($curl);
