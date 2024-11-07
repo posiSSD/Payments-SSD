@@ -178,8 +178,6 @@ function payphone_api_confirm ($data_array){
 
 	$peticion_curl = kushki_curl($rq);
 
-	consolelogdata($peticion_curl);
-
 	if (array_key_exists("curl_error", $peticion_curl)) {
         $ret['curl_error'] = $peticion_curl;
     } elseif (array_key_exists("code", $peticion_curl)) {
@@ -191,18 +189,11 @@ function payphone_api_confirm ($data_array){
         $ret = $peticion_curl;
     }
 
-	consolelogdata($ret);	
-
     return $ret;
 }
 function kushki_curl($rq = false) {
 
-	consolelogdata($rq);
-	//error_reporting(E_ALL);
-    //$curl = curl_init();
 	$curl = curl_init() or die('Error al inicializar cURL');
-	var_dump($curl);
-
     $curl_options = [
         CURLOPT_URL => $rq['url'],
         CURLOPT_RETURNTRANSFER => true,
@@ -215,19 +206,16 @@ function kushki_curl($rq = false) {
 		CURLOPT_HTTPHEADER => $rq['h'],
     ];
 
-	consolelogdata($curl_options);
-
 	// Fin Verificar si contiene un body o si es una peticion POST O GET
     curl_setopt_array($curl, $curl_options);
-    $result = curl_exec($curl);
-
-	consolelogdata($result);	
+    $result = curl_exec($curl);	
 
     if (curl_errno($curl)) {
         $response_arr = ['curl_error' => curl_error($curl)];
     } else {
         $response_arr = json_decode($result, true);
     }
+
     curl_close($curl);
     return $response_arr;
 }

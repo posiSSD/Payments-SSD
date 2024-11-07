@@ -379,7 +379,7 @@ if (document.body.classList.contains("mobile")) {
                                             if(modalbody){
                                                 displayErrorMessageIcon();
                                                 modalbody.style.display = 'block';
-                                                var titleElement = modalbody.querySelector('modal-title');
+                                                var titleElement = modalbody.querySelector('.modal-title');
                                                 if (titleElement) {
                                                     titleElement.textContent = '¡Declinado!';
                                                 } else {
@@ -403,7 +403,7 @@ if (document.body.classList.contains("mobile")) {
                                             if(modalbody){
                                                 displayErrorMessageIcon();
                                                 modalbody.style.display = 'block';
-                                                var titleElement = modalbody.querySelector('modal-title');
+                                                var titleElement = modalbody.querySelector('.modal-title');
                                                 if (titleElement) {
                                                     titleElement.textContent = 'Error!';
                                                 } else {
@@ -411,7 +411,7 @@ if (document.body.classList.contains("mobile")) {
                                                 }
                                                 var successMessageSpan = modalbody.querySelector('.payment-success-modal-message');
                                                 if(successMessageSpan){
-                                                    successMessageSpan.textContent = 'Tu Recarga no se completó.<br>Revise su estado de cuenta.'; 
+                                                    successMessageSpan.textContent = 'Tu Recarga no se completó.'; 
                                                 }else{
                                                     console.log('payment-success-modal-message NOT FOUND');
                                                 }   
