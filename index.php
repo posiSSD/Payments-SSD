@@ -154,6 +154,7 @@ if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "totalbe
     }
 }else{
  // pruebas en el mismo https://payments.totalbet.com/ sin entrar a totalbet.com
+ 
  $visit = [];
  $visit["init"]=date("Y-m-d H:i:s");
  $visit['ip']=$_SERVER['REMOTE_ADDR'];
