@@ -4,22 +4,23 @@ function env($constant, $default=null) {
 }
 DEFINE('APP_URL', 'payments.apuestatotal.app');
 
-DEFINE('DB_HOST', 'totalbet-payments.cluster-cyxi90mjli4a.us-east-1.rds.amazonaws.com');
+DEFINE('DB_HOST', 'db-gestion.cyxi90mjli4a.us-east-1.rds.amazonaws.com');
 DEFINE('DB_PORT', '3306');
 
-DEFINE('DB_DATABASE', 'tb_payment');
-DEFINE('DB_USERNAME', 'dev_payment');
-DEFINE('DB_PASSWORD', '4;3HFve4aT>9?=jX5q');
+DEFINE('DB_DATABASE', 'at_payments_prueba');
+DEFINE('DB_USERNAME', 'admin');
+DEFINE('DB_PASSWORD', 'CxxW34GOV9fgw0Aj3f1G');
 
-DEFINE('DB_DATABASE_BC_PAYMENT', 'bc_payment');
-DEFINE('DB_USERNAME_BC_PAYMENT', 'dev_payment');
-DEFINE('DB_PASSWORD_BC_PAYMENT', '4;3HFve4aT>9?=jX5q');
+DEFINE('DB_DATABASE_KUSHKI', 'at_kushki');
+DEFINE('DB_USERNAME_KUSHKI', 'admin');
+DEFINE('DB_PASSWORD_KUSHKI', 'CxxW34GOV9fgw0Aj3f1G');
 
-DEFINE('DB_DATABASE_TB_PAYMENT_TRANSFER', 'tb_payment_transfer');
-DEFINE('DB_USERNAME_TB_PAYMENT_TRANSFER', 'dev_payment');
-DEFINE('DB_PASSWORD_TB_PAYMENT_TRANSFER', '4;3HFve4aT>9?=jX5q');
+DEFINE('DB_DATABASE_KUSHKIPAYMENT', 'bc_kushkipayment');
+DEFINE('DB_USERNAME_KUSHKIPAYMENT', 'admin');
+DEFINE('DB_PASSWORD_KUSHKIPAYMENT', 'CxxW34GOV9fgw0Aj3f1G');
 
-DEFINE('BC_PAYPHONE_SECRET_KEY', 'wwaw4TbqSrO24gH22');
+//DEFINE('BC_PAYPHONE_SECRET_KEY', 'wwaw4TbqSrO24gH22'); //antiguo
+DEFINE('BC_PAYPHONE_SECRET_KEY', 'QuDz2$9IAG#$oprHR*sR'); //NUevo
 
 DEFINE('API_V2_TOKEN','');
 DEFINE('KUSHKI_MERCHANT_ID', '');
