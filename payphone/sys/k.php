@@ -14,7 +14,7 @@ if(isset($_POST['create_payment_button'])){
 	$payment_limits=explode(',', env('DEPOSIT_LIMITS'));
 
 	$_POST['create_payment_button']['unique_id'] = md5(microtime().rand(0,1000));
-	$_POST['create_payment_button']['status'] = 6;
+	$_POST['create_payment_button']['status'] = 6; //estado 6 - new paid
 	$create_payment_button = create_or_update_transaction($_POST['create_payment_button']);
 
 	if($create_payment_button){
@@ -23,7 +23,7 @@ if(isset($_POST['create_payment_button'])){
 		$ret["unique_id"]=$_POST['create_payment_button']['unique_id'];
 		$ret["value"]=$_POST['create_payment_button']['kushki_value'];
 		//
-		$_POST['create_payment_button']['status'] = 8;
+		$_POST['create_payment_button']['status'] = 8; //estado 8 - pendiente de pago
 
 		//$_POST['create_payment_button']['order_id'] = $create_payment_button['paymentId'];
 		create_or_update_transaction($_POST['create_payment_button']);

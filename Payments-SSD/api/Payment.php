@@ -31,7 +31,7 @@ function paymente_bc($request){
     //'5', 'Pendiente Anular', 
     //'6', 'Anulado', 
 
-    if($response['http_code'] == 200){
+    if($response['http_code'] == 200){ //recarga completa en monedero virtual
             
         $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=3);      
         $data_activiy = [
@@ -54,7 +54,7 @@ function paymente_bc($request){
         //consolelogdata($response);
         return ['http_code' => 200, 'status' => 'Ok', 'result' =>  $response];
         
-    } else if ($response['http_code'] == 400){
+    } else if ($response['http_code'] == 400){ //recarga denegada por parte de BC
 
         $transaction = save_transaction($request,$response['result']['txn_id'],$type=3,$status=4);
         $data_activiy = [
@@ -70,7 +70,7 @@ function paymente_bc($request){
         save_transaction_activity($data_activiy);
         return ['http_code' => 400, 'status' => 'Error', 'result' => 'Recharge Denied'];
 
-    } else if ($response['http_code'] == 408){
+    } else if ($response['http_code'] == 408){ //recarga, no hay respuesta de BC
 
         $transaction = save_transaction($request,$myRequest['order_id'],$type=3,$status=2);
         $data_activiy = [
