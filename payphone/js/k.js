@@ -135,10 +135,8 @@ function create_payment_button(){
 	let prodiv = $("#prometeoembeded");
 	let proframe = $("#prometeoframe");
 
-	////////////////New - start////////////////////////
 	let holder = $('#kushki_payment_holder');
-	////////////////New - End//////////////////////////
-
+	
 	//console.log(usr_active);
 	let iframeurl = "";
 	let data = "";
@@ -159,10 +157,8 @@ function create_payment_button(){
 					value: rs.value,
 					unique_id: rs.unique_id
 				};
-				////////////////New - start////////////////////////
-				holder.hide();
-				////////////////New - End//////////////////////////
 				
+				holder.hide();				
 				iframeurl = this_url + 'sys/' + 'payphonebox.php?' + 'data=' + encodeURIComponent(JSON.stringify(data));
 				prodiv.show(); // Esto muestra el div con id "prometeoembeded"
 				proframe.attr("src", iframeurl);
