@@ -2,7 +2,8 @@
 
 //Desktop
 var prometeodesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1725292290290';
-var payphonedesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1725292726790';
+//var payphonedesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/payphone158x21-17105213796592.png?1725292726790';
+var payphonedesktopImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/158x21-payphone-17334280153713.png?1733428076140';
 
 //Phone
 var prometeomobilImagen = 'https://static.springbuilder.site/fs/userFiles-v2/totalbet-18751709/media/logo-prometeo-200x26-17092176683099.png?1725292290290'; ///
